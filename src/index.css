@@ -1,0 +1,41 @@
+@import url("https://fonts.cdnfonts.com/css/bigilla");
+@import url("https://fonts.cdnfonts.com/css/barlow-condensed");
+@import url("https://fonts.cdnfonts.com/css/space-grotesk");
+
+@import "tailwindcss";
+
+/* LIGHT THEME */
+@theme {
+  --color-background: #07111f;
+  --color-surface: #0e1d34;
+  --color-card: #152640;
+
+  --color-primary: #0e5fd8;
+  --color-primary-hover: #3a82ff;
+
+  --color-secondary: #d4af37;
+  --color-accent: #49c85a;
+
+  --color-text: #f8fafc;
+  --color-text-muted: #b8c2d1;
+
+  --color-border: #28466b;
+}
+
+@layer base {
+  body {
+    font-family: "space grotesk", serif;
+    background-color: #f9f6f6;
+  }
+  h1 {
+    font-family: "bigilla", serif;
+  }
+  h2 {
+    font-family: "Barlow Condensed", sans-serif;
+  }
+}
+
+img {
+  width: 100%;
+  height: auto;
+}
