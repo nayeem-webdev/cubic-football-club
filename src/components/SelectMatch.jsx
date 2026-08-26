@@ -23,7 +23,7 @@ const SelectMatch = ({ matches, onSelectMatch }) => {
               onClick={() => onSelectMatch(match)}
               className="group w-full rounded-2xl border border-[#28466B] bg-card p-5 text-left transition-all duration-300 hover:-translate-y-1 hover:border-[#0E5FD8] hover:shadow-[0_0_25px_rgba(14,95,216,0.18)]"
             >
-              <div className="flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
+              <div className="grid gap-5 md:grid-cols-[1fr_1.2fr] md:items-center">
                 {/* Teams */}
                 <div>
                   <div className="mb-2 flex items-center gap-3">
@@ -32,7 +32,7 @@ const SelectMatch = ({ matches, onSelectMatch }) => {
                     </span>
 
                     <span className="text-xs text-[#B8C2D1]">
-                      {match.matchTime} MIN
+                      {match.matchSchedule.matchFormat} MIN
                     </span>
                   </div>
 
@@ -46,9 +46,9 @@ const SelectMatch = ({ matches, onSelectMatch }) => {
                 </div>
 
                 {/* Match Info */}
-                <div className="grid grid-cols-2 gap-x-8 gap-y-3 text-sm text-[#B8C2D1] sm:flex sm:items-center sm:gap-6">
+                <div className="grid grid-cols-3 gap-4 text-sm text-[#B8C2D1]">
                   {/* Date */}
-                  <div>
+                  <div className="min-w-0">
                     <p className="mb-1 text-xs text-[#B8C2D1]/60">DATE</p>
 
                     <p className="font-medium text-[#F8FAFC]">
@@ -57,7 +57,7 @@ const SelectMatch = ({ matches, onSelectMatch }) => {
                   </div>
 
                   {/* Time */}
-                  <div>
+                  <div className="min-w-0">
                     <p className="mb-1 text-xs text-[#B8C2D1]/60">TIME</p>
 
                     <p className="font-medium text-[#F8FAFC]">
@@ -66,11 +66,12 @@ const SelectMatch = ({ matches, onSelectMatch }) => {
                   </div>
 
                   {/* Venue */}
-                  <div className="col-span-2 sm:col-span-1">
+                  <div className="min-w-0">
                     <p className="mb-1 text-xs text-[#B8C2D1]/60">VENUE</p>
 
                     <p className="font-medium text-[#F8FAFC]">
-                      {match.matchSchedule.venue}
+                      {match.matchSchedule.venue?.venue ||
+                        "Venue not available"}
                     </p>
                   </div>
                 </div>

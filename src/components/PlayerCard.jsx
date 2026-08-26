@@ -55,7 +55,7 @@ const PlayerCard = ({ player }) => {
 
       const dataUrl = await toPng(element, {
         cacheBust: true,
-        pixelRatio: 3,
+        pixelRatio: 4,
         backgroundColor: "#152640",
       });
 
@@ -97,7 +97,7 @@ const PlayerCard = ({ player }) => {
   return (
     <div
       ref={cardRef}
-      className="group overflow-hidden rounded-2xl transition-all duration-300 hover:-translate-y-2"
+      className="group overflow-hidden rounded-2xl transition-all duration-300 "
       style={{
         background: "var(--color-card)",
         border: "1px solid var(--color-border)",

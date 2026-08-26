@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { X, ChevronLeft, ChevronRight, Goal, Handshake } from "lucide-react";
 
-const GoalModal = ({
+const ModalGoal = ({
   goalModal,
   goalStep,
   goalData,
@@ -37,11 +37,11 @@ const GoalModal = ({
 
   return (
     <div
-      className="fixed inset-0 z-[1000] flex items-center justify-center bg-black/70 p-4 backdrop-blur-sm"
+      className="fixed inset-0 z-1000 flex items-center justify-center bg-black/70 p-4 backdrop-blur-sm"
       onClick={closeGoalModal}
     >
       <div
-        className="relative max-h-[90vh] w-full max-w-md overflow-y-auto rounded-3xl border border-[#28466B] bg-[#152640] shadow-2xl"
+        className="relative max-h-[90vh] w-full max-w-md overflow-y-auto rounded-3xl border border-[#28466B] bg-card shadow-2xl"
         onClick={(e) => e.stopPropagation()}
       >
         {/* ========================================= */}
@@ -103,7 +103,7 @@ const GoalModal = ({
 
                   {index < 3 && (
                     <div
-                      className={`mx-2 h-[2px] flex-1 ${
+                      className={`mx-2 h-0.5 flex-1 ${
                         index < currentIndex ? "bg-[#49C85A]" : "bg-[#28466B]"
                       }`}
                     />
@@ -127,10 +127,6 @@ const GoalModal = ({
                 Which team scored?
               </h3>
 
-              <p className="mt-1 text-sm text-[#B8C2D1]">
-                Select the team that scored the goal.
-              </p>
-
               <div className="mt-6 space-y-3">
                 {/* HOME TEAM */}
 
@@ -138,7 +134,7 @@ const GoalModal = ({
                   className={`flex cursor-pointer items-center justify-between rounded-2xl border p-4 transition-all ${
                     goalData.team === "home"
                       ? "border-[#0E5FD8] bg-[#0E5FD8]/10"
-                      : "border-[#28466B] bg-[#0E1D34] hover:border-[#3A82FF]"
+                      : "border-[#28466B] bg-[#0E1D34] hover:border-[#49C85A]"
                   }`}
                 >
                   <div>
@@ -154,12 +150,16 @@ const GoalModal = ({
                     name="goalTeam"
                     value="home"
                     checked={goalData.team === "home"}
-                    onChange={(e) =>
+                    onChange={(e) => {
                       setGoalData((prev) => ({
                         ...prev,
                         team: e.target.value,
-                      }))
-                    }
+                        scorer: "",
+                        assister: "",
+                      }));
+
+                      setGoalStep("scorer");
+                    }}
                     className="h-4 w-4 accent-[#0E5FD8]"
                   />
                 </label>
@@ -170,7 +170,7 @@ const GoalModal = ({
                   className={`flex cursor-pointer items-center justify-between rounded-2xl border p-4 transition-all ${
                     goalData.team === "away"
                       ? "border-[#0E5FD8] bg-[#0E5FD8]/10"
-                      : "border-[#28466B] bg-[#0E1D34] hover:border-[#3A82FF]"
+                      : "border-[#28466B] bg-[#0E1D34] hover:border-[#49C85A]"
                   }`}
                 >
                   <div>
@@ -186,26 +186,19 @@ const GoalModal = ({
                     name="goalTeam"
                     value="away"
                     checked={goalData.team === "away"}
-                    onChange={(e) =>
+                    onChange={(e) => {
                       setGoalData((prev) => ({
                         ...prev,
                         team: e.target.value,
-                      }))
-                    }
+                        scorer: "",
+                        assister: "",
+                      }));
+
+                      setGoalStep("scorer");
+                    }}
                     className="h-4 w-4 accent-[#0E5FD8]"
                   />
                 </label>
-              </div>
-
-              <div className="mt-8 flex justify-end">
-                <button
-                  disabled={!goalData.team}
-                  onClick={() => setGoalStep("scorer")}
-                  className="flex items-center gap-2 rounded-xl bg-[#0E5FD8] px-5 py-3 text-sm font-semibold text-white transition-all hover:bg-[#3A82FF] disabled:cursor-not-allowed disabled:opacity-40"
-                >
-                  Next
-                  <ChevronRight size={18} />
-                </button>
               </div>
             </div>
           )}
@@ -215,10 +208,6 @@ const GoalModal = ({
           {goalStep === "scorer" && (
             <div>
               <h3 className="text-lg font-bold text-[#F8FAFC]">Who scored?</h3>
-
-              <p className="mt-1 text-sm text-[#B8C2D1]">
-                Select the player who scored the goal.
-              </p>
 
               <div className="mt-6 space-y-2">
                 {selectedTeamPlayers.map((player) => (
@@ -245,12 +234,13 @@ const GoalModal = ({
                       name="scorer"
                       value={player._id}
                       checked={goalData.scorer === player._id}
-                      onChange={(e) =>
+                      onChange={(e) => {
                         setGoalData((prev) => ({
                           ...prev,
                           scorer: e.target.value,
-                        }))
-                      }
+                        }));
+                        setGoalStep("actions");
+                      }}
                       className="h-4 w-4 accent-[#49C85A]"
                     />
                   </label>
@@ -264,15 +254,6 @@ const GoalModal = ({
                 >
                   <ChevronLeft size={18} />
                   Back
-                </button>
-
-                <button
-                  disabled={!goalData.scorer}
-                  onClick={() => setGoalStep("actions")}
-                  className="flex items-center gap-2 rounded-xl bg-[#0E5FD8] px-5 py-3 text-sm font-semibold text-white transition-all hover:bg-[#3A82FF] disabled:cursor-not-allowed disabled:opacity-40"
-                >
-                  Confirm
-                  <ChevronRight size={18} />
                 </button>
               </div>
             </div>
@@ -443,4 +424,4 @@ const GoalModal = ({
   );
 };
 
-export default GoalModal;
+export default ModalGoal;

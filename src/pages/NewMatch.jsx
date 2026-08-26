@@ -45,6 +45,7 @@ const NewMatch = () => {
   const [formData, setFormData] = useState({
     homeTeam: "",
     awayTeam: "",
+
     playersPerTeam: "",
     matchTime: "",
     matchType: "",
@@ -60,16 +61,31 @@ const NewMatch = () => {
   const handleChange = (e) => {
     const { name, value } = e.target;
 
-    if (name === "playersPerTeam") {
-      const numberOfPlayers = Number(value);
+    // When a schedule is selected
+    if (name === "matchSchedule") {
+      const selectedSchedule = schedules.find(
+        (schedule) => schedule._id === value,
+      );
+
+      if (!selectedSchedule) return;
+
+      const numberOfPlayers = Number(selectedSchedule.matchFormat);
 
       setFormData((prev) => ({
         ...prev,
-        [name]: value,
 
+        // Selected schedule ID
+        matchSchedule: value,
+
+        // Automatically get data from schedule
+        playersPerTeam: selectedSchedule.matchFormat,
+        matchType: selectedSchedule.matchType,
+
+        // Create player selection slots automatically
         homeStartingPlayers: Array(numberOfPlayers).fill(""),
         awayStartingPlayers: Array(numberOfPlayers).fill(""),
 
+        // Optional substitutes
         homeSubstitutes: Array(3).fill(""),
         awaySubstitutes: Array(3).fill(""),
       }));
@@ -214,35 +230,6 @@ const NewMatch = () => {
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* Number of Players and Match Time, Type, Schedule */}
             <div className="grid grid-cols-1 lg:grid-cols-2 w-full gap-6">
-              {/* Number of Players */}
-              <div>
-                <label
-                  htmlFor="numberOfPlayers"
-                  className="mb-2 block text-sm font-medium"
-                >
-                  Number of Players
-                </label>
-
-                <select
-                  name="playersPerTeam"
-                  value={formData.playersPerTeam}
-                  onChange={handleChange}
-                  required
-                  className="w-full rounded-lg border border-[#28466B] bg-card px-4 py-3 text-[#F8FAFC] outline-none focus:border-[#0E5FD8]"
-                >
-                  <option value="">Select players</option>
-
-                  <option value="4">4v4</option>
-                  <option value="5">5v5</option>
-                  <option value="6">6v6</option>
-                  <option value="7">7v7</option>
-                  <option value="8">8v8</option>
-                  <option value="9">9v9</option>
-                  <option value="10">10v10</option>
-                  <option value="11">11v11</option>
-                </select>
-              </div>
-
               {/* Match Time */}
               <div>
                 <label
@@ -284,35 +271,12 @@ const NewMatch = () => {
                 >
                   <option value="">Select Match</option>
 
-                  {schedules
-                    .filter((schedule) => schedule._id !== formData.scheduleId)
-                    .map((schedule) => (
-                      <option key={schedule._id} value={schedule._id}>
-                        {schedule.venue} ({schedule.date})
-                      </option>
-                    ))}
-                </select>
-              </div>
-
-              {/* Match Type */}
-              <div>
-                <label
-                  htmlFor="matchType"
-                  className="mb-2 block text-sm font-medium"
-                >
-                  Match Type
-                </label>
-                <select
-                  name="matchType"
-                  value={formData.matchType}
-                  onChange={handleChange}
-                  required
-                  className="w-full rounded-lg border border-[#28466B] bg-card px-4 py-3 text-[#F8FAFC] outline-none focus:border-[#0E5FD8]"
-                >
-                  <option value="">Select match type</option>
-
-                  <option value="Friendly Match">Friendly Match</option>
-                  <option value="Training Match">Training Match</option>
+                  {schedules.map((schedule) => (
+                    <option key={schedule._id} value={schedule._id}>
+                      {schedule.venue?.venue} — {schedule.date} —{" "}
+                      {schedule.time}
+                    </option>
+                  ))}
                 </select>
               </div>
             </div>

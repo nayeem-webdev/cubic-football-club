@@ -9,7 +9,7 @@ import RegisterPlayer from "../pages/RegisterPlayer";
 import AddSchedule from "../pages/AddSchedule";
 import NewMatch from "../pages/NewMatch";
 import RegisterTeam from "../pages/RegisterTeam";
-import LiveMatch from "../pages/LiveMatch";
+import LiveScore from "../pages/liveScore";
 
 const router = createBrowserRouter([
   {
@@ -51,7 +51,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/live-match",
-        element: <LiveMatch />,
+        element: <LiveScore />,
       },
     ],
   },

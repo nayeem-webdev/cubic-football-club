@@ -22,7 +22,6 @@ const HomeHero = () => {
       <div className="absolute bottom-0 right-0 h-64 w-64 sm:h-96 sm:w-96 rounded-full bg-yellow-400/10 blur-[100px] sm:blur-[150px]" />
 
       <div className="relative z-10 mx-auto flex min-h-screen max-w-7xl flex-col items-center justify-center px-4 sm:px-6 text-center">
-        {" "}
         <p className="inline-block rounded-full border border-yellow-500/30 bg-yellow-500/10 px-3 py-1 text-md text-yellow-400 font-medium">
           EST. 2012 • CHITTAGONG
         </p>

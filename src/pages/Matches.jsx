@@ -1,36 +1,32 @@
 import { useEffect, useState } from "react";
 import PageHero from "../components/PageHero";
 import ScoreCard from "../components/ScoreCard";
+import Loader from "../components/Loader";
 
 export default function Matches() {
   const [matches, setMatches] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const key = import.meta.env.VITE_JSONBIN_MASTER_KEY;
+  const API_URL = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
     async function loadMatches() {
       try {
-        const response = await fetch(
-          "https://api.jsonbin.io/v3/b/6a7ee08fda38895dfee3c2ae/latest",
-          {
-            headers: {
-              "X-Master-Key": key,
-            },
-          },
-        );
+        const response = await fetch(`${API_URL}/scores`);
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch scores");
+        }
 
         const data = await response.json();
 
-        console.log("JSONBin response:", data);
-
-        if (!response.ok) {
-          throw new Error(data.message || "Failed to fetch matches");
-        }
+        console.log("Schedules response:", data);
 
         setMatches(
-          [...data.record].sort((a, b) => new Date(b.date) - new Date(a.date)),
+          [...data.scores].sort(
+            (a, b) => new Date(b.finishedAt) - new Date(a.finishedAt),
+          ),
         );
       } catch (err) {
         console.error("Match loading error:", err);
@@ -41,10 +37,10 @@ export default function Matches() {
     }
 
     loadMatches();
-  }, [key]);
+  }, [API_URL]);
 
   if (loading) {
-    return <p>Loading matches...</p>;
+    return <Loader />;
   }
 
   if (error) {
@@ -64,7 +60,7 @@ export default function Matches() {
 
       <div className="max-w-7xl mx-auto p-6 flex flex-col gap-6">
         {matches.map((match) => (
-          <ScoreCard key={match.id} match={match} />
+          <ScoreCard key={match._id} match={match} />
         ))}
       </div>
     </div>
