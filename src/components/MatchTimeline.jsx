@@ -101,7 +101,7 @@ const MatchTimeline = ({ selectedMatch }) => {
             let title = "Goal";
 
             if (event.type === "penalty") {
-              icon = "⚽";
+              icon = "🥅";
               title = "Penalty";
             }
 
@@ -141,7 +141,7 @@ const MatchTimeline = ({ selectedMatch }) => {
             return (
               <div
                 key={event.id}
-                className="grid min-h-[42px] grid-cols-[1fr_32px_1fr] items-center"
+                className="grid min-h-10.5 grid-cols-[1fr_32px_1fr] items-center"
               >
                 {/* ================================= */}
                 {/* HOME */}

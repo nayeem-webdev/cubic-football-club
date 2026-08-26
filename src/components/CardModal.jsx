@@ -9,8 +9,6 @@ const CardModal = ({
   closeCardModal,
   saveCard,
 }) => {
-  if (!cardModal) return null;
-
   const isYellow = cardData.type === "yellow";
 
   const selectedTeamPlayers = useMemo(() => {
@@ -29,17 +27,19 @@ const CardModal = ({
     return [...(startingPlayers || []), ...(substitutes || [])];
   }, [cardData.team, selectedMatch]);
 
+  if (!cardModal) return null;
+
   const cardColor = isYellow ? "#D4AF37" : "#EF4444";
 
   const cardTypeName = isYellow ? "Yellow Card" : "Red Card";
 
   return (
     <div
-      className="fixed inset-0 z-[1000] flex items-center justify-center bg-black/70 p-4 backdrop-blur-sm"
+      className="fixed inset-0 z-1000 flex items-center justify-center bg-black/70 p-4 backdrop-blur-sm"
       onClick={closeCardModal}
     >
       <div
-        className="relative max-h-[90vh] w-full max-w-md overflow-y-auto rounded-3xl border border-[#28466B] bg-[#152640] shadow-2xl"
+        className="relative max-h-[90vh] w-full max-w-md overflow-y-auto rounded-3xl border border-[#28466B] bg-card shadow-2xl"
         onClick={(e) => e.stopPropagation()}
       >
         {/* HEADER */}
