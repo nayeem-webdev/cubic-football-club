@@ -37,7 +37,7 @@ function getStatus(dateStr) {
 
 export default function Schedule() {
   const API_URL = import.meta.env.VITE_API_URL;
-
+    
   const [schedules, setSchedules] = useState([]);
   const [loading, setLoading] = useState(true);
 
