@@ -1,10 +1,120 @@
-@import url("https://fonts.cdnfonts.com/css/bigilla");
-@import url("https://fonts.cdnfonts.com/css/barlow-condensed");
-@import url("https://fonts.cdnfonts.com/css/space-grotesk");
-
 @import "tailwindcss";
 
-/* LIGHT THEME */
+/* ========================================
+   LOCAL FONTS
+======================================== */
+
+/* Barlow Condensed */
+@font-face {
+  font-family: "Barlow Condensed";
+  src: url("/fonts/BarlowCondensed-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Barlow Condensed";
+  src: url("/fonts/BarlowCondensed-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Barlow Condensed";
+  src: url("/fonts/BarlowCondensed-SemiBold.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Barlow Condensed";
+  src: url("/fonts/BarlowCondensed-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Barlow Condensed";
+  src: url("/fonts/BarlowCondensed-ExtraBold.woff2") format("woff2");
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Barlow Condensed";
+  src: url("/fonts/BarlowCondensed-Italic.woff2") format("woff2");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* Bigilla */
+@font-face {
+  font-family: "Bigilla";
+  src: url("/fonts/Bigilla.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Bigilla";
+  src: url("/fonts/Bigilla-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Space Grotesk */
+@font-face {
+  font-family: "Space Grotesk";
+  src: url("/fonts/SpaceGrotesk-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Space Grotesk";
+  src: url("/fonts/SpaceGrotesk-Light.woff2") format("woff2");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Space Grotesk";
+  src: url("/fonts/SpaceGrotesk-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Space Grotesk";
+  src: url("/fonts/SpaceGrotesk-SemiBold.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Space Grotesk";
+  src: url("/fonts/SpaceGrotesk-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ========================================
+   THEME
+======================================== */
+
 @theme {
   --color-background: #07111f;
   --color-surface: #0e1d34;
@@ -22,18 +132,29 @@
   --color-border: #28466b;
 }
 
+/* ========================================
+   BASE
+======================================== */
+
 @layer base {
   body {
-    font-family: "space grotesk", serif;
-    background-color: #f9f6f6;
+    font-family: "Space Grotesk", sans-serif;
+    background-color: #07111f;
+    color: #f8fafc;
   }
+
   h1 {
-    font-family: "bigilla", serif;
+    font-family: "Bigilla", serif;
   }
+
   h2 {
     font-family: "Barlow Condensed", sans-serif;
   }
 }
+
+/* ========================================
+   IMAGES
+======================================== */
 
 img {
   width: 100%;

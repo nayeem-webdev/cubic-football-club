@@ -18,6 +18,7 @@ export default function LiveScore() {
   const [activeTab, setActiveTab] = useState("timeline");
   const [matches, setMatches] = useState([]);
   const [selectedMatch, setSelectedMatch] = useState(null);
+  const [currentTime, setCurrentTime] = useState(0);
 
   //   TD Modal Step State
   const [goalStep, setGoalStep] = useState("team");
@@ -174,17 +175,11 @@ export default function LiveScore() {
 
     const newGoalEvent = {
       id: crypto.randomUUID(),
-
       type: "goal",
-
       team: goalData.team,
-
       scorer: goalData.scorer,
-
       assister: goalData.assister,
-
-      time: selectedMatch.timer.elapsed,
-
+      time: currentElapsed,
       createdAt: new Date().toISOString(),
     };
 
@@ -207,15 +202,10 @@ export default function LiveScore() {
 
     const newPenaltyEvent = {
       id: crypto.randomUUID(),
-
       type: "penalty",
-
       team: penaltyData.team,
-
       scorer: penaltyData.scorer,
-
-      time: selectedMatch.timer.elapsed,
-
+      time: currentElapsed,
       createdAt: new Date().toISOString(),
     };
 
@@ -238,15 +228,10 @@ export default function LiveScore() {
 
     const newOwnGoalEvent = {
       id: crypto.randomUUID(),
-
       type: "ownGoal",
-
       team: ownGoalData.team,
-
       scorer: ownGoalData.scorer,
-
-      time: selectedMatch.timer.elapsed,
-
+      time: currentElapsed,
       createdAt: new Date().toISOString(),
     };
 
@@ -270,17 +255,11 @@ export default function LiveScore() {
 
     const newCardEvent = {
       id: crypto.randomUUID(),
-
       type: "card",
-
       team: cardData.team,
-
       player: cardData.player,
-
       card: cardData.card,
-
-      time: selectedMatch.timer.elapsed,
-
+      time: currentElapsed,
       createdAt: new Date().toISOString(),
     };
 
@@ -306,17 +285,11 @@ export default function LiveScore() {
 
     const newSubstitutionEvent = {
       id: crypto.randomUUID(),
-
       type: "substitution",
-
       team: subsData.team,
-
       playerOut: subsData.playerOut,
-
       playerIn: subsData.playerIn,
-
-      time: selectedMatch.timer.elapsed,
-
+      time: currentElapsed,
       createdAt: new Date().toISOString(),
     };
 
@@ -381,6 +354,7 @@ export default function LiveScore() {
         running: false,
         extraTime: false,
         finished: false,
+        startedAt: null,
       },
       matchEvents: [],
     };
@@ -391,27 +365,57 @@ export default function LiveScore() {
   //   $$ Timer
   //   TD Load Timer form LS or Start a New Timer
   useEffect(() => {
-    if (!selectedMatch) return;
+    if (!selectedMatch?.timer.running) return;
+    // if (selectedMatch.timer.finished) return;
 
-    if (!selectedMatch.timer.running) return;
+    const interval = setInterval(() => {
+      setCurrentTime(Date.now());
+    }, 1000);
 
+    return () => clearInterval(interval);
+  }, [selectedMatch?.timer.running]);
+
+  //   TD Calculate actual current elapsed
+  const currentElapsed = (() => {
+    if (!selectedMatch) return 0;
+
+    const { timer } = selectedMatch;
+
+    // Paused or finished
+    if (!timer.running || !timer.startedAt) {
+      return timer.elapsed;
+    }
+
+    const passedSeconds = Math.floor((currentTime - timer.startedAt) / 1000);
+
+    return timer.elapsed + passedSeconds;
+  })();
+
+  //   TD Check Maximum Match Time
+  useEffect(() => {
+    if (!selectedMatch?.timer.running) return;
     if (selectedMatch.timer.finished) return;
 
     const interval = setInterval(() => {
-      setSelectedMatch((previous) => {
-        if (!previous) return previous;
+      const now = Date.now();
 
-        const matchTime = Number(previous.matchTime); // ?? Match duration in minutes
+      const matchTime = Number(selectedMatch.matchTime);
+      const normalTime = matchTime * 60;
+      const maximumTime = normalTime + 15 * 60;
 
-        const normalTime = matchTime * 60; // ??Convert minutes to seconds
+      const passedSeconds = Math.floor(
+        (now - selectedMatch.timer.startedAt) / 1000,
+      );
 
-        const maximumTime = normalTime + 15 * 60; // ?? Extra time = 15 minutes
+      const actualElapsed = selectedMatch.timer.elapsed + passedSeconds;
 
-        const nextElapsed = previous.timer.elapsed + 1; // ?? Add one second
+      // Maximum time reached
+      if (actualElapsed >= maximumTime) {
+        setSelectedMatch((previous) => {
+          if (!previous || previous.timer.finished) {
+            return previous;
+          }
 
-        // %% MAXIMUM TIME REACHED
-
-        if (nextElapsed >= maximumTime) {
           return {
             ...previous,
             timer: {
@@ -420,55 +424,54 @@ export default function LiveScore() {
               running: false,
               extraTime: true,
               finished: true,
+              startedAt: null,
             },
           };
-        }
+        });
 
-        // %% EXTRA TIME STARTS
+        return;
+      }
 
-        if (nextElapsed >= normalTime) {
+      // Extra time starts
+      if (actualElapsed >= normalTime) {
+        setSelectedMatch((previous) => {
+          if (!previous) return previous;
+
           return {
             ...previous,
             timer: {
               ...previous.timer,
-              elapsed: nextElapsed,
               extraTime: true,
             },
           };
-        }
+        });
+      }
 
-        // %% NORMAL TIMER
-
-        return {
-          ...previous,
-          timer: {
-            ...previous.timer,
-            elapsed: nextElapsed,
-          },
-        };
-      });
+      setCurrentTime(now);
     }, 1000);
 
-    return () => {
-      clearInterval(interval);
-    };
-  }, [selectedMatch]);
+    return () => clearInterval(interval);
+  }, [
+    selectedMatch?.timer.running,
+    selectedMatch?.timer.finished,
+    selectedMatch?.matchTime,
+  ]);
 
   //   TD Timer Start Func
   const startTimer = () => {
-    setSelectedMatch((previous) => {
-      if (!previous) return previous;
+    const now = Date.now();
 
-      if (previous.timer.finished) {
-        return previous;
-      }
+    setCurrentTime(now);
+
+    setSelectedMatch((previous) => {
+      if (!previous || previous.timer.finished) return previous;
 
       return {
         ...previous,
-
         timer: {
           ...previous.timer,
           running: true,
+          startedAt: now,
         },
       };
     });
@@ -477,18 +480,23 @@ export default function LiveScore() {
   //   TD Timer Pause Func
   const pauseTimer = () => {
     setSelectedMatch((previous) => {
-      if (!previous) return previous;
+      if (!previous || previous.timer.finished) return previous;
 
-      if (previous.timer.finished) {
-        return previous;
+      let actualElapsed = previous.timer.elapsed;
+
+      if (previous.timer.startedAt) {
+        actualElapsed += Math.floor(
+          (Date.now() - previous.timer.startedAt) / 1000,
+        );
       }
 
       return {
         ...previous,
-
         timer: {
           ...previous.timer,
+          elapsed: actualElapsed,
           running: false,
+          startedAt: null,
         },
       };
     });
@@ -499,19 +507,32 @@ export default function LiveScore() {
     setSelectedMatch((previous) => {
       if (!previous) return previous;
 
+      let finalElapsed = previous.timer.elapsed;
+
+      if (previous.timer.running && previous.timer.startedAt) {
+        finalElapsed += Math.floor(
+          (Date.now() - previous.timer.startedAt) / 1000,
+        );
+      }
+
+      const matchTime = Number(previous.matchTime);
+      const normalTime = matchTime * 60;
+
       return {
         ...previous,
-
         timer: {
           ...previous.timer,
+          elapsed: finalElapsed,
           running: false,
           finished: true,
+          extraTime: finalElapsed >= normalTime,
+          startedAt: null,
         },
       };
     });
   };
 
-  //   TD Cancle Match Func
+  //   TD Cancel Match Func
   const cancelMatch = () => {
     if (!selectedMatch) return;
 
@@ -722,9 +743,9 @@ export default function LiveScore() {
                   </div>
 
                   {/* SCORE */}
-                  <p className="text-5xl font-black leading-none tracking-tight text-[#F8FAFC] sm:text-8xl">
+                  <h2 className="text-5xl font-semibold leading-none tracking-tight text-[#F8FAFC] sm:text-8xl">
                     {score.home}
-                  </p>
+                  </h2>
                 </div>
 
                 {/* CENTER */}
@@ -735,9 +756,9 @@ export default function LiveScore() {
                   </span>
 
                   {/* TIMER */}
-                  <h1 className="whitespace-nowrap font-mono text-xl font-black leading-none text-[#F8FAFC] sm:text-4xl">
-                    {formatTime(selectedMatch.timer.elapsed)}
-                  </h1>
+                  <p className="whitespace-nowrap tracking-wider text-xl font-black leading-none text-[#F8FAFC] sm:text-4xl">
+                    {formatTime(currentElapsed)}
+                  </p>
 
                   {/* FORMAT */}
                   <span className="mt-1 text-[9px] font-medium text-[#B8C2D1]/50 sm:text-[10px]">
@@ -751,9 +772,9 @@ export default function LiveScore() {
                 {/* AWAY TEAM */}
                 <div className="flex items-center justify-end gap-3 sm:gap-5">
                   {/* SCORE */}
-                  <p className="text-5xl font-black leading-none tracking-tight text-[#F8FAFC] sm:text-8xl">
+                  <h2 className="text-5xl font-semibold leading-none tracking-tight text-[#F8FAFC] sm:text-8xl">
                     {score.away}
-                  </p>
+                  </h2>
 
                   {/* LOGO + NAME */}
                   <div className="flex w-18 shrink-0 flex-col items-center sm:w-24">

@@ -646,7 +646,7 @@ const ScoreCard = ({ match }) => {
       </div>
 
       {/* Share Button */}
-      <div className="flex justify-center mb-6">
+      <div className="flex justify-center p-6">
         <button
           type="button"
           onClick={handleShare}
