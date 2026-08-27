@@ -1,5 +1,6 @@
 import Loader from "../components/Loader";
 import { useEffect, useState } from "react";
+import PageHero from "../components/PageHero";
 
 const NewMatch = () => {
   const API_URL = import.meta.env.VITE_API_URL;
@@ -213,18 +214,14 @@ const NewMatch = () => {
     <div className="min-h-screen bg-[#07111F] px-4 py-10 text-[#F8FAFC]">
       <div className="mx-auto max-w-3xl">
         {pageLoading && <Loader />}
+
         {/* Header */}
-        <div className="mb-8">
-          <p className="mb-2 text-sm font-bold uppercase tracking-[0.2em] text-secondary">
-            CUBIC FC
-          </p>
+        <PageHero
+          text="CUBIC FC"
+          heading="New Match"
+          subheading="Create a new match, set up squad and time."
+        />
 
-          <h1 className="text-3xl font-bold md:text-4xl">New Match</h1>
-
-          <p className="mt-2 text-[#B8C2D1]">
-            Create a new match, set up squad and time.
-          </p>
-        </div>
         {/* Main Form Div */}
         <div className=" rounded-2xl border border-[#28466B] bg-[#0E1D34] p-6 shadow-xl sm:p-8 ">
           <form onSubmit={handleSubmit} className="space-y-6">

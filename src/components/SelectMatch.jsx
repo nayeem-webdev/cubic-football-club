@@ -1,19 +1,15 @@
+import PageHero from "./PageHero";
+
 const SelectMatch = ({ matches, onSelectMatch }) => {
   return (
-    <div className="min-h-screen bg-[#07111F] px-4 py-8 text-[#F8FAFC]">
-      <div className="mx-auto max-w-5xl">
+    <div className="min-h-screen bg-[#07111F] px-4 py-10 text-[#F8FAFC]">
+      <div className="mx-auto max-w-4xl">
         {/* Header */}
-        <div className="mb-8">
-          <p className="mb-2 text-sm font-semibold tracking-wider text-[#D4AF37]">
-            MATCH CENTER
-          </p>
-
-          <h1 className="text-3xl font-bold sm:text-4xl">Select a Match</h1>
-
-          <p className="mt-2 text-[#B8C2D1]">
-            Choose a match to manage the timer and match details.
-          </p>
-        </div>
+        <PageHero
+          text="MATCH CENTER"
+          heading="Select a Match"
+          subheading="Choose a match to manage the timer and match details."
+        />
 
         {/* Match List */}
         <div className="grid gap-4">

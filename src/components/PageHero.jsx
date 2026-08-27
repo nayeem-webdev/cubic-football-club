@@ -1,15 +1,8 @@
 const PageHero = ({ text, heading, subheading }) => {
   return (
-    <section
-      className="border-b"
-      style={{
-        background:
-          "linear-gradient(135deg,var(--color-surface),var(--color-background))",
-        borderColor: "var(--color-border)",
-      }}
-    >
-      <div className="max-w-7xl mx-auto px-4 lg:px-6 py-10 lg:py-16">
-        <span className="text-sm lg:text-base text-secondary uppercase tracking-widest">
+    <section>
+      <div className="max-w-7xl mx-auto pb-10">
+        <span className="mb-2 text-sm font-bold uppercase tracking-[0.2em] text-secondary">
           {text}
         </span>
 

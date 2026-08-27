@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import Loader from "../components/Loader";
+import PageHero from "../components/PageHero";
 
 const RegisterPlayer = () => {
   const API_URL = import.meta.env.VITE_API_URL;
@@ -104,15 +105,11 @@ const RegisterPlayer = () => {
         {loadingTeams && <Loader />}
 
         {/* Header */}
-        <div className="mb-8">
-          <p className="mb-2 text-sm font-bold uppercase tracking-[0.2em] text-secondary">
-            CUBIC FC
-          </p>
-
-          <h1 className="text-3xl font-bold md:text-4xl">Register Player</h1>
-
-          <p className="mt-2 text-[#B8C2D1]">Add a new player to the squad.</p>
-        </div>
+        <PageHero
+          text="CUBIC FC"
+          heading="Register Player"
+          subheading="Add a new player to the squad."
+        />
 
         {/* Form Card */}
         <div className="rounded-2xl border border-[#28466B] bg-[#0E1D34] p-6 shadow-2xl md:p-8">

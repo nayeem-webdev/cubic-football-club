@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import PageHero from "../components/PageHero";
 
 const AddSchedule = () => {
   const API_URL = import.meta.env.VITE_API_URL;
@@ -247,21 +248,12 @@ const AddSchedule = () => {
   return (
     <div className="min-h-screen bg-[#07111F] px-4 py-10 text-[#F8FAFC]">
       <div className="mx-auto max-w-3xl">
-        {/* ========================================
-            HEADER
-        ======================================== */}
-        <div className="mb-8">
-          <p className="mb-2 text-sm font-bold uppercase tracking-[0.2em] text-secondary">
-            CUBIC FC
-          </p>
-
-          <h1 className="text-3xl font-bold md:text-4xl">Add Schedule</h1>
-
-          <p className="mt-2 text-[#B8C2D1]">
-            Create a new match schedule for your team.
-          </p>
-        </div>
-
+        {/* Header */}
+        <PageHero
+          text="CUBIC FC"
+          heading="Add Schedule"
+          subheading="Create a new match schedule for your team."
+        />
         {/* ========================================
             SCHEDULE CARD
         ======================================== */}

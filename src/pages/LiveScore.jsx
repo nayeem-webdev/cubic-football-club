@@ -451,6 +451,7 @@ export default function LiveScore() {
     }, 1000);
 
     return () => clearInterval(interval);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     selectedMatch?.timer.running,
     selectedMatch?.timer.finished,
@@ -973,7 +974,7 @@ export default function LiveScore() {
                 onClick={() => setActiveTab("timeline")}
                 className={`rounded-xl px-4 py-2.5 text-sm font-semibold transition-all ${
                   activeTab === "timeline"
-                    ? "bg-[#0E5FD8] text-[#F8FAFC]"
+                    ? "bg-[#0E5FD8]/20 text-[#F8FAFC]"
                     : "text-[#B8C2D1] hover:bg-[#07111F] hover:text-[#F8FAFC]"
                 }`}
               >
@@ -984,7 +985,7 @@ export default function LiveScore() {
                 onClick={() => setActiveTab("lineup")}
                 className={`rounded-xl px-4 py-2.5 text-sm font-semibold transition-all ${
                   activeTab === "lineup"
-                    ? "bg-[#0E5FD8] text-[#F8FAFC]"
+                    ? "bg-[#0E5FD8]/20 text-[#F8FAFC]"
                     : "text-[#B8C2D1] hover:bg-[#07111F] hover:text-[#F8FAFC]"
                 }`}
               >

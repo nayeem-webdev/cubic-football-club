@@ -48,20 +48,29 @@ export default function Matches() {
   }
 
   return (
-    <div
-      className="min-h-screen text-text"
-      style={{ background: "var(--color-background)" }}
-    >
-      <PageHero
-        text="Matches"
-        heading="Match Center"
-        subheading="View upcoming fixtures, recent results, and every match played by Cubic FC."
-      />
+    <div className="min-h-screen bg-[#07111F] px-4 py-10 text-[#F8FAFC]">
+      <div className="mx-auto max-w-7xl">
+        <PageHero
+          text="Matches"
+          heading="Match Center"
+          subheading="View upcoming fixtures, recent results, and every match played by Cubic FC."
+        />
 
-      <div className="max-w-7xl mx-auto p-6 flex flex-col gap-6">
-        {matches.map((match) => (
-          <ScoreCard key={match._id} match={match} />
-        ))}
+        <div className="mx-auto flex max-w-7xl flex-col gap-6">
+          {matches.length > 0 ? (
+            matches.map((match) => <ScoreCard key={match._id} match={match} />)
+          ) : (
+            <div className="flex min-h-[300px] flex-col items-center justify-center rounded-2xl border border-[#28466B] bg-[#0E1D34] text-center">
+              <p className="text-xl font-bold text-[#F8FAFC]">
+                No Matches Found
+              </p>
+
+              <p className="mt-2 text-sm text-[#B8C2D1]">
+                No match results are available yet.
+              </p>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

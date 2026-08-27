@@ -37,7 +37,7 @@ function getStatus(dateStr) {
 
 export default function Schedule() {
   const API_URL = import.meta.env.VITE_API_URL;
-    
+
   const [schedules, setSchedules] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -73,25 +73,20 @@ export default function Schedule() {
   // ========================================
 
   return (
-    <div
-      className="min-h-screen text-text"
-      style={{ background: "var(--color-background)" }}
-    >
-      {loading && <Loader />}
+    <div className="min-h-screen bg-[#07111F] px-4 py-10 text-[#F8FAFC]">
+      <div className="mx-auto max-w-7xl">
+        {loading && <Loader />}
 
-      {/* ========================================
-          HERO
-      ======================================== */}
-      <PageHero
-        text="Fixtures"
-        heading="Football Turf Schedule"
-        subheading="Upcoming and completed football sessions in Chattogram."
-      />
+        {/* Header */}
+        <PageHero
+          text="Fixtures"
+          heading="Football Turf Schedule"
+          subheading="Upcoming and completed football sessions in Chattogram."
+        />
 
-      {/* ========================================
+        {/* ========================================
           SCHEDULE SECTION
       ======================================== */}
-      <div className="mx-auto max-w-7xl p-6">
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
           {schedules.map((item, index) => {
             const status = getStatus(item.date);
