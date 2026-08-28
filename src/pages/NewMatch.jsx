@@ -160,7 +160,10 @@ const NewMatch = () => {
     const submitData = {
       ...formData,
 
+      homeStartingPlayers: formData.homeStartingPlayers.filter(Boolean),
       homeSubstitutes: formData.homeSubstitutes.filter(Boolean),
+
+      awayStartingPlayers: formData.awayStartingPlayers.filter(Boolean),
       awaySubstitutes: formData.awaySubstitutes.filter(Boolean),
     };
 
@@ -337,7 +340,7 @@ const NewMatch = () => {
                                   className="w-full rounded-lg border border-[#28466B] bg-card px-4 py-3 text-[#F8FAFC] outline-none focus:border-[#0E5FD8]"
                                 >
                                   <option value="">Select player</option>
-
+                                  {/* homeTeamPlayers */}
                                   {homeTeamPlayers
                                     .filter(
                                       (player) =>
@@ -387,7 +390,7 @@ const NewMatch = () => {
                                   className="w-full rounded-lg border border-[#28466B] bg-card px-4 py-3 text-[#F8FAFC]"
                                 >
                                   <option value="">Select substitute</option>
-
+                                  {/* homeTeamPlayers */}
                                   {homeTeamPlayers
                                     .filter(
                                       (player) =>
@@ -471,7 +474,7 @@ const NewMatch = () => {
                                   className="w-full rounded-lg border border-[#28466B] bg-card px-4 py-3 text-[#F8FAFC] outline-none focus:border-[#0E5FD8]"
                                 >
                                   <option value="">Select player</option>
-
+                                  {/* awayTeamPlayers */}
                                   {awayTeamPlayers
                                     .filter(
                                       (player) =>
@@ -521,7 +524,7 @@ const NewMatch = () => {
                                   className="w-full rounded-lg border border-[#28466B] bg-card px-4 py-3 text-[#F8FAFC]"
                                 >
                                   <option value="">Select substitute</option>
-
+                                  {/* awayTeamPlayers */}
                                   {awayTeamPlayers
                                     .filter(
                                       (player) =>

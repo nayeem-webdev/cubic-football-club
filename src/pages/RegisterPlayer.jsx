@@ -147,8 +147,6 @@ const RegisterPlayer = () => {
                   id="jerseyNumber"
                   name="jerseyNumber"
                   type="number"
-                  min="1"
-                  max="99"
                   placeholder="10"
                   value={formData.jerseyNumber}
                   onChange={handleChange}
