@@ -1,6 +1,9 @@
+import { useNavigate } from "react-router-dom";
 import PageHero from "./PageHero";
 
 const SelectMatch = ({ matches, onSelectMatch }) => {
+  const navigate = useNavigate();
+
   return (
     <div className="min-h-screen bg-[#07111F] px-4 py-10 text-[#F8FAFC]">
       <div className="mx-auto max-w-4xl">
@@ -79,7 +82,15 @@ const SelectMatch = ({ matches, onSelectMatch }) => {
         {/* Empty State */}
         {matches.length === 0 && (
           <div className="rounded-2xl border border-dashed border-[#28466B] bg-[#0E1D34] p-10 text-center">
-            <p className="text-[#B8C2D1]">No matches available.</p>
+            <p className="mb-4 text-[#B8C2D1]">No matches available.</p>
+
+            <button
+              type="button"
+              onClick={() => navigate("/new-match")}
+              className="rounded-lg bg-[#2563EB]/40 px-5 py-2.5 font-medium text-white transition hover:bg-[#1D4ED8]/30"
+            >
+              Create Match
+            </button>
           </div>
         )}
       </div>

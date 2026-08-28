@@ -8,6 +8,20 @@ const RegisterPlayer = () => {
   const [clubs, setClubs] = useState([]);
   const [loadingTeams, setLoadingTeams] = useState(true);
 
+  const [formData, setFormData] = useState({
+    name: "",
+    position: "",
+    jerseyNumber: "",
+    photo: "https://i.ibb.co.com/LXYyhTBb/player-placeholder.png",
+    foot: "Right",
+    playsFor: "",
+    dateOfBirth: "",
+  });
+
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState("");
+
+  // Fetch clubs
   useEffect(() => {
     const fetchTeams = async () => {
       try {
@@ -22,6 +36,7 @@ const RegisterPlayer = () => {
         setClubs(data);
       } catch (error) {
         console.error("Error fetching teams:", error);
+        setMessage("Failed to load clubs");
       } finally {
         setLoadingTeams(false);
       }
@@ -30,20 +45,7 @@ const RegisterPlayer = () => {
     fetchTeams();
   }, [API_URL]);
 
-  const [formData, setFormData] = useState({
-    name: "",
-    position: "",
-    jerseyNumber: "",
-    photo: "",
-    foot: "Right",
-    playsFor: "",
-    clubLogo: "",
-    dateOfBirth: "",
-  });
-
-  const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState("");
-
+  // Handle input changes
   const handleChange = (e) => {
     const { name, value } = e.target;
 
@@ -53,6 +55,7 @@ const RegisterPlayer = () => {
     }));
   };
 
+  // Submit form
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -60,19 +63,16 @@ const RegisterPlayer = () => {
     setMessage("");
 
     try {
-      const response = await fetch(
-        "https://cubic-fc-server.onrender.com/api/players",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            ...formData,
-            jerseyNumber: Number(formData.jerseyNumber),
-          }),
+      const response = await fetch(`${API_URL}/players`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
         },
-      );
+        body: JSON.stringify({
+          ...formData,
+          jerseyNumber: Number(formData.jerseyNumber),
+        }),
+      });
 
       const data = await response.json();
 
@@ -82,17 +82,18 @@ const RegisterPlayer = () => {
 
       setMessage("Player registered successfully!");
 
+      // Reset form
       setFormData({
         name: "",
         position: "",
         jerseyNumber: "",
-        photo: "",
+        photo: "https://i.ibb.co.com/LXYyhTBb/player-placeholder.png",
         foot: "Right",
         playsFor: "",
-        clubLogo: "",
         dateOfBirth: "",
       });
     } catch (error) {
+      console.error("Error registering player:", error);
       setMessage(error.message);
     } finally {
       setLoading(false);
@@ -230,67 +231,54 @@ const RegisterPlayer = () => {
 
             {/* Photo URL */}
             <div>
-              <div>
-                <label
-                  htmlFor="photo"
-                  className="mb-2 block text-sm font-medium"
-                >
-                  Player Photo URL
-                </label>
+              <label htmlFor="photo" className="mb-2 block text-sm font-medium">
+                Player Photo URL
+              </label>
 
-                <input
-                  id="photo"
-                  name="photo"
-                  type="url"
-                  placeholder="https://example.com/player.jpg"
-                  value={formData.photo}
-                  onChange={handleChange}
-                  required
-                  className="w-full rounded-lg border border-[#28466B] bg-card px-4 py-3 text-[#F8FAFC] outline-none placeholder:text-[#718096] focus:border-[#0E5FD8]"
-                />
+              <input
+                id="photo"
+                name="photo"
+                type="url"
+                placeholder="https://example.com/player.jpg"
+                value={formData.photo}
+                onChange={handleChange}
+                required
+                className="w-full rounded-lg border border-[#28466B] bg-card px-4 py-3 text-[#F8FAFC] outline-none placeholder:text-[#718096] focus:border-[#0E5FD8]"
+              />
 
-                <p className="mt-2 text-xs text-[#B8C2D1]">
-                  Paste a publicly accessible image URL.
-                </p>
-              </div>
-              <div>
-                <label
-                  htmlFor="playsFor"
-                  className="mb-2 block text-sm font-medium"
-                >
-                  Club
-                </label>
-
-                <select
-                  id="playsFor"
-                  name="playsFor"
-                  value={formData.playsFor}
-                  onChange={(e) => {
-                    const selectedClub = clubs.find(
-                      (club) => club.name === e.target.value,
-                    );
-
-                    setFormData((prev) => ({
-                      ...prev,
-                      playsFor: selectedClub?.name || "",
-                      clubLogo: selectedClub?.logoLow || "",
-                    }));
-                  }}
-                  required
-                  className="w-full rounded-lg border border-[#28466B] bg-card px-4 py-3 text-[#F8FAFC] outline-none focus:border-[#0E5FD8]"
-                >
-                  <option value="">Select club</option>
-
-                  {clubs.map((club) => (
-                    <option key={club.name} value={club.name}>
-                      {club.name}
-                    </option>
-                  ))}
-                </select>
-              </div>
+              <p className="mt-2 text-xs text-[#B8C2D1]">
+                Paste a publicly accessible image URL.
+              </p>
             </div>
 
-            {/* Success / Error */}
+            {/* Club */}
+            <div>
+              <label
+                htmlFor="playsFor"
+                className="mb-2 block text-sm font-medium"
+              >
+                Club
+              </label>
+
+              <select
+                id="playsFor"
+                name="playsFor"
+                value={formData.playsFor}
+                onChange={handleChange}
+                required
+                className="w-full rounded-lg border border-[#28466B] bg-card px-4 py-3 text-[#F8FAFC] outline-none focus:border-[#0E5FD8]"
+              >
+                <option value="">Select club</option>
+
+                {clubs.map((club) => (
+                  <option key={club._id} value={club._id}>
+                    {club.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            {/* Success / Error Message */}
             {message && (
               <div
                 className={`rounded-lg border px-4 py-3 text-sm ${
@@ -306,7 +294,7 @@ const RegisterPlayer = () => {
             {/* Submit */}
             <button
               type="submit"
-              disabled={loading}
+              disabled={loading || loadingTeams}
               className="w-full rounded-lg bg-[#0E5FD8] px-5 py-3.5 font-semibold text-white transition hover:bg-[#3A82FF] disabled:cursor-not-allowed disabled:opacity-50"
             >
               {loading ? "Registering Player..." : "Register Player"}

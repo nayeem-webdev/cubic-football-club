@@ -6,6 +6,7 @@ import PageHero from "../components/PageHero";
 export default function UpdatePlayer() {
   const API_URL = import.meta.env.VITE_API_URL;
 
+  const [clubs, setClubs] = useState([]);
   const [players, setPlayers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [editingId, setEditingId] = useState(null);
@@ -34,19 +35,48 @@ export default function UpdatePlayer() {
     fetchPlayers();
   }, [API_URL]);
 
+  // Fetch clubs
+  useEffect(() => {
+    const fetchTeams = async () => {
+      try {
+        const response = await fetch(`${API_URL}/teams`);
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch teams");
+        }
+
+        const data = await response.json();
+
+        setClubs(data);
+      } catch (error) {
+        console.error("Error fetching teams:", error);
+      }
+    };
+
+    fetchTeams();
+  }, [API_URL]);
+
   // Start editing
   const handleEdit = (player) => {
     setEditingId(player._id);
 
     setFormData({
       name: player.name || "",
-      jerseyNumber: player.jerseyNumber || "",
+      jerseyNumber: player.jerseyNumber ?? "",
       position: player.position || "",
       dateOfBirth: player.dateOfBirth
         ? new Date(player.dateOfBirth).toISOString().split("T")[0]
         : "",
       foot: player.foot || "",
-      playsFor: player.playsFor || "",
+
+      // Supports both:
+      // playsFor: "66abc123..."
+      // playsFor: { _id: "66abc123...", name: "Cubic FC" }
+      playsFor:
+        typeof player.playsFor === "object"
+          ? player.playsFor?._id || ""
+          : player.playsFor || "",
+
       photo: player.photo || "",
     });
   };
@@ -75,11 +105,16 @@ export default function UpdatePlayer() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          ...formData,
+          jerseyNumber: Number(formData.jerseyNumber),
+        }),
       });
 
       if (!response.ok) {
-        throw new Error("Failed to update player");
+        const data = await response.json().catch(() => ({}));
+
+        throw new Error(data.error || "Failed to update player");
       }
 
       const updatedPlayer = await response.json();
@@ -94,7 +129,23 @@ export default function UpdatePlayer() {
       setFormData({});
     } catch (error) {
       console.error("Error updating player:", error);
+      alert(error.message);
     }
+  };
+
+  // Get club name
+  const getClubName = (playsFor) => {
+    if (!playsFor) return "-";
+
+    // If populated
+    if (typeof playsFor === "object") {
+      return playsFor.name || "-";
+    }
+
+    // If only ObjectId
+    const club = clubs.find((club) => club._id === playsFor);
+
+    return club?.name || playsFor;
   };
 
   if (loading) {
@@ -127,12 +178,19 @@ export default function UpdatePlayer() {
             >
               <tr>
                 <th className="px-4 py-3 text-left font-medium">Player</th>
+
                 <th className="px-3 py-3 text-left font-medium">No.</th>
+
                 <th className="px-3 py-3 text-left font-medium">Position</th>
+
                 <th className="px-3 py-3 text-left font-medium">DOB</th>
+
                 <th className="px-3 py-3 text-left font-medium">Foot</th>
+
                 <th className="px-3 py-3 text-left font-medium">Club</th>
+
                 <th className="px-3 py-3 text-left font-medium">Image URL</th>
+
                 <th className="px-4 py-3 text-right font-medium">Action</th>
               </tr>
             </thead>
@@ -177,7 +235,7 @@ export default function UpdatePlayer() {
                             }}
                           />
                         ) : (
-                          <span className="font-medium whitespace-nowrap">
+                          <span className="whitespace-nowrap font-medium">
                             {player.name}
                           </span>
                         )}
@@ -218,6 +276,7 @@ export default function UpdatePlayer() {
                             border: "1px solid var(--color-border)",
                           }}
                         >
+                          <option value="">Select</option>
                           <option value="GK">GK</option>
                           <option value="DF">DF</option>
                           <option value="MF">MF</option>
@@ -252,9 +311,16 @@ export default function UpdatePlayer() {
                           }}
                         />
                       ) : (
-                        <span className="text-xs text-text-muted whitespace-nowrap">
+                        <span className="whitespace-nowrap text-xs text-text-muted">
                           {player.dateOfBirth
-                            ? new Date(player.dateOfBirth).toLocaleDateString()
+                            ? new Date(player.dateOfBirth).toLocaleDateString(
+                                "en-GB",
+                                {
+                                  day: "2-digit",
+                                  month: "short",
+                                  year: "numeric",
+                                },
+                              )
                             : "-"}
                         </span>
                       )}
@@ -285,20 +351,27 @@ export default function UpdatePlayer() {
                     {/* Club */}
                     <td className="px-3 py-3">
                       {isEditing ? (
-                        <input
-                          type="text"
+                        <select
                           name="playsFor"
                           value={formData.playsFor}
                           onChange={handleChange}
-                          className="w-28 rounded-md px-2 py-1.5 text-xs outline-none"
+                          className="w-36 rounded-md px-2 py-1.5 text-xs outline-none"
                           style={{
                             background: "var(--color-background)",
                             border: "1px solid var(--color-border)",
                           }}
-                        />
+                        >
+                          <option value="">Select club</option>
+
+                          {clubs.map((club) => (
+                            <option key={club._id} value={club._id}>
+                              {club.name}
+                            </option>
+                          ))}
+                        </select>
                       ) : (
-                        <span className="text-xs whitespace-nowrap">
-                          {player.playsFor || "-"}
+                        <span className="whitespace-nowrap text-xs">
+                          {getClubName(player.playsFor)}
                         </span>
                       )}
                     </td>
@@ -307,7 +380,7 @@ export default function UpdatePlayer() {
                     <td className="px-3 py-3">
                       {isEditing ? (
                         <input
-                          type="text"
+                          type="url"
                           name="photo"
                           value={formData.photo}
                           onChange={handleChange}
@@ -331,6 +404,7 @@ export default function UpdatePlayer() {
                         {isEditing ? (
                           <>
                             <button
+                              type="button"
                               onClick={() => handleUpdate(player._id)}
                               className="flex items-center gap-1.5 rounded-md px-3 py-1.5 text-xs font-medium transition hover:opacity-90"
                               style={{
@@ -343,6 +417,7 @@ export default function UpdatePlayer() {
                             </button>
 
                             <button
+                              type="button"
                               onClick={handleCancel}
                               className="flex h-8 w-8 items-center justify-center rounded-md transition hover:opacity-80"
                               style={{
@@ -355,6 +430,7 @@ export default function UpdatePlayer() {
                           </>
                         ) : (
                           <button
+                            type="button"
                             onClick={() => handleEdit(player)}
                             className="flex items-center gap-1.5 rounded-md px-3 py-1.5 text-xs font-medium transition hover:opacity-80"
                             style={{

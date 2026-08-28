@@ -8,26 +8,27 @@ import {
   Shield,
   Hash,
   Share2,
+  Star,
 } from "lucide-react";
 import { toPng } from "html-to-image";
 import { positionColors } from "../constants/positionColors";
 
 const StatCard = ({ icon, label, value = 0 }) => (
   <div
-    className="rounded-lg p-2 text-center transition duration-300 hover:scale-105"
+    className="rounded-lg p-2.5 text-center transition duration-300 hover:scale-105"
     style={{
       background: "rgba(255,255,255,0.03)",
       border: "1px solid var(--color-border)",
     }}
   >
     <div
-      className="mb-2 flex justify-center"
+      className="mb-1.5 flex justify-center"
       style={{ color: "var(--color-secondary)" }}
     >
       {icon}
     </div>
 
-    <h4 className="text-xl font-bold">{value}</h4>
+    <h4 className="text-lg font-bold">{value}</h4>
 
     <p className="mt-1 text-xs" style={{ color: "var(--color-text-muted)" }}>
       {label}
@@ -37,41 +38,10 @@ const StatCard = ({ icon, label, value = 0 }) => (
 
 const PlayerCard = ({ player }) => {
   const cardRef = useRef(null);
-  const handleShare = async () => {
-    const element = cardRef.current;
 
-    console.log("Share clicked");
-    console.log("Element:", element);
+  const stats = player?.stats || {};
+  const club = player?.playsFor || null;
 
-    if (!element) {
-      console.error("Player card element not found");
-      return;
-    }
-
-    try {
-      await document.fonts.ready;
-
-      console.log("Generating image...");
-
-      const dataUrl = await toPng(element, {
-        cacheBust: true,
-        pixelRatio: 4,
-        backgroundColor: "#152640",
-      });
-
-      const link = document.createElement("a");
-      link.download = `${player.name}-player-card.png`;
-      link.href = dataUrl;
-
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-    } catch (error) {
-      console.error("Share failed:", error);
-    }
-  };
-
-  // Calculate age from dateOfBirth
   const calculateAge = (dateOfBirth) => {
     if (!dateOfBirth) return "-";
 
@@ -92,98 +62,188 @@ const PlayerCard = ({ player }) => {
     return age;
   };
 
-  const age = calculateAge(player.dateOfBirth);
+  const age = calculateAge(player?.dateOfBirth);
+
+  const handleShare = async () => {
+    const element = cardRef.current;
+
+    if (!element) {
+      console.error("Player card element not found");
+      return;
+    }
+
+    try {
+      await document.fonts.ready;
+
+      const dataUrl = await toPng(element, {
+        cacheBust: true,
+        pixelRatio: 4,
+        backgroundColor: "#152640",
+      });
+
+      const link = document.createElement("a");
+
+      link.download = `${player?.name || "player"}-player-card.png`;
+      link.href = dataUrl;
+
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } catch (error) {
+      console.error("Share failed:", error);
+    }
+  };
 
   return (
     <div
       ref={cardRef}
-      className="group overflow-hidden rounded-2xl transition-all duration-300 "
+      className="group overflow-hidden rounded-2xl transition-all duration-300 hover:-translate-y-1"
       style={{
         background: "var(--color-card)",
         border: "1px solid var(--color-border)",
         boxShadow: "0 15px 40px rgba(0,0,0,.25)",
       }}
     >
-      {/* Player Image */}
+      {/* =========================
+          PLAYER IMAGE
+      ========================== */}
       <div className="relative aspect-square overflow-hidden bg-[#0E1D34]">
-        <img
-          src={player.photo}
-          alt={player.name}
-          className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
-        />
+        {player?.photo ? (
+          <img
+            src={player.photo}
+            alt={player?.name || "Player"}
+            className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+          />
+        ) : (
+          <div className="flex h-full w-full items-center justify-center">
+            <Shield
+              size={70}
+              style={{
+                color: "var(--color-secondary)",
+              }}
+            />
+          </div>
+        )}
 
-        {/* Position */}
-        <span
-          className="absolute right-4 top-4 rounded-full px-4 py-2 text-sm font-bold text-white"
-          style={{
-            background:
-              positionColors[player.position] || "var(--color-primary)",
-          }}
-        >
-          {player.position}
-        </span>
+        {/* Subtle image overlay */}
+        <div className="absolute inset-0 bg-linear-to-t from-[#07111F]/70 via-transparent to-transparent" />
 
         {/* Jersey Number */}
         <div className="absolute left-4 top-4 flex items-center gap-1 rounded-full bg-[#07111F]/80 px-3 py-2 text-sm font-bold backdrop-blur-sm">
           <Hash size={15} />
-          {player.jerseyNumber}
+          {player?.jerseyNumber ?? "-"}
+        </div>
+
+        {/* Position */}
+        <span
+          className="absolute right-4 top-4 rounded-full px-4 py-2 text-sm font-bold text-white shadow-lg"
+          style={{
+            background:
+              positionColors[player?.position] || "var(--color-primary)",
+          }}
+        >
+          {player?.position || "-"}
+        </span>
+
+        {/* Rating */}
+        <div
+          className="absolute bottom-4 right-4 flex min-w-17.5 flex-col items-center rounded-xl px-3 py-2 backdrop-blur-md"
+          style={{
+            background: "rgba(7,17,31,0.85)",
+            border: "1px solid rgba(255,255,255,0.12)",
+          }}
+        >
+          <div
+            className="flex items-center gap-1"
+            style={{
+              color: "var(--color-secondary)",
+            }}
+          >
+            <Star size={15} fill="currentColor" />
+
+            <span className="text-xl font-extrabold leading-none">
+              {stats.playerRating ?? 0}
+            </span>
+          </div>
+
+          <span
+            className="mt-1 text-[9px] font-semibold uppercase tracking-widest"
+            style={{
+              color: "var(--color-text-muted)",
+            }}
+          >
+            Score
+          </span>
         </div>
       </div>
 
-      {/* Content */}
-      <div className="p-6">
+      {/* =========================
+          CONTENT
+      ========================== */}
+      <div className="p-5">
         {/* Player Info */}
         <div className="flex items-center justify-between gap-4">
-          {/* Name & Club */}
-          <div className="min-w-0">
-            <h2 className="text-2xl font-bold">{player.name}</h2>
+          {/* Name + Club */}
+          <div className="min-w-0 flex-1">
+            <h2 className="truncate text-2xl font-bold">
+              {player?.name || "Unknown Player"}
+            </h2>
 
             <p
-              className="mt-1 font-medium"
+              className="mt-1 truncate font-medium"
               style={{
                 color: "var(--color-text-muted)",
               }}
             >
-              {player.playsFor}
+              {club?.name || "Free Agent"}
             </p>
           </div>
 
           {/* Club Logo */}
-          <div className="flex h-16 w-16 shrink-0 items-center justify-center ">
-            {player.clubLogo ? (
+          <div className="flex h-14 w-14 shrink-0 items-center justify-center">
+            {club?.logoLow ? (
               <img
-                src={player.clubLogo}
-                alt={player.playsFor}
+                src={club.logoLow}
+                alt={club?.name || "Club"}
                 className="h-full w-full object-contain"
               />
             ) : (
-              <Shield size={22} style={{ color: "var(--color-secondary)" }} />
+              <Shield
+                size={24}
+                style={{
+                  color: "var(--color-secondary)",
+                }}
+              />
             )}
           </div>
         </div>
 
-        {/* Stats */}
-        <div className="mt-6 grid grid-cols-3 gap-3">
+        {/* =========================
+            STATS
+        ========================== */}
+        <div className="mt-5 grid grid-cols-3 gap-3">
           <StatCard
-            icon={<Users size={16} />}
+            icon={<Users size={17} />}
             label="Apps"
-            value={player.appearances ?? 0}
+            value={stats.appearances ?? 0}
           />
 
           <StatCard
-            icon={<Target size={16} />}
+            icon={<Target size={17} />}
             label="Goals"
-            value={player.goals ?? 0}
+            value={stats.goals ?? 0}
           />
 
           <StatCard
-            icon={<Trophy size={16} />}
+            icon={<Trophy size={17} />}
             label="Assists"
-            value={player.assists ?? 0}
+            value={stats.assists ?? 0}
           />
         </div>
 
-        {/* Player Details */}
+        {/* =========================
+            PLAYER DETAILS
+        ========================== */}
         <div
           className="mt-5 grid grid-cols-[1fr_auto_1fr] items-center gap-3 border-t pt-4"
           style={{
@@ -191,7 +251,7 @@ const PlayerCard = ({ player }) => {
           }}
         >
           {/* Foot */}
-          <div className="flex items-center gap-2 min-w-0">
+          <div className="flex min-w-0 items-center gap-2">
             <div
               className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg"
               style={{
@@ -216,28 +276,28 @@ const PlayerCard = ({ player }) => {
                 Foot
               </p>
 
-              <p className="text-sm font-semibold truncate">
-                {player.foot || "-"}
+              <p className="truncate text-sm font-semibold">
+                {player?.foot || "-"}
               </p>
             </div>
           </div>
 
-          {/* Share Button */}
+          {/* Share */}
           <button
             type="button"
             onClick={handleShare}
-            aria-label="Share player"
+            aria-label={`Share ${player?.name || "player"} card`}
             className="
-    group
-    flex h-9 w-9 items-center justify-center
-    rounded-full
-    opacity-60
-    transition-all duration-300
-    hover:opacity-100
-    hover:scale-110
-    hover:drop-shadow-[0_0_8px_var(--color-secondary)]
-    active:scale-90
-  "
+              group/share
+              flex h-9 w-9 items-center justify-center
+              rounded-full
+              opacity-60
+              transition-all duration-300
+              hover:scale-110
+              hover:opacity-100
+              hover:drop-shadow-[0_0_8px_var(--color-secondary)]
+              active:scale-90
+            "
             style={{
               color: "var(--color-secondary)",
             }}
@@ -245,14 +305,14 @@ const PlayerCard = ({ player }) => {
             <Share2
               size={17}
               className="
-      transition-transform duration-500
-      group-hover:rotate-180
-    "
+                transition-transform duration-500
+                group-hover/share:rotate-180
+              "
             />
           </button>
 
           {/* Age */}
-          <div className="flex items-center justify-end gap-2 min-w-0">
+          <div className="flex min-w-0 items-center justify-end gap-2">
             <div className="min-w-0 text-right">
               <p
                 className="text-[10px] uppercase tracking-wide"

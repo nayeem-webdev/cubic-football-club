@@ -451,7 +451,7 @@ export default function LiveScore() {
     }, 1000);
 
     return () => clearInterval(interval);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     selectedMatch?.timer.running,
     selectedMatch?.timer.finished,
@@ -867,7 +867,13 @@ export default function LiveScore() {
                 </p>
 
                 <p className="mt-1 truncate text-[10px] font-semibold text-[#F8FAFC] sm:text-xs">
-                  {selectedMatch.matchSchedule.date}
+                  {new Date(
+                    selectedMatch.matchSchedule.date,
+                  ).toLocaleDateString("en-GB", {
+                    day: "2-digit",
+                    month: "short",
+                    year: "numeric",
+                  })}
                 </p>
               </div>
 

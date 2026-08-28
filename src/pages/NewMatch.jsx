@@ -273,8 +273,12 @@ const NewMatch = () => {
 
                   {schedules.map((schedule) => (
                     <option key={schedule._id} value={schedule._id}>
-                      {schedule.venue?.venue} — {schedule.date} —{" "}
-                      {schedule.time}
+                      {new Date(schedule.date).toLocaleDateString("en-GB", {
+                        day: "2-digit",
+                        month: "short",
+                        year: "numeric",
+                      })}{" "}
+                      — {schedule.venue?.venue}
                     </option>
                   ))}
                 </select>
