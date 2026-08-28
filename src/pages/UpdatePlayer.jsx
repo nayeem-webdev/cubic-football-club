@@ -117,7 +117,7 @@ export default function UpdatePlayer() {
             border: "1px solid var(--color-border)",
           }}
         >
-          <table className="w-full min-w-[1150px] text-sm">
+          <table className="w-full min-w-287.5 text-sm">
             <thead
               className="text-[11px] uppercase tracking-wider"
               style={{
@@ -144,7 +144,7 @@ export default function UpdatePlayer() {
                 return (
                   <tr
                     key={player._id}
-                    className="transition-colors hover:bg-white/[0.02]"
+                    className="transition-colors hover:bg-white/2"
                     style={{
                       borderTop: "1px solid var(--color-border)",
                     }}
@@ -152,19 +152,17 @@ export default function UpdatePlayer() {
                     {/* Player */}
                     <td className="px-4 py-3">
                       <div className="flex items-center gap-3">
-                        <td className="p-2">
-                          <div className="h-16 w-16 overflow-hidden rounded-full">
-                            <img
-                              src={
-                                isEditing
-                                  ? formData.photo || player.photo
-                                  : player.photo
-                              }
-                              alt={player.name}
-                              className="h-full w-full object-cover"
-                            />
-                          </div>
-                        </td>
+                        <div className="h-16 w-16 shrink-0 overflow-hidden rounded-full">
+                          <img
+                            src={
+                              isEditing
+                                ? formData.photo || player.photo
+                                : player.photo
+                            }
+                            alt={player.name}
+                            className="h-full w-full object-cover"
+                          />
+                        </div>
 
                         {isEditing ? (
                           <input

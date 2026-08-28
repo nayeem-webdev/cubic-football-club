@@ -60,7 +60,7 @@ export default function Matches() {
           {matches.length > 0 ? (
             matches.map((match) => <ScoreCard key={match._id} match={match} />)
           ) : (
-            <div className="flex min-h-[300px] flex-col items-center justify-center rounded-2xl border border-[#28466B] bg-[#0E1D34] text-center">
+            <div className="flex min-h-75 flex-col items-center justify-center rounded-2xl border border-[#28466B] bg-[#0E1D34] text-center">
               <p className="text-xl font-bold text-[#F8FAFC]">
                 No Matches Found
               </p>
