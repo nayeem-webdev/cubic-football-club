@@ -109,11 +109,11 @@ const NewMatch = () => {
   const selectedAwayTeam = teams.find((team) => team._id === formData.awayTeam);
 
   const homeTeamPlayers = players.filter(
-    (player) => player.playsFor === selectedHomeTeam?.name,
+    (player) => player.playsFor._id === selectedHomeTeam?._id,
   );
 
   const awayTeamPlayers = players.filter(
-    (player) => player.playsFor === selectedAwayTeam?.name,
+    (player) => player.playsFor._id === selectedAwayTeam?._id,
   );
 
   //%% Player Handler

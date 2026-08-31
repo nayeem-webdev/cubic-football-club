@@ -35,47 +35,81 @@ export default function Players() {
 
   const [search, setSearch] = useState("");
   const [position, setPosition] = useState("All");
-  // const [minGoals, setMinGoals] = useState(0);
-  // const [minRating, setMinRating] = useState(0);
+  const [minGoals, setMinGoals] = useState(0);
+  const [minRating, setMinRating] = useState(0);
   const [sortBy, setSortBy] = useState("ga");
+
+  const maxGoals = useMemo(() => {
+    return Math.max(0, ...players.map((player) => player.stats?.goals ?? 0));
+  }, [players]);
+
+  const maxRating = useMemo(() => {
+    return Math.max(
+      0,
+      ...players.map((player) => player.stats?.playerRating ?? 0),
+    );
+  }, [players]);
 
   const filteredPlayers = useMemo(() => {
     const keyword = search.trim().toLowerCase();
 
     const data = players.filter((player) => {
-      const matchesSearch = player.name?.toLowerCase().includes(keyword);
+      const goals = player.stats?.goals ?? 0;
+      const rating = player.stats?.playerRating ?? 0;
+
+      const matchesSearch =
+        player.name?.toLowerCase().includes(keyword) ||
+        player.playsFor?.name?.toLowerCase().includes(keyword);
 
       const matchesPosition =
         position === "All" || player.position === position;
 
-      return matchesSearch && matchesPosition;
+      const matchesMinGoals = goals >= Number(minGoals);
+
+      const matchesMinRating = rating >= Number(minRating);
+
+      return (
+        matchesSearch && matchesPosition && matchesMinGoals && matchesMinRating
+      );
     });
 
-    switch (sortBy) {
-      case "name":
-        data.sort((a, b) => a.name.localeCompare(b.name));
-        break;
+    data.sort((a, b) => {
+      const goalsA = a.stats?.goals ?? 0;
+      const goalsB = b.stats?.goals ?? 0;
 
-      case "goals":
-        data.sort((a, b) => (b.goals || 0) - (a.goals || 0));
-        break;
+      const assistsA = a.stats?.assists ?? 0;
+      const assistsB = b.stats?.assists ?? 0;
 
-      case "assists":
-        data.sort((a, b) => (b.assists || 0) - (a.assists || 0));
-        break;
+      const ratingA = a.stats?.playerRating ?? 0;
+      const ratingB = b.stats?.playerRating ?? 0;
 
-      default:
-        data.sort(
-          (a, b) =>
-            (b.goals || 0) +
-            (b.assists || 0) -
-            ((a.goals || 0) + (a.assists || 0)),
-        );
-        break;
-    }
+      const appearancesA = a.stats?.appearances ?? 0;
+      const appearancesB = b.stats?.appearances ?? 0;
+
+      switch (sortBy) {
+        case "name":
+          return (a.name ?? "").localeCompare(b.name ?? "");
+
+        case "goals":
+          return goalsB - goalsA;
+
+        case "assists":
+          return assistsB - assistsA;
+
+        case "rating":
+          return ratingB - ratingA;
+
+        case "appearances":
+          return appearancesB - appearancesA;
+
+        case "ga":
+        default:
+          return goalsB + assistsB - (goalsA + assistsA);
+      }
+    });
 
     return data;
-  }, [search, players, sortBy, position]);
+  }, [search, players, sortBy, position, minGoals, minRating]);
 
   return (
     <div className="min-h-screen bg-[#07111F] px-4 py-10 text-[#F8FAFC]">
@@ -120,7 +154,7 @@ export default function Players() {
 
                   <input
                     type="text"
-                    placeholder="Name, club or country..."
+                    placeholder="Name or club"
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
                     className="w-full rounded-lg py-3 pl-10 pr-3 outline-none"
@@ -148,6 +182,8 @@ export default function Players() {
                   <option value="ga">Goals + Assists</option>
                   <option value="goals">Goals</option>
                   <option value="assists">Assists</option>
+                  <option value="rating">Rating</option>
+                  <option value="appearances">Appearances</option>
                   <option value="name">Name (A–Z)</option>
                 </select>
               </div>
@@ -174,8 +210,60 @@ export default function Players() {
                   ))}
                 </div>
               </div>
+
+              {/* Minimum Goals */}
+              <div>
+                <div className="flex items-center justify-between mb-2">
+                  <label className="font-medium">Minimum Goals</label>
+
+                  <span className="text-sm text-blue-400 font-semibold">
+                    {minGoals}
+                  </span>
+                </div>
+
+                <input
+                  type="range"
+                  min="0"
+                  max={maxGoals}
+                  value={minGoals}
+                  onChange={(e) => setMinGoals(Number(e.target.value))}
+                  className="w-full cursor-pointer accent-blue-500"
+                />
+
+                <div className="flex justify-between text-xs text-text-muted mt-1">
+                  <span>0</span>
+                  <span>{maxGoals}</span>
+                </div>
+              </div>
+
+              {/* Minimum Rating */}
+              <div>
+                <div className="flex items-center justify-between mb-2">
+                  <label className="font-medium">Minimum Rating</label>
+
+                  <span className="text-sm text-blue-400 font-semibold">
+                    {minRating}
+                  </span>
+                </div>
+
+                <input
+                  type="range"
+                  min="0"
+                  max={maxRating}
+                  step="0.1"
+                  value={minRating}
+                  onChange={(e) => setMinRating(Number(e.target.value))}
+                  className="w-full cursor-pointer accent-blue-500"
+                />
+
+                <div className="flex justify-between text-xs text-text-muted mt-1">
+                  <span>0</span>
+                  <span>{maxRating}</span>
+                </div>
+              </div>
             </div>
           </aside>
+
           {/* Cards */}
           <div className="flex-1">
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
