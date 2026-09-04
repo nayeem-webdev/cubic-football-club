@@ -743,7 +743,7 @@ export default function LiveScore() {
             {/* MAIN SCORE AREA */}
             <div className="px-4 py-4 sm:px-6 sm:py-5">
               {/* TOP STATUS */}
-              <div className="mb-3 flex items-center justify-center gap-2">
+              <div className="mb-1 flex items-center justify-center gap-2">
                 <span
                   className={`h-1.5 w-1.5 rounded-full ${
                     selectedMatch.timer.finished
@@ -802,7 +802,7 @@ export default function LiveScore() {
                 <div className="flex min-w-20 flex-col items-center px-1 sm:min-w-37.5">
                   {/* MATCH TYPE */}
                   <span className="mb-1 text-center text-[9px] font-bold uppercase tracking-wider text-[#D4AF37] sm:text-xs">
-                    {selectedMatch.matchType}
+                    {selectedMatch.matchSchedule.matchType}
                   </span>
 
                   {/* TIMER */}
@@ -812,8 +812,8 @@ export default function LiveScore() {
 
                   {/* FORMAT */}
                   <span className="mt-1 text-[9px] font-medium text-[#B8C2D1]/50 sm:text-[10px]">
-                    {selectedMatch.playersPerTeam}v
-                    {selectedMatch.playersPerTeam}
+                    {selectedMatch.matchSchedule.matchFormat}v
+                    {selectedMatch.matchSchedule.matchFormat}
                     <span className="mx-1 text-[#28466B]">•</span>
                     {selectedMatch.matchTime} MIN
                   </span>
