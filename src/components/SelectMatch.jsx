@@ -27,11 +27,15 @@ const SelectMatch = ({ matches, onSelectMatch }) => {
                 <div>
                   <div className="mb-2 flex items-center gap-3">
                     <span className="rounded-md bg-[#0E5FD8]/15 px-2 py-1 text-xs font-semibold text-[#3A82FF]">
-                      MATCH
+                      {match.matchSchedule.matchType.toUpperCase()} MATCH
                     </span>
 
                     <span className="text-xs text-[#B8C2D1]">
-                      {match.matchSchedule.matchFormat} MIN
+                      {match.matchSchedule.matchFormat} V{" "}
+                      {match.matchSchedule.matchFormat}
+                    </span>
+                    <span className="text-xs text-[#B8C2D1]">
+                      {match.matchTime} MIN
                     </span>
                   </div>
 

@@ -36,17 +36,17 @@ export default function Players() {
   const [search, setSearch] = useState("");
   const [position, setPosition] = useState("All");
   const [minGoals, setMinGoals] = useState(0);
-  const [minRating, setMinRating] = useState(0);
-  const [sortBy, setSortBy] = useState("ga");
+  const [minScore, setMinScore] = useState(0);
+  const [sortBy, setSortBy] = useState("averageScore");
 
   const maxGoals = useMemo(() => {
     return Math.max(0, ...players.map((player) => player.stats?.goals ?? 0));
   }, [players]);
 
-  const maxRating = useMemo(() => {
+  const maxScore = useMemo(() => {
     return Math.max(
       0,
-      ...players.map((player) => player.stats?.playerRating ?? 0),
+      ...players.map((player) => player.stats?.playerScore ?? 0),
     );
   }, [players]);
 
@@ -55,7 +55,7 @@ export default function Players() {
 
     const data = players.filter((player) => {
       const goals = player.stats?.goals ?? 0;
-      const rating = player.stats?.playerRating ?? 0;
+      const score = player.stats?.playerScore ?? 0;
 
       const matchesSearch =
         player.name?.toLowerCase().includes(keyword) ||
@@ -66,10 +66,10 @@ export default function Players() {
 
       const matchesMinGoals = goals >= Number(minGoals);
 
-      const matchesMinRating = rating >= Number(minRating);
+      const matchesMinScore = score >= Number(minScore);
 
       return (
-        matchesSearch && matchesPosition && matchesMinGoals && matchesMinRating
+        matchesSearch && matchesPosition && matchesMinGoals && matchesMinScore
       );
     });
 
@@ -80,11 +80,14 @@ export default function Players() {
       const assistsA = a.stats?.assists ?? 0;
       const assistsB = b.stats?.assists ?? 0;
 
-      const ratingA = a.stats?.playerRating ?? 0;
-      const ratingB = b.stats?.playerRating ?? 0;
+      const scoreA = a.stats?.playerScore ?? 0;
+      const scoreB = b.stats?.playerScore ?? 0;
 
       const appearancesA = a.stats?.appearances ?? 0;
       const appearancesB = b.stats?.appearances ?? 0;
+      const averageScoreA = appearancesA > 0 ? scoreA / appearancesA : 0;
+
+      const averageScoreB = appearancesB > 0 ? scoreB / appearancesB : 0;
 
       switch (sortBy) {
         case "name":
@@ -96,8 +99,8 @@ export default function Players() {
         case "assists":
           return assistsB - assistsA;
 
-        case "rating":
-          return ratingB - ratingA;
+        case "score":
+          return scoreB - scoreA;
 
         case "appearances":
           return appearancesB - appearancesA;
@@ -105,11 +108,17 @@ export default function Players() {
         case "ga":
         default:
           return goalsB + assistsB - (goalsA + assistsA);
+
+        case "averageScore":
+          return averageScoreB - averageScoreA;
+
+        case "jerseyNumber":
+          return Number(a.jerseyNumber ?? 999) - Number(b.jerseyNumber ?? 999);
       }
     });
 
     return data;
-  }, [search, players, sortBy, position, minGoals, minRating]);
+  }, [search, players, sortBy, position, minGoals, minScore]);
 
   return (
     <div className="min-h-screen bg-[#07111F] px-4 py-10 text-[#F8FAFC]">
@@ -121,7 +130,7 @@ export default function Players() {
           text={"Football Scout"}
           heading={"Find Your Next Star"}
           subheading={
-            "Browse players by position, goals, rating and performance. Built for scouting and team management."
+            "Browse players by position, goals, score and performance. Built for scouting and team management."
           }
         />
 
@@ -179,10 +188,12 @@ export default function Players() {
                     border: "1px solid var(--color-border)",
                   }}
                 >
+                  <option value="averageScore">Average Score</option>
+                  <option value="jerseyNumber">Jersey Number</option>
                   <option value="ga">Goals + Assists</option>
                   <option value="goals">Goals</option>
                   <option value="assists">Assists</option>
-                  <option value="rating">Rating</option>
+                  <option value="score">Score</option>
                   <option value="appearances">Appearances</option>
                   <option value="name">Name (A–Z)</option>
                 </select>
@@ -236,29 +247,29 @@ export default function Players() {
                 </div>
               </div>
 
-              {/* Minimum Rating */}
+              {/* Minimum Score */}
               <div>
                 <div className="flex items-center justify-between mb-2">
-                  <label className="font-medium">Minimum Rating</label>
+                  <label className="font-medium">Minimum Score</label>
 
                   <span className="text-sm text-blue-400 font-semibold">
-                    {minRating}
+                    {minScore}
                   </span>
                 </div>
 
                 <input
                   type="range"
                   min="0"
-                  max={maxRating}
+                  max={maxScore}
                   step="0.1"
-                  value={minRating}
-                  onChange={(e) => setMinRating(Number(e.target.value))}
+                  value={minScore}
+                  onChange={(e) => setMinScore(Number(e.target.value))}
                   className="w-full cursor-pointer accent-blue-500"
                 />
 
                 <div className="flex justify-between text-xs text-text-muted mt-1">
                   <span>0</span>
-                  <span>{maxRating}</span>
+                  <span>{maxScore}</span>
                 </div>
               </div>
             </div>

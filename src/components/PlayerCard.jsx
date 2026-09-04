@@ -145,34 +145,32 @@ const PlayerCard = ({ player }) => {
           {player?.position || "-"}
         </span>
 
-        {/* Rating */}
+        {/* Score */}
         <div
-          className="absolute bottom-4 right-4 flex min-w-17.5 flex-col items-center rounded-xl px-3 py-2 backdrop-blur-md"
+          className="absolute bottom-4 right-4 flex items-center gap-2 rounded-lg px-3 py-2"
           style={{
-            background: "rgba(7,17,31,0.85)",
-            border: "1px solid rgba(255,255,255,0.12)",
+            background: "rgba(7,17,31,0.88)",
+            border: "1px solid rgba(212,175,55,0.18)",
+            boxShadow: "0 4px 16px rgba(0,0,0,0.18)",
           }}
         >
-          <div
-            className="flex items-center gap-1"
-            style={{
-              color: "var(--color-secondary)",
-            }}
-          >
-            <Star size={15} fill="currentColor" />
+          <Star
+            size={16}
+            className="text-secondary"
+            fill="currentColor"
+            strokeWidth={2}
+          />
 
-            <span className="text-xl font-extrabold leading-none">
-              {stats.playerRating ?? 0}
-            </span>
-          </div>
+          <span className="text-lg font-bold leading-none text-secondary">
+            {Number.isFinite(stats.playerScore / stats.appearances)
+              ? (stats.playerScore / stats.appearances).toFixed(1)
+              : "0.00"}
+          </span>
 
-          <span
-            className="mt-1 text-[9px] font-semibold uppercase tracking-widest"
-            style={{
-              color: "var(--color-text-muted)",
-            }}
-          >
-            Score
+          <div className="h-4 w-px bg-accent" />
+
+          <span className="text-xs font-semibold text-white/60">
+            {stats.playerScore ?? 0} pts
           </span>
         </div>
       </div>

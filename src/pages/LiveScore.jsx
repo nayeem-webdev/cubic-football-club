@@ -613,22 +613,6 @@ export default function LiveScore() {
       },
 
       matchEvents: selectedMatch.matchEvents || [],
-
-      homeStartingPlayers: selectedMatch.homeStartingPlayers.map(
-        (player) => player._id,
-      ),
-
-      homeSubstitutes: selectedMatch.homeSubstitutes.map(
-        (player) => player._id,
-      ),
-
-      awayStartingPlayers: selectedMatch.awayStartingPlayers.map(
-        (player) => player._id,
-      ),
-
-      awaySubstitutes: selectedMatch.awaySubstitutes.map(
-        (player) => player._id,
-      ),
     };
 
     try {
