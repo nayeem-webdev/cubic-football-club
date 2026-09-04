@@ -1,3 +1,4 @@
+
 const PlayerRow = ({ player, side, substitute = false }) => {
   const isHome = side === "home";
 
@@ -62,9 +63,9 @@ export const Lineup = ({ match }) => {
   const awaySubs = matchObj?.awaySubstitutes || [];
 
   return (
-    <div className="mt-6 px-4 sm:px-5">
+    <div className="mt-4 px-4">
       {/* STARTING PLAYERS */}
-      <div className="mb-3 flex items-center justify-center">
+      <div className="mb-4 flex items-center justify-center">
         <span className="rounded-full bg-[#07111F] px-3 py-1 text-[9px] font-bold uppercase tracking-[0.15em] text-[#B8C2D1]/50">
           Starting Players
         </span>
@@ -88,7 +89,7 @@ export const Lineup = ({ match }) => {
 
       {/* SUBSTITUTES */}
       {(homeSubs.length > 0 || awaySubs.length > 0) && (
-        <div className="mt-6 border-t border-[#28466B] pt-4">
+        <div className="mt-4 border-t border-[#28466B] pt-4">
           <div className="mb-3 flex items-center justify-center">
             <span className="rounded-full bg-[#07111F] px-3 py-1 text-[9px] font-bold uppercase tracking-[0.15em] text-[#B8C2D1]/40">
               Substitutes

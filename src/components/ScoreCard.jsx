@@ -212,47 +212,6 @@ const ScoreCard = ({ match }) => {
               </div>
             </div>
 
-            {/* TEAM HEADER */}
-            <div className="grid grid-cols-2 border-b border-[#28466B]">
-              <div className="flex items-center gap-2.5 border-r border-[#28466B] px-4 py-3">
-                <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full">
-                  <img
-                    src={match.homeTeam?.logoLow}
-                    alt={match.homeTeam?.name}
-                    className="h-full w-full object-contain"
-                  />
-                </div>
-
-                <div className="min-w-0">
-                  <p className="text-[9px] font-bold uppercase tracking-[0.15em] text-[#49C85A]">
-                    HOME
-                  </p>
-                  <p className="truncate text-xs font-semibold text-[#F8FAFC] sm:text-sm">
-                    {match.homeTeam?.name}
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex items-center justify-end gap-2.5 px-4 py-3 text-right">
-                <div className="min-w-0">
-                  <p className="text-[9px] font-bold uppercase tracking-[0.15em] text-[#49C85A]">
-                    AWAY
-                  </p>
-                  <p className="truncate text-xs font-semibold text-[#F8FAFC] sm:text-sm">
-                    {match.awayTeam?.name}
-                  </p>
-                </div>
-
-                <div className="flex h-9 w-9 shrink-0 items-center justify-center">
-                  <img
-                    src={match.awayTeam?.logoLow}
-                    alt={match.awayTeam?.name}
-                    className="h-full w-full object-contain"
-                  />
-                </div>
-              </div>
-            </div>
-
             {/* TAB CONTENT */}
             {activeTab === "summary" && <Summary matchData={match} />}
             {activeTab === "timeline" && <Timeline matchData={match} />}

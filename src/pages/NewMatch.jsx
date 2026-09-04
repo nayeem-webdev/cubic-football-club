@@ -316,7 +316,7 @@ const NewMatch = () => {
             <div className="grid grid-cols-2 gap-6">
               {/* Match Format Information */}
               {selectedSchedule?.matchFormat && (
-                <div className="rounded-lg border border-[#28466B] bg-[#152640] px-4 py-3 text-center">
+                <div className="rounded-lg border border-[#28466B] bg-card px-4 py-3 text-center">
                   <span className="text-sm text-[#B8C2D1]">Match Format</span>
 
                   <div className="text-lg font-bold text-secondary">
@@ -326,7 +326,7 @@ const NewMatch = () => {
                 </div>
               )}
               {selectedSchedule?.matchType && (
-                <div className="rounded-lg border border-[#28466B] bg-[#152640] px-4 py-3 text-center">
+                <div className="rounded-lg border border-[#28466B] bg-card px-4 py-3 text-center">
                   <span className="text-sm text-[#B8C2D1]">Match Type</span>
 
                   <div className="text-lg font-bold text-secondary">

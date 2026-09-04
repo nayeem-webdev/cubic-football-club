@@ -366,14 +366,62 @@ export default function LiveScore() {
   //   TD Load Timer form LS or Start a New Timer
   useEffect(() => {
     if (!selectedMatch?.timer.running) return;
-    // if (selectedMatch.timer.finished) return;
+    if (selectedMatch?.timer.finished) return;
 
     const interval = setInterval(() => {
-      setCurrentTime(Date.now());
+      const now = Date.now();
+
+      setCurrentTime(now);
+
+      setSelectedMatch((previous) => {
+        if (!previous || !previous.timer.running) {
+          return previous;
+        }
+
+        const startedAt = previous.timer.startedAt;
+
+        if (!startedAt) {
+          return previous;
+        }
+
+        const matchTime = Number(previous.matchTime);
+        const normalTime = matchTime * 60;
+        const maximumTime = normalTime + 15 * 60;
+
+        const passedSeconds = Math.floor((now - startedAt) / 1000);
+
+        const actualElapsed = previous.timer.elapsed + passedSeconds;
+
+        // Match finished
+        if (actualElapsed >= maximumTime) {
+          return {
+            ...previous,
+            timer: {
+              ...previous.timer,
+              elapsed: maximumTime,
+              running: false,
+              extraTime: true,
+              finished: true,
+              startedAt: null,
+            },
+          };
+        }
+
+        // Extra time
+        const extraTime = actualElapsed >= normalTime;
+
+        return {
+          ...previous,
+          timer: {
+            ...previous.timer,
+            extraTime,
+          },
+        };
+      });
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [selectedMatch?.timer.running]);
+  }, [selectedMatch?.timer.running, selectedMatch?.timer.finished]);
 
   //   TD Calculate actual current elapsed
   const currentElapsed = (() => {
@@ -465,7 +513,15 @@ export default function LiveScore() {
     setCurrentTime(now);
 
     setSelectedMatch((previous) => {
-      if (!previous || previous.timer.finished) return previous;
+      if (!previous) return previous;
+
+      if (previous.timer.finished) {
+        return previous;
+      }
+
+      if (previous.timer.running) {
+        return previous;
+      }
 
       return {
         ...previous,
@@ -480,15 +536,23 @@ export default function LiveScore() {
 
   //   TD Timer Pause Func
   const pauseTimer = () => {
+    const now = Date.now();
+
     setSelectedMatch((previous) => {
-      if (!previous || previous.timer.finished) return previous;
+      if (!previous) return previous;
+
+      if (previous.timer.finished) {
+        return previous;
+      }
+
+      if (!previous.timer.running) {
+        return previous;
+      }
 
       let actualElapsed = previous.timer.elapsed;
 
       if (previous.timer.startedAt) {
-        actualElapsed += Math.floor(
-          (Date.now() - previous.timer.startedAt) / 1000,
-        );
+        actualElapsed += Math.floor((now - previous.timer.startedAt) / 1000);
       }
 
       return {
@@ -596,7 +660,7 @@ export default function LiveScore() {
   // TD Save Score in DB
   const saveMatch = async () => {
     if (!selectedMatch || !selectedMatch.timer.finished) return;
-
+    setPageLoading(true);
     const payload = {
       match: selectedMatch._id,
 
@@ -637,6 +701,7 @@ export default function LiveScore() {
       setSelectedMatch(null);
 
       console.log("Match saved:", data);
+      setPageLoading(false);
     } catch (error) {
       console.error("Failed to save match:", error);
       alert("Failed to save match. Please try again.");
@@ -782,22 +847,28 @@ export default function LiveScore() {
               <div className="mt-4 flex flex-wrap justify-center gap-2">
                 {!selectedMatch.timer.finished && (
                   <>
-                    {!selectedMatch.timer.running ? (
-                      <button
-                        onClick={startTimer}
-                        className="rounded-lg bg-[#0E5FD8] px-5 py-2 text-xs font-bold transition hover:bg-[#3A82FF] hover:shadow-lg hover:shadow-[#0E5FD8]/20"
-                      >
-                        {selectedMatch.timer.elapsed === 0
-                          ? "▶ Start"
-                          : "▶ Resume"}
-                      </button>
-                    ) : (
-                      <button
-                        onClick={pauseTimer}
-                        className="rounded-lg border border-[#D4AF37]/30 bg-[#D4AF37]/10 px-5 py-2 text-xs font-bold text-[#D4AF37] transition hover:bg-[#D4AF37]/20"
-                      >
-                        ⏸ Pause
-                      </button>
+                    {!selectedMatch.timer.finished && (
+                      <>
+                        {!selectedMatch.timer.running ? (
+                          <button
+                            type="button"
+                            onClick={startTimer}
+                            className="rounded-lg bg-[#0E5FD8] px-5 py-2 text-xs font-bold transition hover:bg-[#3A82FF] hover:shadow-lg hover:shadow-[#0E5FD8]/20"
+                          >
+                            {selectedMatch.timer.elapsed === 0
+                              ? "▶ Start"
+                              : "▶ Resume"}
+                          </button>
+                        ) : (
+                          <button
+                            type="button"
+                            onClick={pauseTimer}
+                            className="rounded-lg border border-[#D4AF37]/30 bg-[#D4AF37]/10 px-5 py-2 text-xs font-bold text-[#D4AF37] transition hover:bg-[#D4AF37]/20"
+                          >
+                            ⏸ Pause
+                          </button>
+                        )}
+                      </>
                     )}
 
                     <button
@@ -890,7 +961,9 @@ export default function LiveScore() {
               {/* GOAL */}
               <button
                 onClick={openGoalModal}
-                disabled={selectedMatch.timer.finished}
+                disabled={
+                  !selectedMatch.timer.running || selectedMatch.timer.finished
+                }
                 className="group flex flex-col items-center justify-center rounded-xl border border-[#0E5FD8]/30 bg-[#0E5FD8]/10 px-2 py-3 text-white transition hover:-translate-y-0.5 hover:bg-[#0E5FD8]/20 hover:shadow-lg hover:shadow-[#0E5FD8]/10 disabled:cursor-not-allowed disabled:opacity-40 sm:py-4"
               >
                 <span className="text-xl sm:text-2xl">⚽</span>
@@ -903,7 +976,9 @@ export default function LiveScore() {
               {/* PENALTY */}
               <button
                 onClick={openPenaltyModal}
-                disabled={selectedMatch.timer.finished}
+                disabled={
+                  !selectedMatch.timer.running || selectedMatch.timer.finished
+                }
                 className="group flex flex-col items-center justify-center rounded-xl border border-[#0E5FD8]/30 bg-[#0E5FD8]/10 px-2 py-3 text-white transition hover:-translate-y-0.5 hover:bg-[#0E5FD8]/20 hover:shadow-lg hover:shadow-[#0E5FD8]/10 disabled:cursor-not-allowed disabled:opacity-40 sm:py-4"
               >
                 <span className="text-xl sm:text-2xl">🥅</span>
@@ -916,7 +991,9 @@ export default function LiveScore() {
               {/* OWN GOAL */}
               <button
                 onClick={openOwnGoalModal}
-                disabled={selectedMatch.timer.finished}
+                disabled={
+                  !selectedMatch.timer.running || selectedMatch.timer.finished
+                }
                 className="group flex flex-col items-center justify-center rounded-xl border border-[#0E5FD8]/30 bg-[#0E5FD8]/10 px-2 py-3 text-white transition hover:-translate-y-0.5 hover:bg-[#0E5FD8]/20 hover:shadow-lg hover:shadow-[#0E5FD8]/10 disabled:cursor-not-allowed disabled:opacity-40 sm:py-4"
               >
                 <span className="text-xl sm:text-2xl">🏐</span>
@@ -929,7 +1006,9 @@ export default function LiveScore() {
               {/* YELLOW CARD */}
               <button
                 onClick={openCardModal}
-                disabled={selectedMatch.timer.finished}
+                disabled={
+                  !selectedMatch.timer.running || selectedMatch.timer.finished
+                }
                 className="group flex flex-col items-center justify-center rounded-xl border border-[#0E5FD8]/30 bg-[#0E5FD8]/10 px-2 py-3 text-white transition hover:-translate-y-0.5 hover:bg-[#0E5FD8]/20 hover:shadow-lg hover:shadow-[#0E5FD8]/10 disabled:cursor-not-allowed disabled:opacity-40 sm:py-4"
               >
                 <span className="text-xl sm:text-2xl">📕</span>
@@ -942,7 +1021,9 @@ export default function LiveScore() {
               {/* SUBSTITUTION */}
               <button
                 onClick={openSubsModal}
-                disabled={selectedMatch.timer.finished}
+                disabled={
+                  !selectedMatch.timer.running || selectedMatch.timer.finished
+                }
                 className="group flex flex-col items-center justify-center rounded-xl border border-[#0E5FD8]/30 bg-[#0E5FD8]/10 px-2 py-3 text-white transition hover:-translate-y-0.5 hover:bg-[#0E5FD8]/20 hover:shadow-lg hover:shadow-[#0E5FD8]/10 disabled:cursor-not-allowed disabled:opacity-40 sm:py-4"
               >
                 <span className="text-xl transition-transform duration-300 group-hover:rotate-180 sm:text-2xl">

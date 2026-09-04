@@ -88,6 +88,7 @@ export default function Summary({ matchData }) {
         homeCards: homeCardsList,
         awayCards: awayCardsList,
       };
+      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [matchData]);
 
   if (!matchEvents || matchEvents.length === 0) {
@@ -104,7 +105,7 @@ export default function Summary({ matchData }) {
   const hasCards = homeCards.length > 0 || awayCards.length > 0;
 
   return (
-    <div className="px-4 pt-4">
+    <div className="mt-4 px-4">
       {/* --- GOALS TIMELINE --- */}
       <div className="grid grid-cols-[1fr_auto_1fr] items-start gap-4">
         {/* LEFT SIDE (HOME TEAM - LEFT ALIGNED) */}
@@ -160,7 +161,7 @@ export default function Summary({ matchData }) {
       {/* --- CARDS SECTION --- */}
       {hasCards && (
         <div className="mt-6 border-t border-gray-700/60 pt-4">
-          <h4 className="mb-3 text-center font-normal font-semibold uppercase tracking-wider text-gray-400">
+          <h4 className="mb-3 text-center font-semibold uppercase tracking-wider text-gray-400">
             Cards
           </h4>
 

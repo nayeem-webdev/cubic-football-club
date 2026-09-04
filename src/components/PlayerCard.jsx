@@ -164,7 +164,7 @@ const PlayerCard = ({ player }) => {
           <span className="text-lg font-bold leading-none text-secondary">
             {Number.isFinite(stats.playerScore / stats.appearances)
               ? (stats.playerScore / stats.appearances).toFixed(1)
-              : "0.00"}
+              : "0.0"}
           </span>
 
           <div className="h-4 w-px bg-accent" />

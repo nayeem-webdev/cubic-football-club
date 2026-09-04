@@ -78,7 +78,7 @@ const MatchTimeline = ({ selectedMatch }) => {
             // =========================================
 
             const player = playerMap[event.scorer] || playerMap[event.player];
-
+            const assister = playerMap[event.assister];
             const playerOut = playerMap[event.playerOut];
             const playerIn = playerMap[event.playerIn];
 
@@ -155,6 +155,12 @@ const MatchTimeline = ({ selectedMatch }) => {
                           {description}
                         </p>
 
+                        {event.type === "goal" && assister && (
+                          <p className="text-[9px] text-[#49C85A]">
+                            👟 {assister.name}
+                          </p>
+                        )}
+
                         <p className="text-[9px] uppercase tracking-wider text-[#B8C2D1]/40">
                           {title}
                         </p>
@@ -194,6 +200,12 @@ const MatchTimeline = ({ selectedMatch }) => {
                         <p className="text-xs font-semibold text-[#F8FAFC]">
                           {description}
                         </p>
+
+                        {event.type === "goal" && assister && (
+                          <p className="text-[9px] text-[#49C85A]">
+                            👟 {assister.name}
+                          </p>
+                        )}
 
                         <p className="text-[9px] uppercase tracking-wider text-[#B8C2D1]/40">
                           {title}

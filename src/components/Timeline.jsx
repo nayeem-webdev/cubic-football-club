@@ -5,14 +5,22 @@ export const Timeline = ({
   matchData = {},
   emptyText = "No match events",
 }) => {
-  // Safe resolution of root object properties (matching working component logic)
+  // =========================================
+  // MATCH DATA
+  // =========================================
+
   const matchObj = matchData?.match ? matchData.match : matchData;
+
   const matchEvents =
     events || matchData?.matchEvents || matchObj?.matchEvents || [];
 
-  // Map player IDs to player objects for fast lookup
+  // =========================================
+  // PLAYER MAP
+  // =========================================
+
   const playerMap = useMemo(() => {
     const map = new Map();
+
     const allPlayers = [
       ...(matchObj?.homeStartingPlayers || []),
       ...(matchObj?.homeSubstitutes || []),
@@ -21,7 +29,7 @@ export const Timeline = ({
     ];
 
     allPlayers.forEach((player) => {
-      if (player && player._id) {
+      if (player?._id) {
         map.set(player._id, player);
       }
     });
@@ -29,140 +37,227 @@ export const Timeline = ({
     return map;
   }, [matchObj]);
 
-  // Convert time in seconds to match minutes (e.g., 360s -> "6'")
+  // =========================================
+  // FORMAT TIME
+  // =========================================
+
   const formatTime = (timeInSeconds) => {
-    if (typeof timeInSeconds !== "number") return "0'";
-    const minutes = Math.ceil(timeInSeconds / 60);
-    return `${minutes}'`;
+    if (typeof timeInSeconds !== "number") return "00:00";
+
+    const minutes = Math.floor(timeInSeconds / 60);
+    const seconds = timeInSeconds % 60;
+
+    return `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(
+      2,
+      "0",
+    )}`;
   };
 
-  // Render event icon according to type
+  // =========================================
+  // EVENT ICON
+  // =========================================
+
   const renderEventIcon = (event) => {
     switch (event.type) {
       case "goal":
         return "⚽";
+
       case "yellow_card":
       case "card":
         return event.cardType === "red" ? "🟥" : "🟨";
+
       case "red_card":
         return "🟥";
+
       case "substitution":
         return "🔄";
+
+      case "penalty":
+        return "🥅";
+
+      case "ownGoal":
+        return "↩";
+
       default:
         return "📌";
     }
   };
 
-  // Get display text for event (resolving scorer and assister names)
-  const getEventText = (event) => {
+  // =========================================
+  // EVENT INFORMATION
+  // =========================================
+
+  const getEventInfo = (event) => {
+    // GOAL
     if (event.type === "goal") {
       const scorerId = event.scorer || event.player;
+
       const scorer = playerMap.get(scorerId)?.name || "Unknown Scorer";
+
       const assister = event.assister
         ? playerMap.get(event.assister)?.name
         : null;
 
-      return (
-        <div>
-          <p className="text-sm font-semibold">{scorer}</p>
-          {assister && (
-            <p
-              className="text-[10px]"
-              style={{ color: "var(--color-text-muted, #9ca3af)" }}
-            >
-              👟 {assister}
-            </p>
-          )}
-        </div>
-      );
+      return {
+        player: scorer,
+        assister,
+        title: "GOAL",
+      };
     }
 
+    // SUBSTITUTION
+    if (event.type === "substitution") {
+      const playerOut = playerMap.get(event.playerOut)?.name || "Unknown";
+
+      const playerIn = playerMap.get(event.playerIn)?.name || "Unknown";
+
+      return {
+        player: `${playerOut} → ${playerIn}`,
+        assister: null,
+        title: "SUBSTITUTION",
+      };
+    }
+
+    // OTHER EVENTS
     const playerId = event.player || event.scorer;
+
     const player = playerMap.get(playerId)?.name || "Unknown Player";
-    return <p className="text-sm font-semibold">{player}</p>;
+
+    let title = "EVENT";
+
+    if (
+      event.type === "yellow_card" ||
+      (event.type === "card" && event.cardType !== "red")
+    ) {
+      title = "YELLOW CARD";
+    }
+
+    if (
+      event.type === "red_card" ||
+      (event.type === "card" && event.cardType === "red")
+    ) {
+      title = "RED CARD";
+    }
+
+    if (event.type === "penalty") {
+      title = "PENALTY";
+    }
+
+    if (event.type === "ownGoal") {
+      title = "OWN GOAL";
+    }
+
+    return {
+      player,
+      assister: null,
+      title,
+    };
   };
+
+  // =========================================
+  // EMPTY STATE
+  // =========================================
 
   if (!matchEvents || matchEvents.length === 0) {
     return (
-      <p
-        className="py-6 text-center text-sm"
-        style={{ color: "var(--color-text-muted, #6b7280)" }}
-      >
-        {emptyText}
-      </p>
+      <p className="py-6 text-center text-sm text-[#B8C2D1]/50">{emptyText}</p>
     );
   }
 
-  return (
-    <div className="relative mt-4">
-      {/* CENTER LINE */}
-      <div
-        className="absolute bottom-0 left-1/2 top-0 w-px -translate-x-1/2"
-        style={{ background: "var(--color-border, #374151)" }}
-      />
+  // =========================================
+  // TIMELINE
+  // =========================================
 
-      <div className="space-y-3">
+  return (
+    <div className="relative py-2 px-4">
+      {/* CENTER VERTICAL LINE */}
+      <div className="absolute bottom-0 top-0 left-1/2 w-px -translate-x-1/2 bg-[#28466B]" />
+
+      {/* EVENTS CONTAINER */}
+      <div>
         {matchEvents.map((event, idx) => {
           const isHome = event.team === "home";
+
+          const { player, assister, title } = getEventInfo(event);
+          const eventTime = formatTime(event.time);
 
           return (
             <div
               key={event.id || idx}
-              className="grid grid-cols-[1fr_auto_1fr] items-center gap-3"
+              className="relative grid grid-cols-2 gap-x-8 items-center min-h-12"
             >
-              {/* HOME SIDE */}
-              <div
-                className={
-                  isHome ? "flex items-center justify-end gap-2 text-right" : ""
-                }
-              >
-                {isHome && (
-                  <>
-                    <div>
-                      {getEventText(event)}
-                      <p
-                        className="mt-0.5 text-[10px]"
-                        style={{ color: "var(--color-text-muted, #9ca3af)" }}
-                      >
-                        {matchObj?.homeTeam?.shortForm}
-                      </p>
-                    </div>
-
-                    <span className="text-sm">{renderEventIcon(event)}</span>
-                  </>
-                )}
+              {/* GREEN CENTER DOT */}
+              <div className="absolute left-1/2 top-1/2 z-10 -translate-x-1/2 -translate-y-1/2">
+                <div className="h-2 w-2 rounded-full border-2 border-accent bg-[#0E1D34]" />
               </div>
 
-              {/* CENTER TIME */}
-              <div
-                className="relative z-10 flex h-6 w-6 items-center justify-center rounded-full text-[10px] font-bold shadow-sm"
-                style={{
-                  background: "var(--color-surface, #1f2937)",
-                  border: "1px solid var(--color-border, #374151)",
-                  color: "var(--color-secondary, #f3f4f6)",
-                }}
-              >
-                {formatTime(event.time)}
-              </div>
+              {/* HOME SIDE (LEFT COLUMN) */}
+              {isHome ? (
+                <div className="col-start-1 flex items-center justify-end gap-3 text-right pr-2">
+                  {/* PLAYER & EVENT DETAILS */}
+                  <div className="min-w-0">
+                    <p className="text-xs font-bold leading-4 text-[#F8FAFC]">
+                      {player}
+                    </p>
 
-              {/* AWAY SIDE */}
-              <div>
-                {!isHome && (
-                  <div className="flex items-center gap-2">
-                    <span className="text-sm">{renderEventIcon(event)}</span>
-
-                    <div>
-                      {getEventText(event)}
-                      <p
-                        className="mt-0.5 text-[10px]"
-                        style={{ color: "var(--color-text-muted, #9ca3af)" }}
-                      >
-                        {matchObj?.awayTeam?.shortForm}
+                    {assister && (
+                      <p className="text-[10px] font-medium leading-3.5 text-secondary">
+                        👟 {assister}
                       </p>
-                    </div>
+                    )}
+
+                    <p className="text-[9px] font-medium uppercase leading-3 tracking-wider text-[#6F86A3]">
+                      {title}
+                    </p>
                   </div>
-                )}
-              </div>
+
+                  {/* ICON */}
+                  <span className="shrink-0 text-sm leading-none">
+                    {renderEventIcon(event)}
+                  </span>
+
+                  {/* TIME */}
+                  <span className="shrink-0 text-[11px] font-bold tabular-nums text-[#F8FAFC]">
+                    {eventTime}
+                  </span>
+                </div>
+              ) : (
+                <div className="col-start-1" />
+              )}
+
+              {/* AWAY SIDE (RIGHT COLUMN) */}
+              {!isHome ? (
+                <div className="col-start-2 flex items-center justify-start gap-3 text-left pl-2">
+                  {/* TIME */}
+                  <span className="shrink-0 text-[11px] font-bold tabular-nums text-[#F8FAFC]">
+                    {eventTime}
+                  </span>
+
+                  {/* ICON */}
+                  <span className="shrink-0 text-sm leading-none">
+                    {renderEventIcon(event)}
+                  </span>
+
+                  {/* PLAYER & EVENT DETAILS */}
+                  <div className="min-w-0">
+                    <p className="text-xs font-bold leading-4 text-[#F8FAFC]">
+                      {player}
+                    </p>
+
+                    {assister && (
+                      <p className="text-[10px] font-medium leading-3.5 text-secondary">
+                        👟 {assister}
+                      </p>
+                    )}
+
+                    <p className="text-[9px] font-medium uppercase leading-3 tracking-wider text-[#6F86A3]">
+                      {title}
+                    </p>
+                  </div>
+                </div>
+              ) : (
+                <div className="col-start-2" />
+              )}
             </div>
           );
         })}
