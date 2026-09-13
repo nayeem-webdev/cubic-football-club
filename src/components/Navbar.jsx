@@ -5,7 +5,7 @@ const navItems = [
   { icon: CalendarDays, href: "/schedule", label: "Schedule" },
   { icon: Trophy, href: "/matches", label: "Matches" },
   { icon: Users, href: "/players", label: "Players" },
-  { icon: Shield, href: "#teams", label: "Teams" },
+  { icon: Shield, href: "/teams", label: "Teams" },
 ];
 
 export default function FloatingNavbar() {

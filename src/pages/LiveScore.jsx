@@ -660,7 +660,9 @@ export default function LiveScore() {
   // TD Save Score in DB
   const saveMatch = async () => {
     if (!selectedMatch || !selectedMatch.timer.finished) return;
+
     setPageLoading(true);
+
     const payload = {
       match: selectedMatch._id,
 
@@ -690,21 +692,34 @@ export default function LiveScore() {
 
       const data = await response.json();
 
+      // 🚫 Match score already registered
+      if (response.status === 409) {
+        alert(
+          "This match has already been registered.\n\nThe score was not saved again.",
+        );
+
+        // Keep the live match in localStorage
+        // so we DON'T lose the local data
+        return;
+      }
+
+      // Other server errors
       if (!response.ok) {
         throw new Error(data.message || "Failed to save match");
       }
 
-      // Remove live match from localStorage
+      // ✅ Successfully saved
       localStorage.removeItem(`liveMatch_${selectedMatch._id}`);
 
-      // Return to match selection
       setSelectedMatch(null);
 
       console.log("Match saved:", data);
-      setPageLoading(false);
     } catch (error) {
       console.error("Failed to save match:", error);
-      alert("Failed to save match. Please try again.");
+
+      alert(error.message || "Failed to save match. Please try again.");
+    } finally {
+      setPageLoading(false);
     }
   };
 

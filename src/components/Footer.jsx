@@ -1,11 +1,12 @@
 import logo from "/assets/cubic-fc-logo.png";
 
 const navLinks = [
-  { name: "Home", href: "#home" },
-  { name: "Schedule", href: "#schedule" },
-  { name: "Matches", href: "#matches" },
-  { name: "Players", href: "#players" },
-  { name: "Teams", href: "#teams" },
+  { name: "Home", href: "home" },
+  { name: "Schedule", href: "schedule" },
+  { name: "Matches", href: "matches" },
+  { name: "Players", href: "players" },
+  { name: "Teams", href: "teams" },
+  { name: "Admin", href: "admin" },
 ];
 
 const Footer = () => {

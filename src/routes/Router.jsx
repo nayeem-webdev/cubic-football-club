@@ -14,6 +14,9 @@ import UpdatePlayer from "../pages/UpdatePlayer";
 import Admin from "../pages/Admin";
 import AdminLogin from "../pages/AdminLogin";
 import AdminProtectedRoute from "../components/AdminProtectedRoute";
+import Teams from "../pages/Teams";
+import UpcomingMatches from "../pages/UpcomingMatches";
+import MatchDetails from "../pages/MatchDetails";
 
 const router = createBrowserRouter([
   {
@@ -36,6 +39,18 @@ const router = createBrowserRouter([
       {
         path: "/matches",
         element: <Matches />,
+      },
+      {
+        path: "/teams",
+        element: <Teams />,
+      },
+      {
+        path: "/upcoming-matches",
+        element: <UpcomingMatches />,
+      },
+      {
+        path: "/upcoming-matches/:id",
+        element: <MatchDetails />,
       },
       {
         path: "/login",

@@ -38,13 +38,18 @@ export default function Summary({ matchData }) {
           event.type === "red_card" ||
           event.type === "card"
         ) {
+          const isRedCard =
+            event.card === "red" ||
+            event.cardType === "red" ||
+            event.type === "red_card";
+
           const cardData = {
             id: event.id,
             team: event.team,
             type: event.type,
-            cardType:
-              event.cardType || (event.type === "red_card" ? "red" : "yellow"),
-            player: getPlayerName(event.player || event.scorer),
+            cardType: isRedCard ? "red" : "yellow",
+            player:
+              getPlayerName(event.player || event.scorer) || "Unknown Player",
             minute: formatTime(event.time),
           };
 
@@ -105,14 +110,17 @@ export default function Summary({ matchData }) {
   const hasCards = homeCards.length > 0 || awayCards.length > 0;
 
   return (
-    <div className="mt-4 px-4">
+    <div className="mt-4">
       {/* --- GOALS TIMELINE --- */}
-      <div className="grid grid-cols-[1fr_auto_1fr] items-start gap-4">
-        {/* LEFT SIDE (HOME TEAM - LEFT ALIGNED) */}
+      <div className="grid grid-cols-[1fr_auto_1fr] items-start gap-2">
+        {/* LEFT SIDE (HOME GOALS - LEFT ALIGNED) */}
         <div className="space-y-2 text-left">
           {homeGoalsGrouped.map((item, idx) => (
-            <div key={idx} className="flex flex-col items-start">
-              <p className="text-sm font-semibold">
+            <div
+              key={idx}
+              className="flex flex-col items-start text-[10px] lg:text-sm"
+            >
+              <p className="font-semibold">
                 ⚽ {item.scorer}{" "}
                 <span className="font-normal text-gray-300">
                   {item.times.join(", ")}
@@ -121,7 +129,7 @@ export default function Summary({ matchData }) {
               {item.assists.map((ast, aIdx) => (
                 <p
                   key={aIdx}
-                  className="mt-0.5 flex items-center justify-start gap-1 text-sm text-gray-400"
+                  className="mt-0.5 flex items-center justify-start gap-1 text-gray-400"
                 >
                   👟 {ast.assister} ({ast.time})
                 </p>
@@ -132,14 +140,17 @@ export default function Summary({ matchData }) {
 
         {/* CENTER BALL ICON */}
         <div className="flex items-center justify-center h-full">
-          <span className="text-lg">⚽</span>
+          <span className="text-[10px] lg:text-sm">⚽</span>
         </div>
 
-        {/* RIGHT SIDE (AWAY TEAM - RIGHT ALIGNED) */}
-        <div className="space-y-1 text-right">
+        {/* RIGHT SIDE (AWAY GOALS - RIGHT ALIGNED) */}
+        <div className="space-y-2 text-right">
           {awayGoalsGrouped.map((item, idx) => (
-            <div key={idx} className="flex flex-col items-end">
-              <p className="text-sm font-semibold">
+            <div
+              key={idx}
+              className="flex flex-col items-end text-[10px] lg:text-sm"
+            >
+              <p className="font-semibold">
                 {item.scorer}{" "}
                 <span className="font-normal text-gray-300">
                   {item.times.join(", ")} ⚽
@@ -148,7 +159,7 @@ export default function Summary({ matchData }) {
               {item.assists.map((ast, aIdx) => (
                 <p
                   key={aIdx}
-                  className="mt-0.5 flex items-center justify-end gap-1 text-sm text-gray-400"
+                  className="mt-0.5 flex items-center justify-end gap-1 text-gray-400"
                 >
                   {ast.assister} ({ast.time}) 👟
                 </p>
@@ -161,47 +172,50 @@ export default function Summary({ matchData }) {
       {/* --- CARDS SECTION --- */}
       {hasCards && (
         <div className="mt-6 border-t border-gray-700/60 pt-4">
-          <h4 className="mb-3 text-center font-semibold uppercase tracking-wider text-gray-400">
-            Cards
-          </h4>
-
-          <div className="grid grid-cols-2 gap-4">
-            {/* HOME CARDS (LEFT ALIGNED) */}
-            <div className="flex flex-wrap items-center justify-start gap-2">
+          <div className="grid grid-cols-[1fr_auto_1fr] items-start gap-2">
+            {/* LEFT SIDE (HOME CARDS - LEFT ALIGNED) */}
+            <div className="space-y-2 text-left">
               {homeCards.map((card) => {
-                const isRed =
-                  card.cardType === "red" || card.type === "red_card";
+                const isRed = card.cardType === "red";
                 return (
                   <div
                     key={card.id}
-                    className="flex items-center gap-2 rounded bg-white/5 px-2.5 py-1 font-normal text-gray-200"
+                    className="flex items-center justify-start gap-1.5 text-[10px] lg:text-sm font-semibold"
                   >
                     <span
-                      className={`inline-block h-3.5 w-2.5 rounded-sm ${
+                      className={`inline-block h-3.5 w-2.5 shrink-0 rounded-xs ${
                         isRed ? "bg-red-500" : "bg-yellow-400"
                       }`}
                     />
-                    <span className="font-medium">{card.player}</span>
-                    <span className="text-gray-400">({card.minute})</span>
+                    <span>{card.player}</span>
+                    <span className="font-normal text-gray-300">
+                      {card.minute}
+                    </span>
                   </div>
                 );
               })}
             </div>
 
-            {/* AWAY CARDS (RIGHT ALIGNED) */}
-            <div className="flex flex-wrap items-center justify-end gap-2">
+            {/* CENTER CARD ICON */}
+            <div className="flex items-center justify-center h-full">
+              <span className="text-[10px] lg:text-sm">🟨</span>
+            </div>
+
+            {/* RIGHT SIDE (AWAY CARDS - RIGHT ALIGNED) */}
+            <div className="space-y-2 text-right">
               {awayCards.map((card) => {
-                const isRed =
-                  card.cardType === "red" || card.type === "red_card";
+                const isRed = card.cardType === "red";
                 return (
                   <div
                     key={card.id}
-                    className="flex items-center gap-2 rounded bg-white/5 px-2.5 py-1 font-normal text-gray-200"
+                    className="flex items-center justify-end gap-1.5 text-[10px] lg:text-sm font-semibold"
                   >
-                    <span className="text-gray-400">({card.minute})</span>
-                    <span className="font-medium">{card.player}</span>
+                    <span className="font-normal text-gray-300">
+                      {card.minute}
+                    </span>
+                    <span>{card.player}</span>
                     <span
-                      className={`inline-block h-3.5 w-2.5 rounded-sm ${
+                      className={`inline-block h-3.5 w-2.5 shrink-0 rounded-xs ${
                         isRed ? "bg-red-500" : "bg-yellow-400"
                       }`}
                     />

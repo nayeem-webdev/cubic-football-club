@@ -38,6 +38,15 @@ export const Timeline = ({
   }, [matchObj]);
 
   // =========================================
+  // HELPER: CARD TYPE RESOLUTION
+  // =========================================
+
+  const isRedCard = (event) =>
+    event.card === "red" ||
+    event.cardType === "red" ||
+    event.type === "red_card";
+
+  // =========================================
   // FORMAT TIME
   // =========================================
 
@@ -64,10 +73,8 @@ export const Timeline = ({
 
       case "yellow_card":
       case "card":
-        return event.cardType === "red" ? "🟥" : "🟨";
-
       case "red_card":
-        return "🟥";
+        return isRedCard(event) ? "🟥" : "🟨";
 
       case "substitution":
         return "🔄";
@@ -118,7 +125,7 @@ export const Timeline = ({
       };
     }
 
-    // OTHER EVENTS
+    // OTHER EVENTS (CARDS, PENALTIES, OWN GOALS)
     const playerId = event.player || event.scorer;
 
     const player = playerMap.get(playerId)?.name || "Unknown Player";
@@ -127,23 +134,13 @@ export const Timeline = ({
 
     if (
       event.type === "yellow_card" ||
-      (event.type === "card" && event.cardType !== "red")
-    ) {
-      title = "YELLOW CARD";
-    }
-
-    if (
       event.type === "red_card" ||
-      (event.type === "card" && event.cardType === "red")
+      event.type === "card"
     ) {
-      title = "RED CARD";
-    }
-
-    if (event.type === "penalty") {
+      title = isRedCard(event) ? "RED CARD" : "YELLOW CARD";
+    } else if (event.type === "penalty") {
       title = "PENALTY";
-    }
-
-    if (event.type === "ownGoal") {
+    } else if (event.type === "ownGoal") {
       title = "OWN GOAL";
     }
 
@@ -169,9 +166,9 @@ export const Timeline = ({
   // =========================================
 
   return (
-    <div className="relative py-2 px-4">
+    <div className="relative px-4 py-2">
       {/* CENTER VERTICAL LINE */}
-      <div className="absolute bottom-0 top-0 left-1/2 w-px -translate-x-1/2 bg-[#28466B]" />
+      <div className="absolute bottom-0 left-1/2 top-0 w-px -translate-x-1/2 bg-[#28466B]" />
 
       {/* EVENTS CONTAINER */}
       <div>
@@ -184,16 +181,16 @@ export const Timeline = ({
           return (
             <div
               key={event.id || idx}
-              className="relative grid grid-cols-2 gap-x-8 items-center min-h-12"
+              className="relative grid min-h-12 grid-cols-2 items-center gap-x-8"
             >
-              {/* GREEN CENTER DOT */}
+              {/* CENTER DOT */}
               <div className="absolute left-1/2 top-1/2 z-10 -translate-x-1/2 -translate-y-1/2">
                 <div className="h-2 w-2 rounded-full border-2 border-accent bg-[#0E1D34]" />
               </div>
 
               {/* HOME SIDE (LEFT COLUMN) */}
               {isHome ? (
-                <div className="col-start-1 flex items-center justify-end gap-3 text-right pr-2">
+                <div className="col-start-1 flex items-center justify-end gap-3 pr-2 text-right">
                   {/* PLAYER & EVENT DETAILS */}
                   <div className="min-w-0">
                     <p className="text-xs font-bold leading-4 text-[#F8FAFC]">
@@ -201,7 +198,7 @@ export const Timeline = ({
                     </p>
 
                     {assister && (
-                      <p className="text-[10px] font-medium leading-3.5 text-secondary">
+                      <p className="text-secondary text-[10px] font-medium leading-3.5">
                         👟 {assister}
                       </p>
                     )}
@@ -227,7 +224,7 @@ export const Timeline = ({
 
               {/* AWAY SIDE (RIGHT COLUMN) */}
               {!isHome ? (
-                <div className="col-start-2 flex items-center justify-start gap-3 text-left pl-2">
+                <div className="col-start-2 flex items-center justify-start gap-3 pl-2 text-left">
                   {/* TIME */}
                   <span className="shrink-0 text-[11px] font-bold tabular-nums text-[#F8FAFC]">
                     {eventTime}
@@ -245,7 +242,7 @@ export const Timeline = ({
                     </p>
 
                     {assister && (
-                      <p className="text-[10px] font-medium leading-3.5 text-secondary">
+                      <p className="text-secondary text-[10px] font-medium leading-3.5">
                         👟 {assister}
                       </p>
                     )}
