@@ -4,7 +4,6 @@ import {
   Footprints,
   Calendar1Icon,
   Shield,
-  Hash,
   Share2,
   Star,
   SportShoe,
@@ -12,6 +11,9 @@ import {
   UserPlus2,
   Medal,
   ShieldMinus,
+  Shirt,
+  Crown,
+  LandPlot,
 } from "lucide-react";
 import { toPng } from "html-to-image";
 import { positionColors } from "../constants/positionColors";
@@ -53,7 +55,7 @@ const StatCard = ({ icon, label, value = 0, valueColor, children }) => (
   </div>
 );
 
-const PlayerCard = ({ player }) => {
+const PlayerCard = ({ player, index }) => {
   const cardRef = useRef(null);
 
   const stats = player?.stats || {};
@@ -204,46 +206,66 @@ const PlayerCard = ({ player }) => {
         {/* JERSEY NUMBER */}
         <div
           className="
-            absolute
-            left-4
-            top-4
-            flex
-            items-center
-            gap-1
-            rounded-full
-            bg-[#07111F]/80
-            px-3
-            py-1.5
-            text-sm
-            font-bold
-            backdrop-blur-sm
-          "
+      absolute
+      left-4
+      top-4
+      flex
+      items-center
+      gap-1.5
+      rounded-full
+      border
+      border-accent/30
+      bg-[#07111F]/85
+      px-3
+      py-1.5
+      text-sm
+      font-bold
+      text-accent
+      shadow-lg
+      backdrop-blur-md
+    "
         >
-          <Hash size={14} />
-          {player?.jerseyNumber ?? "-"}
+          <Shirt
+            size={16}
+            strokeWidth={2.2}
+            className="text-accent fill-accent"
+          />
+
+          <span className="leading-none">#{player?.jerseyNumber ?? "0"}</span>
         </div>
 
-        {/* POSITION */}
-        <span
-          className="
-            absolute
-            right-4
-            top-4
-            rounded-full
-            px-3.5
-            py-1.5
-            text-sm
-            font-bold
-            text-white
-            shadow-lg
-          "
-          style={{
-            background:
-              positionColors[player?.position] || "var(--color-primary)",
-          }}
-        >
-          {player?.position || "-"}
-        </span>
+        {/* RANKING */}
+        {index < 12 && (
+          <div
+            className="
+      absolute
+      right-4
+      top-4
+      flex
+      items-center
+      gap-1.5
+      rounded-full
+      border
+      border-secondary/30
+      bg-[#07111F]/85
+      px-3
+      py-1.5
+      text-sm
+      font-bold
+      text-secondary
+      shadow-lg
+      backdrop-blur-md
+    "
+          >
+            <Crown
+              size={16}
+              strokeWidth={2.2}
+              className="text-secondary fill-secondary"
+            />
+
+            <span className="leading-none">#{index + 1}</span>
+          </div>
+        )}
 
         {/* SCORE */}
         <div
@@ -287,9 +309,31 @@ const PlayerCard = ({ player }) => {
         {/* PLAYER INFO */}
         <div className="flex items-center justify-between gap-4">
           <div className="min-w-0 flex-1">
-            <h2 className="truncate text-xl font-bold">
-              {player?.name || "Unknown Player"}
-            </h2>
+            <div className="flex min-w-0 items-center gap-2">
+              <h2 className="min-w-0 truncate text-xl font-bold tracking-tight text-white">
+                {player?.name || "Unknown Player"}
+              </h2>
+
+              <span
+                className="
+      inline-flex shrink-0 items-center justify-center
+      rounded-md
+      border border-white/10
+      px-2 py-0.5
+      gap-1
+      text-[11px] font-extrabold uppercase tracking-wider
+      text-white
+      shadow-sm
+    "
+                style={{
+                  background:
+                    positionColors[player?.position] || "var(--color-primary)",
+                }}
+              >
+                <LandPlot size={14} /> {player?.position || "-"}
+              </span>
+            </div>
+
             <p
               className="mt-0.5 truncate text-xs font-medium"
               style={{ color: "var(--color-text-muted)" }}

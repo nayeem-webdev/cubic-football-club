@@ -278,8 +278,8 @@ export default function Players() {
           {/* Cards */}
           <div className="flex-1">
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-              {filteredPlayers.map((player) => (
-                <PlayerCard player={player} key={player._id} />
+              {filteredPlayers.map((player, index) => (
+                <PlayerCard player={player} index={index} key={player._id} />
               ))}
             </div>
           </div>

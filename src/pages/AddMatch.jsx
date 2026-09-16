@@ -2,7 +2,7 @@ import Loader from "../components/Loader";
 import { useEffect, useState } from "react";
 import PageHero from "../components/PageHero";
 
-const NewMatch = () => {
+const AddMatch = () => {
   const API_URL = import.meta.env.VITE_API_URL;
 
   const [players, setPlayers] = useState([]);
@@ -637,4 +637,4 @@ const NewMatch = () => {
   );
 };
 
-export default NewMatch;
+export default AddMatch;

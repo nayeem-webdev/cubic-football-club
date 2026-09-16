@@ -1,7 +1,7 @@
 export const positionColors = {
-  GK: "#A57C2C",
-  DF: "#719260",
-  MF: "#508885",
-  FW: "#A35339",
-  ST: "#DB6343",
+  GK: "#BA975D",
+  DF: "#5C9B4F",
+  MF: "#7498C3",
+  FW: "#765D85",
+  ST: "#D67329",
 };

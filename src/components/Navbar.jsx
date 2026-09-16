@@ -1,10 +1,18 @@
-import { House, CalendarDays, Trophy, Users, Shield } from "lucide-react";
+import {
+  House,
+  CalendarDays,
+  Trophy,
+  Users,
+  Shield,
+  Swords,
+} from "lucide-react";
 
 const navItems = [
   { icon: House, href: "/", label: "Home" },
-  { icon: CalendarDays, href: "/schedule", label: "Schedule" },
-  { icon: Trophy, href: "/matches", label: "Matches" },
+  { icon: Swords, href: "/matches", label: "Matches" },
+  { icon: Trophy, href: "/score", label: "Scores" },
   { icon: Users, href: "/players", label: "Players" },
+  { icon: CalendarDays, href: "/schedule", label: "Schedules" },
   { icon: Shield, href: "/teams", label: "Teams" },
 ];
 

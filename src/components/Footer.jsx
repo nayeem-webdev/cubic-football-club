@@ -2,8 +2,9 @@ import logo from "/assets/cubic-fc-logo.png";
 
 const navLinks = [
   { name: "Home", href: "home" },
-  { name: "Schedule", href: "schedule" },
+  { name: "Schedules", href: "schedule" },
   { name: "Matches", href: "matches" },
+  { name: "Scores", href: "score" },
   { name: "Players", href: "players" },
   { name: "Teams", href: "teams" },
   { name: "Admin", href: "admin" },

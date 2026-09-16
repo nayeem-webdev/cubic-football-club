@@ -1,22 +1,24 @@
 import { createBrowserRouter } from "react-router-dom";
+import AdminProtectedRoute from "../components/AdminProtectedRoute";
 import NotFound from "../pages/NotFound";
 import Layout from "../layouts/Layout";
 import Home from "../pages/Home";
 import Players from "../pages/Players";
 import Schedule from "../pages/Schedule";
-import Matches from "../pages/Matches";
+import Score from "../pages/Score";
 import RegisterPlayer from "../pages/RegisterPlayer";
 import AddSchedule from "../pages/AddSchedule";
-import NewMatch from "../pages/NewMatch";
 import RegisterTeam from "../pages/RegisterTeam";
 import LiveScore from "../pages/liveScore";
 import UpdatePlayer from "../pages/UpdatePlayer";
 import Admin from "../pages/Admin";
 import AdminLogin from "../pages/AdminLogin";
-import AdminProtectedRoute from "../components/AdminProtectedRoute";
 import Teams from "../pages/Teams";
 import UpcomingMatches from "../pages/UpcomingMatches";
 import MatchDetails from "../pages/MatchDetails";
+import AddMatch from "../pages/AddMatch";
+import EditMatch from "../pages/EditMatch";
+import UpdateMatch from "../pages/UpdateMatch";
 
 const router = createBrowserRouter([
   {
@@ -37,15 +39,15 @@ const router = createBrowserRouter([
         element: <Schedule />,
       },
       {
-        path: "/matches",
-        element: <Matches />,
+        path: "/score",
+        element: <Score />,
       },
       {
         path: "/teams",
         element: <Teams />,
       },
       {
-        path: "/upcoming-matches",
+        path: "/matches",
         element: <UpcomingMatches />,
       },
       {
@@ -81,11 +83,19 @@ const router = createBrowserRouter([
           },
           {
             path: "/new-match",
-            element: <NewMatch />,
+            element: <AddMatch />,
           },
           {
             path: "/live-match",
             element: <LiveScore />,
+          },
+          {
+            path: "/update-match",
+            element: <UpdateMatch />,
+          },
+          {
+            path: "/edit-match/:id",
+            element: <EditMatch />,
           },
         ],
       },

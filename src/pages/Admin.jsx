@@ -6,6 +6,7 @@ import {
   CalendarPlus,
   Trophy,
   Radio,
+  ClipboardPen,
 } from "lucide-react";
 import PageHero from "../components/PageHero";
 
@@ -35,10 +36,16 @@ const adminItems = [
     path: "/add-schedule",
   },
   {
-    title: "New Match",
+    title: "Add Match",
     description: "Set up a new football match.",
     icon: Trophy,
     path: "/new-match",
+  },
+  {
+    title: "Update Match",
+    description: "Update match information.",
+    icon: ClipboardPen,
+    path: "/update-match",
   },
   {
     title: "Live Match",

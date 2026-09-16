@@ -3,7 +3,7 @@ import PageHero from "../components/PageHero";
 import ScoreCard from "../components/ScoreCard";
 import Loader from "../components/Loader";
 
-export default function Matches() {
+export default function Score() {
   const [matches, setMatches] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);

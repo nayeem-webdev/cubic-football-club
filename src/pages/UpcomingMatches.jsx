@@ -197,8 +197,8 @@ const UpcomingMatches = () => {
                     </div>
 
                     <div className="mt-5 flex items-center justify-between border-t border-[#28466B] pt-4">
-                      <span className="text-xs font-bold uppercase tracking-widest text-[#3A82FF]">
-                        View match
+                      <span className="text-xs font-bold uppercase tracking-widest text-accent">
+                        View Match Poster
                       </span>
 
                       <ChevronRight className="h-5 w-5 text-[#D4AF37] transition group-hover:translate-x-1" />
