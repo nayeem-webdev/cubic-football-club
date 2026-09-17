@@ -6,6 +6,7 @@ import ModalGoal from "../components/ModalGoal";
 import ModalPenalty from "../components/ModalPenalty";
 import ModalOwnGoal from "../components/ModalOwnGoal";
 import ModalCard from "../components/ModalCard";
+import ModalEdit from "../components/ModalEdit";
 import ModalSubs from "../components/ModalSubs";
 import MatchTimeline from "../components/MatchTimeline";
 import MatchLineup from "../components/MatchLineup";
@@ -58,7 +59,7 @@ export default function LiveScore() {
   const [ownGoalModal, setOwnGoalModal] = useState(false);
   const [cardModal, setCardModal] = useState(false);
   const [subsModal, setSubsModal] = useState(false);
-
+  const [editEventsModal, setEditEventsModal] = useState(false);
   //   TD Modal Func
   const openGoalModal = () => {
     setGoalData({
@@ -127,10 +128,11 @@ export default function LiveScore() {
   const openCardModal = () => {
     setCardData({
       team: "",
-      scorer: "",
+      card: "",
+      player: "",
     });
-    setCardStep("team");
 
+    setCardStep("team");
     setCardModal(true);
   };
 
@@ -141,7 +143,8 @@ export default function LiveScore() {
 
     setCardData({
       team: "",
-      scorer: "",
+      card: "",
+      player: "",
     });
   };
 
@@ -249,7 +252,6 @@ export default function LiveScore() {
   };
 
   //   TD Save Card Event
-
   const saveCard = () => {
     if (!cardData.team || !cardData.card || !cardData.player) return;
 
@@ -277,7 +279,6 @@ export default function LiveScore() {
   };
 
   //   TD Save Subs Event
-
   const saveSubs = () => {
     if (!subsData.team || !subsData.playerOut || !subsData.playerIn) {
       return;
@@ -304,6 +305,35 @@ export default function LiveScore() {
     });
 
     closeSubsModal();
+  };
+
+  // TD Delete Match Event
+  const deleteMatchEvent = (eventId) => {
+    setSelectedMatch((previousMatch) => {
+      if (!previousMatch) return previousMatch;
+
+      return {
+        ...previousMatch,
+        matchEvents: (previousMatch.matchEvents || []).filter(
+          (event) => event.id !== eventId,
+        ),
+      };
+    });
+  };
+
+  // TD Update Match Event
+
+  const updateMatchEvent = (updatedEvent) => {
+    setSelectedMatch((previousMatch) => {
+      if (!previousMatch) return previousMatch;
+
+      return {
+        ...previousMatch,
+        matchEvents: (previousMatch.matchEvents || []).map((event) =>
+          event.id === updatedEvent.id ? updatedEvent : event,
+        ),
+      };
+    });
   };
 
   //   $$  Lets Fetch Match for Selection
@@ -972,7 +1002,7 @@ export default function LiveScore() {
             </div>
 
             {/* ACTION BUTTONS */}
-            <div className="grid grid-cols-5 gap-2 sm:gap-3">
+            <div className="grid grid-cols-3 gap-2 sm:gap-3">
               {/* GOAL */}
               <button
                 onClick={openGoalModal}
@@ -1041,12 +1071,25 @@ export default function LiveScore() {
                 }
                 className="group flex flex-col items-center justify-center rounded-xl border border-[#0E5FD8]/30 bg-[#0E5FD8]/10 px-2 py-3 text-white transition hover:-translate-y-0.5 hover:bg-[#0E5FD8]/20 hover:shadow-lg hover:shadow-[#0E5FD8]/10 disabled:cursor-not-allowed disabled:opacity-40 sm:py-4"
               >
-                <span className="text-xl transition-transform duration-300 group-hover:rotate-180 sm:text-2xl">
-                  🔄
-                </span>
+                <span className="text-xl sm:text-2xl">🔄</span>
 
                 <span className="mt-1.5 text-[10px] font-bold sm:text-xs">
                   Sub
+                </span>
+              </button>
+
+              {/* DELETE & EDIT*/}
+              <button
+                onClick={() => setEditEventsModal(true)}
+                disabled={
+                  !selectedMatch.timer.running || selectedMatch.timer.finished
+                }
+                className="group flex flex-col items-center justify-center rounded-xl border border-[#0E5FD8]/30 bg-[#0E5FD8]/10 px-2 py-3 text-white transition hover:-translate-y-0.5 hover:bg-[#0E5FD8]/20 hover:shadow-lg hover:shadow-[#0E5FD8]/10 disabled:cursor-not-allowed disabled:opacity-40 sm:py-4"
+              >
+                <span className="text-xl sm:text-2xl">📝</span>
+
+                <span className="mt-1.5 text-[10px] font-bold sm:text-xs">
+                  Edit
                 </span>
               </button>
             </div>
@@ -1138,6 +1181,13 @@ export default function LiveScore() {
         setSubsStep={setSubsStep}
         closeSubsModal={closeSubsModal}
         saveSubs={saveSubs}
+      />
+      <ModalEdit
+        editEventsModal={editEventsModal}
+        selectedMatch={selectedMatch}
+        closeEditEventsModal={() => setEditEventsModal(false)}
+        updateMatchEvent={updateMatchEvent}
+        deleteMatchEvent={deleteMatchEvent}
       />
     </>
   );

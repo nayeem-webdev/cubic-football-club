@@ -28,13 +28,7 @@ const UpdateMatch = () => {
   }, []);
 
   if (loading) {
-    return (
-      <div className="min-h-screen bg-[#07111F] px-4 py-10 text-[#F8FAFC]">
-        <div className="mx-auto max-w-4xl">
-          <Loader />
-        </div>
-      </div>
-    );
+    return <Loader />;
   }
 
   return (

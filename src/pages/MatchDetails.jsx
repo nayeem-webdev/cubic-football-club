@@ -5,12 +5,12 @@ import {
   CalendarDays,
   Clock3,
   Download,
-  LoaderCircle,
   MapPin,
   Share2,
-  Users,
+  Shirt,
 } from "lucide-react";
 import { toPng } from "html-to-image";
+import Loader from "../components/Loader";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -20,12 +20,6 @@ const POSTER_HEIGHT = 1123;
 // ============================================================
 // HELPERS
 // ============================================================
-
-const getPosition = (player) => {
-  return String(
-    player?.position || player?.playerPosition || player?.role || "—",
-  ).toUpperCase();
-};
 
 const formatDate = (dateString) => {
   if (!dateString) return "Date unavailable";
@@ -43,88 +37,47 @@ const formatDate = (dateString) => {
   });
 };
 
-const groupPlayersByPosition = (players = []) => {
-  const order = ["GK", "DF", "MF", "ST", "FW"];
-
-  const groups = {};
-
-  order.forEach((position) => {
-    groups[position] = [];
-  });
-
-  players.forEach((player) => {
-    const position = getPosition(player);
-
-    if (!groups[position]) {
-      groups[position] = [];
-    }
-
-    groups[position].push(player);
-  });
-
-  return groups;
-};
-
 // ============================================================
 // PLAYER CARD
 // ============================================================
 
-const PlayerCard = ({ player, variant = "start" }) => {
-  const position = getPosition(player);
-  const isSub = variant === "sub";
-
+const PlayerCard = ({ player }) => {
   return (
-    <div
-      className={`flex min-w-0 items-center gap-[6px] border-b border-white/[0.10] last:border-b-0 ${
-        isSub ? "py-[3px]" : "py-[4px]"
-      }`}
-    >
-      {/* Jersey number */}
-      <div className="flex h-5 w-5 shrink-0 items-center justify-center rounded-[6px] bg-[#D4AF37] text-[10px] font-[950] text-[#07111F] shadow-[0_2px_5px_rgba(0,0,0,0.25)]">
-        {player?.jerseyNumber ?? player?.jersey ?? player?.number ?? "-"}
-      </div>
+    <div className="flex h-11 items-center justify-between border-b border-white/5 py-1.5 last:border-b-0 hover:bg-white/2 px-2 rounded-sm transition-colors">
+      {/* Left Section: Jersey, Avatar, and Name */}
+      <div className="flex items-center gap-2 min-w-0">
+        {/* Clean, low-profile Jersey Tag */}
+        <div className="relative flex h-6 w-6 shrink-0 items-center justify-center text-secondary">
+          {/* The Icon acts as the backdrop */}
+          <Shirt size={20} strokeWidth={2} className="fill-secondary" />
 
-      {/* Player image */}
-      <div className="flex h-8 w-8 shrink-0 items-center justify-center overflow-hidden rounded-full border border-white/20 bg-[#07111F]/80">
-        <img
-          src={player?.photo}
-          alt={player?.name || "Player"}
-          crossOrigin="anonymous"
-          className="h-full w-full object-contain"
-        />
-      </div>
+          {/* The Number sits dead center on top of the shirt graphics */}
+          <span className="absolute inset-0 flex items-center justify-center pt-0.5 text-[8px] font-bold tracking-tighter text-black">
+            {player?.jerseyNumber ?? "-"}
+          </span>
+        </div>
 
-      {/* Player name + position */}
-      <div className="min-w-0 flex-1">
-        <p className="truncate text-[14px] font-bold leading-[1.1] text-[#F8FAFC]">
-          {player?.name || "Unknown Player"}
-        </p>
-
-        <p className="mt-1 text-[10px] font-medium leading-none text-[#D4AF37]">
-          {position}
-        </p>
-      </div>
-    </div>
-  );
-};
-
-// ============================================================
-// POSITION SECTION
-// ============================================================
-
-const PositionSection = ({ players, variant = "start" }) => {
-  if (!players?.length) return null;
-
-  return (
-    <div className="mb-[7px] last:mb-0">
-      <div className="flex flex-col">
-        {players.map((player, index) => (
-          <PlayerCard
-            key={player?._id || `player-${index}`}
-            player={player}
-            variant={variant}
+        {/* Avatar Frame */}
+        <div className="relative h-8 w-8 shrink-0 overflow-hidden rounded-full border border-white/10 bg-white/3">
+          <img
+            src={player?.photo}
+            alt={player?.name || "Player"}
+            crossOrigin="anonymous"
+            className="h-full w-full object-cover"
           />
-        ))}
+        </div>
+
+        {/* Player Name */}
+        <span className=" text-md font-bold tracking-wide text-[#F8FAFC]">
+          {player?.name || "Unknown Player"}
+        </span>
+      </div>
+
+      {/* Right Section: Compact Position Pill */}
+      <div className="shrink-0 ml-4">
+        <span className="inline-flex items-center rounded-sm bg-[#D4AF37]/10 px-1.5 py-0.5 text-[10px] font-black uppercase tracking-widest text-[#D4AF37] border border-[#D4AF37]/20">
+          {player?.position || "N/A"}
+        </span>
       </div>
     </div>
   );
@@ -137,58 +90,46 @@ const PositionSection = ({ players, variant = "start" }) => {
 const TeamPanel = ({ team, players = [], substitutes = [], side = "home" }) => {
   const isHome = side === "home";
 
-  const groupedPlayers = groupPlayersByPosition(players);
-  const positionOrder = ["GK", "DF", "MF", "ST", "FW"];
-
   return (
     <div
-      className={`group relative flex min-w-0 flex-col overflow-hidden rounded-lg border px-[13px] pb-[13px] pt-[14px] backdrop-blur-xl ${
+      className={`group relative flex min-w-0 flex-col rounded-lg border px-3.25 pb-3.25 pt-3.5 backdrop-blur-xl ${
         isHome
           ? "border-[#247DFF]/70 bg-[linear-gradient(145deg,rgba(14,95,216,0.30),rgba(5,18,42,0.48)_48%,rgba(2,8,23,0.60))] shadow-[inset_0_1px_0_rgba(255,255,255,0.16),inset_0_0_35px_rgba(14,95,216,0.16),0_0_20px_rgba(14,95,216,0.12)]"
-          : "border-[#D4AF37]/70 bg-[linear-gradient(145deg,rgba(212,175,55,0.24),rgba(45,34,8,0.42)_48%,rgba(2,8,23,0.60))] shadow-[inset_0_1px_0_rgba(255,255,255,0.16),inset_0_0_35px_rgba(212,175,55,0.13),0_0_20px_rgba(212,175,55,0.10)]"
+          : "border-accent/70 bg-[linear-gradient(145deg,rgba(73,200,90,0.24),rgba(20,70,28,0.42)_48%,rgba(2,8,23,0.60))] shadow-[inset_0_1px_0_rgba(255,255,255,0.16),inset_0_0_35px_rgba(73,200,90,0.13),0_0_20px_rgba(73,200,90,0.10)]"
       }`}
     >
       {/* Decorative glass shine */}
       <div
-        className={`pointer-events-none absolute left-0 right-0 top-0 h-[2px] ${
+        className={`pointer-events-none absolute left-0 right-0 top-0 h-0.5 ${
           isHome
-            ? "bg-gradient-to-r from-transparent via-[#247DFF] to-transparent"
-            : "bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent"
+            ? "bg-linear-to-r from-transparent via-[#247DFF] to-transparent"
+            : "bg-linear-to-r from-transparent via-accent to-transparent"
         }`}
       />
 
       {/* Decorative corner accent */}
       <div
         className={`pointer-events-none absolute -right-8 -top-8 h-24 w-24 rounded-full blur-2xl ${
-          isHome ? "bg-[#0E5FD8]/20" : "bg-[#D4AF37]/15"
+          isHome ? "bg-[#0E5FD8]/20" : "bg-accent/15"
         }`}
       />
 
       {/* HOME / AWAY BADGE */}
       <div
-        className={`relative z-[1] mx-auto min-w-[82px] rounded-[8px] border px-[13px] py-[7px] text-center text-[14px] font-[950] uppercase leading-none tracking-[1px] text-[#F8FAFC] ${
-          isHome
-            ? "border-[#247DFF]/80 bg-[#071A38]/75 shadow-[0_0_14px_rgba(14,95,216,0.20)]"
-            : "border-[#D4AF37]/80 bg-[#2B2108]/75 shadow-[0_0_14px_rgba(212,175,55,0.16)]"
-        }`}
+        className={`relative z-1 -top-10 mx-auto w-fit min-w-45 px-4 py-3 text-center text-2xl font-[950] font-minasans uppercase leading-none tracking-[1px] text-[#F8FAFC]
+    flex items-center justify-center 
+    clip-path-[polygon(12%_0%,_88%_0%,_100%_50%,_88%_100%,_12%_100%,_0%_50%)] outline-3 outline-offset-[-6px]
+    ${
+      isHome
+        ? "outline-[#247DFF] bg-[#071A38] shadow-[0_0_14px_rgba(14,95,216,0.20)]"
+        : "outline-accent bg-[#082b19] shadow-[0_0_14px_rgba(212,175,55,0.16)]"
+    }`}
       >
         {isHome ? "HOME" : "AWAY"}
       </div>
 
       {/* TEAM LOGO */}
-      <div
-        className={`relative mx-auto mb-[8px] mt-3 flex h-[88px] w-[88px] items-center justify-center rounded-full border p-[10px] ${
-          isHome
-            ? "border-[#247DFF]/45 bg-[#020817]/55 shadow-[0_0_22px_rgba(14,95,216,0.18)]"
-            : "border-[#D4AF37]/45 bg-[#020817]/55 shadow-[0_0_22px_rgba(212,175,55,0.14)]"
-        }`}
-      >
-        <div
-          className={`absolute inset-[5px] rounded-full border ${
-            isHome ? "border-[#247DFF]/15" : "border-[#D4AF37]/15"
-          }`}
-        />
-
+      <div className={`relative mx-auto w-45 -mt-6 mb-1 flex`}>
         <img
           src={team?.logoLow}
           alt={team?.name || "Team"}
@@ -197,93 +138,68 @@ const TeamPanel = ({ team, players = [], substitutes = [], side = "home" }) => {
         />
       </div>
 
-      {/* TEAM NAME */}
+      {/* TEAM NAME
       <h2 className="min-h-[19px] truncate text-center text-[16px] font-[950] uppercase leading-[1.15] tracking-[0.3px] text-[#F8FAFC]">
         {team?.name || "Team"}
-      </h2>
+      </h2> */}
 
       {/* DIVIDER */}
       <div
-        className={`mb-[10px] mt-[11px] h-px w-full ${
+        className={`mb-1 mt-1 h-px w-full ${
           isHome
             ? "bg-gradient-to-r from-transparent via-[#247DFF]/60 to-transparent"
-            : "bg-gradient-to-r from-transparent via-[#D4AF37]/60 to-transparent"
+            : "bg-gradient-to-r from-transparent via-accent/60 to-transparent"
         }`}
       />
 
-      {/* STARTING PLAYERS HEADING */}
-      <div className="mb-[7px] flex items-center justify-between gap-1">
-        <div className="flex min-w-0 items-center gap-[6px] whitespace-nowrap text-[8px] font-black tracking-[0.9px] text-[#F8FAFC]">
-          <Users
-            size={13}
-            className={isHome ? "text-[#55A0FF]" : "text-[#D4AF37]"}
-          />
-          <span>STARTING PLAYERS</span>
-        </div>
-
-        <span
-          className={`text-[16px] font-[950] ${
-            isHome ? "text-[#55A0FF]" : "text-[#D4AF37]"
+      {/* STARTING PLAYERS */}
+      {players.length > 0 && (
+        <div
+          className={`mt-2.25 rounded-[10px] border p-2 ${
+            isHome
+              ? "border-[#247DFF]/20 bg-[#020817]/25"
+              : "border-accent/20 bg-[#020817]/25"
           }`}
         >
-          {players.length}
-        </span>
-      </div>
-
-      {/* STARTING PLAYERS LIST */}
-      <div
-        className={`min-h-0 overflow-hidden rounded-[11px] border p-[8px] backdrop-blur-md ${
-          isHome
-            ? "border-[#247DFF]/20 bg-[#020817]/35"
-            : "border-[#D4AF37]/20 bg-[#020817]/35"
-        }`}
-      >
-        {players.length > 0 ? (
-          positionOrder.map((position) => (
-            <PositionSection
-              key={position}
-              players={groupedPlayers[position]}
-              variant="start"
+          <div
+            className={`mb-1 flex items-center gap-2 text-[10px] font-minasans uppercase leading-none tracking-[2px] ${
+              isHome ? "text-[#55A0FF]" : "text-accent"
+            }`}
+          >
+            <span
+              className={`block h-2 w-2 shrink-0 rounded-full ${
+                isHome ? "bg-[#55A0FF]" : "bg-accent"
+              }`}
             />
-          ))
-        ) : (
-          <p className="my-[15px] text-center text-[10px] text-[#B8C2D1]">
-            No players listed
-          </p>
-        )}
+            <span>STARTING PLAYERS</span>
+          </div>
 
-        {/* CUSTOM POSITIONS */}
-        {Object.entries(groupedPlayers)
-          .filter(
-            ([position, positionPlayers]) =>
-              !positionOrder.includes(position) && positionPlayers.length > 0,
-          )
-          .map(([position, positionPlayers]) => (
-            <PositionSection
-              key={position}
-              players={positionPlayers}
-              variant="start"
+          {players.map((player, index) => (
+            <PlayerCard
+              key={player?._id || `sub-${index}`}
+              player={player}
+              variant="sub"
             />
           ))}
-      </div>
-
+        </div>
+      )}
       {/* SUBSTITUTES */}
       {substitutes.length > 0 && (
         <div
           className={`mt-[9px] rounded-[10px] border p-[8px] ${
             isHome
               ? "border-[#247DFF]/20 bg-[#020817]/25"
-              : "border-[#D4AF37]/20 bg-[#020817]/25"
+              : "border-accent/20 bg-[#020817]/25"
           }`}
         >
           <div
-            className={`mb-[4px] flex items-center gap-[5px] text-[7px] font-[950] uppercase leading-none tracking-[0.8px] ${
-              isHome ? "text-[#55A0FF]" : "text-[#D4AF37]"
+            className={`mb-1 flex items-center gap-2 text-[10px] font-minasans uppercase leading-none tracking-[2px] ${
+              isHome ? "text-[#55A0FF]" : "text-accent"
             }`}
           >
             <span
-              className={`block h-1 w-1 shrink-0 rounded-full ${
-                isHome ? "bg-[#55A0FF]" : "bg-[#D4AF37]"
+              className={`block h-2 w-2 shrink-0 rounded-full ${
+                isHome ? "bg-[#55A0FF]" : "bg-accent"
               }`}
             />
             <span>SUBSTITUTES</span>
@@ -489,14 +405,7 @@ const MatchDetails = () => {
   // ============================================================
 
   if (loading) {
-    return (
-      <div className="flex min-h-screen items-center justify-center bg-[#020817] text-white">
-        <div className="flex items-center gap-3 text-[#B8C2D1]">
-          <LoaderCircle size={20} className="animate-spin text-[#D4AF37]" />
-          Loading match...
-        </div>
-      </div>
-    );
+    return <Loader />;
   }
 
   // ============================================================
@@ -591,7 +500,7 @@ const MatchDetails = () => {
         <div className="mx-auto w-fit">
           <div
             ref={posterRef}
-            className="relative overflow-hidden bg-[#07111F] font-sans text-[#F8FAFC]"
+            className="relative overflow-hidden bg-[#07111F] text-[#F8FAFC]"
             style={{
               width: POSTER_WIDTH,
               height: POSTER_HEIGHT,
@@ -601,50 +510,75 @@ const MatchDetails = () => {
             {/* ==================================================
                 BACKGROUND
             ================================================== */}
-
-            <div className="absolute inset-0 bg-[url('/assets/matchbg.png')] bg-cover bg-center bg-no-repeat" />
-
-            <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(2,8,23,0.60)_0%,rgba(2,8,23,0.72)_45%,rgba(2,8,23,0.82)_100%)]" />
-
+            <div className="absolute inset-0 bg-[url('/assets/matchbg.jpeg')] bg-cover bg-center bg-no-repeat" />
+            <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(2,8,23,0.20)_0%,rgba(2,8,23,0.32)_45%,rgba(2,8,23,0.42)_100%)]" />{" "}
             <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_0%_35%,rgba(14,95,216,0.36),transparent_42%)]" />
-
-            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_100%_35%,rgba(212,175,55,0.28),transparent_42%)]" />
-
+            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_100%_35%,rgba(73,200,90,0.28),transparent_42%)]" />
             {/* ==================================================
                 CONTENT
             ================================================== */}
-
-            <div className="relative z-[2] flex h-full flex-col px-6 pb-[18px] pt-6">
+            <div className="relative z-2 flex h-full flex-col px-6 pb-6 pt-6">
               {/* ==================================================
                   HEADER
               ================================================== */}
 
-              <header className="flex items-center justify-center gap-5">
-                <div className="h-60 flex justify-end">
+              <header className="mb-7 flex items-center justify-center gap-5">
+                {/* CUBIC FC Logo */}
+                <div className="relative flex h-32 w-32 shrink-0 items-center justify-center">
+                  {/* Ambient gold glow */}
+                  <div className="absolute inset-3 rounded-full bg-[#D4AF37]/20 blur-2xl" />
+
+                  {/* Subtle blue glow */}
+                  <div className="absolute inset-5 rounded-full bg-[#0E5FD8]/20 blur-xl" />
+
                   <img
                     src="/assets/cubic-fc-logo.png"
                     alt="CUBIC FC"
-                    className="w-full h-full object-contain"
+                    className="
+                      relative z-10
+                      h-full w-full
+                      object-contain
+                      drop-shadow-[0_0_10px_rgba(212,175,55,0.25)]
+                      drop-shadow-[0_8px_18px_rgba(0,0,0,0.35)]
+                    "
                   />
                 </div>
-                <div className="text-left">
-                  <h2 className="mt-1 text-7xl font-bold uppercase leading-[0.98] tracking-[-1.5px] text-[#F8FAFC]">
-                    {schedule.matchType || "FRIENDLY"}
+
+                {/* Vertical divider */}
+                <div className="h-20 w-px bg-gradient-to-b from-transparent via-[#D4AF37]/60 to-transparent" />
+
+                {/* Match Information */}
+                <div className="min-w-0 text-left flex items-center flex-col">
+                  {/* Match type */}
+                  <h2 className="text-md mb-2 font-bold uppercase tracking-[0.3em] text-[#D4AF37] font-minasans">
+                    {schedule.matchType || "FRIENDLY"} MATCH
                   </h2>
 
-                  <h2 className="mt-0.5 text-5xl font-bold uppercase leading-none tracking-[-1px] text-[#D4AF37]">
-                    {schedule.matchFormat
-                      ? `${schedule.matchFormat} VS ${schedule.matchFormat}  FUTSAL MATCH`
-                      : "FUTSAL MATCH"}
+                  {/* Format */}
+                  <h2 className="font-minasans text-5xl font-bold uppercase leading-[0.9] tracking-[-1.5px] text-[#F8FAFC]">
+                    {schedule.matchFormat}
+                    <span className="text-secondary">V</span>
+                    {schedule.matchFormat}
                   </h2>
+
+                  {/* Competition label */}
+                  <div className="mt-2 flex items-center gap-2">
+                    <span className="h-px w-8 bg-[#D4AF37]/70" />
+
+                    <span className="text-lg font-bold uppercase font-minasans tracking-[0.28em] text-[#D4AF37]">
+                      FUTSAL
+                    </span>
+
+                    <span className="h-px w-8 bg-[#D4AF37]/70" />
+                  </div>
                 </div>
               </header>
 
               {/* ==================================================
-    TEAMS AREA
-================================================== */}
+                  TEAMS AREA
+              ================================================== */}
 
-              <div className="relative mt-[17px] grid min-h-0 flex-1 grid-cols-[minmax(0,1fr)_64px_minmax(0,1fr)] items-stretch">
+              <div className="relative mt-4.25 grid min-h-0 flex-1 grid-cols-[minmax(0,1fr)_130px_minmax(0,1fr)] items-stretch">
                 {/* HOME */}
                 <TeamPanel
                   team={homeTeam}
@@ -656,11 +590,14 @@ const MatchDetails = () => {
                 {/* CENTER VS ZONE */}
                 <div className="relative flex min-w-0 flex-col items-center justify-center">
                   {/* VS badge */}
-                  <div className="relative my-[13px] flex h-[420px] w-[140px] shrink-0 items-center justify-center">
+                  <div className="relative my-3.25 flex h-105 w-45 shrink-0 items-center justify-center px-4">
+                    {/* Glow behind VS */}
+                    <div className="absolute h-72 w-32 rounded-full bg-yellow-400/30 blur-3xl" />
+
                     <img
-                      src="/assets/vs.png"
+                      src="/assets/vsv.png"
                       alt="VS"
-                      className="h-[300px] w-[200px] max-w-none object-fill"
+                      className="relative z-10 h-75 w-50 max-w-none object-fill"
                     />
                   </div>
                 </div>
@@ -678,50 +615,50 @@ const MatchDetails = () => {
                   MATCH INFO
               ================================================== */}
 
-              <div className="mt-4 py-2 grid shrink-0 grid-cols-[1fr_1.25fr_1fr] overflow-hidden rounded-lg border-[1.5px] border-[#D4AF37] bg-[rgba(3,12,29,0.94)]">
+              <div className="mt-6 py-2 grid shrink-0 grid-cols-[1fr_1.25fr_1fr] overflow-hidden rounded-lg border-[1.5px] border-[#D4AF37] bg-[rgba(3,12,29,0.94)]">
                 {/* Date */}
-                <div className="flex min-w-0 items-center gap-[7px] border-r border-[#D4AF37]/45 px-[7px] py-base last:border-r-0">
+                <div className="flex min-w-0 items-center gap-2 border-r border-[#D4AF37]/45 px-2 py-base last:border-r-0">
                   <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#D4AF37] text-[#07111F]">
                     <CalendarDays size={19} />
                   </div>
 
-                  <div className="flex min-w-0 flex-col gap-[3px]">
-                    <span className="text-[10px] font-bold uppercase leading-none tracking-[1px] text-[#D4AF37]">
+                  <div className="flex min-w-0 flex-col gap-1">
+                    <span className="text-base font-minasans font-bold uppercase leading-none tracking-[1px] text-[#D4AF37]">
                       DATE
                     </span>
-                    <strong className="block truncate text-[12px] font-bold leading-[1.15] text-[#F8FAFC]">
+                    <strong className="block truncate text-md font-bold leading-[1.15] text-[#F8FAFC]">
                       {formatDate(schedule.date)}
                     </strong>
                   </div>
                 </div>
 
                 {/* Venue */}
-                <div className="flex min-w-0 items-center gap-[7px] border-r border-[#D4AF37]/45 px-[7px] py-base last:border-r-0">
+                <div className="flex min-w-0 items-center gap-2 border-r border-[#D4AF37]/45 px-2 py-base last:border-r-0">
                   <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#D4AF37] text-[#07111F]">
                     <MapPin size={19} />
                   </div>
 
-                  <div className="flex min-w-0 flex-col gap-[3px]">
-                    <span className="text-[10px] font-bold uppercase leading-none tracking-[1px] text-[#D4AF37]">
+                  <div className="flex min-w-0 flex-col gap-1">
+                    <span className="text-base font-minasans font-bold uppercase leading-none tracking-[1px] text-[#D4AF37]">
                       VENUE
                     </span>
-                    <strong className="block truncate text-[12px] font-bold leading-[1.15] text-[#F8FAFC]">
+                    <strong className="block truncate text-md font-bold leading-[1.15] text-[#F8FAFC]">
                       {schedule.venue?.venue || "Venue unavailable"}
                     </strong>
                   </div>
                 </div>
 
                 {/* Time */}
-                <div className="flex min-w-0 items-center gap-[7px] px-[7px] py-base">
+                <div className="flex min-w-0 items-center gap-2 px-2 py-base">
                   <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#D4AF37] text-[#07111F]">
                     <Clock3 size={19} />
                   </div>
 
-                  <div className="flex min-w-0 flex-col gap-[3px]">
-                    <span className="text-[10px] font-bold uppercase leading-none tracking-[1px] text-[#D4AF37]">
+                  <div className="flex min-w-0 flex-col gap-1">
+                    <span className="text-base font-minasans font-bold uppercase leading-none tracking-[1px] text-[#D4AF37]">
                       TIME
                     </span>
-                    <strong className="block truncate text-[12px] font-bold leading-[1.15] text-[#F8FAFC]">
+                    <strong className="block truncate text-md font-bold leading-[1.15] text-[#F8FAFC]">
                       {schedule.time || "Time unavailable"}
                     </strong>
                   </div>
@@ -732,8 +669,8 @@ const MatchDetails = () => {
                   FOOTER
               ================================================== */}
 
-              <footer className="mt-[10px] shrink-0 text-center text-[8px] font-extrabold uppercase tracking-[2px] text-[#F8FAFC]/55">
-                CUBIC FC • EST. 2012 • CHITTAGONG
+              <footer className="mt-6 shrink-0 text-center text-sm font-extrabold uppercase tracking-[2px] text-secondary">
+                CUBIC FC • EST. 2012 • CUBIC EDUCATION, CHITTAGONG
               </footer>
             </div>
           </div>

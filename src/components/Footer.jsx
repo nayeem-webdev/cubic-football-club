@@ -1,18 +1,18 @@
 import logo from "/assets/cubic-fc-logo.png";
 
 const navLinks = [
-  { name: "Home", href: "home" },
-  { name: "Schedules", href: "schedule" },
-  { name: "Matches", href: "matches" },
-  { name: "Scores", href: "score" },
-  { name: "Players", href: "players" },
-  { name: "Teams", href: "teams" },
-  { name: "Admin", href: "admin" },
+  { name: "Home", href: "/" },
+  { name: "Schedules", href: "/schedule" },
+  { name: "Matches", href: "/matches" },
+  { name: "Scores", href: "/score" },
+  { name: "Players", href: "/players" },
+  { name: "Teams", href: "/teams" },
+  { name: "Admin", href: "/admin" },
 ];
 
 const Footer = () => {
   return (
-    <footer className="border-t border-border bg-background">
+    <footer className="border-t border-border bg-background pb-10 lg:pb-0">
       <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6">
         {/* Main */}
         <div className="flex flex-col items-center justify-between gap-10 lg:flex-row">
@@ -43,7 +43,7 @@ const Footer = () => {
         </div>
 
         {/* Bottom */}
-        <div className="mt-8 flex flex-col items-center justify-between gap-3 border-t border-border pt-6 text-sm md:flex-row">
+        <div className="mt-8 flex flex-col text-center items-center justify-between gap-3 border-t border-border pt-6 text-sm md:flex-row">
           <p className="text-text-muted">
             © {new Date().getFullYear()} CUBIC FC. All rights reserved.
           </p>

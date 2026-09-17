@@ -110,6 +110,13 @@
   font-style: normal;
   font-display: swap;
 }
+@font-face {
+  font-family: "Minasans";
+  src: url("/fonts/Minasans.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
 
 /* ========================================
    THEME
@@ -130,6 +137,8 @@
   --color-text-muted: #b8c2d1;
 
   --color-border: #28466b;
+
+  --font-minasans: "Minasans", sans-serif;
 }
 
 /* ========================================
