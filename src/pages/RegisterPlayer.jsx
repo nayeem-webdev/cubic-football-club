@@ -16,6 +16,7 @@ const RegisterPlayer = () => {
     foot: "Right",
     playsFor: "",
     dateOfBirth: "",
+    status: "active",
   });
 
   const [loading, setLoading] = useState(false);
@@ -91,6 +92,7 @@ const RegisterPlayer = () => {
         foot: "Right",
         playsFor: "",
         dateOfBirth: "",
+        status: "active",
       });
     } catch (error) {
       console.error("Error registering player:", error);
