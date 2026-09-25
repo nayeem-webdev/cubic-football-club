@@ -138,12 +138,17 @@ const ModalOwnGoal = ({
                       : "border-[#28466B] bg-[#0E1D34] hover:border-[#49C85A]"
                   }`}
                 >
-                  <div>
-                    <p className="text-xs text-[#B8C2D1]">HOME TEAM</p>
+                  <div className="flex items-center gap-4">
+                    <div className="w-12 h-12">
+                      <img src={selectedMatch.homeTeam.logoLow} alt="" />
+                    </div>
+                    <div>
+                      <p className="text-xs text-[#B8C2D1]">HOME TEAM</p>
 
-                    <p className="mt-1 font-semibold text-[#F8FAFC]">
-                      {selectedMatch.homeTeam.name}
-                    </p>
+                      <p className="mt-1 font-semibold text-[#F8FAFC]">
+                        {selectedMatch.homeTeam.name}
+                      </p>
+                    </div>
                   </div>
 
                   <input
@@ -173,12 +178,17 @@ const ModalOwnGoal = ({
                       : "border-[#28466B] bg-[#0E1D34] hover:border-[#49C85A]"
                   }`}
                 >
-                  <div>
-                    <p className="text-xs text-[#B8C2D1]">AWAY TEAM</p>
+                  <div className="flex items-center gap-4">
+                    <div className="w-12 h-12">
+                      <img src={selectedMatch.awayTeam.logoLow} alt="" />
+                    </div>
+                    <div>
+                      <p className="text-xs text-[#B8C2D1]">AWAY TEAM</p>
 
-                    <p className="mt-1 font-semibold text-[#F8FAFC]">
-                      {selectedMatch.awayTeam.name}
-                    </p>
+                      <p className="mt-1 font-semibold text-[#F8FAFC]">
+                        {selectedMatch.awayTeam.name}
+                      </p>
+                    </div>
                   </div>
 
                   <input
@@ -225,12 +235,19 @@ const ModalOwnGoal = ({
                     }`}
                   >
                     <div className="flex items-center gap-3">
-                      <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[#28466B] text-xs font-bold text-[#F8FAFC]">
-                        #{player.jerseyNumber}
+                      <div className="h-12 w-12 shrink-0 overflow-hidden rounded-full bg-[#28466B]">
+                        <img
+                          src={player.photo}
+                          alt={player.name}
+                          className="h-full w-full object-cover"
+                        />
                       </div>
 
                       <p className="font-medium text-[#F8FAFC]">
-                        {player.name}
+                        {player.name}{" "}
+                        <span className="text-secondary">
+                          #{player.jerseyNumber}{" "}
+                        </span>
                       </p>
                     </div>
 

@@ -199,10 +199,8 @@ const PlayerCard = ({ player, index }) => {
             <Shield size={70} style={{ color: "var(--color-secondary)" }} />
           </div>
         )}
-
         {/* IMAGE OVERLAY */}
         <div className="absolute inset-0 bg-linear-to-t from-[#07111F]/70 via-transparent to-transparent" />
-
         {/* JERSEY NUMBER */}
         <div
           className="
@@ -233,11 +231,9 @@ const PlayerCard = ({ player, index }) => {
 
           <span className="leading-none">#{player?.jerseyNumber ?? "0"}</span>
         </div>
-
         {/* RANKING */}
-        {index < 12 && (
-          <div
-            className="
+        <div
+          className="
       absolute
       right-4
       top-4
@@ -256,18 +252,16 @@ const PlayerCard = ({ player, index }) => {
       shadow-lg
       backdrop-blur-md
     "
-          >
-            <Crown
-              size={16}
-              strokeWidth={2.2}
-              className="text-secondary fill-secondary"
-            />
+        >
+          <Crown
+            size={16}
+            strokeWidth={2.2}
+            className="text-secondary fill-secondary"
+          />
 
-            <span className="leading-none">#{index + 1}</span>
-          </div>
-        )}
-
-        {/* SCORE */}
+          <span className="leading-none">#{index + 1}</span>
+        </div>
+        ){/* SCORE */}
         <div
           className="
             absolute

@@ -333,7 +333,7 @@ export default function UpdatePlayer() {
             border: "1px solid var(--color-border)",
           }}
         >
-          <table className="w-full min-w-[900px] text-sm">
+          <table className="w-full min-w-225 text-sm">
             <thead
               className="text-[11px] uppercase tracking-wider"
               style={{
