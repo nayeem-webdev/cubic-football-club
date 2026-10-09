@@ -19,6 +19,7 @@ import MatchDetails from "../pages/MatchDetails";
 import AddMatch from "../pages/AddMatch";
 import EditMatch from "../pages/EditMatch";
 import UpdateMatch from "../pages/UpdateMatch";
+import UpdateSchedule from "../pages/UpdateSchedule";
 
 const router = createBrowserRouter([
   {
@@ -96,6 +97,10 @@ const router = createBrowserRouter([
           {
             path: "/edit-match/:id",
             element: <EditMatch />,
+          },
+          {
+            path: "/update-schedule",
+            element: <UpdateSchedule />,
           },
         ],
       },

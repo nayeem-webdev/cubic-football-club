@@ -20,9 +20,9 @@ const SelectMatch = ({ matches, onSelectMatch }) => {
             <button
               key={match._id}
               onClick={() => onSelectMatch(match)}
-              className="group w-full rounded-2xl border border-[#28466B] bg-card p-5 text-left transition-all duration-300 hover:-translate-y-1 hover:border-[#0E5FD8] hover:shadow-[0_0_25px_rgba(14,95,216,0.18)]"
+              className="group w-full rounded-2xl border border-[#28466B] bg-[#0E1D34] p-5 text-left transition-all duration-300 hover:-translate-y-1 hover:border-[#0E5FD8] hover:shadow-[0_0_25px_rgba(14,95,216,0.18)]"
             >
-              <div className="grid gap-5 md:grid-cols-[1fr_1.2fr] md:items-center">
+              <div className="grid gap-2 md:grid-cols-[1fr_1.2fr] md:items-center">
                 {/* Teams */}
                 <div>
                   <div className="mb-2 flex items-center gap-3">

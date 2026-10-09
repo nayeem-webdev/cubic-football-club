@@ -94,7 +94,6 @@ export default function Players() {
           break;
 
         case "hallOfFameActiveRetired":
-          // Issue 2: Active & Retired players with at least 5 appearances
           matchesStatus =
             (playerStatus === "active" || playerStatus === "retired") &&
             appearances >= 5;

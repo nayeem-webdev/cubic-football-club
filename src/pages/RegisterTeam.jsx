@@ -121,9 +121,10 @@ const RegisterTeam = () => {
                 <input
                   type="url"
                   name="logoHigh"
-                  placeholder="https://example.com/logo.png"
+                  placeholder="https://example.com/logo 640*640.png"
                   value={formData.logoHigh}
                   onChange={handleChange}
+                  required
                   className="w-full rounded-lg border border-[#28466B] bg-card px-4 py-3 text-[#F8FAFC] outline-none placeholder:text-[#718096] focus:border-[#0E5FD8]"
                 />
               </div>
@@ -136,9 +137,10 @@ const RegisterTeam = () => {
                 <input
                   type="url"
                   name="logoLow"
-                  placeholder="https://example.com/logo.png"
+                  placeholder="https://example.com/logo 200*200.png"
                   value={formData.logoLow}
                   onChange={handleChange}
+                  required
                   className="w-full rounded-lg border border-[#28466B] bg-card px-4 py-3 text-[#F8FAFC] outline-none placeholder:text-[#718096] focus:border-[#0E5FD8]"
                 />
               </div>
