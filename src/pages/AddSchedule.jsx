@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react";
 import PageHero from "../components/PageHero";
+import matchFormats from "../constants/matchFormats";
+import matchTypes from "../constants/matchTypes";
+import TimePicker from "../components/TimePicker";
 
 const AddSchedule = () => {
   const API_URL = import.meta.env.VITE_API_URL;
@@ -420,15 +423,14 @@ const AddSchedule = () => {
                   Match Time
                 </label>
 
-                <input
-                  type="text"
-                  id="time"
-                  name="time"
+                <TimePicker
                   value={formData.time}
-                  onChange={handleChange}
-                  placeholder="e.g. 9:00 PM – 10:00 PM"
-                  required
-                  className="w-full rounded-lg border border-[#28466B] bg-card px-4 py-3 text-[#F8FAFC] outline-none placeholder:text-[#718096] focus:border-[#0E5FD8]"
+                  onChange={(time) =>
+                    setFormData((prev) => ({
+                      ...prev,
+                      time,
+                    }))
+                  }
                 />
               </div>
             </div>
@@ -447,22 +449,19 @@ const AddSchedule = () => {
                 </label>
 
                 <select
-                  id="matchFormat"
                   name="matchFormat"
                   value={formData.matchFormat}
                   onChange={handleChange}
-                  required
-                  className="w-full rounded-lg border border-[#28466B] bg-card px-4 py-3 text-[#F8FAFC] outline-none placeholder:text-[#718096] focus:border-[#0E5FD8]"
+                  className="w-full rounded-lg border border-[#28466B] bg-card px-4 py-3 text-[#F8FAFC] outline-none focus:border-[#0E5FD8]"
                 >
-                  <option value="">Select Match Format</option>
-
-                  <option value="4">4 vs 4</option>
-                  <option value="5">5 vs 5</option>
-                  <option value="6">6 vs 6</option>
-                  <option value="7">7 vs 7</option>
-                  <option value="8">8 vs 8</option>
-                  <option value="9">9 vs 9</option>
-                  <option value="10">10 vs 10</option>
+                  <option value="" disabled>
+                    Select format
+                  </option>
+                  {matchFormats.map((format) => (
+                    <option key={format.value} value={format.value}>
+                      {format.label}
+                    </option>
+                  ))}
                 </select>
               </div>
 
@@ -476,20 +475,20 @@ const AddSchedule = () => {
                 </label>
 
                 <select
-                  id="matchType"
                   name="matchType"
                   value={formData.matchType}
                   onChange={handleChange}
-                  required
-                  className="w-full rounded-lg border border-[#28466B] bg-card px-4 py-3 text-[#F8FAFC] outline-none placeholder:text-[#718096] focus:border-[#0E5FD8]"
+                  className="w-full rounded-lg border border-[#28466B] bg-card px-4 py-3 text-[#F8FAFC] outline-none focus:border-[#0E5FD8]"
                 >
-                  <option value="">Select Match Type</option>
+                  <option value="" disabled>
+                    Select type
+                  </option>
 
-                  <option value="training">Training Match</option>
-
-                  <option value="friendly">Friendly Match</option>
-
-                  <option value="competitive">Competitive Match</option>
+                  {matchTypes.map((type) => (
+                    <option key={type.value} value={type.value}>
+                      {type.label}
+                    </option>
+                  ))}
                 </select>
               </div>
             </div>

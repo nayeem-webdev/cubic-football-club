@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
-import { FaCalendar, FaClock, FaXmark, FaFloppyDisk } from "react-icons/fa6";
-import { IoFootball } from "react-icons/io5";
+import { FaXmark, FaFloppyDisk, FaTrash } from "react-icons/fa6";
+import TimePicker from "./TimePicker";
+import matchFormats from "../constants/matchFormats";
+import matchTypes from "../constants/matchTypes";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -16,6 +18,7 @@ const ModalEditSchedule = ({ schedule, onClose, onUpdated }) => {
   const [venues, setVenues] = useState([]);
   const [loading, setLoading] = useState(false);
   const [venuesLoading, setVenuesLoading] = useState(true);
+  const [deleting, setDeleting] = useState(false);
   const [error, setError] = useState("");
 
   // ========================================
@@ -52,13 +55,13 @@ const ModalEditSchedule = ({ schedule, onClose, onUpdated }) => {
 
         const data = await response.json();
 
-        setVenues(
-          Array.isArray(data)
-            ? data
-            : Array.isArray(data.venues)
-              ? data.venues
-              : [],
-        );
+        const venueList = Array.isArray(data)
+          ? data
+          : Array.isArray(data.venues)
+            ? data.venues
+            : [];
+
+        setVenues(venueList);
       } catch (error) {
         console.error("Error fetching venues:", error);
       } finally {
@@ -73,8 +76,8 @@ const ModalEditSchedule = ({ schedule, onClose, onUpdated }) => {
   // HANDLE INPUT
   // ========================================
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
+  const handleChange = (event) => {
+    const { name, value } = event.target;
 
     setFormData((prev) => ({
       ...prev,
@@ -86,8 +89,8 @@ const ModalEditSchedule = ({ schedule, onClose, onUpdated }) => {
   // UPDATE SCHEDULE
   // ========================================
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = async (event) => {
+    event.preventDefault();
 
     setError("");
 
@@ -106,7 +109,7 @@ const ModalEditSchedule = ({ schedule, onClose, onUpdated }) => {
       setLoading(true);
 
       const response = await fetch(`${API_URL}/schedules/${schedule._id}`, {
-        method: "PUT",
+        method: "PATCH",
         headers: {
           "Content-Type": "application/json",
         },
@@ -119,13 +122,18 @@ const ModalEditSchedule = ({ schedule, onClose, onUpdated }) => {
         }),
       });
 
-      const data = await response.json();
-
       if (!response.ok) {
-        throw new Error(data.message || "Failed to update schedule");
+        const responseText = await response.text();
+
+        console.error(`HTTP Status: ${response.status} ${response.statusText}`);
+
+        console.error("Server Response Body:", responseText);
+
+        throw new Error(`Failed to update schedule (${response.status})`);
       }
 
-      // Send updated schedule back to parent
+      const data = await response.json();
+
       if (onUpdated) {
         onUpdated(data.schedule || data);
       }
@@ -133,9 +141,59 @@ const ModalEditSchedule = ({ schedule, onClose, onUpdated }) => {
       onClose();
     } catch (error) {
       console.error("Error updating schedule:", error);
+
       setError(error.message || "Failed to update schedule.");
     } finally {
       setLoading(false);
+    }
+  };
+
+  // ========================================
+  // DELETE SCHEDULE
+  // ========================================
+
+  const handleDelete = async () => {
+    const confirmed = window.confirm(
+      "Are you sure you want to delete this match? This action cannot be undone.",
+    );
+
+    if (!confirmed) return;
+
+    try {
+      setDeleting(true);
+      setError("");
+
+      const response = await fetch(`${API_URL}/schedules/${schedule._id}`, {
+        method: "DELETE",
+      });
+
+      if (!response.ok) {
+        const contentType = response.headers.get("content-type");
+
+        let errorMessage = `Failed to delete match (${response.status})`;
+
+        if (contentType?.includes("application/json")) {
+          const data = await response.json();
+
+          errorMessage = data.message || errorMessage;
+        }
+
+        throw new Error(errorMessage);
+      }
+
+      if (onUpdated) {
+        onUpdated(schedule._id, {
+          isDeleted: true,
+        });
+      }
+
+      onClose();
+    } catch (error) {
+      console.error("Error deleting match:", error);
+
+      setError(error.message || "Failed to delete schedule.");
+    } finally {
+      setDeleting(false);
     }
   };
 
@@ -173,7 +231,7 @@ const ModalEditSchedule = ({ schedule, onClose, onUpdated }) => {
         ======================================== */}
 
         <form onSubmit={handleSubmit} className="space-y-6 p-6">
-          {/* Error */}
+          {/* ERROR */}
           {error && (
             <div className="rounded-xl border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-400">
               {error}
@@ -186,42 +244,35 @@ const ModalEditSchedule = ({ schedule, onClose, onUpdated }) => {
 
           <div className="grid gap-5 md:grid-cols-2">
             {/* DATE */}
+
             <div>
-              <label className="mb-2 block text-sm font-medium text-[#B8C2D1]">
+              <label className="mb-2 block text-sm font-medium text-[#F8FAFC]">
                 Match Date
               </label>
 
-              <div className="relative">
-                <FaCalendar className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-[#49C85A]" />
-
-                <input
-                  type="date"
-                  name="date"
-                  value={formData.date}
-                  onChange={handleChange}
-                  className="w-full rounded-xl border border-[#28466B] bg-[#07111F] px-11 py-3 text-[#F8FAFC] outline-none transition focus:border-[#0E5FD8] focus:ring-2 focus:ring-[#0E5FD8]/20"
-                />
-              </div>
+              <input
+                type="date"
+                name="date"
+                value={formData.date}
+                onChange={handleChange}
+                className="w-full rounded-lg border border-[#28466B] bg-card px-4 py-3 text-[#F8FAFC] outline-none focus:border-[#0E5FD8]"
+              />
             </div>
 
             {/* TIME */}
             <div>
-              <label className="mb-2 block text-sm font-medium text-[#B8C2D1]">
+              <label className="mb-2 block text-sm font-medium text-[#F8FAFC]">
                 Match Time
               </label>
-
-              <div className="relative">
-                <FaClock className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-[#49C85A]" />
-
-                <input
-                  type="text"
-                  name="time"
-                  value={formData.time}
-                  onChange={handleChange}
-                  placeholder="9:00 PM – 10:30 PM"
-                  className="w-full rounded-xl border border-[#28466B] bg-[#07111F] px-11 py-3 text-[#F8FAFC] placeholder:text-[#B8C2D1]/40 outline-none transition focus:border-[#0E5FD8] focus:ring-2 focus:ring-[#0E5FD8]/20"
-                />
-              </div>
+              <TimePicker
+                value={formData.time}
+                onChange={(time) =>
+                  setFormData((prev) => ({
+                    ...prev,
+                    time,
+                  }))
+                }
+              />
             </div>
           </div>
 
@@ -230,36 +281,34 @@ const ModalEditSchedule = ({ schedule, onClose, onUpdated }) => {
           ======================================== */}
 
           <div className="grid gap-5 md:grid-cols-2">
-            {/* FORMAT */}
+            {/* MATCH FORMAT */}
+
             <div>
-              <label className="mb-2 block text-sm font-medium text-[#B8C2D1]">
+              <label className="mb-2 block text-sm font-medium text-[#F8FAFC]">
                 Match Format
               </label>
 
-              <div className="relative">
-                <IoFootball className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-[#49C85A]" />
-
-                <select
-                  name="matchFormat"
-                  value={formData.matchFormat}
-                  onChange={handleChange}
-                  className="w-full appearance-none rounded-xl border border-[#28466B] bg-[#07111F] px-11 py-3 text-[#F8FAFC] outline-none transition focus:border-[#0E5FD8] focus:ring-2 focus:ring-[#0E5FD8]/20"
-                >
-                  <option value="">Select format</option>
-                  <option value="5">5 vs 5</option>
-                  <option value="6">6 vs 6</option>
-                  <option value="7">7 vs 7</option>
-                  <option value="8">8 vs 8</option>
-                  <option value="9">9 vs 9</option>
-                  <option value="10">10 vs 10</option>
-                  <option value="11">11 vs 11</option>
-                </select>
-              </div>
+              <select
+                name="matchFormat"
+                value={formData.matchFormat}
+                onChange={handleChange}
+                className="w-full rounded-lg border border-[#28466B] bg-card px-4 py-3 text-[#F8FAFC] outline-none focus:border-[#0E5FD8]"
+              >
+                <option value="" disabled>
+                  Select format
+                </option>
+                {matchFormats.map((format) => (
+                  <option key={format.value} value={format.value}>
+                    {format.label}
+                  </option>
+                ))}
+              </select>
             </div>
 
             {/* MATCH TYPE */}
+
             <div>
-              <label className="mb-2 block text-sm font-medium text-[#B8C2D1]">
+              <label className="mb-2 block text-sm font-medium text-[#F8FAFC]">
                 Match Type
               </label>
 
@@ -267,12 +316,15 @@ const ModalEditSchedule = ({ schedule, onClose, onUpdated }) => {
                 name="matchType"
                 value={formData.matchType}
                 onChange={handleChange}
-                className="w-full rounded-xl border border-[#28466B] bg-[#07111F] px-4 py-3 text-[#F8FAFC] outline-none transition focus:border-[#0E5FD8] focus:ring-2 focus:ring-[#0E5FD8]/20"
+                className="w-full rounded-lg border border-[#28466B] bg-card px-4 py-3 text-[#F8FAFC] outline-none focus:border-[#0E5FD8]"
               >
                 <option value="">Select type</option>
-                <option value="training">Training</option>
-                <option value="friendly">Friendly</option>
-                <option value="competitive">Competitive</option>
+
+                {matchTypes.map((type) => (
+                  <option key={type.value} value={type.value}>
+                    {type.label}
+                  </option>
+                ))}
               </select>
             </div>
           </div>
@@ -282,7 +334,7 @@ const ModalEditSchedule = ({ schedule, onClose, onUpdated }) => {
           ======================================== */}
 
           <div>
-            <label className="mb-2 block text-sm font-medium text-[#B8C2D1]">
+            <label className="mb-2 block text-sm font-medium text-[#F8FAFC]">
               Venue
             </label>
 
@@ -291,7 +343,7 @@ const ModalEditSchedule = ({ schedule, onClose, onUpdated }) => {
               value={formData.venue}
               onChange={handleChange}
               disabled={venuesLoading}
-              className="w-full rounded-xl border border-[#28466B] bg-[#07111F] px-4 py-3 text-[#F8FAFC] outline-none transition focus:border-[#0E5FD8] focus:ring-2 focus:ring-[#0E5FD8]/20 disabled:cursor-not-allowed disabled:opacity-50"
+              className="w-full rounded-lg border border-[#28466B] bg-card px-4 py-3 text-[#F8FAFC] outline-none focus:border-[#0E5FD8] disabled:cursor-not-allowed disabled:opacity-60"
             >
               <option value="">
                 {venuesLoading ? "Loading venues..." : "Select venue"}
@@ -306,44 +358,45 @@ const ModalEditSchedule = ({ schedule, onClose, onUpdated }) => {
           </div>
 
           {/* ========================================
-              CURRENT VENUE
+              ACTION BUTTONS
           ======================================== */}
 
-          {schedule.venue?.venue && (
-            <div className="rounded-xl border border-[#28466B] bg-[#07111F]/60 px-4 py-3">
-              <p className="text-xs uppercase tracking-wider text-[#B8C2D1]/60">
-                Current Venue
-              </p>
+          <div className="flex flex-col gap-3 pt-2 sm:flex-row sm:items-center sm:justify-between">
+            {/* DELETE */}
 
-              <p className="mt-1 text-sm font-medium text-[#F8FAFC]">
-                {schedule.venue.venue}
-              </p>
-            </div>
-          )}
-
-          {/* ========================================
-              ACTIONS
-          ======================================== */}
-
-          <div className="flex flex-col-reverse gap-3 border-t border-[#28466B] pt-5 sm:flex-row sm:justify-end">
             <button
               type="button"
-              onClick={onClose}
-              disabled={loading}
-              className="rounded-xl border border-[#28466B] bg-[#07111F] px-5 py-3 font-medium text-[#B8C2D1] transition hover:border-[#3A82FF] hover:text-white disabled:opacity-50"
+              onClick={handleDelete}
+              disabled={deleting || loading}
+              className="order-3 inline-flex w-full items-center justify-center gap-2 rounded-xl border border-red-500/30 bg-red-500/10 px-5 py-3 text-sm font-semibold text-red-400 transition hover:bg-red-500/20 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-60 sm:order-1 sm:w-auto"
             >
-              Cancel
+              <FaTrash className="text-xs" />
+
+              <span>{deleting ? "Deleting Match..." : "Delete Match"}</span>
             </button>
 
-            <button
-              type="submit"
-              disabled={loading}
-              className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#0E5FD8] px-5 py-3 font-semibold text-white transition hover:bg-[#3A82FF] disabled:cursor-not-allowed disabled:opacity-50"
-            >
-              <FaFloppyDisk />
+            {/* CANCEL + UPDATE */}
 
-              {loading ? "Updating..." : "Update Schedule"}
-            </button>
+            <div className="order-1 grid w-full grid-cols-2 gap-3 sm:order-2 sm:flex sm:w-auto sm:items-center">
+              <button
+                type="button"
+                onClick={onClose}
+                disabled={loading || deleting}
+                className="w-full rounded-xl border border-[#28466B] px-5 py-3 text-sm font-semibold text-[#B8C2D1] transition hover:border-[#3A82FF] hover:text-white active:scale-[0.98] disabled:opacity-50 sm:w-auto"
+              >
+                Cancel
+              </button>
+
+              <button
+                type="submit"
+                disabled={loading || deleting}
+                className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-[#0E5FD8] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#3A82FF] active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50 sm:w-auto"
+              >
+                <FaFloppyDisk className="text-xs" />
+
+                <span>{loading ? "Updating..." : "Update"}</span>
+              </button>
+            </div>
           </div>
         </form>
       </div>

@@ -13,6 +13,12 @@ import PageHero from "../components/PageHero";
 
 const adminItems = [
   {
+    title: "Register Team",
+    description: "Create and manage teams.",
+    icon: ShieldPlus,
+    path: "/register-team",
+  },
+  {
     title: "Register Player",
     description: "Add a new player to the club.",
     icon: UserPlus,
@@ -23,12 +29,6 @@ const adminItems = [
     description: "Edit existing player information.",
     icon: Pencil,
     path: "/update-player",
-  },
-  {
-    title: "Register Team",
-    description: "Create and manage teams.",
-    icon: ShieldPlus,
-    path: "/register-team",
   },
   {
     title: "Add Schedule",
@@ -43,7 +43,7 @@ const adminItems = [
     path: "/update-schedule",
   },
   {
-    title: "Add Match",
+    title: "Create Match",
     description: "Set up a new football match.",
     icon: Trophy,
     path: "/new-match",
@@ -55,7 +55,7 @@ const adminItems = [
     path: "/update-match",
   },
   {
-    title: "Live Match",
+    title: "Live Scoreboard",
     description: "Control the live match scoreboard.",
     icon: Radio,
     path: "/live-match",

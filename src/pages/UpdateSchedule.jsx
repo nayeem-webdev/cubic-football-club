@@ -52,12 +52,21 @@ export default function UpdateSchedule() {
   // AFTER UPDATE
   // ========================================
 
-  const handleScheduleUpdated = (updatedSchedule) => {
-    setSchedules((prevSchedules) =>
-      prevSchedules.map((schedule) =>
-        schedule._id === updatedSchedule._id ? updatedSchedule : schedule,
-      ),
-    );
+  const handleScheduleUpdated = (updatedItem, options = {}) => {
+    // If the call passed a deleted flag or explicit ID
+    if (options.isDeleted || updatedItem?.isDeleted) {
+      const deletedId =
+        typeof updatedItem === "string" ? updatedItem : updatedItem._id;
+      setSchedules((prevSchedules) =>
+        prevSchedules.filter((schedule) => schedule._id !== deletedId),
+      );
+    } else {
+      setSchedules((prevSchedules) =>
+        prevSchedules.map((schedule) =>
+          schedule._id === updatedItem._id ? updatedItem : schedule,
+        ),
+      );
+    }
 
     setSelectedSchedule(null);
   };
@@ -114,15 +123,7 @@ export default function UpdateSchedule() {
                   <div>
                     <div className="mb-2 flex items-center gap-3">
                       {/* MATCH TYPE BADGE */}
-                      <span
-                        className={`rounded-md px-2 py-1 text-xs font-semibold ${
-                          schedule.matchType === "competitive"
-                            ? "bg-[#D4AF37]/15 text-[#D4AF37]"
-                            : schedule.matchType === "friendly"
-                              ? "bg-[#0E5FD8]/15 text-[#3A82FF]"
-                              : "bg-[#49C85A]/15 text-[#49C85A]"
-                        }`}
-                      >
+                      <span className="rounded-md bg-[#0E5FD8]/15 px-2 py-1 text-xs font-semibold text-[#3A82FF]">
                         {schedule.matchType
                           ? schedule.matchType.toUpperCase()
                           : "MATCH"}
@@ -135,13 +136,9 @@ export default function UpdateSchedule() {
                     </div>
 
                     <h2 className="text-xl font-bold text-[#F8FAFC] sm:text-2xl">
-                      {schedule.matchType === "training"
-                        ? "Training Session"
-                        : schedule.matchType === "competitive"
-                          ? "Competitive Match"
-                          : schedule.matchType === "friendly"
-                            ? "Friendly Match"
-                            : "Match Session"}
+                      {schedule.matchType.charAt(0).toUpperCase() +
+                        schedule.matchType.slice(1)}{" "}
+                      Match
                     </h2>
                   </div>
 
@@ -162,16 +159,6 @@ export default function UpdateSchedule() {
                         {schedule.time || "N/A"}
                       </p>
                     </div>
-
-                    {/* FORMAT */}
-                    {/* <div className="min-w-0">
-                      <p className="mb-1 text-xs text-[#B8C2D1]/60">FORMAT</p>
-                      <p className="font-medium text-[#F8FAFC]">
-                        {schedule.matchFormat
-                          ? `${schedule.matchFormat} v ${schedule.matchFormat}`
-                          : "N/A"}
-                      </p>
-                    </div> */}
 
                     {/* VENUE */}
                     <div className="min-w-0">
