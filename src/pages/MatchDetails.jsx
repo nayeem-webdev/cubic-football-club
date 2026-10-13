@@ -463,7 +463,7 @@ const MatchDetails = () => {
       <div className="sticky top-0 z-50 border-b border-white/10 bg-[#07111F]/95 px-4 py-3 backdrop-blur-md">
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-3">
           <button
-            onClick={() => navigate("/upcoming-matches")}
+            onClick={() => navigate("/matches")}
             className="inline-flex items-center gap-2 rounded-lg border border-white/15 bg-white/5 px-3 py-2 text-xs font-bold uppercase tracking-wider text-white transition hover:border-[#D4AF37] hover:text-[#D4AF37]"
           >
             <ArrowLeft size={15} />

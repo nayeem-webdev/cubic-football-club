@@ -8,10 +8,10 @@ import {
   UserRound,
   Goal,
   Swords,
-  LoaderCircle,
   AlertCircle,
 } from "lucide-react";
 import PageHero from "../components/PageHero";
+import Loader from "../components/Loader";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -61,14 +61,7 @@ const Teams = () => {
         />
 
         {/* Loading */}
-        {loading && (
-          <div className="flex min-h-[300px] items-center justify-center">
-            <div className="flex items-center gap-3 text-[#B8C2D1]">
-              <LoaderCircle className="h-5 w-5 animate-spin text-[#3A82FF]" />
-              <span>Loading teams...</span>
-            </div>
-          </div>
-        )}
+        {loading && <Loader />}
 
         {/* Error */}
         {!loading && error && (
@@ -91,7 +84,7 @@ const Teams = () => {
 
         {/* Teams */}
         {!loading && !error && teams.length > 0 && (
-          <div className="mt-12 space-y-8">
+          <div className="space-y-8">
             {teams.map((team) => {
               const stats = team.statistics || {};
               const players = team.players || [];

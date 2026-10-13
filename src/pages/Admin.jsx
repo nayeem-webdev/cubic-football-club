@@ -8,6 +8,7 @@ import {
   Radio,
   ClipboardPen,
   CalendarSync,
+  ShieldHalf,
 } from "lucide-react";
 import PageHero from "../components/PageHero";
 
@@ -41,6 +42,12 @@ const adminItems = [
     description: "Edit existing match schedule.",
     icon: CalendarSync,
     path: "/update-schedule",
+  },
+  {
+    title: "Add Opponent",
+    description: "Add other club team as opponent.",
+    icon: ShieldHalf,
+    path: "/add-opponent",
   },
   {
     title: "Create Match",

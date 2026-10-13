@@ -29,7 +29,7 @@ export default function Players() {
   useEffect(() => {
     const fetchPlayers = async () => {
       try {
-        const response = await fetch(`${API_URL}/players`);
+        const response = await fetch(`${API_URL}/player-details`);
 
         if (!response.ok) {
           throw new Error("Failed to fetch players");

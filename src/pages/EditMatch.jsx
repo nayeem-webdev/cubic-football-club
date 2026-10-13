@@ -230,7 +230,7 @@ const EditMatch = () => {
         throw new Error(data.message || "Failed to delete match");
       }
 
-      navigate("/upcoming-matches");
+      navigate("/update-match");
     } catch (error) {
       console.error("Error deleting match:", error);
       setMessage(error.message || "Failed to delete match");

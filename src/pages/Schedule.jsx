@@ -113,11 +113,9 @@ export default function Schedule() {
                       </h3>
 
                       <p className="mt-0.5 text-xs text-secondary">
-                        {item.matchType === "competitive"
-                          ? "Competitive Match"
-                          : item.matchType === "friendly"
-                            ? "Friendly Match"
-                            : "Training Match"}{" "}
+                        {item.matchType
+                          ? `${item.matchType.charAt(0).toUpperCase() + item.matchType.slice(1)} Match`
+                          : "Training Match"}
                       </p>
                     </div>
                   </div>

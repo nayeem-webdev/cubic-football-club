@@ -14,12 +14,14 @@ import UpdatePlayer from "../pages/UpdatePlayer";
 import Admin from "../pages/Admin";
 import AdminLogin from "../pages/AdminLogin";
 import Teams from "../pages/Teams";
-import UpcomingMatches from "../pages/UpcomingMatches";
+import Matches from "../pages/Matches";
 import MatchDetails from "../pages/MatchDetails";
 import AddMatch from "../pages/AddMatch";
 import EditMatch from "../pages/EditMatch";
 import UpdateMatch from "../pages/UpdateMatch";
 import UpdateSchedule from "../pages/UpdateSchedule";
+import AddOpponent from "../pages/AddOpponent";
+import AddOpponentTeam from "../pages/AddOpponentTeam";
 
 const router = createBrowserRouter([
   {
@@ -49,7 +51,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/matches",
-        element: <UpcomingMatches />,
+        element: <Matches />,
       },
       {
         path: "/upcoming-matches/:id",
@@ -79,9 +81,23 @@ const router = createBrowserRouter([
             element: <RegisterTeam />,
           },
           {
+            path: "/add-opponent",
+            element: <AddOpponent />,
+          },
+          {
+            path: "/add-opponent-player",
+            element: <AddOpponent />,
+          },
+          {
+            path: "/add-opponent-team",
+            element: <AddOpponentTeam />,
+          },
+
+          {
             path: "/add-schedule",
             element: <AddSchedule />,
           },
+
           {
             path: "/new-match",
             element: <AddMatch />,
