@@ -1,23 +1,35 @@
 import { Link } from "react-router-dom";
 import {
   UserPlus,
-  Pencil,
   ShieldPlus,
   CalendarPlus,
   Trophy,
   Radio,
   ClipboardPen,
   CalendarSync,
-  ShieldHalf,
+  UserPen,
+  ShieldUser,
 } from "lucide-react";
 import PageHero from "../components/PageHero";
 
 const adminItems = [
   {
-    title: "Register Team",
-    description: "Create and manage teams.",
-    icon: ShieldPlus,
-    path: "/register-team",
+    title: "Live Scoreboard",
+    description: "Control the live match scoreboard.",
+    icon: Radio,
+    path: "/live-match",
+  },
+  {
+    title: "Create Match",
+    description: "Set up a new football match.",
+    icon: Trophy,
+    path: "/new-match",
+  },
+  {
+    title: "Update Match",
+    description: "Update match information.",
+    icon: ClipboardPen,
+    path: "/update-match",
   },
   {
     title: "Register Player",
@@ -28,8 +40,14 @@ const adminItems = [
   {
     title: "Update Player",
     description: "Edit existing player information.",
-    icon: Pencil,
+    icon: UserPen,
     path: "/update-player",
+  },
+  {
+    title: "Register Team",
+    description: "Create and manage teams.",
+    icon: ShieldPlus,
+    path: "/register-team",
   },
   {
     title: "Add Schedule",
@@ -46,26 +64,14 @@ const adminItems = [
   {
     title: "Add Opponent",
     description: "Add other club team as opponent.",
-    icon: ShieldHalf,
+    icon: ShieldPlus,
     path: "/add-opponent",
   },
   {
-    title: "Create Match",
-    description: "Set up a new football match.",
-    icon: Trophy,
-    path: "/new-match",
-  },
-  {
-    title: "Update Match",
-    description: "Update match information.",
-    icon: ClipboardPen,
-    path: "/update-match",
-  },
-  {
-    title: "Live Scoreboard",
-    description: "Control the live match scoreboard.",
-    icon: Radio,
-    path: "/live-match",
+    title: "Update Opponent",
+    description: "Update Players of other club.",
+    icon: ShieldUser,
+    path: "/update-opponent-player",
   },
 ];
 
@@ -79,7 +85,7 @@ export default function Admin() {
           subheading="Manage players, teams, schedules, and live matches."
         />
 
-        <div className="mt-8 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {adminItems.map((item) => {
             const Icon = item.icon;
 
@@ -105,7 +111,7 @@ export default function Admin() {
                   </div>
                 </div>
 
-                <div className="mt-6 flex items-center gap-2 text-sm font-semibold text-[#3A82FF]">
+                <div className="mt-4 flex items-center gap-2 text-sm font-semibold text-[#3A82FF]">
                   Manage
                   <span className="transition-transform duration-300 group-hover:translate-x-1">
                     →

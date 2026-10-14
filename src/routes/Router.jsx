@@ -21,7 +21,7 @@ import EditMatch from "../pages/EditMatch";
 import UpdateMatch from "../pages/UpdateMatch";
 import UpdateSchedule from "../pages/UpdateSchedule";
 import AddOpponent from "../pages/AddOpponent";
-import AddOpponentTeam from "../pages/AddOpponentTeam";
+import UpdateOpponentPlayer from "../pages/UpdateOpponentPlayer";
 
 const router = createBrowserRouter([
   {
@@ -85,12 +85,8 @@ const router = createBrowserRouter([
             element: <AddOpponent />,
           },
           {
-            path: "/add-opponent-player",
-            element: <AddOpponent />,
-          },
-          {
-            path: "/add-opponent-team",
-            element: <AddOpponentTeam />,
+            path: "/update-opponent-player",
+            element: <UpdateOpponentPlayer />,
           },
 
           {

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Edit3, Save, X } from "lucide-react";
+import { Edit3, Save, Trash, X } from "lucide-react";
 import Loader from "../components/Loader";
 import PageHero from "../components/PageHero";
 
@@ -136,6 +136,30 @@ export default function UpdatePlayer() {
     return club?.name || playsFor;
   };
 
+  const deletePlayerById = async (playerId) => {
+    try {
+      const response = await fetch(`${API_URL}/players/${playerId}`, {
+        method: "DELETE",
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.message || "Failed to delete player");
+      }
+
+      // Update UI immediately
+      setPlayers((prevPlayers) =>
+        prevPlayers.filter((player) => player._id !== playerId),
+      );
+
+      alert(result.message);
+    } catch (error) {
+      console.error("Delete player error:", error);
+      alert(error.message);
+    }
+  };
+
   // 1. Updated State (Default to 'jerseyNumber' or 'nameAsc')
 
   // 2. Updated Filter & Sort Pipeline
@@ -209,11 +233,13 @@ export default function UpdatePlayer() {
   const getStatusBadgeClass = (status = "active") => {
     switch (status) {
       case "active":
-        return "border-[#49C85A]/30 bg-[#49C85A]/10 text-[#49C85A]";
+        return "border-accent/30 bg-accent/10 text-accent";
       case "inactive":
-        return "border-red-500/30 bg-red-500/10 text-red-400";
+        return "border-rose-500/30 bg-rose-500/10 text-rose-400";
       case "retired":
-        return "border-yellow-500/30 bg-yellow-500/10 text-yellow-400";
+        return "border-amber-500/30 bg-amber-500/10 text-amber-400";
+      case "backup":
+        return "border-purple-500/30 bg-purple-500/10 text-purple-400";
       default:
         return "border-gray-500/30 bg-gray-500/10 text-gray-400";
     }
@@ -234,7 +260,7 @@ export default function UpdatePlayer() {
 
         {/* Filter Panel */}
         <div className="space-y-4 rounded-xl border border-[#28466B] bg-[#0E1D34] p-4">
-          <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 md:grid-cols-4">
+          <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 md:grid-cols-5">
             {/* Search Input */}
             <div className="relative">
               <input
@@ -269,58 +295,59 @@ export default function UpdatePlayer() {
                 ))}
               </select>
             </div>
-            <div className="flex flex-row gap-2">
-              {/* Position Filter */}
-              <div>
-                <select
-                  value={selectedPosition}
-                  onChange={(e) => setSelectedPosition(e.target.value)}
-                  className="w-full rounded-lg border border-[#28466B] bg-[#07111F] px-3 py-2 text-xs text-[#B8C2D1] outline-none focus:border-[#0E5FD8]"
-                >
-                  <option value="all">All Positions</option>
-                  <option value="GK">Goalkeeper (GK)</option>
-                  <option value="DF">Defender (DF)</option>
-                  <option value="MF">Midfielder (MF)</option>
-                  <option value="FW">Forward (FW)</option>
-                  <option value="ST">Striker (ST)</option>
-                </select>
-              </div>
+            {/* Position Filter */}
+            <div>
+              <select
+                value={selectedPosition}
+                onChange={(e) => setSelectedPosition(e.target.value)}
+                className="w-full rounded-lg border border-[#28466B] bg-[#07111F] px-3 py-2 text-xs text-[#B8C2D1] outline-none focus:border-[#0E5FD8]"
+              >
+                <option value="all">All Positions</option>
+                <option value="GK">Goalkeeper (GK)</option>
+                <option value="DF">Defender (DF)</option>
+                <option value="MF">Midfielder (MF)</option>
+                <option value="FW">Forward (FW)</option>
+                <option value="ST">Striker (ST)</option>
+              </select>
+            </div>
 
-              {/* Sort Dropdown */}
-              <div>
-                <select
-                  value={sortBy}
-                  onChange={(e) => setSortBy(e.target.value)}
-                  className="w-full rounded-lg border border-[#28466B] bg-[#07111F] px-3 py-2 text-xs text-[#B8C2D1] outline-none focus:border-[#0E5FD8]"
-                >
-                  <option value="jerseyNumber">Sort by Jersey No.</option>
-                  <option value="nameAsc">Sort by Name (A-Z)</option>
-                  <option value="nameDesc">Sort by Name (Z-A)</option>
-                  <option value="none">Default Order</option>
-                </select>
-              </div>
+            {/* Sort Dropdown */}
+            <div>
+              <select
+                value={sortBy}
+                onChange={(e) => setSortBy(e.target.value)}
+                className="w-full rounded-lg border border-[#28466B] bg-[#07111F] px-3 py-2 text-xs text-[#B8C2D1] outline-none focus:border-[#0E5FD8]"
+              >
+                <option value="jerseyNumber">Sort by Jersey No.</option>
+                <option value="nameAsc">Sort by Name (A-Z)</option>
+                <option value="nameDesc">Sort by Name (Z-A)</option>
+                <option value="none">Default Order</option>
+              </select>
             </div>
 
             {/* Status Filter Tabs */}
-            <div className="grid grid-cols-4 gap-2 overflow-x-auto">
-              {[
-                { label: "All", value: "all" },
-                { label: "Active", value: "active" },
-                { label: "Inactive", value: "inactive" },
-                { label: "Retired", value: "retired" },
-              ].map((tab) => (
-                <button
-                  key={tab.value}
-                  onClick={() => setSelectedStatus(tab.value)}
-                  className={`whitespace-nowrap rounded-md px-3 py-1 text-xs font-semibold transition ${
-                    selectedStatus === tab.value
-                      ? "bg-[#0E5FD8] text-white"
-                      : "border border-[#28466B] bg-[#07111F] text-[#B8C2D1] hover:text-white"
-                  }`}
-                >
-                  {tab.label}
-                </button>
-              ))}
+            <div>
+              <select
+                value={selectedStatus}
+                onChange={(e) => setSelectedStatus(e.target.value)}
+                className="w-full rounded-lg border border-[#28466B] bg-[#07111F] px-3 py-2 text-xs text-[#B8C2D1] outline-none focus:border-[#0E5FD8]"
+              >
+                {[
+                  { label: "All Players", value: "all" },
+                  { label: "Active", value: "active" },
+                  { label: "Inactive", value: "inactive" },
+                  { label: "Retired", value: "retired" },
+                  { label: "Backup", value: "backup" },
+                ].map((option) => (
+                  <option
+                    key={option.value}
+                    value={option.value}
+                    className="bg-[#07111F] text-[#F8FAFC]"
+                  >
+                    {option.label}
+                  </option>
+                ))}
+              </select>
             </div>
           </div>
         </div>
@@ -483,6 +510,7 @@ export default function UpdatePlayer() {
                             <option value="active">Active</option>
                             <option value="inactive">Inactive</option>
                             <option value="retired">Retired</option>
+                            <option value="backup">Backup</option>
                           </select>
                         ) : (
                           <span
@@ -641,6 +669,25 @@ export default function UpdatePlayer() {
                                 Save
                               </button>
 
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  if (
+                                    window.confirm(
+                                      "Are you sure you want to delete this player?",
+                                    )
+                                  ) {
+                                    deletePlayerById(player._id);
+                                  }
+                                }}
+                                className="flex h-8 w-8 items-center justify-center rounded-md transition hover:opacity-80"
+                                style={{
+                                  background: "var(--color-card)",
+                                  border: "1px solid var(--color-border)",
+                                }}
+                              >
+                                <Trash size={15} />
+                              </button>
                               <button
                                 type="button"
                                 onClick={handleCancel}

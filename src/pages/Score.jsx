@@ -56,7 +56,7 @@ export default function Score() {
           subheading="View upcoming fixtures, recent results, and every match played by Cubic FC."
         />
 
-        <div className="mx-auto flex max-w-7xl flex-col gap-6">
+        <div className="mx-auto grid grid-cols-1 max-w-7xl gap-6">
           {matches.length > 0 ? (
             matches.map((match) => <ScoreCard key={match._id} match={match} />)
           ) : (

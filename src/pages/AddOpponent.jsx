@@ -1,233 +1,65 @@
-import { useEffect, useState } from "react";
-import Loader from "../components/Loader";
+import { useState } from "react";
 import PageHero from "../components/PageHero";
+import AddOpponentPlayer from "../components/AddOpponentPlayer";
+import AddOpponentTeam from "../components/AddOpponentTeam";
+import { FaUserPlus, FaUsers } from "react-icons/fa6";
 
 const AddOpponent = () => {
-  const API_URL = import.meta.env.VITE_API_URL;
+  const [activeTab, setActiveTab] = useState("player");
 
-  const [clubs, setClubs] = useState([]);
-  const [loadingTeams, setLoadingTeams] = useState(true);
-
-  const [formData, setFormData] = useState({
-    name: "",
-    position: "",
-    jerseyNumber: "",
-    photo: "https://i.ibb.co.com/LXYyhTBb/player-placeholder.png",
-    playsFor: "",
-  });
-
-  const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState("");
-
-  // Fetch clubs
-  useEffect(() => {
-    const fetchTeams = async () => {
-      try {
-        const response = await fetch(`${API_URL}/opponent-teams`);
-
-        if (!response.ok) {
-          throw new Error("Failed to fetch teams");
-        }
-
-        const data = await response.json();
-
-        setClubs(data);
-      } catch (error) {
-        console.error("Error fetching teams:", error);
-        setMessage("Failed to load clubs");
-      } finally {
-        setLoadingTeams(false);
-      }
-    };
-
-    fetchTeams();
-  }, [API_URL]);
-
-  // Handle input changes
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
-
-  // Submit form
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    setLoading(true);
-    setMessage("");
-
-    try {
-      const response = await fetch(`${API_URL}/opponent-players`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          ...formData,
-          jerseyNumber: Number(formData.jerseyNumber),
-        }),
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.error || "Failed to register player");
-      }
-
-      setMessage("Player registered successfully!");
-
-      // Reset form
-      setFormData({
-        name: "",
-        position: "",
-        jerseyNumber: "",
-        photo: "https://i.ibb.co.com/LXYyhTBb/player-placeholder.png",
-        playsFor: "",
-      });
-    } catch (error) {
-      console.error("Error registering player:", error);
-      setMessage(error.message);
-    } finally {
-      setLoading(false);
-    }
-  };
+  const tabClass = (tab) =>
+    `flex flex-1 items-center justify-center gap-2 rounded-lg px-5 py-3 text-sm font-semibold transition-all duration-300 sm:flex-none ${
+      activeTab === tab
+        ? "bg-[#0E5FD8] text-white shadow-md shadow-blue-900/20"
+        : "text-[#B8C2D1] hover:bg-[#152640] hover:text-[#D4AF37]"
+    }`;
 
   return (
     <div className="min-h-screen bg-[#07111F] px-4 py-10 text-[#F8FAFC]">
       <div className="mx-auto max-w-3xl">
-        {loadingTeams && <Loader />}
-
         {/* Header */}
         <PageHero
           text="CUBIC FC"
-          heading="Add Opponent Player"
-          subheading="Add a opponent player in their Squad."
+          heading="Add Opponent"
+          subheading="Add an opponent team and its players to their squad."
         />
 
         {/* Form Card */}
         <div className="rounded-2xl border border-[#28466B] bg-[#0E1D34] p-6 shadow-2xl md:p-8">
-          <form onSubmit={handleSubmit} className="space-y-6">
-            {/* Player Name */}
-            <div>
-              <label htmlFor="name" className="mb-2 block text-sm font-medium">
-                Player Name
-              </label>
-
-              <input
-                id="name"
-                name="name"
-                type="text"
-                placeholder="Enter player name"
-                value={formData.name}
-                onChange={handleChange}
-                required
-                className="w-full rounded-lg border border-[#28466B] bg-card px-4 py-3 text-[#F8FAFC] outline-none placeholder:text-[#718096] focus:border-[#0E5FD8]"
-              />
-            </div>
-
-            {/* Jersey + Position */}
-            <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
-              {/* Jersey Number */}
-              <div>
-                <label
-                  htmlFor="jerseyNumber"
-                  className="mb-2 block text-sm font-medium"
-                >
-                  Jersey Number
-                </label>
-
-                <input
-                  id="jerseyNumber"
-                  name="jerseyNumber"
-                  type="number"
-                  placeholder="10"
-                  value={formData.jerseyNumber}
-                  onChange={handleChange}
-                  required
-                  className="w-full rounded-lg border border-[#28466B] bg-card px-4 py-3 text-[#F8FAFC] outline-none placeholder:text-[#718096] focus:border-[#0E5FD8]"
-                />
-              </div>
-
-              {/* Position */}
-              <div>
-                <label
-                  htmlFor="position"
-                  className="mb-2 block text-sm font-medium"
-                >
-                  Position
-                </label>
-
-                <select
-                  id="position"
-                  name="position"
-                  value={formData.position}
-                  onChange={handleChange}
-                  required
-                  className="w-full rounded-lg border border-[#28466B] bg-card px-4 py-3 text-[#F8FAFC] outline-none focus:border-[#0E5FD8]"
-                >
-                  <option value="">Select position</option>
-                  <option value="GK">Goalkeeper</option>
-                  <option value="DF">Defender</option>
-                  <option value="MF">Midfielder</option>
-                  <option value="FW">Forward</option>
-                  <option value="ST">Striker</option>
-                </select>
-              </div>
-            </div>
-
-            {/* Club */}
-            <div>
-              <label
-                htmlFor="playsFor"
-                className="mb-2 block text-sm font-medium"
-              >
-                Club
-              </label>
-
-              <select
-                id="playsFor"
-                name="playsFor"
-                value={formData.playsFor}
-                onChange={handleChange}
-                required
-                className="w-full rounded-lg border border-[#28466B] bg-card px-4 py-3 text-[#F8FAFC] outline-none focus:border-[#0E5FD8]"
-              >
-                <option value="">Select club</option>
-
-                {clubs.map((club) => (
-                  <option key={club._id} value={club._id}>
-                    {club.name}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            {/* Success / Error Message */}
-            {message && (
-              <div
-                className={`rounded-lg border px-4 py-3 text-sm ${
-                  message.includes("successfully")
-                    ? "border-[#49C85A]/30 bg-[#49C85A]/10 text-[#49C85A]"
-                    : "border-red-500/30 bg-red-500/10 text-red-400"
-                }`}
-              >
-                {message}
-              </div>
-            )}
-
-            {/* Submit */}
+          {/* Tabs */}
+          <div
+            className="mb-6 flex w-full gap-2 rounded-xl border border-[#28466B] bg-[#07111F] p-1.5 sm:w-fit"
+            role="tablist"
+            aria-label="Add opponent"
+          >
             <button
-              type="submit"
-              disabled={loading || loadingTeams}
-              className="w-full rounded-lg bg-[#0E5FD8] px-5 py-3.5 font-semibold text-white transition hover:bg-[#3A82FF] disabled:cursor-not-allowed disabled:opacity-50"
+              type="button"
+              role="tab"
+              aria-selected={activeTab === "player"}
+              onClick={() => setActiveTab("player")}
+              className={tabClass("player")}
             >
-              {loading ? "Registering Player..." : "Register Player"}
+              <FaUserPlus className="text-base" />
+              Add Player
             </button>
-          </form>
+
+            <button
+              type="button"
+              role="tab"
+              aria-selected={activeTab === "team"}
+              onClick={() => setActiveTab("team")}
+              className={tabClass("team")}
+            >
+              <FaUsers className="text-base" />
+              Add Team
+            </button>
+          </div>
+
+          {/* Active Form */}
+          <div role="tabpanel">
+            {activeTab === "player" && <AddOpponentPlayer />}
+            {activeTab === "team" && <AddOpponentTeam />}
+          </div>
         </div>
       </div>
     </div>

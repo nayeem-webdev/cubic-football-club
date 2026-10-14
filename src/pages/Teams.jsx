@@ -17,9 +17,13 @@ const API_URL = import.meta.env.VITE_API_URL;
 
 const Teams = () => {
   const [teams, setTeams] = useState([]);
+  const [opponentTeams, setOpponentTeams] = useState([]);
+  const [activeTab, setActiveTab] = useState("our");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [expandedTeam, setExpandedTeam] = useState(null);
+
+  const displayedTeams = activeTab === "our" ? teams : opponentTeams;
 
   useEffect(() => {
     const fetchTeams = async () => {
@@ -27,15 +31,24 @@ const Teams = () => {
         setLoading(true);
         setError("");
 
-        const response = await fetch(`${API_URL}/teams-details`);
+        const [ourResponse, opponentResponse] = await Promise.all([
+          fetch(`${API_URL}/teams-details`),
+          fetch(`${API_URL}/opponent-teams-details`),
+        ]);
 
-        if (!response.ok) {
+        if (!ourResponse.ok || !opponentResponse.ok) {
           throw new Error("Failed to fetch teams");
         }
 
-        const data = await response.json();
+        const [ourData, opponentData] = await Promise.all([
+          ourResponse.json(),
+          opponentResponse.json(),
+        ]);
 
-        setTeams(data.teams || []);
+        setTeams(ourData.teams || []);
+        setOpponentTeams(
+          opponentData.teams || opponentData.opponentTeams || [],
+        );
       } catch (err) {
         console.error("Error fetching teams:", err);
         setError("Unable to load teams. Please try again.");
@@ -45,7 +58,7 @@ const Teams = () => {
     };
 
     fetchTeams();
-  }, []);
+  }, []); // Runs only when the component mounts
 
   const toggleTeam = (teamId) => {
     setExpandedTeam((prev) => (prev === teamId ? null : teamId));
@@ -56,10 +69,67 @@ const Teams = () => {
       <div className="mx-auto max-w-7xl">
         <PageHero
           text="CUBIC FC"
-          heading="Our Teams"
-          subheading="Meet the teams, players, and competitors that make every match count."
+          heading={activeTab === "our" ? "Our Teams" : "Opponent Teams"}
+          subheading={
+            activeTab === "our"
+              ? "Meet our registered teams, players, and club statistics."
+              : "Explore opponent clubs, their players, and match statistics."
+          }
         />
+        {/* Team Category Tabs */}
+        <div className="mx-auto mb-8 max-w-2xl">
+          <div className="grid grid-cols-2 gap-3 rounded-2xl border border-[#28466B] bg-[#0E1D34] p-2">
+            <button
+              type="button"
+              onClick={() => {
+                setActiveTab("our");
+                setExpandedTeam(null);
+              }}
+              className={`flex items-center justify-center gap-2 rounded-xl px-3 py-3 text-sm font-semibold transition sm:px-5 ${
+                activeTab === "our"
+                  ? "bg-[#0E5FD8] text-white shadow-lg shadow-blue-950/30"
+                  : "text-[#B8C2D1] hover:bg-[#152640] hover:text-white"
+              }`}
+            >
+              <Shield className="h-4 w-4 shrink-0" />
+              <span>Our Teams</span>
+              <span
+                className={`rounded-full px-2 py-0.5 text-xs ${
+                  activeTab === "our"
+                    ? "bg-white/15 text-white"
+                    : "bg-[#07111F] text-[#B8C2D1]"
+                }`}
+              >
+                {teams.length}
+              </span>
+            </button>
 
+            <button
+              type="button"
+              onClick={() => {
+                setActiveTab("opponent");
+                setExpandedTeam(null);
+              }}
+              className={`flex items-center justify-center gap-2 rounded-xl px-3 py-3 text-sm font-semibold transition sm:px-5 ${
+                activeTab === "opponent"
+                  ? "bg-[#0E5FD8] text-white shadow-lg shadow-blue-950/30"
+                  : "text-[#B8C2D1] hover:bg-[#152640] hover:text-white"
+              }`}
+            >
+              <Swords className="h-4 w-4 shrink-0" />
+              <span>Opponent Teams</span>
+              <span
+                className={`rounded-full px-2 py-0.5 text-xs ${
+                  activeTab === "opponent"
+                    ? "bg-white/15 text-white"
+                    : "bg-[#07111F] text-[#B8C2D1]"
+                }`}
+              >
+                {opponentTeams.length}
+              </span>
+            </button>
+          </div>
+        </div>
         {/* Loading */}
         {loading && <Loader />}
 
@@ -71,21 +141,28 @@ const Teams = () => {
           </div>
         )}
 
-        {/* Empty */}
-        {!loading && !error && teams.length === 0 && (
+        {!loading && !error && displayedTeams.length === 0 && (
           <div className="mt-10 rounded-2xl border border-[#28466B] bg-[#0E1D34] px-6 py-16 text-center">
             <Users className="mx-auto mb-4 h-10 w-10 text-[#B8C2D1]" />
-            <h3 className="text-lg font-semibold">No teams available</h3>
+
+            <h3 className="text-lg font-semibold">
+              {activeTab === "our"
+                ? "No teams available"
+                : "No opponent teams available"}
+            </h3>
+
             <p className="mt-2 text-sm text-[#B8C2D1]">
-              Teams will appear here once they are registered.
+              {activeTab === "our"
+                ? "Our teams will appear here once they are registered."
+                : "Opponent teams will appear here once they are added."}
             </p>
           </div>
         )}
 
         {/* Teams */}
-        {!loading && !error && teams.length > 0 && (
+        {!loading && !error && displayedTeams.length > 0 && (
           <div className="space-y-8">
-            {teams.map((team) => {
+            {displayedTeams.map((team) => {
               const stats = team.statistics || {};
               const players = team.players || [];
               const isExpanded = expandedTeam === team._id;
@@ -110,8 +187,8 @@ const Teams = () => {
 
                     <div className="relative flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
                       {/* Team Identity */}
-                      <div className="flex items-center gap-4 sm:gap-6">
-                        <div className="flex h-20 w-20 shrink-0 items-center justify-center rounded-2xl border border-[#28466B] bg-[#07111F] p-3 sm:h-28 sm:w-28 sm:p-4">
+                      <div className="flex items-center gap-2 sm:gap-4">
+                        <div className="flex h-20 w-20 lg:h-24 lg:w-24 shrink-0 items-center justify-center">
                           <img
                             src={team.logoHigh || team.logoLow}
                             alt={`${team.name} logo`}

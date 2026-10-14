@@ -68,7 +68,7 @@ const PlayerCard = ({ player }) => {
         </div>
 
         {/* Player Name */}
-        <span className=" text-md font-bold tracking-wide text-[#F8FAFC]">
+        <span className="truncate text-md font-bold tracking-wide text-[#F8FAFC]">
           {player?.name || "Unknown Player"}
         </span>
       </div>

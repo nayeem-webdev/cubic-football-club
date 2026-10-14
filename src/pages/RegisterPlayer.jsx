@@ -8,11 +8,26 @@ const RegisterPlayer = () => {
   const [clubs, setClubs] = useState([]);
   const [loadingTeams, setLoadingTeams] = useState(true);
 
+  const photoURL = [
+    "https://i.ibb.co.com/4nFyHXn4/placeholder-1.png",
+    "https://i.ibb.co.com/S42Q6ZNG/placeholder-2.png",
+    "https://i.ibb.co.com/x86ywqf1/placeholder-3.png",
+    "https://i.ibb.co.com/rf05fWBX/placeholder-4.png",
+    "https://i.ibb.co.com/cKQdSJdV/placeholder-6.png",
+    "https://i.ibb.co.com/w5NjSwR/placeholder-7.png",
+    "https://i.ibb.co.com/FkM6gH66/placeholder-8.png",
+    "https://i.ibb.co.com/Xr8NThW0/placeholder-9.png",
+  ];
+
+  const getRandomPhoto = () =>
+    // eslint-disable-next-line react-hooks/purity
+    photoURL[Math.floor(Math.random() * photoURL.length)];
+
   const [formData, setFormData] = useState({
     name: "",
     position: "",
     jerseyNumber: "",
-    photo: "https://i.ibb.co.com/LXYyhTBb/player-placeholder.png",
+    photo: getRandomPhoto(),
     foot: "Right",
     playsFor: "",
     dateOfBirth: "",
@@ -64,6 +79,11 @@ const RegisterPlayer = () => {
     setMessage("");
 
     try {
+      const selectedPhoto =
+        formData.position?.trim().toUpperCase() === "GK"
+          ? "https://i.ibb.co.com/60GrGTTC/placeholder-5.png"
+          : getRandomPhoto();
+
       const response = await fetch(`${API_URL}/players`, {
         method: "POST",
         headers: {
@@ -72,6 +92,7 @@ const RegisterPlayer = () => {
         body: JSON.stringify({
           ...formData,
           jerseyNumber: Number(formData.jerseyNumber),
+          photo: selectedPhoto,
         }),
       });
 
@@ -88,7 +109,7 @@ const RegisterPlayer = () => {
         name: "",
         position: "",
         jerseyNumber: "",
-        photo: "https://i.ibb.co.com/LXYyhTBb/player-placeholder.png",
+        photo: getRandomPhoto(),
         foot: "Right",
         playsFor: "",
         dateOfBirth: "",

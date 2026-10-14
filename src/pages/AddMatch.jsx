@@ -1,38 +1,89 @@
 import Loader from "../components/Loader";
 import { useEffect, useState } from "react";
 import PageHero from "../components/PageHero";
+import { Shield, Swords } from "lucide-react";
 
 const AddMatch = () => {
   const API_URL = import.meta.env.VITE_API_URL;
 
   const [players, setPlayers] = useState([]);
   const [teams, setTeams] = useState([]);
+  const [opponentPlayers, setOpponentPlayers] = useState([]);
+  const [opponentTeams, setOpponentTeams] = useState([]);
   const [schedules, setSchedules] = useState([]);
   const [pageLoading, setPageLoading] = useState(true);
+
+  const [activeTab, setActiveTab] = useState("club");
+
+  const handleTabChange = (tab) => {
+    setActiveTab(tab);
+
+    setFormData((prev) => ({
+      ...prev,
+      homeTeam: "",
+      awayTeam: "",
+      homeStartingPlayers: [],
+      homeSubstitutes: [],
+      awayStartingPlayers: [],
+      awaySubstitutes: [],
+    }));
+
+    setMessage("");
+  };
+
+  const tabClass = (tab) =>
+    `flex flex-1 items-center justify-center gap-2 rounded-lg px-5 py-3 text-sm font-semibold transition-all duration-300 sm:flex-none ${
+      activeTab === tab
+        ? "bg-[#0E5FD8] text-white shadow-md shadow-blue-900/20"
+        : "text-[#B8C2D1] hover:bg-[#152640] hover:text-[#D4AF37]"
+    }`;
 
   // Fetch players, teams and schedules
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [playersResponse, teamsResponse, scheduleResponse] =
-          await Promise.all([
-            fetch(`${API_URL}/players`),
-            fetch(`${API_URL}/teams`),
-            fetch(`${API_URL}/schedules`),
-          ]);
+        const [
+          playersResponse,
+          opponentPlayersResponse,
+          teamsResponse,
+          opponentTeamsResponse,
+          scheduleResponse,
+        ] = await Promise.all([
+          fetch(`${API_URL}/players`),
+          fetch(`${API_URL}/opponent-players`),
+          fetch(`${API_URL}/teams`),
+          fetch(`${API_URL}/opponent-teams`),
+          fetch(`${API_URL}/schedules`),
+        ]);
 
-        if (!playersResponse.ok || !teamsResponse.ok || !scheduleResponse.ok) {
+        if (
+          !playersResponse.ok ||
+          !opponentPlayersResponse.ok ||
+          !teamsResponse.ok ||
+          !opponentTeamsResponse.ok ||
+          !scheduleResponse.ok
+        ) {
           throw new Error("Failed to fetch players, teams or schedules");
         }
 
-        const [playersData, teamsData, scheduleData] = await Promise.all([
+        const [
+          playersData,
+          opponentPlayerData,
+          teamsData,
+          opponentTeamsData,
+          scheduleData,
+        ] = await Promise.all([
           playersResponse.json(),
+          opponentPlayersResponse.json(),
           teamsResponse.json(),
+          opponentTeamsResponse.json(),
           scheduleResponse.json(),
         ]);
 
         setPlayers(playersData);
+        setOpponentPlayers(opponentPlayerData);
         setTeams(teamsData);
+        setOpponentTeams(opponentTeamsData);
         setSchedules(scheduleData);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -115,18 +166,77 @@ const AddMatch = () => {
   };
 
   // Selected Teams
-  const selectedHomeTeam = teams.find((team) => team._id === formData.homeTeam);
 
-  const selectedAwayTeam = teams.find((team) => team._id === formData.awayTeam);
+  const allAvailableTeams = [...teams, ...opponentTeams];
+
+  const selectedHomeTeam = allAvailableTeams.find(
+    (team) => team._id === formData.homeTeam,
+  );
+
+  const selectedAwayTeam = allAvailableTeams.find(
+    (team) => team._id === formData.awayTeam,
+  );
+
+  /* ================= TEAM FILTERING ================= */
+
+  // Find CUBIC FC from our club teams
+  const cubicFcTeam = teams.find(
+    (team) => team.name?.trim().toUpperCase() === "CUBIC FC",
+  );
+
+  // All club teams except CUBIC FC
+  const clubTeams = teams.filter(
+    (team) => team.name?.trim().toUpperCase() !== "CUBIC FC",
+  );
+
+  // Dropdown options depend on the active tab
+  const availableHomeTeams =
+    activeTab === "club"
+      ? clubTeams
+      : [cubicFcTeam, ...opponentTeams].filter(Boolean);
+
+  const availableAwayTeams =
+    activeTab === "club"
+      ? clubTeams
+      : [cubicFcTeam, ...opponentTeams].filter(Boolean);
 
   // Team Player Lists
-  const homeTeamPlayers = players.filter(
-    (player) => player.playsFor?._id === selectedHomeTeam?._id,
-  );
 
-  const awayTeamPlayers = players.filter(
-    (player) => player.playsFor?._id === selectedAwayTeam?._id,
-  );
+  const homeTeamPlayers =
+    activeTab === "club"
+      ? players.filter(
+          (player) =>
+            (player.playsFor?._id || player.playsFor) === selectedHomeTeam?._id,
+        )
+      : selectedHomeTeam?._id === cubicFcTeam?._id
+        ? players.filter(
+            (player) =>
+              (player.playsFor?._id || player.playsFor) ===
+              selectedHomeTeam?._id,
+          )
+        : opponentPlayers.filter(
+            (player) =>
+              (player.playsFor?._id || player.playsFor) ===
+              selectedHomeTeam?._id,
+          );
+
+  const awayTeamPlayers =
+    activeTab === "club"
+      ? players.filter(
+          (player) =>
+            (player.playsFor?._id || player.playsFor) === selectedAwayTeam?._id,
+        )
+      : selectedAwayTeam?._id === cubicFcTeam?._id
+        ? players.filter(
+            (player) =>
+              (player.playsFor?._id || player.playsFor) ===
+              selectedAwayTeam?._id,
+          )
+        : opponentPlayers.filter(
+            (player) =>
+              (player.playsFor?._id || player.playsFor) ===
+              selectedAwayTeam?._id,
+          );
 
   // Player Handler
   const handlePlayerChange = (field, index, value) => {
@@ -256,6 +366,34 @@ const AddMatch = () => {
 
         {/* Main Form */}
         <div className="rounded-2xl border border-[#28466B] bg-[#0E1D34] p-6 shadow-xl sm:p-8">
+          {/* Tabs */}
+          <div
+            className="mb-6 flex w-full gap-2 rounded-xl border border-[#28466B] bg-[#07111F] p-1.5 sm:w-fit"
+            role="tablist"
+            aria-label="Add opponent"
+          >
+            <button
+              type="button"
+              role="tab"
+              aria-selected={activeTab === "club"}
+              onClick={() => handleTabChange("club")}
+              className={tabClass("club")}
+            >
+              <Shield className="text-base" />
+              Within Club
+            </button>
+
+            <button
+              type="button"
+              role="tab"
+              aria-selected={activeTab === "opponent"}
+              onClick={() => handleTabChange("opponent")}
+              className={tabClass("opponent")}
+            >
+              <Swords className="text-base" />
+              With Opponent
+            </button>
+          </div>
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* Match Time + Schedule */}
             <div className="grid w-full grid-cols-1 gap-6 lg:grid-cols-2">
@@ -360,7 +498,7 @@ const AddMatch = () => {
                 >
                   <option value="">Select home team</option>
 
-                  {teams
+                  {availableHomeTeams
                     .filter((team) => team._id !== formData.awayTeam)
                     .map((team) => (
                       <option key={team._id} value={team._id}>
@@ -489,7 +627,7 @@ const AddMatch = () => {
                 >
                   <option value="">Select away team</option>
 
-                  {teams
+                  {availableAwayTeams
                     .filter((team) => team._id !== formData.homeTeam)
                     .map((team) => (
                       <option key={team._id} value={team._id}>

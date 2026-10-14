@@ -22,6 +22,7 @@ const EditMatch = () => {
 
   const [matchDetails, setMatchDetails] = useState(null);
   const [players, setPlayers] = useState([]);
+  const [opponentPlayers, setOpponentPlayers] = useState([]);
   const [pageLoading, setPageLoading] = useState(true);
 
   const [loading, setLoading] = useState(false);
@@ -44,17 +45,35 @@ const EditMatch = () => {
       try {
         setPageLoading(true);
 
-        const [matchResponse, playersResponse] = await Promise.all([
-          fetch(`${API_URL}/matches/${id}`),
-          fetch(`${API_URL}/players`),
-        ]);
+        const [matchResponse, playersResponse, opponentPlayersResponse] =
+          await Promise.all([
+            fetch(`${API_URL}/matches/${id}`),
+            fetch(`${API_URL}/players`),
+            fetch(`${API_URL}/opponent-players`),
+          ]);
 
-        if (!matchResponse.ok || !playersResponse.ok) {
+        if (
+          !matchResponse.ok ||
+          !playersResponse.ok ||
+          !opponentPlayersResponse.ok
+        ) {
           throw new Error("Failed to fetch match or players data");
         }
 
-        const matchResult = await matchResponse.json();
-        const playersResult = await playersResponse.json();
+        const [matchResult, playersResult, opponentPlayersResult] =
+          await Promise.all([
+            matchResponse.json(),
+            playersResponse.json(),
+            opponentPlayersResponse.json(),
+          ]);
+
+        const opponentPlayersList = Array.isArray(
+          opponentPlayersResult?.opponentPlayers,
+        )
+          ? opponentPlayersResult.opponentPlayers
+          : Array.isArray(opponentPlayersResult)
+            ? opponentPlayersResult
+            : opponentPlayersResult?.data || [];
 
         const matchData =
           matchResult?.match || matchResult?.data || matchResult;
@@ -66,6 +85,7 @@ const EditMatch = () => {
 
         setMatchDetails(matchData);
         setPlayers(playersList);
+        setOpponentPlayers(opponentPlayersList);
 
         // Calculate format requirement
         const formatCount = Number(matchData?.matchSchedule?.matchFormat) || 0;
@@ -112,19 +132,34 @@ const EditMatch = () => {
   const schedule = matchDetails?.matchSchedule;
 
   // Filter players by team
+
   const homeTeamPlayers = useMemo(() => {
     if (!homeTeam?._id) return [];
-    return players.filter(
+
+    const isCubicFC = homeTeam.name?.trim().toUpperCase() === "CUBIC FC";
+
+    const sourcePlayers = isCubicFC
+      ? players
+      : [...players, ...opponentPlayers];
+
+    return sourcePlayers.filter(
       (player) => getId(player.playsFor) === getId(homeTeam._id),
     );
-  }, [players, homeTeam]);
+  }, [players, opponentPlayers, homeTeam]);
 
   const awayTeamPlayers = useMemo(() => {
     if (!awayTeam?._id) return [];
-    return players.filter(
+
+    const isCubicFC = awayTeam.name?.trim().toUpperCase() === "CUBIC FC";
+
+    const sourcePlayers = isCubicFC
+      ? players
+      : [...players, ...opponentPlayers];
+
+    return sourcePlayers.filter(
       (player) => getId(player.playsFor) === getId(awayTeam._id),
     );
-  }, [players, awayTeam]);
+  }, [players, opponentPlayers, awayTeam]);
 
   // Selected player IDs (for duplicate filtering)
   const homeSelectedPlayerIds = useMemo(() => {
@@ -382,7 +417,8 @@ const EditMatch = () => {
                 {/* Home Substitutes */}
                 <div className="mt-6">
                   <h2 className="mb-1 text-xl font-bold text-secondary">
-                    Home Substitutes (Optional)
+                    Home Substitutes{" "}
+                    <span className="text-sm text-slate-400">(Optional)</span>
                   </h2>
                   <div className="grid grid-cols-1 gap-4">
                     {formData.homeSubstitutes.map((selectedPlayer, index) => (
@@ -472,7 +508,8 @@ const EditMatch = () => {
                 {/* Away Substitutes */}
                 <div className="mt-6">
                   <h2 className="mb-1 text-xl font-bold text-secondary">
-                    Away Substitutes (Optional)
+                    Away Substitutes{" "}
+                    <span className="text-sm text-slate-400">(Optional)</span>
                   </h2>
                   <div className="grid grid-cols-1 gap-4">
                     {formData.awaySubstitutes.map((selectedPlayer, index) => (
