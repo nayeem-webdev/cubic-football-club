@@ -118,7 +118,7 @@ const MatchCard = ({ match }) => {
               {homeTeam.name || "Home Team"}
             </h4>
 
-            <span className="mt-0.5 text-[10px] font-semibold uppercase tracking-wider text-text-muted">
+            <span className="mt-0.5 text-[10px] font-semibold uppercase tracking-wider text-muted">
               Home
             </span>
           </div>
@@ -144,7 +144,7 @@ const MatchCard = ({ match }) => {
               {awayTeam.name || "Away Team"}
             </h4>
 
-            <span className="mt-0.5 text-[10px] font-semibold uppercase tracking-wider text-text-muted">
+            <span className="mt-0.5 text-[10px] font-semibold uppercase tracking-wider text-muted">
               Away
             </span>
           </div>
@@ -159,7 +159,7 @@ const MatchCard = ({ match }) => {
         {/* Date */}
         <div className="flex items-center gap-3">
           <FaCalendar className="w-4 shrink-0 text-secondary" />
-          <span className="text-text-muted">Date:</span>
+          <span className="text-muted">Date:</span>
           <span className="ml-auto font-semibold text-text">
             {formatDate ? formatDate(schedule.date) : schedule.date}
           </span>
@@ -168,7 +168,7 @@ const MatchCard = ({ match }) => {
         {/* Day */}
         <div className="flex items-center gap-3">
           <FaCalendarCheck className="w-4 shrink-0 text-secondary" />
-          <span className="text-text-muted">Day:</span>
+          <span className="text-muted">Day:</span>
           <span className="ml-auto font-semibold text-text">
             {new Date(schedule.date).toLocaleDateString("en-US", {
               weekday: "long",
@@ -179,7 +179,7 @@ const MatchCard = ({ match }) => {
         {/* Time */}
         <div className="flex items-center gap-3">
           <FaClock className="w-4 shrink-0 text-secondary" />
-          <span className="text-text-muted">Time:</span>
+          <span className="text-muted">Time:</span>
           <span className="ml-auto font-semibold text-text">
             {schedule.time || "TBD"}
           </span>
@@ -188,7 +188,7 @@ const MatchCard = ({ match }) => {
         {/* Format */}
         <div className="flex items-center gap-3">
           <FaUserGroup className="w-4 shrink-0 text-secondary" />
-          <span className="text-text-muted">Format:</span>
+          <span className="text-muted">Format:</span>
           <span className="ml-auto font-semibold text-text">
             {schedule.matchFormat} vs {schedule.matchFormat}
           </span>

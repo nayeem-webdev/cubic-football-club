@@ -46,11 +46,11 @@ const ModalCard = ({
         <div className="flex items-center justify-between border-b border-border px-6 py-5">
           <div>
             <div className="mb-1 flex items-center gap-2">
-              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-accent/10 text-accent">
+              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#D4AF37]/10 text-[#D4AF37]">
                 <CreditCard size={18} />
               </div>
 
-              <span className="text-xs font-bold tracking-[0.2em] text-accent">
+              <span className="text-xs font-bold tracking-[0.2em] text-[#D4AF37]">
                 MATCH EVENT
               </span>
             </div>
@@ -60,7 +60,7 @@ const ModalCard = ({
 
           <button
             onClick={closeCardModal}
-            className="flex h-10 w-10 items-center justify-center rounded-full text-text-muted transition-all hover:bg-surface hover:text-text"
+            className="flex h-10 w-10 items-center justify-center rounded-full text-muted transition-all hover:bg-surface hover:text-text"
           >
             <X size={20} />
           </button>
@@ -90,7 +90,7 @@ const ModalCard = ({
                         ? "bg-primary text-white"
                         : isCompleted
                           ? "bg-[#49C85A] text-white"
-                          : "text-text-muted text-text-muted"
+                          : "text-muted "
                     }`}
                   >
                     {index + 1}
@@ -129,7 +129,7 @@ const ModalCard = ({
                   className={`flex cursor-pointer items-center justify-between rounded-2xl border p-4 transition-all ${
                     cardData.team === "home"
                       ? "border-[#0E5FD8] bg-primary/10"
-                      : "border-border text-text-muted hover:border-secondary"
+                      : "border-border text-muted hover:border-[#3A82FF]"
                   }`}
                 >
                   <div className="flex items-center gap-4">
@@ -137,7 +137,7 @@ const ModalCard = ({
                       <img src={selectedMatch.homeTeam.logoLow} alt="" />
                     </div>
                     <div>
-                      <p className="text-xs text-text-muted">HOME TEAM</p>
+                      <p className="text-xs text-muted">HOME TEAM</p>
 
                       <p className="mt-1 font-semibold text-text">
                         {selectedMatch.homeTeam.name}
@@ -170,7 +170,7 @@ const ModalCard = ({
                   className={`flex cursor-pointer items-center justify-between rounded-2xl border p-4 transition-all ${
                     cardData.team === "away"
                       ? "border-[#0E5FD8] bg-primary/10"
-                      : "border-border text-text-muted hover:border-secondary"
+                      : "border-border text-muted hover:border-[#3A82FF]"
                   }`}
                 >
                   <div className="flex items-center gap-4">
@@ -178,7 +178,7 @@ const ModalCard = ({
                       <img src={selectedMatch.awayTeam.logoLow} alt="" />
                     </div>
                     <div>
-                      <p className="text-xs text-text-muted">AWAY TEAM</p>
+                      <p className="text-xs text-muted">AWAY TEAM</p>
 
                       <p className="mt-1 font-semibold text-text">
                         {selectedMatch.awayTeam.name}
@@ -222,17 +222,17 @@ const ModalCard = ({
                 <label
                   className={`flex cursor-pointer items-center justify-between rounded-2xl border p-4 transition-all ${
                     cardData.card === "yellow"
-                      ? "border-accent bg-accent/10"
-                      : "border-border text-text-muted hover:border-accent/60"
+                      ? "border-[#D4AF37] bg-[#D4AF37]/10"
+                      : "border-border text-muted hover:border-[#D4AF37]/60"
                   }`}
                 >
                   <div className="flex items-center gap-3">
-                    <div className="h-10 w-7 rounded-md bg-accent shadow-sm" />
+                    <div className="h-10 w-7 rounded-md bg-[#D4AF37] shadow-sm" />
 
                     <div>
                       <p className="font-semibold text-text">Yellow Card</p>
 
-                      <p className="text-xs text-text-muted">Caution</p>
+                      <p className="text-xs text-muted">Caution</p>
                     </div>
                   </div>
 
@@ -250,7 +250,7 @@ const ModalCard = ({
 
                       setCardStep("player");
                     }}
-                    className="h-4 w-4 accent-accent"
+                    className="h-4 w-4 accent-[#D4AF37]"
                   />
                 </label>
 
@@ -260,7 +260,7 @@ const ModalCard = ({
                   className={`flex cursor-pointer items-center justify-between rounded-2xl border p-4 transition-all ${
                     cardData.card === "red"
                       ? "border-[#EF4444] bg-[#EF4444]/10"
-                      : "border-border text-text-muted hover:border-[#EF4444]/60"
+                      : "border-border text-muted hover:border-[#EF4444]/60"
                   }`}
                 >
                   <div className="flex items-center gap-3">
@@ -269,7 +269,7 @@ const ModalCard = ({
                     <div>
                       <p className="font-semibold text-text">Red Card</p>
 
-                      <p className="text-xs text-text-muted">Sending off</p>
+                      <p className="text-xs text-muted">Sending off</p>
                     </div>
                   </div>
 
@@ -295,7 +295,7 @@ const ModalCard = ({
               <div className="mt-8">
                 <button
                   onClick={() => setCardStep("team")}
-                  className="flex items-center gap-2 rounded-xl px-4 py-3 text-sm font-medium text-text-muted transition hover:text-text-muted hover:text-text"
+                  className="flex items-center gap-2 rounded-xl px-4 py-3 text-sm font-medium text-muted transition  hover:text-text"
                 >
                   <ChevronLeft size={18} />
                   Back
@@ -320,8 +320,8 @@ const ModalCard = ({
                       cardData.player === player._id
                         ? cardData.card === "red"
                           ? "border-[#EF4444] bg-[#EF4444]/10"
-                          : "border-accent bg-accent/10"
-                        : "border-border text-text-muted hover:border-accent/60"
+                          : "border-[#D4AF37] bg-[#D4AF37]/10"
+                        : "border-border text-muted hover:border-[#D4AF37]/60"
                     }`}
                   >
                     <div className="flex items-center gap-3">
@@ -355,7 +355,7 @@ const ModalCard = ({
                       className={`h-4 w-4 ${
                         cardData.card === "red"
                           ? "accent-[#EF4444]"
-                          : "accent-accent"
+                          : "accent-[#D4AF37]"
                       }`}
                     />
                   </label>
@@ -367,7 +367,7 @@ const ModalCard = ({
               <div className="mt-8 flex items-center justify-between">
                 <button
                   onClick={() => setCardStep("card")}
-                  className="flex items-center gap-2 rounded-xl px-4 py-3 text-sm font-medium text-text-muted transition hover:text-text-muted hover:text-text"
+                  className="flex items-center gap-2 rounded-xl px-4 py-3 text-sm font-medium text-muted transition  hover:text-text"
                 >
                   <ChevronLeft size={18} />
                   Back
@@ -379,7 +379,7 @@ const ModalCard = ({
                     !cardData.team || !cardData.card || !cardData.player
                   }
                   className={`rounded-xl px-4 py-3 font-bold text-[#07111F] transition-all hover:scale-[1.01] disabled:cursor-not-allowed disabled:opacity-40 ${
-                    cardData.card === "red" ? "bg-[#EF4444]" : "bg-accent"
+                    cardData.card === "red" ? "bg-[#EF4444]" : "bg-[#D4AF37]"
                   }`}
                 >
                   SAVE CARD

@@ -78,7 +78,7 @@ const Teams = () => {
         />
         {/* Team Category Tabs */}
         <div className="mx-auto mb-8 max-w-2xl">
-          <div className="grid grid-cols-2 gap-3 rounded-2xl border border-border text-text-muted p-2">
+          <div className="grid grid-cols-2 gap-3 rounded-2xl border border-border text-muted p-2">
             <button
               type="button"
               onClick={() => {
@@ -88,7 +88,7 @@ const Teams = () => {
               className={`flex items-center justify-center gap-2 rounded-xl px-3 py-3 text-sm font-semibold transition sm:px-5 ${
                 activeTab === "our"
                   ? "bg-primary text-white shadow-lg shadow-blue-950/30"
-                  : "text-text-muted hover:bg-card hover:text-white"
+                  : "text-muted hover:bg-card hover:text-white"
               }`}
             >
               <Shield className="h-4 w-4 shrink-0" />
@@ -97,7 +97,7 @@ const Teams = () => {
                 className={`rounded-full px-2 py-0.5 text-xs ${
                   activeTab === "our"
                     ? "bg-white/15 text-white"
-                    : "bg-background text-text-muted"
+                    : "bg-background text-muted"
                 }`}
               >
                 {teams.length}
@@ -113,7 +113,7 @@ const Teams = () => {
               className={`flex items-center justify-center gap-2 rounded-xl px-3 py-3 text-sm font-semibold transition sm:px-5 ${
                 activeTab === "opponent"
                   ? "bg-primary text-white shadow-lg shadow-blue-950/30"
-                  : "text-text-muted hover:bg-card hover:text-white"
+                  : "text-muted hover:bg-card hover:text-white"
               }`}
             >
               <Swords className="h-4 w-4 shrink-0" />
@@ -122,7 +122,7 @@ const Teams = () => {
                 className={`rounded-full px-2 py-0.5 text-xs ${
                   activeTab === "opponent"
                     ? "bg-white/15 text-white"
-                    : "bg-background text-text-muted"
+                    : "bg-background text-muted"
                 }`}
               >
                 {opponentTeams.length}
@@ -142,8 +142,8 @@ const Teams = () => {
         )}
 
         {!loading && !error && displayedTeams.length === 0 && (
-          <div className="mt-10 rounded-2xl border border-border text-text-muted px-6 py-16 text-center">
-            <Users className="mx-auto mb-4 h-10 w-10 text-text-muted" />
+          <div className="mt-10 rounded-2xl border border-border text-muted px-6 py-16 text-center">
+            <Users className="mx-auto mb-4 h-10 w-10 text-muted" />
 
             <h3 className="text-lg font-semibold">
               {activeTab === "our"
@@ -151,7 +151,7 @@ const Teams = () => {
                 : "No opponent teams available"}
             </h3>
 
-            <p className="mt-2 text-sm text-text-muted">
+            <p className="mt-2 text-sm text-muted">
               {activeTab === "our"
                 ? "Our teams will appear here once they are registered."
                 : "Opponent teams will appear here once they are added."}
@@ -208,7 +208,7 @@ const Teams = () => {
                           </h2>
 
                           {team.captain && (
-                            <div className="mt-3 flex items-center gap-2 text-sm text-text-muted">
+                            <div className="mt-3 flex items-center gap-2 text-sm text-muted">
                               <Shield className="h-4 w-4 text-accent fill-accent" />
                               <span>Captain:</span>
                               <span className="font-medium text-text">
@@ -251,7 +251,7 @@ const Teams = () => {
                   {/* Team Summary */}
                   <div className="border-t border-border bg-card/50 px-5 py-4 sm:px-8">
                     <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-                      <div className="flex items-center gap-2 text-sm text-text-muted">
+                      <div className="flex items-center gap-2 text-sm text-muted">
                         <Users className="h-4 w-4 text-secondary" />
                         <span>
                           <strong className="text-text">
@@ -273,7 +273,7 @@ const Teams = () => {
                       <button
                         type="button"
                         onClick={() => toggleTeam(team._id)}
-                        className="flex items-center justify-center gap-2 rounded-lg border border-border text-text-muted px-4 py-2.5 text-sm font-medium hover:text-text transition hover:border-secondary hover:bg-primary/10"
+                        className="flex items-center justify-center gap-2 rounded-lg border border-border text-muted px-4 py-2.5 text-sm font-medium hover:text-text transition hover:border-secondary hover:bg-primary/10"
                       >
                         <Users className="h-4 w-4 text-secondary" />
                         {isExpanded ? "Hide Squad" : "View Squad"}
@@ -295,20 +295,20 @@ const Teams = () => {
                           <h3 className="text-lg font-semibold">
                             {team.shortForm} Squad
                           </h3>
-                          <p className="mt-1 text-sm text-text-muted">
+                          <p className="mt-1 text-sm text-muted">
                             Players registered under {team.name}
                           </p>
                         </div>
 
-                        <span className="rounded-full border border-border bg-background px-3 py-1 text-xs text-text-muted">
+                        <span className="rounded-full border border-border bg-background px-3 py-1 text-xs text-muted">
                           {players.length} players
                         </span>
                       </div>
 
                       {players.length === 0 ? (
                         <div className="rounded-xl border border-dashed border-border py-10 text-center">
-                          <UserRound className="mx-auto mb-3 h-8 w-8 text-text-muted" />
-                          <p className="text-sm text-text-muted">
+                          <UserRound className="mx-auto mb-3 h-8 w-8 text-muted" />
+                          <p className="text-sm text-muted">
                             No players registered for this team.
                           </p>
                         </div>
@@ -339,7 +339,7 @@ const Teams = () => {
                                     {positionLabels[position]}
                                   </h4>
 
-                                  <span className="rounded-full border border-border bg-background px-2 py-0.5 text-[10px] text-text-muted">
+                                  <span className="rounded-full border border-border bg-background px-2 py-0.5 text-[10px] text-muted">
                                     {positionPlayers.length}
                                   </span>
                                 </div>
@@ -353,7 +353,7 @@ const Teams = () => {
                                     return (
                                       <div
                                         key={player._id}
-                                        className="group flex items-center gap-4 rounded-xl border border-border bg-background p-3 transition hover:border-secondary/60 hover:text-text-muted"
+                                        className="group flex items-center gap-4 rounded-xl border border-border bg-background p-3 transition hover:border-secondary/60 hover:text-muted"
                                       >
                                         {/* Player Photo */}
                                         <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-lg border border-border bg-card">
@@ -393,7 +393,7 @@ const Teams = () => {
                                             )}
                                           </div>
 
-                                          <div className="mt-1 flex items-center gap-2 text-xs text-text-muted">
+                                          <div className="mt-1 flex items-center gap-2 text-xs text-muted">
                                             <span className="font-medium text-secondary">
                                               {player.position}
                                             </span>
@@ -435,7 +435,7 @@ const Teams = () => {
 const StatBox = ({ label, value, icon, valueClass = "text-text" }) => {
   return (
     <div className="rounded-xl bg-background px-2 py-3 text-center sm:px-4">
-      <div className="mb-1 flex items-center justify-center gap-1 text-text-muted">
+      <div className="mb-1 flex items-center justify-center gap-1 text-muted">
         {icon}
         <span className="text-[10px] font-medium uppercase tracking-wider sm:text-[10px]">
           {label}

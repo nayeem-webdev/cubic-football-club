@@ -88,11 +88,11 @@ const ScoreCard = ({ match }) => {
           <div className="text-center">
             <div className="text-3xl font-black tracking-tight md:text-5xl ">
               {match.homeScore}
-              <span className="mx-3 text-text-muted">-</span>
+              <span className="mx-3 text-muted">-</span>
               {match.awayScore}
             </div>
 
-            <p className="mt-2 text-xs uppercase tracking-[0.25em] text-text-muted">
+            <p className="mt-2 text-xs uppercase tracking-[0.25em] text-muted">
               FINAL SCORE
             </p>
           </div>
@@ -114,7 +114,7 @@ const ScoreCard = ({ match }) => {
         </div>
 
         {/* MATCH INFO */}
-        <div className="mt-6 flex flex-wrap text-text-muted items-center justify-center gap-5 text-sm">
+        <div className="mt-6 flex flex-wrap text-muted items-center justify-center gap-5 text-sm">
           <div className="flex items-center gap-2">
             <Clock3 size={16} />
             {match.match?.matchSchedule?.date
@@ -150,7 +150,7 @@ const ScoreCard = ({ match }) => {
         <div className="overflow-hidden">
           <div className="px-6 pb-6">
             {/* TABS */}
-            <div className="rounded-xl border border-border text-text-muted">
+            <div className="rounded-xl border border-border text-muted">
               <div className="relative grid grid-cols-3">
                 <div
                   className={`absolute inset-y-0 left-0 w-1/3 rounded-xl bg-primary/15 transition-transform duration-300 ease-out ${
@@ -167,7 +167,7 @@ const ScoreCard = ({ match }) => {
                   className={`relative z-10 px-4 py-2.5 text-sm font-semibold transition-colors duration-300 ${
                     activeTab === "summary"
                       ? "text-text"
-                      : "text-text-muted/80 hover:text-text"
+                      : "text-muted/80 hover:text-text"
                   }`}
                 >
                   Summary
@@ -178,7 +178,7 @@ const ScoreCard = ({ match }) => {
                   className={`relative z-10 px-4 py-2.5 text-sm font-semibold transition-colors duration-300 ${
                     activeTab === "timeline"
                       ? "text-text"
-                      : "text-text-muted/80 hover:text-text"
+                      : "text-muted/80 hover:text-text"
                   }`}
                 >
                   Timeline
@@ -189,7 +189,7 @@ const ScoreCard = ({ match }) => {
                   className={`relative z-10 py-2.5 text-sm font-semibold transition-colors duration-300 ${
                     activeTab === "lineup"
                       ? "text-text"
-                      : "text-text-muted/80 hover:text-text"
+                      : "text-muted/80 hover:text-text"
                   }`}
                 >
                   Lineup

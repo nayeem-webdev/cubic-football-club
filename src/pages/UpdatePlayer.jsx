@@ -259,7 +259,7 @@ export default function UpdatePlayer() {
         />
 
         {/* Filter Panel */}
-        <div className="space-y-4 rounded-xl border border-border text-text-muted p-4">
+        <div className="space-y-4 rounded-xl border border-border text-muted p-4">
           <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 md:grid-cols-5">
             {/* Search Input */}
             <div className="relative">
@@ -285,7 +285,7 @@ export default function UpdatePlayer() {
               <select
                 value={selectedClub}
                 onChange={(e) => setSelectedClub(e.target.value)}
-                className="w-full rounded-lg border border-border bg-background px-3 py-2 text-xs text-text-muted outline-none focus:border-[#0E5FD8]"
+                className="w-full rounded-lg border border-border bg-background px-3 py-2 text-xs text-muted outline-none focus:border-[#0E5FD8]"
               >
                 <option value="all">All Teams</option>
                 {clubs.map((club) => (
@@ -300,7 +300,7 @@ export default function UpdatePlayer() {
               <select
                 value={selectedPosition}
                 onChange={(e) => setSelectedPosition(e.target.value)}
-                className="w-full rounded-lg border border-border bg-background px-3 py-2 text-xs text-text-muted outline-none focus:border-[#0E5FD8]"
+                className="w-full rounded-lg border border-border bg-background px-3 py-2 text-xs text-muted outline-none focus:border-[#0E5FD8]"
               >
                 <option value="all">All Positions</option>
                 <option value="GK">Goalkeeper (GK)</option>
@@ -316,7 +316,7 @@ export default function UpdatePlayer() {
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value)}
-                className="w-full rounded-lg border border-border bg-background px-3 py-2 text-xs text-text-muted outline-none focus:border-[#0E5FD8]"
+                className="w-full rounded-lg border border-border bg-background px-3 py-2 text-xs text-muted outline-none focus:border-[#0E5FD8]"
               >
                 <option value="jerseyNumber">Sort by Jersey No.</option>
                 <option value="nameAsc">Sort by Name (A-Z)</option>
@@ -330,7 +330,7 @@ export default function UpdatePlayer() {
               <select
                 value={selectedStatus}
                 onChange={(e) => setSelectedStatus(e.target.value)}
-                className="w-full rounded-lg border border-border bg-background px-3 py-2 text-xs text-text-muted outline-none focus:border-[#0E5FD8]"
+                className="w-full rounded-lg border border-border bg-background px-3 py-2 text-xs text-muted outline-none focus:border-[#0E5FD8]"
               >
                 {[
                   { label: "All Players", value: "all" },
@@ -362,7 +362,7 @@ export default function UpdatePlayer() {
         >
           <table className="w-full min-w-225 text-sm">
             <thead
-              className="text-[11px] uppercase tracking-wider text-text-muted"
+              className="text-[11px] uppercase tracking-wider text-muted"
               style={{
                 background: "var(--color-card)",
               }}
@@ -639,9 +639,7 @@ export default function UpdatePlayer() {
                                 },
                               )
                             ) : (
-                              <span
-                                className="text-[10px] text-text-muted"
-                              >
+                              <span className="text-[10px] text-muted">
                                 No matches
                               </span>
                             )}

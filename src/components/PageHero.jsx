@@ -8,7 +8,7 @@ const PageHero = ({ text, heading, subheading }) => {
 
         <h1 className="text-5xl lg:text-7xl font-bold mt-3">{heading}</h1>
 
-        <p className="text-base lg:text-lg text-text-muted mt-4 max-w-2xl">
+        <p className="text-base lg:text-lg text-muted mt-4 max-w-2xl">
           {subheading}
         </p>
       </div>

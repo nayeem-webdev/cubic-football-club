@@ -11,7 +11,7 @@ const AddOpponent = () => {
     `flex flex-1 items-center justify-center gap-2 rounded-lg px-5 py-3 text-sm font-semibold transition-all duration-300 sm:flex-none ${
       activeTab === tab
         ? "bg-primary text-white shadow-md shadow-blue-900/20"
-        : "text-text-muted hover:bg-card hover:text-accent"
+        : "text-muted hover:bg-card hover:text-accent"
     }`;
 
   return (
@@ -25,7 +25,7 @@ const AddOpponent = () => {
         />
 
         {/* Form Card */}
-        <div className="rounded-2xl border border-border text-text-muted p-6 shadow-2xl md:p-8">
+        <div className="rounded-2xl border border-border text-muted p-6 shadow-2xl md:p-8">
           {/* Tabs */}
           <div
             className="mb-6 flex w-full gap-2 rounded-xl border border-border bg-background p-1.5 sm:w-fit"

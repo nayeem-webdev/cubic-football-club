@@ -34,7 +34,7 @@ const Footer = () => {
               <a
                 key={item.name}
                 href={item.href}
-                className="text-text-muted transition-colors duration-300 hover:text-secondary"
+                className="text-muted transition-colors duration-300 hover:text-secondary"
               >
                 {item.name}
               </a>
@@ -44,11 +44,11 @@ const Footer = () => {
 
         {/* Bottom */}
         <div className="mt-8 flex flex-col text-center items-center justify-between gap-3 border-t border-border pt-6 text-sm md:flex-row">
-          <p className="text-text-muted">
+          <p className="text-muted">
             © {new Date().getFullYear()} CUBIC FC. All rights reserved.
           </p>
 
-          <p className="text-text-muted">
+          <p className="text-muted">
             Designed with ❤️ by{" "}
             <a
               href="https://www.linkedin.com/in/nayeem-webdev"

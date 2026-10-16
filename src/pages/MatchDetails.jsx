@@ -415,10 +415,10 @@ const MatchDetails = () => {
   if (error || !match) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-[#020817] px-4 text-white">
-        <div className="rounded-xl border border-white/10 text-text-muted p-8 text-center">
+        <div className="rounded-xl border border-white/10 text-muted p-8 text-center">
           <h2 className="text-lg font-bold">Match unavailable</h2>
 
-          <p className="mt-2 text-sm text-text-muted">
+          <p className="mt-2 text-sm text-muted">
             {error || "Match not found"}
           </p>
 

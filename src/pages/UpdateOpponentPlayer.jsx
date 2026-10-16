@@ -288,7 +288,7 @@ export default function UpdateOpponentPlayer() {
         />
 
         {/* Filter Panel */}
-        <div className="space-y-4 rounded-xl border border-border text-text-muted p-4 mb-6">
+        <div className="space-y-4 rounded-xl border border-border text-muted p-4 mb-6">
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-4">
             {/* Search */}
             <div className="relative">
@@ -321,7 +321,7 @@ export default function UpdateOpponentPlayer() {
             <select
               value={selectedClub}
               onChange={(e) => setSelectedClub(e.target.value)}
-              className="w-full rounded-lg border border-border bg-background px-3 py-2 text-xs text-text-muted outline-none focus:border-[#0E5FD8]"
+              className="w-full rounded-lg border border-border bg-background px-3 py-2 text-xs text-muted outline-none focus:border-[#0E5FD8]"
             >
               <option value="all">All Opponent Teams</option>
 
@@ -336,7 +336,7 @@ export default function UpdateOpponentPlayer() {
             <select
               value={selectedPosition}
               onChange={(e) => setSelectedPosition(e.target.value)}
-              className="w-full rounded-lg border border-border bg-background px-3 py-2 text-xs text-text-muted outline-none focus:border-[#0E5FD8]"
+              className="w-full rounded-lg border border-border bg-background px-3 py-2 text-xs text-muted outline-none focus:border-[#0E5FD8]"
             >
               <option value="all">All Positions</option>
 
@@ -351,7 +351,7 @@ export default function UpdateOpponentPlayer() {
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value)}
-              className="w-full rounded-lg border border-border bg-background px-3 py-2 text-xs text-text-muted outline-none focus:border-[#0E5FD8]"
+              className="w-full rounded-lg border border-border bg-background px-3 py-2 text-xs text-muted outline-none focus:border-[#0E5FD8]"
             >
               <option value="jerseyNumber">Sort by Jersey No.</option>
               <option value="nameAsc">Sort by Name (A-Z)</option>
@@ -370,7 +370,7 @@ export default function UpdateOpponentPlayer() {
           }}
         >
           <table className="w-full min-w-212.5 text-sm">
-            <thead className="text-[11px] uppercase tracking-wider text-text-muted bg-card">
+            <thead className="text-[11px] uppercase tracking-wider text-muted bg-card">
               <tr>
                 <th className="px-4 py-3 text-left font-medium">Player</th>
                 <th className="px-3 py-3 text-left font-medium">No.</th>

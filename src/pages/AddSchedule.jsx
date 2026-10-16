@@ -260,7 +260,7 @@ const AddSchedule = () => {
         {/* ========================================
             SCHEDULE CARD
         ======================================== */}
-        <div className="rounded-2xl border border-border text-text-muted p-6 shadow-2xl md:p-8">
+        <div className="rounded-2xl border border-border text-muted p-6 shadow-2xl md:p-8">
           {/* ONLY ONE FORM */}
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* ========================================
@@ -359,7 +359,7 @@ const AddSchedule = () => {
                       className="w-full rounded-lg border border-border bg-card px-4 py-3 text-text outline-none placeholder:text-[#718096] focus:border-[#0E5FD8]"
                     />
 
-                    <p className="mt-2 text-xs text-text-muted">
+                    <p className="mt-2 text-xs text-muted">
                       Paste the Google Maps direction link.
                     </p>
                   </div>
@@ -502,7 +502,7 @@ const AddSchedule = () => {
                 type="button"
                 onClick={handleClear}
                 disabled={loading}
-                className="rounded-xl border border-border px-6 py-3 font-semibold text-text-muted transition hover:border-secondary hover:text-white disabled:cursor-not-allowed disabled:opacity-50"
+                className="rounded-xl border border-border px-6 py-3 font-semibold text-muted transition hover:border-secondary hover:text-white disabled:cursor-not-allowed disabled:opacity-50"
               >
                 Clear
               </button>

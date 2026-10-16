@@ -295,7 +295,7 @@ const EditMatch = () => {
         />
 
         {/* Main Card */}
-        <div className="rounded-2xl border border-border text-text-muted p-6 shadow-xl sm:p-8">
+        <div className="rounded-2xl border border-border text-muted p-6 shadow-xl sm:p-8">
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* Match Time + Match Schedule Summary */}
             <div className="grid w-full grid-cols-1 gap-6 lg:grid-cols-2">
@@ -326,7 +326,7 @@ const EditMatch = () => {
                 <label className="mb-2 block text-sm font-medium">
                   Select Match
                 </label>
-                <div className="w-full rounded-lg border border-border bg-card/60 px-4 py-3 text-text-muted opacity-80 cursor-not-allowed">
+                <div className="w-full rounded-lg border border-border bg-card/60 px-4 py-3 text-muted opacity-80 cursor-not-allowed">
                   {schedule?.date
                     ? new Date(schedule.date).toLocaleDateString("en-GB", {
                         day: "2-digit",
@@ -344,7 +344,7 @@ const EditMatch = () => {
             <div className="grid grid-cols-2 gap-6">
               {schedule?.matchFormat && (
                 <div className="rounded-lg border border-border bg-card px-4 py-3 text-center">
-                  <span className="text-sm text-text-muted">Match Format</span>
+                  <span className="text-sm text-muted">Match Format</span>
                   <div className="text-lg font-bold text-secondary">
                     {schedule.matchFormat} V {schedule.matchFormat}
                   </div>
@@ -353,7 +353,7 @@ const EditMatch = () => {
 
               {schedule?.matchType && (
                 <div className="rounded-lg border border-border bg-card px-4 py-3 text-center">
-                  <span className="text-sm text-text-muted">Match Type</span>
+                  <span className="text-sm text-muted">Match Type</span>
                   <div className="text-lg font-bold text-secondary">
                     {schedule.matchType.charAt(0).toUpperCase() +
                       schedule.matchType.slice(1)}{" "}
@@ -566,7 +566,7 @@ const EditMatch = () => {
                   type="button"
                   onClick={() => navigate(`/upcoming-matches/${id}`)}
                   disabled={loading || deleting}
-                  className="rounded-xl border border-border px-6 py-3 font-semibold text-text-muted transition hover:border-secondary hover:text-white disabled:opacity-50"
+                  className="rounded-xl border border-border px-6 py-3 font-semibold text-muted transition hover:border-secondary hover:text-white disabled:opacity-50"
                 >
                   Cancel
                 </button>

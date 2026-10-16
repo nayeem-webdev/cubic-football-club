@@ -60,10 +60,10 @@ export default function Score() {
           {matches.length > 0 ? (
             matches.map((match) => <ScoreCard key={match._id} match={match} />)
           ) : (
-            <div className="flex min-h-75 flex-col items-center justify-center rounded-2xl border border-border text-text-muted text-center">
+            <div className="flex min-h-75 flex-col items-center justify-center rounded-2xl border border-border text-muted text-center">
               <p className="text-xl font-bold text-text">No Matches Found</p>
 
-              <p className="mt-2 text-sm text-text-muted">
+              <p className="mt-2 text-sm text-muted">
                 No match results are available yet.
               </p>
             </div>

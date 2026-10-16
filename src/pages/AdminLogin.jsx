@@ -49,7 +49,7 @@ export default function AdminLogin() {
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
       <form
         onSubmit={handleLogin}
-        className="w-full max-w-md rounded-2xl border border-border text-text-muted p-8"
+        className="w-full max-w-md rounded-2xl border border-border text-muted p-8"
       >
         <h1 className="text-2xl font-bold text-text">Admin Login</h1>
 

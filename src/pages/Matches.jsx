@@ -43,10 +43,10 @@ const Matches = () => {
   if (error) {
     return (
       <div className="min-h-screen bg-background px-4 py-16 text-text">
-        <div className="mx-auto flex max-w-xl flex-col items-center rounded-2xl border border-red-500/30 text-text-muted p-8 text-center">
+        <div className="mx-auto flex max-w-xl flex-col items-center rounded-2xl border border-red-500/30 text-muted p-8 text-center">
           <AlertCircle className="mb-3 h-8 w-8 text-red-400" />
           <h2 className="text-lg font-semibold">Unable to load matches</h2>
-          <p className="mt-2 text-sm text-text-muted">{error}</p>
+          <p className="mt-2 text-sm text-muted">{error}</p>
         </div>
       </div>
     );
@@ -66,7 +66,7 @@ const Matches = () => {
 
         {matches.length === 0 ? (
           <div className="rounded-2xl border border-dashed border-border px-6 py-16 text-center">
-            <p className="text-text-muted">No matches available.</p>
+            <p className="text-muted">No matches available.</p>
           </div>
         ) : (
           <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">

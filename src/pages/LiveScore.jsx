@@ -778,13 +778,13 @@ export default function LiveScore() {
           {/* CHANGE MATCH */}
           <button
             onClick={() => setSelectedMatch(null)}
-            className="mb-6 flex items-center gap-2 rounded-xl border border-border text-text-muted px-4 py-2 text-sm font-medium text-text-muted transition hover:border-secondary hover:text-white"
+            className="mb-6 flex items-center gap-2 rounded-xl border border-border px-4 py-2 text-sm font-medium text-muted transition hover:border-secondary hover:text-white"
           >
             ← Change Match
           </button>
 
           {/* MATCH HEADER */}
-          <div className="overflow-hidden rounded-2xl border border-border text-text-muted">
+          <div className="overflow-hidden rounded-2xl border border-border text-muted">
             {/* MAIN SCORE AREA */}
             <div className="px-4 py-4 sm:px-6 sm:py-5">
               {/* TOP STATUS */}
@@ -832,7 +832,7 @@ export default function LiveScore() {
                       />
                     </div>
 
-                    <p className="mt-1.5 w-full truncate text-center text-[10px] font-medium text-text-muted sm:text-xs">
+                    <p className="mt-1.5 w-full truncate text-center text-[10px] font-medium text-muted sm:text-xs">
                       {selectedMatch.homeTeam.name}
                     </p>
                   </div>
@@ -856,7 +856,7 @@ export default function LiveScore() {
                   </p>
 
                   {/* FORMAT */}
-                  <span className="mt-1 text-[9px] font-medium text-text-muted/50 sm:text-[10px]">
+                  <span className="mt-1 text-[9px] font-medium text-muted/50 sm:text-[10px]">
                     {selectedMatch.matchSchedule.matchFormat}v
                     {selectedMatch.matchSchedule.matchFormat}
                     <span className="mx-1 text-surface">•</span>
@@ -881,7 +881,7 @@ export default function LiveScore() {
                       />
                     </div>
 
-                    <p className="mt-1.5 w-full truncate text-center text-[10px] font-medium text-text-muted sm:text-xs">
+                    <p className="mt-1.5 w-full truncate text-center text-[10px] font-medium text-muted sm:text-xs">
                       {selectedMatch.awayTeam.name}
                     </p>
                   </div>
@@ -951,7 +951,7 @@ export default function LiveScore() {
             <div className="grid grid-cols-3 border-t border-border divide-x divide-surface">
               {/* VENUE */}
               <div className="min-w-0 px-2 py-2.5 text-center sm:px-4 sm:py-3">
-                <p className="text-[8px] font-bold uppercase tracking-wider text-text-muted/40 sm:text-[9px]">
+                <p className="text-[8px] font-bold uppercase tracking-wider text-muted/40 sm:text-[9px]">
                   Venue
                 </p>
 
@@ -962,7 +962,7 @@ export default function LiveScore() {
 
               {/* DATE */}
               <div className="min-w-0 px-2 py-2.5 text-center sm:px-4 sm:py-3">
-                <p className="text-[8px] font-bold uppercase tracking-wider text-text-muted/40 sm:text-[9px]">
+                <p className="text-[8px] font-bold uppercase tracking-wider text-muted/40 sm:text-[9px]">
                   Date
                 </p>
 
@@ -979,7 +979,7 @@ export default function LiveScore() {
 
               {/* TIME */}
               <div className="min-w-0 px-2 py-2.5 text-center sm:px-4 sm:py-3">
-                <p className="text-[8px] font-bold uppercase tracking-wider text-text-muted/40 sm:text-[9px]">
+                <p className="text-[8px] font-bold uppercase tracking-wider text-muted/40 sm:text-[9px]">
                   Time
                 </p>
 
@@ -991,12 +991,12 @@ export default function LiveScore() {
           </div>
 
           {/* ACTION BUTTONS */}
-          <div className="mt-5 rounded-2xl border border-border text-text-muted p-3 sm:p-4">
+          <div className="mt-5 rounded-2xl border border-border text-muted p-3 sm:p-4">
             {/* HEADER */}
             <div className="mb-3 flex items-center justify-between">
               <h2 className="text-sm font-bold sm:text-base">Match Actions</h2>
 
-              <span className="text-[10px] font-medium uppercase tracking-wider text-text-muted/40">
+              <span className="text-[10px] font-medium uppercase tracking-wider text-muted/40">
                 Quick Actions
               </span>
             </div>
@@ -1097,14 +1097,14 @@ export default function LiveScore() {
 
           {/* MATCH INFO TABS */}
 
-          <div className="mt-5 rounded-2xl border border-border text-text-muted p-1.5">
+          <div className="mt-5 rounded-2xl border border-border text-muted p-1.5">
             <div className="grid grid-cols-2 gap-1">
               <button
                 onClick={() => setActiveTab("timeline")}
                 className={`rounded-xl px-4 py-2.5 text-sm font-semibold transition-all ${
                   activeTab === "timeline"
                     ? "bg-primary/20 text-text"
-                    : "text-text-muted hover:bg-background hover:text-text"
+                    : "text-muted hover:bg-background hover:text-text"
                 }`}
               >
                 Timeline
@@ -1115,7 +1115,7 @@ export default function LiveScore() {
                 className={`rounded-xl px-4 py-2.5 text-sm font-semibold transition-all ${
                   activeTab === "lineup"
                     ? "bg-primary/20 text-text"
-                    : "text-text-muted hover:bg-background hover:text-text"
+                    : "text-muted hover:bg-background hover:text-text"
                 }`}
               >
                 Lineup

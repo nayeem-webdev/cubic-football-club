@@ -201,12 +201,12 @@ const ModalEditSchedule = ({ schedule, onClose, onUpdated }) => {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 px-4 py-6 backdrop-blur-sm">
-      <div className="relative max-h-[90vh] w-full max-w-2xl overflow-y-auto rounded-2xl border border-border text-text-muted shadow-[0_0_50px_rgba(0,0,0,0.5)]">
+      <div className="relative max-h-[90vh] w-full max-w-2xl overflow-y-auto rounded-2xl border border-border text-muted shadow-[0_0_50px_rgba(0,0,0,0.5)]">
         {/* ========================================
             HEADER
         ======================================== */}
 
-        <div className="sticky top-0 z-10 flex items-center justify-between border-b border-border text-text-muted px-6 py-5">
+        <div className="sticky top-0 z-10 flex items-center justify-between border-b border-border text-muted px-6 py-5">
           <div>
             <p className="text-xs font-semibold uppercase tracking-wider text-secondary">
               Schedule Center
@@ -218,7 +218,7 @@ const ModalEditSchedule = ({ schedule, onClose, onUpdated }) => {
           <button
             type="button"
             onClick={onClose}
-            className="flex h-9 w-9 items-center justify-center rounded-lg border border-border bg-background text-text-muted transition hover:border-red-500/50 hover:bg-red-500/10 hover:text-red-400"
+            className="flex h-9 w-9 items-center justify-center rounded-lg border border-border bg-background text-muted transition hover:border-red-500/50 hover:bg-red-500/10 hover:text-red-400"
           >
             <FaXmark />
           </button>
@@ -380,7 +380,7 @@ const ModalEditSchedule = ({ schedule, onClose, onUpdated }) => {
                 type="button"
                 onClick={onClose}
                 disabled={loading || deleting}
-                className="w-full rounded-xl border border-border px-5 py-3 text-sm font-semibold text-text-muted transition hover:border-secondary hover:text-white active:scale-[0.98] disabled:opacity-50 sm:w-auto"
+                className="w-full rounded-xl border border-border px-5 py-3 text-sm font-semibold text-muted transition hover:border-secondary hover:text-white active:scale-[0.98] disabled:opacity-50 sm:w-auto"
               >
                 Cancel
               </button>

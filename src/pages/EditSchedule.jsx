@@ -159,7 +159,7 @@ export default function EditSchedule() {
                   <div className="flex items-center gap-3">
                     <FaCalendar className="w-4 shrink-0 text-accent" />
 
-                    <span className="text-text-muted">Date:</span>
+                    <span className="text-muted">Date:</span>
 
                     <span className="ml-auto font-semibold text-text">
                       {new Date(item.date).toLocaleDateString("en-GB", {
@@ -174,7 +174,7 @@ export default function EditSchedule() {
                   <div className="flex items-center gap-3">
                     <FaCalendarCheck className="w-4 shrink-0 text-accent" />
 
-                    <span className="text-text-muted">Day:</span>
+                    <span className="text-muted">Day:</span>
 
                     <span className="ml-auto font-semibold text-text">
                       {new Date(item.date).toLocaleDateString("en-US", {
@@ -187,7 +187,7 @@ export default function EditSchedule() {
                   <div className="flex items-center gap-3">
                     <FaClock className="w-4 shrink-0 text-accent" />
 
-                    <span className="text-text-muted">Time:</span>
+                    <span className="text-muted">Time:</span>
 
                     <span className="ml-auto font-semibold text-text">
                       {item.time}
@@ -199,7 +199,7 @@ export default function EditSchedule() {
                     <div className="flex items-center gap-3">
                       <IoFootball className="w-4 shrink-0 text-accent" />
 
-                      <span className="text-text-muted">Format:</span>
+                      <span className="text-muted">Format:</span>
 
                       <span className="ml-auto font-semibold text-text">
                         {item.matchFormat} vs {item.matchFormat}

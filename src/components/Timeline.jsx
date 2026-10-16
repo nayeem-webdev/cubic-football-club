@@ -157,7 +157,7 @@ export const Timeline = ({
 
   if (!matchEvents || matchEvents.length === 0) {
     return (
-      <p className="py-6 text-center text-sm text-text-muted/50">{emptyText}</p>
+      <p className="py-6 text-center text-sm text-muted/50">{emptyText}</p>
     );
   }
 
@@ -185,7 +185,7 @@ export const Timeline = ({
             >
               {/* CENTER DOT */}
               <div className="absolute left-1/2 top-1/2 z-10 -translate-x-1/2 -translate-y-1/2">
-                <div className="h-2 w-2 rounded-full border-2 border-secondary bg-surface text-text-muted" />
+                <div className="h-2 w-2 rounded-full border-2 border-secondary bg-surface text-muted" />
               </div>
 
               {/* HOME SIDE (LEFT COLUMN) */}
@@ -203,7 +203,7 @@ export const Timeline = ({
                       </p>
                     )}
 
-                    <p className="text-[9px] font-medium uppercase leading-3 tracking-wider text-text-muted">
+                    <p className="text-[9px] font-medium uppercase leading-3 tracking-wider text-muted">
                       {title}
                     </p>
                   </div>
@@ -247,7 +247,7 @@ export const Timeline = ({
                       </p>
                     )}
 
-                    <p className="text-[9px] font-medium uppercase leading-3 tracking-wider text-text-muted">
+                    <p className="text-[9px] font-medium uppercase leading-3 tracking-wider text-muted">
                       {title}
                     </p>
                   </div>
