@@ -94,7 +94,7 @@ export default function EditSchedule() {
             return (
               <article
                 key={item._id || index}
-                className="group relative flex flex-col overflow-hidden rounded-2xl border border-border bg-[#061834ac] p-6 shadow-xl transition-all duration-300 hover:-translate-y-1 hover:border-[#3a82ff54] hover:shadow-2xl"
+                className="group relative flex flex-col overflow-hidden rounded-2xl border border-border bg-[#061834ac] p-6 shadow-xl transition-all duration-300 hover:-translate-y-1 hover:border-primary-hover hover:shadow-2xl"
               >
                 {/* Subtle top accent */}
                 <div className="absolute left-0 right-0 top-0 h-1 bg-linear-to-r from-primary to-accent" />

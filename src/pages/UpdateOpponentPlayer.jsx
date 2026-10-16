@@ -369,7 +369,7 @@ export default function UpdateOpponentPlayer() {
             border: "1px solid var(--color-border)",
           }}
         >
-          <table className="w-full min-w-[850px] text-sm">
+          <table className="w-full min-w-212.5 text-sm">
             <thead className="text-[11px] uppercase tracking-wider text-text-muted bg-card">
               <tr>
                 <th className="px-4 py-3 text-left font-medium">Player</th>

@@ -49,27 +49,27 @@ export default function Players() {
 
   const [search, setSearch] = useState("");
   const [position, setPosition] = useState("All");
-  const [minGoals, setMinGoals] = useState(0);
-  const [minScore, setMinScore] = useState(0);
+  // const [minGoals, setMinGoals] = useState(0);
+  // const [minScore, setMinScore] = useState(0);
   const [sortBy, setSortBy] = useState("averageScore");
 
-  const maxGoals = useMemo(() => {
-    return Math.max(0, ...players.map((player) => player.stats?.goals ?? 0));
-  }, [players]);
+  // const maxGoals = useMemo(() => {
+  //   return Math.max(0, ...players.map((player) => player.stats?.goals ?? 0));
+  // }, [players]);
 
-  const maxScore = useMemo(() => {
-    return Math.max(
-      0,
-      ...players.map((player) => player.stats?.playerScore ?? 0),
-    );
-  }, [players]);
+  // const maxScore = useMemo(() => {
+  //   return Math.max(
+  //     0,
+  //     ...players.map((player) => player.stats?.playerScore ?? 0),
+  //   );
+  // }, [players]);
 
   const filteredPlayers = useMemo(() => {
     const keyword = search.trim().toLowerCase();
 
     const data = players.filter((player) => {
-      const goals = player.stats?.goals ?? 0;
-      const score = player.stats?.playerScore ?? 0;
+      // const goals = player.stats?.goals ?? 0;
+      // const score = player.stats?.playerScore ?? 0;
       const appearances = player.stats?.appearances ?? 0;
       const playerStatus = player.status?.toLowerCase() ?? "active";
 
@@ -114,15 +114,13 @@ export default function Players() {
       const matchesPosition =
         position === "All" || player.position === position;
 
-      const matchesMinGoals = goals >= Number(minGoals);
-      const matchesMinScore = score >= Number(minScore);
+      // const matchesMinGoals = goals >= Number(minGoals);
+      // const matchesMinScore = score >= Number(minScore);
 
       return (
-        matchesStatus &&
-        matchesSearch &&
-        matchesPosition &&
-        matchesMinGoals &&
-        matchesMinScore
+        matchesStatus && matchesSearch && matchesPosition
+        // matchesMinGoals &&
+        // matchesMinScore
       );
     });
 
@@ -163,7 +161,7 @@ export default function Players() {
     });
 
     return data;
-  }, [search, players, sortBy, position, minGoals, minScore, statusTab]);
+  }, [search, players, sortBy, position, statusTab]);
 
   return (
     <div className="min-h-screen bg-background px-4 py-10 text-text">
@@ -181,13 +179,7 @@ export default function Players() {
 
         <div className="flex flex-col lg:flex-row gap-4 lg:gap-6">
           {/* Sidebar */}
-          <aside
-            className="w-full lg:w-72 rounded-2xl p-5 h-fit lg:sticky lg:top-5"
-            style={{
-              background: "var(--color-surface)",
-              border: "1px solid var(--color-border)",
-            }}
-          >
+          <aside className="w-full lg:w-72 rounded-2xl p-5 h-fit lg:sticky lg:top-5 bg-card">
             {/* Aside Heading / Mobile Toggle Header */}
             <button
               type="button"
@@ -205,7 +197,6 @@ export default function Players() {
               </div>
             </button>
 
-            {/* Filter Options Wrapper */}
             {/* Filter Options Wrapper */}
             <div
               className={`mt-6 ${showFilters ? "block" : "hidden"} lg:block`}
@@ -228,11 +219,7 @@ export default function Players() {
                       placeholder="Name or club"
                       value={search}
                       onChange={(e) => setSearch(e.target.value)}
-                      className="w-full rounded-lg py-3 pl-10 pr-3 outline-none"
-                      style={{
-                        background: "var(--color-card)",
-                        border: "1px solid var(--color-border)",
-                      }}
+                      className="w-full rounded-lg py-3 pl-10 pr-3 outline-none bg-background border border-border"
                     />
                   </div>
                 </div>
@@ -246,12 +233,12 @@ export default function Players() {
                     <button
                       type="button"
                       onClick={() => setStatusTab("hallOfFameActive")}
-                      className="flex items-center gap-2 rounded-lg px-3 py-2.5 text-sm font-medium transition text-secondary"
+                      className="flex items-center gap-2 rounded-lg px-3 py-2.5 text-sm font-medium transition text-accent"
                       style={{
                         background:
                           statusTab === "hallOfFameActive"
                             ? "var(--color-primary)"
-                            : "var(--color-card)",
+                            : "var(--color-surface)",
                       }}
                     >
                       <Trophy size={16} />
@@ -262,12 +249,12 @@ export default function Players() {
                     <button
                       type="button"
                       onClick={() => setStatusTab("hallOfFameActiveRetired")}
-                      className="flex items-center gap-2 rounded-lg px-3 py-2.5 text-sm font-medium transition text-secondary"
+                      className="flex items-center gap-2 rounded-lg px-3 py-2.5 text-sm font-medium transition text-accent"
                       style={{
                         background:
                           statusTab === "hallOfFameActiveRetired"
                             ? "var(--color-primary)"
-                            : "var(--color-card)",
+                            : "var(--color-surface)",
                       }}
                     >
                       <Trophy size={16} />
@@ -283,7 +270,7 @@ export default function Players() {
                         background:
                           statusTab === "all"
                             ? "var(--color-primary)"
-                            : "var(--color-card)",
+                            : "var(--color-surface)",
                       }}
                     >
                       <Users size={16} />
@@ -299,11 +286,7 @@ export default function Players() {
                   <select
                     value={sortBy}
                     onChange={(e) => setSortBy(e.target.value)}
-                    className="w-full rounded-lg p-3 outline-none"
-                    style={{
-                      background: "var(--color-card)",
-                      border: "1px solid var(--color-border)",
-                    }}
+                    className="w-full rounded-lg p-3 outline-none bg-background border border-border"
                   >
                     <option value="averageScore">Average Score</option>
 
@@ -332,7 +315,7 @@ export default function Players() {
                           background:
                             position === item
                               ? "var(--color-primary)"
-                              : "var(--color-card)",
+                              : "var(--color-surface)",
                         }}
                       >
                         {item}
@@ -342,11 +325,11 @@ export default function Players() {
                 </div>
 
                 {/* Minimum Goals */}
-                <div>
+                {/* <div>
                   <div className="flex items-center justify-between mb-3">
                     <label className="font-medium">Minimum Goals</label>
 
-                    <span className="text-sm text-blue-400 font-semibold">
+                    <span className="text-sm text-secondary font-semibold">
                       {minGoals}
                     </span>
                   </div>
@@ -357,21 +340,21 @@ export default function Players() {
                     max={maxGoals}
                     value={minGoals}
                     onChange={(e) => setMinGoals(Number(e.target.value))}
-                    className="w-full cursor-pointer accent-blue-500"
+                    className="w-full cursor-pointer accent-secondary"
                   />
 
                   <div className="flex justify-between text-xs text-text-muted mt-2">
                     <span>0</span>
                     <span>{maxGoals}</span>
                   </div>
-                </div>
+                </div> */}
 
                 {/* Minimum Score */}
-                <div>
+                {/* <div>
                   <div className="flex items-center justify-between mb-3">
                     <label className="font-medium">Minimum Score</label>
 
-                    <span className="text-sm text-blue-400 font-semibold">
+                    <span className="text-sm text-secondary font-semibold">
                       {minScore}
                     </span>
                   </div>
@@ -383,14 +366,14 @@ export default function Players() {
                     step="0.1"
                     value={minScore}
                     onChange={(e) => setMinScore(Number(e.target.value))}
-                    className="w-full cursor-pointer accent-blue-500"
+                    className="w-full cursor-pointer accent-secondary"
                   />
 
                   <div className="flex justify-between text-xs text-text-muted mt-2">
                     <span>0</span>
                     <span>{maxScore}</span>
                   </div>
-                </div>
+                </div> */}
               </div>
             </div>
           </aside>

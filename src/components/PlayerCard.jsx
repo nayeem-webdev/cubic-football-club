@@ -20,18 +20,10 @@ import { positionColors } from "../constants/positionColors";
 
 // Compact StatCard with minimal vertical footprint
 const StatCard = ({ icon, label, value = 0, valueColor, children }) => (
-  <div
-    className="rounded-lg p-2 text-center transition duration-300 hover:scale-105"
-    style={{
-      background: "rgba(255,255,255,0.03)",
-      border: "1px solid var(--color-border)",
-    }}
-  >
+  <div className="rounded-lg p-2 text-center transition duration-300 hover:scale-105 bg-surface/60">
     {/* ICON AND NUMBER SIDE-BY-SIDE */}
     <div className="flex items-center justify-center gap-1.5">
-      <div style={{ color: valueColor || "var(--color-secondary)" }}>
-        {icon}
-      </div>
+      <div style={{ color: valueColor || "var(--color-accent)" }}>{icon}</div>
 
       {children ? (
         children
@@ -165,12 +157,8 @@ const PlayerCard = ({ player, index }) => {
         transition-all
         duration-300
         hover:-translate-y-1
+        bg-card drop-shadow-2xl
       "
-      style={{
-        background: "var(--color-card)",
-        border: "1px solid var(--color-border)",
-        boxShadow: "0 15px 40px rgba(0,0,0,.25)",
-      }}
     >
       {/* =========================================================
           PLAYER IMAGE
@@ -190,17 +178,56 @@ const PlayerCard = ({ player, index }) => {
             "
           />
         ) : (
-          <div className="flex h-full w-full items-center justify-center">
-            <Shield size={70} style={{ color: "var(--color-secondary)" }} />
-          </div>
+          <img
+            src="https://i.ibb.co.com/FkM6gH66/placeholder-8.png"
+            alt={player?.name || "Player"}
+            className="
+              h-full
+              w-full
+              object-cover
+              transition
+              duration-500
+              group-hover:scale-105
+            "
+          />
         )}
         {/* IMAGE OVERLAY */}
-        <div className="absolute inset-0 bg-linear-to-t from-[#07111F]/70 via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-linear-to-t from-background/70 via-transparent to-transparent" />
         {/* JERSEY NUMBER */}
         <div
           className="
       absolute
       left-4
+      top-4
+      flex
+      items-center
+      gap-1.5
+      rounded-full
+      border
+      border-secondary/50
+      bg-background/10
+      px-3
+      py-1.5
+      text-sm
+      font-bold
+      text-secondary
+      shadow-lg
+      backdrop-blur-md
+    "
+        >
+          <Shirt
+            size={16}
+            strokeWidth={2.2}
+            className="text-secondary fill-secondary"
+          />
+
+          <span className="leading-none">#{player?.jerseyNumber ?? "0"}</span>
+        </div>
+        {/* RANKING */}
+        <div
+          className="
+      absolute
+      right-4
       top-4
       flex
       items-center
@@ -218,40 +245,10 @@ const PlayerCard = ({ player, index }) => {
       backdrop-blur-md
     "
         >
-          <Shirt
-            size={16}
-            strokeWidth={2.2}
-            className="text-accent fill-accent"
-          />
-
-          <span className="leading-none">#{player?.jerseyNumber ?? "0"}</span>
-        </div>
-        {/* RANKING */}
-        <div
-          className="
-      absolute
-      right-4
-      top-4
-      flex
-      items-center
-      gap-1.5
-      rounded-full
-      border
-      border-secondary/30
-      bg-background/85
-      px-3
-      py-1.5
-      text-sm
-      font-bold
-      text-secondary
-      shadow-lg
-      backdrop-blur-md
-    "
-        >
           <Crown
             size={16}
             strokeWidth={2.2}
-            className="text-secondary fill-secondary"
+            className="text-accent fill-accent"
           />
 
           <span className="leading-none">#{index + 1}</span>
@@ -277,15 +274,15 @@ const PlayerCard = ({ player, index }) => {
         >
           <Star
             size={16}
-            className="text-secondary"
+            className="text-accent"
             fill="currentColor"
             strokeWidth={2}
           />
-          <span className="text-lg font-bold leading-none text-secondary">
+          <span className="text-lg font-bold leading-none text-accent">
             {averagePoints}
           </span>
-          <div className="h-4 w-px bg-accent" />
-          <span className="text-xs font-semibold text-white/60">
+          <div className="h-4 w-px bg-secondary" />
+          <span className="text-xs font-semibold text-muted">
             {stats.playerScore ?? 0} pts
           </span>
         </div>
@@ -307,7 +304,6 @@ const PlayerCard = ({ player, index }) => {
                 className="
       inline-flex shrink-0 items-center justify-center
       rounded-md
-      border border-white/10
       px-2 py-0.5
       gap-1
       text-[11px] font-extrabold uppercase tracking-wider
@@ -384,12 +380,8 @@ const PlayerCard = ({ player, index }) => {
             justify-between
             rounded-lg
             px-3
-            py-2
+            py-2 bg-surface/60
           "
-          style={{
-            background: "rgba(255,255,255,0.03)",
-            border: "1px solid var(--color-border)",
-          }}
         >
           {/* FORM BADGES */}
           <div className="flex items-center gap-2">
@@ -434,7 +426,7 @@ const PlayerCard = ({ player, index }) => {
           <div className="flex items-center gap-1">
             <span
               className="text-xs font-bold"
-              style={{ color: "var(--color-accent)" }}
+              style={{ color: "var(--color-secondary)" }}
             >
               {stats.winRate ?? 0}%
             </span>
@@ -494,10 +486,10 @@ const PlayerCard = ({ player, index }) => {
               duration-300
               hover:scale-110
               hover:opacity-100
-              hover:drop-shadow-[0_0_8px_var(--color-secondary)]
+              hover:drop-shadow-[0_0_8px_var(--color-accent)]
               active:scale-90
             "
-            style={{ color: "var(--color-secondary)" }}
+            style={{ color: "var(--color-accent)" }}
           >
             <Share2
               size={15}

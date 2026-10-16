@@ -3,11 +3,15 @@ import {
   FaCalendarCheck,
   FaClock,
   FaDiamondTurnRight,
+  FaShare,
+  FaUserGroup,
+  FaVolleyball,
 } from "react-icons/fa6";
 import { IoFootball } from "react-icons/io5";
 import PageHero from "../components/PageHero";
 import { useEffect, useState } from "react";
 import Loader from "../components/Loader";
+import ScheduleCard from "../components/ScheduleCard";
 
 // ========================================
 // GET MATCH STATUS
@@ -28,11 +32,11 @@ function getStatus(dateStr) {
     return "today";
   }
 
-  if (matchDate < bangladeshDate) {
-    return "completed";
+  if (matchDate > bangladeshDate) {
+    return "upcoming";
   }
 
-  return "upcoming";
+  return "completed";
 }
 
 export default function Schedule() {
@@ -68,10 +72,6 @@ export default function Schedule() {
     fetchSchedules();
   }, [API_URL]);
 
-  // ========================================
-  // BADGE STYLES
-  // ========================================
-
   return (
     <div className="min-h-screen bg-background px-4 py-10 text-text">
       <div className="mx-auto max-w-7xl">
@@ -88,137 +88,9 @@ export default function Schedule() {
           SCHEDULE SECTION
       ======================================== */}
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {schedules.map((item, index) => {
-            const status = getStatus(item.date);
-
-            return (
-              <article
-                key={item._id || index}
-                className="group relative flex flex-col overflow-hidden rounded-2xl border border-border bg-[#061834ac] p-6 shadow-xl transition-all duration-300 hover:-translate-y-1 hover:border-[#3a82ff54] hover:shadow-2xl"
-              >
-                {/* Subtle top accent */}
-                <div className="absolute left-0 right-0 top-0 h-1 bg-linear-to-r from-primary to-accent" />
-
-                {/* ================= HEADER ================= */}
-                <div className="mb-5 flex items-start justify-between gap-3">
-                  <div className="flex min-w-0 items-center gap-3">
-                    {/* Football Icon */}
-                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-accent/20 bg-accent/10 text-lg text-accent">
-                      <IoFootball />
-                    </div>
-
-                    <div className="min-w-0">
-                      <h3 className="truncate text-base font-bold text-text sm:text-lg">
-                        {item.venue?.venue || item.venue || "Unknown Venue"}
-                      </h3>
-
-                      <p className="mt-0.5 text-xs text-secondary">
-                        {item.matchType
-                          ? `${item.matchType.charAt(0).toUpperCase() + item.matchType.slice(1)} Match`
-                          : "Training Match"}
-                      </p>
-                    </div>
-                  </div>
-
-                  {/* Status */}
-                  <span
-                    className={`inline-flex shrink-0 items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-semibold ${
-                      status === "today"
-                        ? "border-primary/40 bg-primary/15 text-primary"
-                        : status === "upcoming"
-                          ? "border-accent/30 bg-accent/10 text-accent"
-                          : "border-gray-400/30 bg-gray-400/10 text-gray-400"
-                    }`}
-                  >
-                    <span
-                      className={`h-1.5 w-1.5 rounded-full ${
-                        status === "today"
-                          ? "bg-primary"
-                          : status === "upcoming"
-                            ? "bg-accent"
-                            : "bg-gray-400"
-                      }`}
-                    />
-
-                    {status === "today"
-                      ? "Today"
-                      : status === "upcoming"
-                        ? "Upcoming"
-                        : "Completed"}
-                  </span>
-                </div>
-
-                {/* Divider */}
-                <div className="mb-5 h-px w-full bg-linear-to-r from-surface to-transparent" />
-
-                {/* ================= MATCH DETAILS ================= */}
-                <div className="mb-6 space-y-3 text-sm">
-                  {/* Date */}
-                  <div className="flex items-center gap-3">
-                    <FaCalendar className="w-4 shrink-0 text-accent" />
-
-                    <span className="text-text-muted">Date:</span>
-
-                    <span className="ml-auto font-semibold text-text">
-                      {new Date(item.date).toLocaleDateString("en-GB", {
-                        day: "numeric",
-                        month: "short",
-                        year: "numeric",
-                      })}
-                    </span>
-                  </div>
-
-                  {/* Day */}
-                  <div className="flex items-center gap-3">
-                    <FaCalendarCheck className="w-4 shrink-0 text-accent" />
-
-                    <span className="text-text-muted">Day:</span>
-
-                    <span className="ml-auto font-semibold text-text">
-                      {new Date(item.date).toLocaleDateString("en-US", {
-                        weekday: "long",
-                      })}
-                    </span>
-                  </div>
-
-                  {/* Time */}
-                  <div className="flex items-center gap-3">
-                    <FaClock className="w-4 shrink-0 text-accent" />
-
-                    <span className="text-text-muted">Time:</span>
-
-                    <span className="ml-auto font-semibold text-text">
-                      {item.time}
-                    </span>
-                  </div>
-
-                  {/* Format */}
-                  {item.matchFormat && (
-                    <div className="flex items-center gap-3">
-                      <IoFootball className="w-4 shrink-0 text-accent" />
-
-                      <span className="text-text-muted">Format:</span>
-
-                      <span className="ml-auto font-semibold text-text">
-                        {item.matchFormat} vs {item.matchFormat}
-                      </span>
-                    </div>
-                  )}
-                </div>
-
-                {/* ================= DIRECTION ================= */}
-                <a
-                  href={item.venue?.direction || item.direction}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-auto w-full inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-white/5 border border-slate-700/60 text-sm font-semibold text-white transition-all duration-300 group-hover:bg-linear-to-r group-hover:from-emerald-600 group-hover:to-indigo-600 group-hover:border-transparent group-hover:gap-3 group-hover:shadow-lg group-hover:shadow-emerald-900/30"
-                >
-                  <FaDiamondTurnRight className="text-xs" />
-                  <span>Get Direction</span>
-                </a>
-              </article>
-            );
-          })}
+          {schedules.map((schedule) => (
+            <ScheduleCard schedule={schedule} key={schedule._id} />
+          ))}
         </div>
 
         {/* ========================================

@@ -211,11 +211,7 @@ const ScoreCard = ({ match }) => {
         <button
           type="button"
           onClick={() => setOpen(!open)}
-          className="flex h-11 w-full items-center justify-center gap-2 rounded-xl text-sm font-semibold transition hover:opacity-90 active:scale-98 sm:w-auto sm:px-6"
-          style={{
-            background: "var(--color-surface)",
-            border: "1px solid var(--color-border)",
-          }}
+          className="flex h-11 w-full bg-surface border border-border items-center justify-center gap-2 rounded-xl text-sm font-semibold transition hover:opacity-90 active:scale-98 sm:w-auto sm:px-6"
         >
           <span>{open ? "Hide Match Details" : "View Match Details"}</span>
           {open ? <ChevronUp size={18} /> : <ChevronDown size={18} />}
