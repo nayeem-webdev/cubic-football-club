@@ -778,7 +778,7 @@ export default function LiveScore() {
           {/* CHANGE MATCH */}
           <button
             onClick={() => setSelectedMatch(null)}
-            className="mb-6 flex items-center gap-2 rounded-xl border border-border text-text-muted px-4 py-2 text-sm font-medium text-text-muted transition hover:border-[#3A82FF] hover:text-white"
+            className="mb-6 flex items-center gap-2 rounded-xl border border-border text-text-muted px-4 py-2 text-sm font-medium text-text-muted transition hover:border-secondary hover:text-white"
           >
             ← Change Match
           </button>
@@ -795,7 +795,7 @@ export default function LiveScore() {
                       ? "bg-red-500"
                       : selectedMatch.timer.running
                         ? "animate-pulse bg-[#49C85A]"
-                        : "bg-[#D4AF37]"
+                        : "bg-accent"
                   }`}
                 />
 
@@ -805,7 +805,7 @@ export default function LiveScore() {
                       ? "text-red-400"
                       : selectedMatch.timer.running
                         ? "text-[#49C85A]"
-                        : "text-[#D4AF37]"
+                        : "text-accent"
                   }`}
                 >
                   {selectedMatch.timer.finished
@@ -846,7 +846,7 @@ export default function LiveScore() {
                 {/* CENTER */}
                 <div className="flex min-w-20 flex-col items-center px-1 sm:min-w-37.5">
                   {/* MATCH TYPE */}
-                  <span className="mb-1 text-center text-[9px] font-bold uppercase tracking-wider text-[#D4AF37] sm:text-xs">
+                  <span className="mb-1 text-center text-[9px] font-bold uppercase tracking-wider text-accent sm:text-xs">
                     {selectedMatch.matchSchedule.matchType}
                   </span>
 
@@ -898,7 +898,7 @@ export default function LiveScore() {
                           <button
                             type="button"
                             onClick={startTimer}
-                            className="rounded-lg bg-primary px-5 py-2 text-xs font-bold transition hover:bg-[#3A82FF] hover:shadow-lg hover:shadow-[#0E5FD8]/20"
+                            className="rounded-lg bg-primary px-5 py-2 text-xs font-bold transition hover:bg-secondary hover:shadow-lg hover:shadow-[#0E5FD8]/20"
                           >
                             {selectedMatch.timer.elapsed === 0
                               ? "▶ Start"
@@ -908,7 +908,7 @@ export default function LiveScore() {
                           <button
                             type="button"
                             onClick={pauseTimer}
-                            className="rounded-lg border border-[#D4AF37]/30 bg-[#D4AF37]/10 px-5 py-2 text-xs font-bold text-[#D4AF37] transition hover:bg-[#D4AF37]/20"
+                            className="rounded-lg border border-accent/30 bg-accent/10 px-5 py-2 text-xs font-bold text-accent transition hover:bg-accent/20"
                           >
                             ⏸ Pause
                           </button>

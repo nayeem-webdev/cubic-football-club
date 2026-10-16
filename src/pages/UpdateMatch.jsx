@@ -50,7 +50,7 @@ const UpdateMatch = () => {
               <div className="grid gap-2 md:grid-cols-[1fr_1.2fr] md:items-center">
                 <div>
                   <div className="mb-2 flex items-center gap-3">
-                    <span className="rounded-md bg-primary/15 px-2 py-1 text-xs font-semibold text-[#3A82FF]">
+                    <span className="rounded-md bg-primary/15 px-2 py-1 text-xs font-semibold text-secondary">
                       {match.matchSchedule?.matchType?.toUpperCase() ||
                         "FRIENDLY"}{" "}
                       MATCH
@@ -66,7 +66,7 @@ const UpdateMatch = () => {
 
                   <h2 className="text-xl font-bold text-text sm:text-2xl">
                     {match.homeTeam?.name || "Home Team"}
-                    <span className="mx-3 text-[#D4AF37]">vs</span>
+                    <span className="mx-3 text-accent">vs</span>
                     {match.awayTeam?.name || "Away Team"}
                   </h2>
                 </div>
@@ -104,7 +104,7 @@ const UpdateMatch = () => {
             <button
               type="button"
               onClick={() => navigate("/new-match")}
-              className="rounded-lg bg-primary px-5 py-2.5 font-medium text-white transition hover:bg-[#3A82FF]"
+              className="rounded-lg bg-primary px-5 py-2.5 font-medium text-white transition hover:bg-secondary"
             >
               Create Match
             </button>

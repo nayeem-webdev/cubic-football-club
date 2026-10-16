@@ -303,10 +303,10 @@ const ModalGoal = ({
               <div className="mt-5 grid gap-3">
                 <button
                   onClick={() => setGoalStep("assist")}
-                  className="flex items-center justify-between rounded-2xl border border-border text-text-muted p-4 text-left transition-all hover:border-[#D4AF37]"
+                  className="flex items-center justify-between rounded-2xl border border-border text-text-muted p-4 text-left transition-all hover:border-accent"
                 >
                   <div className="flex items-center gap-3">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#D4AF37]/10 text-[#D4AF37]">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-accent/10 text-accent">
                       <Handshake size={20} />
                     </div>
 
@@ -356,7 +356,7 @@ const ModalGoal = ({
                 <label
                   className={`flex cursor-pointer items-center justify-between rounded-xl border px-4 py-3 transition-all ${
                     goalData.assister === ""
-                      ? "border-[#D4AF37] bg-[#D4AF37]/10"
+                      ? "border-accent bg-accent/10"
                       : "border-border text-text-muted"
                   }`}
                 >
@@ -373,7 +373,7 @@ const ModalGoal = ({
                         assister: "",
                       }))
                     }
-                    className="h-4 w-4 accent-[#D4AF37]"
+                    className="h-4 w-4 accent-accent"
                   />
                 </label>
 
@@ -386,8 +386,8 @@ const ModalGoal = ({
                       key={player._id}
                       className={`flex cursor-pointer items-center justify-between rounded-xl border px-4 py-3 transition-all ${
                         goalData.assister === player._id
-                          ? "border-[#D4AF37] bg-[#D4AF37]/10"
-                          : "border-border text-text-muted hover:border-[#D4AF37]/60"
+                          ? "border-accent bg-accent/10"
+                          : "border-border text-text-muted hover:border-accent/60"
                       }`}
                     >
                       <div className="flex items-center gap-3">
@@ -419,7 +419,7 @@ const ModalGoal = ({
                             assister: e.target.value,
                           }))
                         }
-                        className="h-4 w-4 accent-[#D4AF37]"
+                        className="h-4 w-4 accent-accent"
                       />
                     </label>
                   ))}

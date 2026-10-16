@@ -96,7 +96,7 @@ export default function Admin() {
                 className="group rounded-2xl border border-border text-text-muted p-6 transition duration-300 hover:-translate-y-1 hover:border-[#0E5FD8] hover:bg-card"
               >
                 <div className="flex items-start gap-4">
-                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-primary/15 text-[#3A82FF] transition group-hover:bg-primary group-hover:text-white">
+                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-primary/15 text-secondary transition group-hover:bg-primary group-hover:text-white">
                     <Icon size={24} />
                   </div>
 
@@ -111,7 +111,7 @@ export default function Admin() {
                   </div>
                 </div>
 
-                <div className="mt-4 flex items-center gap-2 text-sm font-semibold text-[#3A82FF]">
+                <div className="mt-4 flex items-center gap-2 text-sm font-semibold text-secondary">
                   Manage
                   <span className="transition-transform duration-300 group-hover:translate-x-1">
                     →

@@ -226,7 +226,7 @@ const ScoreCard = ({ match }) => {
           type="button"
           onClick={handleShare}
           aria-label="Share match scorecard"
-          className="group  border border-[#D4AF37]/50 bg-[#D4AF37]/5  text-[#D4AF37] duration-300 hover:border-[#D4AF37] hover:bg-[#D4AF37]/10 hover:shadow-lg hover:shadow-[#D4AF37]/10              flex h-11 w-full items-center justify-center gap-2 rounded-xl text-sm font-semibold transition hover:opacity-90 active:scale-98 sm:w-auto sm:px-6"
+          className="group  border border-accent/50 bg-accent/5  text-accent duration-300 hover:border-accent hover:bg-accent/10 hover:shadow-lg hover:shadow-accent/10              flex h-11 w-full items-center justify-center gap-2 rounded-xl text-sm font-semibold transition hover:opacity-90 active:scale-98 sm:w-auto sm:px-6"
         >
           <Share2
             size={16}

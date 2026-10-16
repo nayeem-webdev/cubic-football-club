@@ -26,7 +26,7 @@ const SelectMatch = ({ matches, onSelectMatch }) => {
                 {/* Teams */}
                 <div>
                   <div className="mb-2 flex items-center gap-3">
-                    <span className="rounded-md bg-primary/15 px-2 py-1 text-xs font-semibold text-[#3A82FF]">
+                    <span className="rounded-md bg-primary/15 px-2 py-1 text-xs font-semibold text-secondary">
                       {match.matchSchedule.matchType.toUpperCase()} MATCH
                     </span>
 
@@ -42,7 +42,7 @@ const SelectMatch = ({ matches, onSelectMatch }) => {
                   <h2 className="text-xl font-bold text-text sm:text-2xl">
                     {match.homeTeam.name}
 
-                    <span className="mx-3 text-[#D4AF37]">vs</span>
+                    <span className="mx-3 text-accent">vs</span>
 
                     {match.awayTeam.name}
                   </h2>

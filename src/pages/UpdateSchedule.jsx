@@ -123,7 +123,7 @@ export default function UpdateSchedule() {
                   <div>
                     <div className="mb-2 flex items-center gap-3">
                       {/* MATCH TYPE BADGE */}
-                      <span className="rounded-md bg-primary/15 px-2 py-1 text-xs font-semibold text-[#3A82FF]">
+                      <span className="rounded-md bg-primary/15 px-2 py-1 text-xs font-semibold text-secondary">
                         {schedule.matchType
                           ? schedule.matchType.toUpperCase()
                           : "MATCH"}

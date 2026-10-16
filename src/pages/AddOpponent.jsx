@@ -11,7 +11,7 @@ const AddOpponent = () => {
     `flex flex-1 items-center justify-center gap-2 rounded-lg px-5 py-3 text-sm font-semibold transition-all duration-300 sm:flex-none ${
       activeTab === tab
         ? "bg-primary text-white shadow-md shadow-blue-900/20"
-        : "text-text-muted hover:bg-[#152640] hover:text-[#D4AF37]"
+        : "text-text-muted hover:bg-card hover:text-accent"
     }`;
 
   return (

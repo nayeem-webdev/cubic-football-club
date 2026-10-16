@@ -318,7 +318,7 @@ const RegisterPlayer = () => {
             <button
               type="submit"
               disabled={loading || loadingTeams}
-              className="w-full rounded-lg bg-primary px-5 py-3.5 font-semibold text-white transition hover:bg-[#3A82FF] disabled:cursor-not-allowed disabled:opacity-50"
+              className="w-full rounded-lg bg-primary px-5 py-3.5 font-semibold text-white transition hover:bg-secondary disabled:cursor-not-allowed disabled:opacity-50"
             >
               {loading ? "Registering Player..." : "Register Player"}
             </button>

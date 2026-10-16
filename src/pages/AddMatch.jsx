@@ -35,7 +35,7 @@ const AddMatch = () => {
     `flex flex-1 items-center justify-center gap-2 rounded-lg px-5 py-3 text-sm font-semibold transition-all duration-300 sm:flex-none ${
       activeTab === tab
         ? "bg-primary text-white shadow-md shadow-blue-900/20"
-        : "text-text-muted hover:bg-[#152640] hover:text-[#D4AF37]"
+        : "text-text-muted hover:bg-card hover:text-accent"
     }`;
 
   // Fetch players, teams and schedules
@@ -742,7 +742,7 @@ const AddMatch = () => {
               <button
                 type="button"
                 onClick={handleClear}
-                className="rounded-xl border border-border px-6 py-3 font-semibold text-text-muted transition hover:border-[#3A82FF] hover:text-white"
+                className="rounded-xl border border-border px-6 py-3 font-semibold text-text-muted transition hover:border-secondary hover:text-white"
               >
                 Clear
               </button>
@@ -750,7 +750,7 @@ const AddMatch = () => {
               <button
                 type="submit"
                 disabled={loading}
-                className="rounded-xl bg-primary px-6 py-3 font-semibold text-white transition hover:bg-[#3A82FF] disabled:cursor-not-allowed disabled:opacity-60"
+                className="rounded-xl bg-primary px-6 py-3 font-semibold text-white transition hover:bg-secondary disabled:cursor-not-allowed disabled:opacity-60"
               >
                 {loading ? "Creating Match..." : "Create Match"}
               </button>

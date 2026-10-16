@@ -75,7 +75,7 @@ const PlayerCard = ({ player }) => {
 
       {/* Right Section: Compact Position Pill */}
       <div className="shrink-0 ml-4">
-        <span className="inline-flex items-center rounded-sm bg-[#D4AF37]/10 px-1.5 py-0.5 text-[10px] font-black uppercase tracking-widest text-[#D4AF37] border border-[#D4AF37]/20">
+        <span className="inline-flex items-center rounded-sm bg-accent/10 px-1.5 py-0.5 text-[10px] font-black uppercase tracking-widest text-accent border border-accent/20">
           {player?.position || "N/A"}
         </span>
       </div>
@@ -464,7 +464,7 @@ const MatchDetails = () => {
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-3">
           <button
             onClick={() => navigate("/matches")}
-            className="inline-flex items-center gap-2 rounded-lg border border-white/15 bg-white/5 px-3 py-2 text-xs font-bold uppercase tracking-wider text-white transition hover:border-[#D4AF37] hover:text-[#D4AF37]"
+            className="inline-flex items-center gap-2 rounded-lg border border-white/15 bg-white/5 px-3 py-2 text-xs font-bold uppercase tracking-wider text-white transition hover:border-accent hover:text-accent"
           >
             <ArrowLeft size={15} />
             Back
@@ -474,7 +474,7 @@ const MatchDetails = () => {
             <button
               onClick={handleDownload}
               disabled={generating}
-              className="inline-flex items-center gap-2 rounded-lg border border-white/15 bg-white/5 px-3 py-2 text-xs font-bold uppercase tracking-wider text-white transition hover:border-[#D4AF37] hover:text-[#D4AF37] disabled:opacity-50"
+              className="inline-flex items-center gap-2 rounded-lg border border-white/15 bg-white/5 px-3 py-2 text-xs font-bold uppercase tracking-wider text-white transition hover:border-accent hover:text-accent disabled:opacity-50"
             >
               <Download size={15} />
               Download
@@ -483,7 +483,7 @@ const MatchDetails = () => {
             <button
               onClick={handleShare}
               disabled={generating}
-              className="inline-flex items-center gap-2 rounded-lg border border-[#D4AF37]/60 bg-[#D4AF37]/10 px-3 py-2 text-xs font-bold uppercase tracking-wider text-[#D4AF37] transition hover:bg-[#D4AF37]/20 disabled:opacity-50"
+              className="inline-flex items-center gap-2 rounded-lg border border-accent/60 bg-accent/10 px-3 py-2 text-xs font-bold uppercase tracking-wider text-accent transition hover:bg-accent/20 disabled:opacity-50"
             >
               <Share2 size={15} />
               {generating ? "Creating..." : "Share"}
@@ -526,7 +526,7 @@ const MatchDetails = () => {
                 {/* CUBIC FC Logo */}
                 <div className="relative flex h-32 w-32 shrink-0 items-center justify-center">
                   {/* Ambient gold glow */}
-                  <div className="absolute inset-3 rounded-full bg-[#D4AF37]/20 blur-2xl" />
+                  <div className="absolute inset-3 rounded-full bg-accent/20 blur-2xl" />
 
                   {/* Subtle blue glow */}
                   <div className="absolute inset-5 rounded-full bg-primary/20 blur-xl" />
@@ -545,12 +545,12 @@ const MatchDetails = () => {
                 </div>
 
                 {/* Vertical divider */}
-                <div className="h-20 w-px bg-gradient-to-b from-transparent via-[#D4AF37]/60 to-transparent" />
+                <div className="h-20 w-px bg-gradient-to-b from-transparent via-accent/60 to-transparent" />
 
                 {/* Match Information */}
                 <div className="min-w-0 text-left flex items-center flex-col">
                   {/* Match type */}
-                  <h2 className="text-md mb-2 font-bold uppercase tracking-[0.3em] text-[#D4AF37] font-minasans">
+                  <h2 className="text-md mb-2 font-bold uppercase tracking-[0.3em] text-accent font-minasans">
                     {schedule.matchType || "FRIENDLY"} MATCH
                   </h2>
 
@@ -563,13 +563,13 @@ const MatchDetails = () => {
 
                   {/* Competition label */}
                   <div className="mt-2 flex items-center gap-2">
-                    <span className="h-px w-8 bg-[#D4AF37]/70" />
+                    <span className="h-px w-8 bg-accent/70" />
 
-                    <span className="text-lg font-bold uppercase font-minasans tracking-[0.28em] text-[#D4AF37]">
+                    <span className="text-lg font-bold uppercase font-minasans tracking-[0.28em] text-accent">
                       FUTSAL
                     </span>
 
-                    <span className="h-px w-8 bg-[#D4AF37]/70" />
+                    <span className="h-px w-8 bg-accent/70" />
                   </div>
                 </div>
               </header>
@@ -615,15 +615,15 @@ const MatchDetails = () => {
                   MATCH INFO
               ================================================== */}
 
-              <div className="mt-6 py-2 grid shrink-0 grid-cols-[1fr_1.25fr_1fr] overflow-hidden rounded-lg border-[1.5px] border-[#D4AF37] bg-[rgba(3,12,29,0.94)]">
+              <div className="mt-6 py-2 grid shrink-0 grid-cols-[1fr_1.25fr_1fr] overflow-hidden rounded-lg border-[1.5px] border-accent bg-[rgba(3,12,29,0.94)]">
                 {/* Date */}
-                <div className="flex min-w-0 items-center gap-2 border-r border-[#D4AF37]/45 px-2 py-base last:border-r-0">
-                  <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#D4AF37] text-[#07111F]">
+                <div className="flex min-w-0 items-center gap-2 border-r border-accent/45 px-2 py-base last:border-r-0">
+                  <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-accent text-[#07111F]">
                     <CalendarDays size={19} />
                   </div>
 
                   <div className="flex min-w-0 flex-col gap-1">
-                    <span className="text-base font-minasans font-bold uppercase leading-none tracking-[1px] text-[#D4AF37]">
+                    <span className="text-base font-minasans font-bold uppercase leading-none tracking-[1px] text-accent">
                       DATE
                     </span>
                     <strong className="block truncate text-md font-bold leading-[1.15] text-text">
@@ -633,13 +633,13 @@ const MatchDetails = () => {
                 </div>
 
                 {/* Venue */}
-                <div className="flex min-w-0 items-center gap-2 border-r border-[#D4AF37]/45 px-2 py-base last:border-r-0">
-                  <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#D4AF37] text-[#07111F]">
+                <div className="flex min-w-0 items-center gap-2 border-r border-accent/45 px-2 py-base last:border-r-0">
+                  <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-accent text-[#07111F]">
                     <MapPin size={19} />
                   </div>
 
                   <div className="flex min-w-0 flex-col gap-1">
-                    <span className="text-base font-minasans font-bold uppercase leading-none tracking-[1px] text-[#D4AF37]">
+                    <span className="text-base font-minasans font-bold uppercase leading-none tracking-[1px] text-accent">
                       VENUE
                     </span>
                     <strong className="block truncate text-md font-bold leading-[1.15] text-text">
@@ -650,12 +650,12 @@ const MatchDetails = () => {
 
                 {/* Time */}
                 <div className="flex min-w-0 items-center gap-2 px-2 py-base">
-                  <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#D4AF37] text-[#07111F]">
+                  <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-accent text-[#07111F]">
                     <Clock3 size={19} />
                   </div>
 
                   <div className="flex min-w-0 flex-col gap-1">
-                    <span className="text-base font-minasans font-bold uppercase leading-none tracking-[1px] text-[#D4AF37]">
+                    <span className="text-base font-minasans font-bold uppercase leading-none tracking-[1px] text-accent">
                       TIME
                     </span>
                     <strong className="block truncate text-md font-bold leading-[1.15] text-text">

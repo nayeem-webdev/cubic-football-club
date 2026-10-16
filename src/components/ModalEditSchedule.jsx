@@ -208,7 +208,7 @@ const ModalEditSchedule = ({ schedule, onClose, onUpdated }) => {
 
         <div className="sticky top-0 z-10 flex items-center justify-between border-b border-border text-text-muted px-6 py-5">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-wider text-[#3A82FF]">
+            <p className="text-xs font-semibold uppercase tracking-wider text-secondary">
               Schedule Center
             </p>
 
@@ -380,7 +380,7 @@ const ModalEditSchedule = ({ schedule, onClose, onUpdated }) => {
                 type="button"
                 onClick={onClose}
                 disabled={loading || deleting}
-                className="w-full rounded-xl border border-border px-5 py-3 text-sm font-semibold text-text-muted transition hover:border-[#3A82FF] hover:text-white active:scale-[0.98] disabled:opacity-50 sm:w-auto"
+                className="w-full rounded-xl border border-border px-5 py-3 text-sm font-semibold text-text-muted transition hover:border-secondary hover:text-white active:scale-[0.98] disabled:opacity-50 sm:w-auto"
               >
                 Cancel
               </button>
@@ -388,7 +388,7 @@ const ModalEditSchedule = ({ schedule, onClose, onUpdated }) => {
               <button
                 type="submit"
                 disabled={loading || deleting}
-                className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-primary px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#3A82FF] active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50 sm:w-auto"
+                className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-primary px-5 py-3 text-sm font-semibold text-white transition hover:bg-secondary active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50 sm:w-auto"
               >
                 <FaFloppyDisk className="text-xs" />
 

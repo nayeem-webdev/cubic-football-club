@@ -457,7 +457,7 @@ export default function ModalEdit({
           <button
             type="button"
             onClick={handleCancelEdit}
-            className="flex-1 rounded-lg border border-border bg-background px-4 py-2.5 text-xs font-bold text-text-muted transition hover:border-[#3A82FF] hover:text-white"
+            className="flex-1 rounded-lg border border-border bg-background px-4 py-2.5 text-xs font-bold text-text-muted transition hover:border-secondary hover:text-white"
           >
             Cancel
           </button>
@@ -465,7 +465,7 @@ export default function ModalEdit({
           <button
             type="button"
             onClick={handleSave}
-            className="flex-1 rounded-lg bg-primary px-4 py-2.5 text-xs font-bold text-white transition hover:bg-[#3A82FF]"
+            className="flex-1 rounded-lg bg-primary px-4 py-2.5 text-xs font-bold text-white transition hover:bg-secondary"
           >
             Save
           </button>
@@ -536,11 +536,11 @@ export default function ModalEdit({
                                   {eventLabels[event.type] || event.type}
                                 </h3>
 
-                                <span className="rounded-md bg-primary/10 px-2 py-0.5 text-[9px] font-bold uppercase text-[#3A82FF]">
+                                <span className="rounded-md bg-primary/10 px-2 py-0.5 text-[9px] font-bold uppercase text-secondary">
                                   {event.team}
                                 </span>
 
-                                <span className="text-[10px] font-semibold text-[#D4AF37]">
+                                <span className="text-[10px] font-semibold text-accent">
                                   {formatEventTime(event.time)}
                                 </span>
                               </div>
@@ -601,7 +601,7 @@ export default function ModalEdit({
                                     className={
                                       event.card === "red"
                                         ? "font-bold text-red-400"
-                                        : "font-bold text-[#D4AF37]"
+                                        : "font-bold text-accent"
                                     }
                                   >
                                     {event.card === "red"
@@ -635,7 +635,7 @@ export default function ModalEdit({
                             <button
                               type="button"
                               onClick={() => handleEdit(event)}
-                              className="flex h-8 w-8 items-center justify-center rounded-lg border border-[#0E5FD8]/30 bg-primary/10 text-[10px] font-bold text-[#3A82FF] transition hover:bg-primary/20"
+                              className="flex h-8 w-8 items-center justify-center rounded-lg border border-[#0E5FD8]/30 bg-primary/10 text-[10px] font-bold text-secondary transition hover:bg-primary/20"
                             >
                               <FilePen size={14} />
                             </button>

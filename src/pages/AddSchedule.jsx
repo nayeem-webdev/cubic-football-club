@@ -502,7 +502,7 @@ const AddSchedule = () => {
                 type="button"
                 onClick={handleClear}
                 disabled={loading}
-                className="rounded-xl border border-border px-6 py-3 font-semibold text-text-muted transition hover:border-[#3A82FF] hover:text-white disabled:cursor-not-allowed disabled:opacity-50"
+                className="rounded-xl border border-border px-6 py-3 font-semibold text-text-muted transition hover:border-secondary hover:text-white disabled:cursor-not-allowed disabled:opacity-50"
               >
                 Clear
               </button>
@@ -510,7 +510,7 @@ const AddSchedule = () => {
               <button
                 type="submit"
                 disabled={loading || venuesLoading || venues.length === 0}
-                className="rounded-xl bg-primary px-6 py-3 font-semibold text-white transition hover:bg-[#3A82FF] disabled:cursor-not-allowed disabled:opacity-60"
+                className="rounded-xl bg-primary px-6 py-3 font-semibold text-white transition hover:bg-secondary disabled:cursor-not-allowed disabled:opacity-60"
               >
                 {loading ? "Adding Schedule..." : "Add Schedule"}
               </button>

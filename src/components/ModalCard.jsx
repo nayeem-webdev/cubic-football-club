@@ -46,11 +46,11 @@ const ModalCard = ({
         <div className="flex items-center justify-between border-b border-border px-6 py-5">
           <div>
             <div className="mb-1 flex items-center gap-2">
-              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#D4AF37]/10 text-[#D4AF37]">
+              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-accent/10 text-accent">
                 <CreditCard size={18} />
               </div>
 
-              <span className="text-xs font-bold tracking-[0.2em] text-[#D4AF37]">
+              <span className="text-xs font-bold tracking-[0.2em] text-accent">
                 MATCH EVENT
               </span>
             </div>
@@ -129,7 +129,7 @@ const ModalCard = ({
                   className={`flex cursor-pointer items-center justify-between rounded-2xl border p-4 transition-all ${
                     cardData.team === "home"
                       ? "border-[#0E5FD8] bg-primary/10"
-                      : "border-border text-text-muted hover:border-[#3A82FF]"
+                      : "border-border text-text-muted hover:border-secondary"
                   }`}
                 >
                   <div className="flex items-center gap-4">
@@ -170,7 +170,7 @@ const ModalCard = ({
                   className={`flex cursor-pointer items-center justify-between rounded-2xl border p-4 transition-all ${
                     cardData.team === "away"
                       ? "border-[#0E5FD8] bg-primary/10"
-                      : "border-border text-text-muted hover:border-[#3A82FF]"
+                      : "border-border text-text-muted hover:border-secondary"
                   }`}
                 >
                   <div className="flex items-center gap-4">
@@ -222,12 +222,12 @@ const ModalCard = ({
                 <label
                   className={`flex cursor-pointer items-center justify-between rounded-2xl border p-4 transition-all ${
                     cardData.card === "yellow"
-                      ? "border-[#D4AF37] bg-[#D4AF37]/10"
-                      : "border-border text-text-muted hover:border-[#D4AF37]/60"
+                      ? "border-accent bg-accent/10"
+                      : "border-border text-text-muted hover:border-accent/60"
                   }`}
                 >
                   <div className="flex items-center gap-3">
-                    <div className="h-10 w-7 rounded-md bg-[#D4AF37] shadow-sm" />
+                    <div className="h-10 w-7 rounded-md bg-accent shadow-sm" />
 
                     <div>
                       <p className="font-semibold text-text">Yellow Card</p>
@@ -250,7 +250,7 @@ const ModalCard = ({
 
                       setCardStep("player");
                     }}
-                    className="h-4 w-4 accent-[#D4AF37]"
+                    className="h-4 w-4 accent-accent"
                   />
                 </label>
 
@@ -320,8 +320,8 @@ const ModalCard = ({
                       cardData.player === player._id
                         ? cardData.card === "red"
                           ? "border-[#EF4444] bg-[#EF4444]/10"
-                          : "border-[#D4AF37] bg-[#D4AF37]/10"
-                        : "border-border text-text-muted hover:border-[#D4AF37]/60"
+                          : "border-accent bg-accent/10"
+                        : "border-border text-text-muted hover:border-accent/60"
                     }`}
                   >
                     <div className="flex items-center gap-3">
@@ -355,7 +355,7 @@ const ModalCard = ({
                       className={`h-4 w-4 ${
                         cardData.card === "red"
                           ? "accent-[#EF4444]"
-                          : "accent-[#D4AF37]"
+                          : "accent-accent"
                       }`}
                     />
                   </label>
@@ -379,7 +379,7 @@ const ModalCard = ({
                     !cardData.team || !cardData.card || !cardData.player
                   }
                   className={`rounded-xl px-4 py-3 font-bold text-[#07111F] transition-all hover:scale-[1.01] disabled:cursor-not-allowed disabled:opacity-40 ${
-                    cardData.card === "red" ? "bg-[#EF4444]" : "bg-[#D4AF37]"
+                    cardData.card === "red" ? "bg-[#EF4444]" : "bg-accent"
                   }`}
                 >
                   SAVE CARD

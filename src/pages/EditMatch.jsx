@@ -566,7 +566,7 @@ const EditMatch = () => {
                   type="button"
                   onClick={() => navigate(`/upcoming-matches/${id}`)}
                   disabled={loading || deleting}
-                  className="rounded-xl border border-border px-6 py-3 font-semibold text-text-muted transition hover:border-[#3A82FF] hover:text-white disabled:opacity-50"
+                  className="rounded-xl border border-border px-6 py-3 font-semibold text-text-muted transition hover:border-secondary hover:text-white disabled:opacity-50"
                 >
                   Cancel
                 </button>
@@ -574,7 +574,7 @@ const EditMatch = () => {
                 <button
                   type="submit"
                   disabled={loading || deleting}
-                  className="rounded-xl bg-primary px-6 py-3 font-semibold text-white transition hover:bg-[#3A82FF] disabled:cursor-not-allowed disabled:opacity-60"
+                  className="rounded-xl bg-primary px-6 py-3 font-semibold text-white transition hover:bg-secondary disabled:cursor-not-allowed disabled:opacity-60"
                 >
                   {loading ? "Saving Changes..." : "Save Lineup"}
                 </button>

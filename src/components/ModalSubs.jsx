@@ -54,11 +54,11 @@ const ModalSubs = ({
         <div className="flex items-center justify-between border-b border-border px-6 py-5">
           <div>
             <div className="mb-1 flex items-center gap-2">
-              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10 text-[#3A82FF]">
+              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10 text-secondary">
                 <UsersRound size={18} />
               </div>
 
-              <span className="text-xs font-bold tracking-[0.2em] text-[#3A82FF]">
+              <span className="text-xs font-bold tracking-[0.2em] text-secondary">
                 MATCH EVENT
               </span>
             </div>
@@ -137,7 +137,7 @@ const ModalSubs = ({
                   className={`flex cursor-pointer items-center justify-between rounded-2xl border p-4 transition-all ${
                     subsData.team === "home"
                       ? "border-[#0E5FD8] bg-primary/10"
-                      : "border-border text-text-muted hover:border-[#3A82FF]"
+                      : "border-border text-text-muted hover:border-secondary"
                   }`}
                 >
                   <div className="flex items-center gap-4">
@@ -178,7 +178,7 @@ const ModalSubs = ({
                   className={`flex cursor-pointer items-center justify-between rounded-2xl border p-4 transition-all ${
                     subsData.team === "away"
                       ? "border-[#0E5FD8] bg-primary/10"
-                      : "border-border text-text-muted hover:border-[#3A82FF]"
+                      : "border-border text-text-muted hover:border-secondary"
                   }`}
                 >
                   <div className="flex items-center gap-4">

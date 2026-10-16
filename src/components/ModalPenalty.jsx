@@ -129,7 +129,7 @@ const ModalPenalty = ({
                   className={`flex cursor-pointer items-center justify-between rounded-2xl border p-4 transition-all ${
                     penaltyData.team === "home"
                       ? "border-[#0E5FD8] bg-primary/10"
-                      : "border-border text-text-muted hover:border-[#3A82FF]"
+                      : "border-border text-text-muted hover:border-secondary"
                   }`}
                 >
                   <div className="flex items-center gap-4">
@@ -169,7 +169,7 @@ const ModalPenalty = ({
                   className={`flex cursor-pointer items-center justify-between rounded-2xl border p-4 transition-all ${
                     penaltyData.team === "away"
                       ? "border-[#0E5FD8] bg-primary/10"
-                      : "border-border text-text-muted hover:border-[#3A82FF]"
+                      : "border-border text-text-muted hover:border-secondary"
                   }`}
                 >
                   <div className="flex items-center gap-4">

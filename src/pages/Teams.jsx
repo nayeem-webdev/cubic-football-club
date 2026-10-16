@@ -88,7 +88,7 @@ const Teams = () => {
               className={`flex items-center justify-center gap-2 rounded-xl px-3 py-3 text-sm font-semibold transition sm:px-5 ${
                 activeTab === "our"
                   ? "bg-primary text-white shadow-lg shadow-blue-950/30"
-                  : "text-text-muted hover:bg-[#152640] hover:text-white"
+                  : "text-text-muted hover:bg-card hover:text-white"
               }`}
             >
               <Shield className="h-4 w-4 shrink-0" />
@@ -113,7 +113,7 @@ const Teams = () => {
               className={`flex items-center justify-center gap-2 rounded-xl px-3 py-3 text-sm font-semibold transition sm:px-5 ${
                 activeTab === "opponent"
                   ? "bg-primary text-white shadow-lg shadow-blue-950/30"
-                  : "text-text-muted hover:bg-[#152640] hover:text-white"
+                  : "text-text-muted hover:bg-card hover:text-white"
               }`}
             >
               <Swords className="h-4 w-4 shrink-0" />
@@ -178,7 +178,7 @@ const Teams = () => {
               return (
                 <section
                   key={team._id}
-                  className="overflow-hidden rounded-2xl border border-border text-text-muted shadow-xl shadow-black/10"
+                  className="overflow-hidden rounded-2xl bg-card shadow-xl shadow-black/10"
                 >
                   {/* Team Header */}
                   <div className="relative overflow-hidden px-5 py-6 sm:px-8 sm:py-8">
@@ -198,12 +198,8 @@ const Teams = () => {
 
                         <div>
                           <div className="mb-2 flex items-center gap-2">
-                            <span className="rounded-md bg-[#D4AF37]/10 px-2 py-1 text-[10px] font-bold tracking-[0.2em] text-[#D4AF37]">
+                            <span className="rounded-md bg-accent/5 px-2 py-1 text-[10px] font-bold tracking-[0.2em] text-accent">
                               {team.shortForm}
-                            </span>
-
-                            <span className="text-xs uppercase tracking-wider text-text-muted">
-                              Football Club
                             </span>
                           </div>
 
@@ -213,7 +209,7 @@ const Teams = () => {
 
                           {team.captain && (
                             <div className="mt-3 flex items-center gap-2 text-sm text-text-muted">
-                              <Shield className="h-4 w-4 text-[#D4AF37]" />
+                              <Shield className="h-4 w-4 text-accent fill-accent" />
                               <span>Captain:</span>
                               <span className="font-medium text-text">
                                 {team.captain.name}
@@ -224,7 +220,7 @@ const Teams = () => {
                       </div>
 
                       {/* Team Stats */}
-                      <div className="grid grid-cols-4 gap-2 sm:gap-3 lg:min-w-[390px]">
+                      <div className="grid grid-cols-4 gap-2 sm:gap-3 lg:min-w-97.5">
                         <StatBox
                           label="Played"
                           value={played}
@@ -234,13 +230,13 @@ const Teams = () => {
                           label="Won"
                           value={won}
                           icon={<Trophy className="h-4 w-4" />}
-                          valueClass="text-[#49C85A]"
+                          valueClass="text-secondary"
                         />
                         <StatBox
                           label="Draw"
                           value={draw}
                           icon={<Goal className="h-4 w-4" />}
-                          valueClass="text-[#D4AF37]"
+                          valueClass="text-accent"
                         />
                         <StatBox
                           label="Lost"
@@ -253,10 +249,10 @@ const Teams = () => {
                   </div>
 
                   {/* Team Summary */}
-                  <div className="border-t border-border bg-[#152640]/50 px-5 py-4 sm:px-8">
+                  <div className="border-t border-border bg-card/50 px-5 py-4 sm:px-8">
                     <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                       <div className="flex items-center gap-2 text-sm text-text-muted">
-                        <Users className="h-4 w-4 text-[#3A82FF]" />
+                        <Users className="h-4 w-4 text-secondary" />
                         <span>
                           <strong className="text-text">
                             {players.length}
@@ -277,9 +273,9 @@ const Teams = () => {
                       <button
                         type="button"
                         onClick={() => toggleTeam(team._id)}
-                        className="flex items-center justify-center gap-2 rounded-lg border border-border text-text-muted px-4 py-2.5 text-sm font-medium text-text transition hover:border-[#3A82FF] hover:bg-primary/10"
+                        className="flex items-center justify-center gap-2 rounded-lg border border-border text-text-muted px-4 py-2.5 text-sm font-medium hover:text-text transition hover:border-secondary hover:bg-primary/10"
                       >
-                        <Users className="h-4 w-4 text-[#3A82FF]" />
+                        <Users className="h-4 w-4 text-secondary" />
                         {isExpanded ? "Hide Squad" : "View Squad"}
 
                         {isExpanded ? (
@@ -337,7 +333,7 @@ const Teams = () => {
                               <div key={position}>
                                 {/* Position Heading */}
                                 <div className="mb-4 flex items-center gap-3">
-                                  <div className="h-5 w-1 rounded-full bg-[#D4AF37]" />
+                                  <div className="h-5 w-1 rounded-full bg-accent" />
 
                                   <h4 className="text-sm font-bold uppercase tracking-[0.15em] text-text">
                                     {positionLabels[position]}
@@ -357,10 +353,10 @@ const Teams = () => {
                                     return (
                                       <div
                                         key={player._id}
-                                        className="group flex items-center gap-4 rounded-xl border border-border bg-background p-3 transition hover:border-[#3A82FF]/60 hover:text-text-muted"
+                                        className="group flex items-center gap-4 rounded-xl border border-border bg-background p-3 transition hover:border-secondary/60 hover:text-text-muted"
                                       >
                                         {/* Player Photo */}
-                                        <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-lg border border-border bg-[#152640]">
+                                        <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-lg border border-border bg-card">
                                           <img
                                             src={
                                               player.photo ||
@@ -389,7 +385,7 @@ const Teams = () => {
 
                                             {isCaptain && (
                                               <span
-                                                className="shrink-0 text-[#D4AF37]"
+                                                className="shrink-0 text-accent"
                                                 title="Captain"
                                               >
                                                 <Shield className="h-3.5 w-3.5 fill-current" />
@@ -398,11 +394,11 @@ const Teams = () => {
                                           </div>
 
                                           <div className="mt-1 flex items-center gap-2 text-xs text-text-muted">
-                                            <span className="font-medium text-[#3A82FF]">
+                                            <span className="font-medium text-secondary">
                                               {player.position}
                                             </span>
 
-                                            <span className="text-surface">
+                                            <span className="text-secondary/50">
                                               •
                                             </span>
 
@@ -410,7 +406,7 @@ const Teams = () => {
                                           </div>
 
                                           {isCaptain && (
-                                            <span className="mt-2 inline-flex rounded bg-[#D4AF37]/10 px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider text-[#D4AF37]">
+                                            <span className="mt-2 inline-flex rounded bg-accent/10 px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider text-accent">
                                               Captain
                                             </span>
                                           )}
@@ -438,10 +434,10 @@ const Teams = () => {
 
 const StatBox = ({ label, value, icon, valueClass = "text-text" }) => {
   return (
-    <div className="rounded-xl border border-border bg-background px-2 py-3 text-center sm:px-4">
+    <div className="rounded-xl bg-background px-2 py-3 text-center sm:px-4">
       <div className="mb-1 flex items-center justify-center gap-1 text-text-muted">
         {icon}
-        <span className="text-[9px] font-medium uppercase tracking-wider sm:text-[10px]">
+        <span className="text-[10px] font-medium uppercase tracking-wider sm:text-[10px]">
           {label}
         </span>
       </div>
