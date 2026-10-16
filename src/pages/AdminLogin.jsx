@@ -46,12 +46,12 @@ export default function AdminLogin() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-[#07111F] px-4">
+    <div className="flex min-h-screen items-center justify-center bg-background px-4">
       <form
         onSubmit={handleLogin}
-        className="w-full max-w-md rounded-2xl border border-[#28466B] bg-[#0E1D34] p-8"
+        className="w-full max-w-md rounded-2xl border border-border text-text-muted p-8"
       >
-        <h1 className="text-2xl font-bold text-[#F8FAFC]">Admin Login</h1>
+        <h1 className="text-2xl font-bold text-text">Admin Login</h1>
 
         {error && <p className="mt-4 text-sm text-red-400">{error}</p>}
 
@@ -60,7 +60,7 @@ export default function AdminLogin() {
           placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="mt-6 w-full rounded-lg border border-[#28466B] bg-[#07111F] p-3 text-white"
+          className="mt-6 w-full rounded-lg border border-border bg-background p-3 text-white"
           required
         />
 
@@ -70,14 +70,14 @@ export default function AdminLogin() {
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="mt-4 w-full rounded-lg border border-[#28466B] bg-[#07111F] p-3 text-white"
+          className="mt-4 w-full rounded-lg border border-border bg-background p-3 text-white"
           required
         />
 
         <button
           type="submit"
           disabled={loading}
-          className="mt-6 w-full rounded-lg bg-[#0E5FD8] p-3 font-semibold text-white"
+          className="mt-6 w-full rounded-lg bg-primary p-3 font-semibold text-white"
         >
           {loading ? "Logging in..." : "Login"}
         </button>

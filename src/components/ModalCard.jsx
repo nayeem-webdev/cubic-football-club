@@ -36,14 +36,14 @@ const ModalCard = ({
       onClick={closeCardModal}
     >
       <div
-        className="relative max-h-[90vh] w-full max-w-md overflow-y-auto rounded-3xl border border-[#28466B] bg-card shadow-2xl"
+        className="relative max-h-[90vh] w-full max-w-md overflow-y-auto rounded-3xl border border-border bg-card shadow-2xl"
         onClick={(e) => e.stopPropagation()}
       >
         {/* ========================================= */}
         {/* HEADER */}
         {/* ========================================= */}
 
-        <div className="flex items-center justify-between border-b border-[#28466B] px-6 py-5">
+        <div className="flex items-center justify-between border-b border-border px-6 py-5">
           <div>
             <div className="mb-1 flex items-center gap-2">
               <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#D4AF37]/10 text-[#D4AF37]">
@@ -55,12 +55,12 @@ const ModalCard = ({
               </span>
             </div>
 
-            <h2 className="text-xl font-bold text-[#F8FAFC]">Record Card</h2>
+            <h2 className="text-xl font-bold text-text">Record Card</h2>
           </div>
 
           <button
             onClick={closeCardModal}
-            className="flex h-10 w-10 items-center justify-center rounded-full text-[#B8C2D1] transition-all hover:bg-[#28466B] hover:text-[#F8FAFC]"
+            className="flex h-10 w-10 items-center justify-center rounded-full text-text-muted transition-all hover:bg-surface hover:text-text"
           >
             <X size={20} />
           </button>
@@ -70,7 +70,7 @@ const ModalCard = ({
         {/* STEP INDICATOR */}
         {/* ========================================= */}
 
-        <div className="border-b border-[#28466B] px-6 py-4">
+        <div className="border-b border-border px-6 py-4">
           <div className="flex items-center justify-between">
             {["team", "card", "player"].map((step, index) => {
               const steps = ["team", "card", "player"];
@@ -87,10 +87,10 @@ const ModalCard = ({
                   <div
                     className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-xs font-bold ${
                       isActive
-                        ? "bg-[#0E5FD8] text-white"
+                        ? "bg-primary text-white"
                         : isCompleted
                           ? "bg-[#49C85A] text-white"
-                          : "bg-[#0E1D34] text-[#B8C2D1]"
+                          : "text-text-muted text-text-muted"
                     }`}
                   >
                     {index + 1}
@@ -99,7 +99,7 @@ const ModalCard = ({
                   {index < 2 && (
                     <div
                       className={`mx-2 h-0.5 flex-1 ${
-                        index < currentIndex ? "bg-[#49C85A]" : "bg-[#28466B]"
+                        index < currentIndex ? "bg-[#49C85A]" : "bg-surface"
                       }`}
                     />
                   )}
@@ -118,7 +118,7 @@ const ModalCard = ({
 
           {cardStep === "team" && (
             <div>
-              <h3 className="text-lg font-bold text-[#F8FAFC]">
+              <h3 className="text-lg font-bold text-text">
                 Which team received the card?
               </h3>
 
@@ -128,8 +128,8 @@ const ModalCard = ({
                 <label
                   className={`flex cursor-pointer items-center justify-between rounded-2xl border p-4 transition-all ${
                     cardData.team === "home"
-                      ? "border-[#0E5FD8] bg-[#0E5FD8]/10"
-                      : "border-[#28466B] bg-[#0E1D34] hover:border-[#3A82FF]"
+                      ? "border-[#0E5FD8] bg-primary/10"
+                      : "border-border text-text-muted hover:border-[#3A82FF]"
                   }`}
                 >
                   <div className="flex items-center gap-4">
@@ -137,9 +137,9 @@ const ModalCard = ({
                       <img src={selectedMatch.homeTeam.logoLow} alt="" />
                     </div>
                     <div>
-                      <p className="text-xs text-[#B8C2D1]">HOME TEAM</p>
+                      <p className="text-xs text-text-muted">HOME TEAM</p>
 
-                      <p className="mt-1 font-semibold text-[#F8FAFC]">
+                      <p className="mt-1 font-semibold text-text">
                         {selectedMatch.homeTeam.name}
                       </p>
                     </div>
@@ -169,8 +169,8 @@ const ModalCard = ({
                 <label
                   className={`flex cursor-pointer items-center justify-between rounded-2xl border p-4 transition-all ${
                     cardData.team === "away"
-                      ? "border-[#0E5FD8] bg-[#0E5FD8]/10"
-                      : "border-[#28466B] bg-[#0E1D34] hover:border-[#3A82FF]"
+                      ? "border-[#0E5FD8] bg-primary/10"
+                      : "border-border text-text-muted hover:border-[#3A82FF]"
                   }`}
                 >
                   <div className="flex items-center gap-4">
@@ -178,9 +178,9 @@ const ModalCard = ({
                       <img src={selectedMatch.awayTeam.logoLow} alt="" />
                     </div>
                     <div>
-                      <p className="text-xs text-[#B8C2D1]">AWAY TEAM</p>
+                      <p className="text-xs text-text-muted">AWAY TEAM</p>
 
-                      <p className="mt-1 font-semibold text-[#F8FAFC]">
+                      <p className="mt-1 font-semibold text-text">
                         {selectedMatch.awayTeam.name}
                       </p>
                     </div>
@@ -212,7 +212,7 @@ const ModalCard = ({
 
           {cardStep === "card" && (
             <div>
-              <h3 className="text-lg font-bold text-[#F8FAFC]">
+              <h3 className="text-lg font-bold text-text">
                 What type of card?
               </h3>
 
@@ -223,18 +223,16 @@ const ModalCard = ({
                   className={`flex cursor-pointer items-center justify-between rounded-2xl border p-4 transition-all ${
                     cardData.card === "yellow"
                       ? "border-[#D4AF37] bg-[#D4AF37]/10"
-                      : "border-[#28466B] bg-[#0E1D34] hover:border-[#D4AF37]/60"
+                      : "border-border text-text-muted hover:border-[#D4AF37]/60"
                   }`}
                 >
                   <div className="flex items-center gap-3">
                     <div className="h-10 w-7 rounded-md bg-[#D4AF37] shadow-sm" />
 
                     <div>
-                      <p className="font-semibold text-[#F8FAFC]">
-                        Yellow Card
-                      </p>
+                      <p className="font-semibold text-text">Yellow Card</p>
 
-                      <p className="text-xs text-[#B8C2D1]">Caution</p>
+                      <p className="text-xs text-text-muted">Caution</p>
                     </div>
                   </div>
 
@@ -262,16 +260,16 @@ const ModalCard = ({
                   className={`flex cursor-pointer items-center justify-between rounded-2xl border p-4 transition-all ${
                     cardData.card === "red"
                       ? "border-[#EF4444] bg-[#EF4444]/10"
-                      : "border-[#28466B] bg-[#0E1D34] hover:border-[#EF4444]/60"
+                      : "border-border text-text-muted hover:border-[#EF4444]/60"
                   }`}
                 >
                   <div className="flex items-center gap-3">
                     <div className="h-10 w-7 rounded-md bg-[#EF4444] shadow-sm" />
 
                     <div>
-                      <p className="font-semibold text-[#F8FAFC]">Red Card</p>
+                      <p className="font-semibold text-text">Red Card</p>
 
-                      <p className="text-xs text-[#B8C2D1]">Sending off</p>
+                      <p className="text-xs text-text-muted">Sending off</p>
                     </div>
                   </div>
 
@@ -297,7 +295,7 @@ const ModalCard = ({
               <div className="mt-8">
                 <button
                   onClick={() => setCardStep("team")}
-                  className="flex items-center gap-2 rounded-xl px-4 py-3 text-sm font-medium text-[#B8C2D1] transition hover:bg-[#0E1D34] hover:text-[#F8FAFC]"
+                  className="flex items-center gap-2 rounded-xl px-4 py-3 text-sm font-medium text-text-muted transition hover:text-text-muted hover:text-text"
                 >
                   <ChevronLeft size={18} />
                   Back
@@ -310,7 +308,7 @@ const ModalCard = ({
 
           {cardStep === "player" && (
             <div>
-              <h3 className="text-lg font-bold text-[#F8FAFC]">
+              <h3 className="text-lg font-bold text-text">
                 Who received the card?
               </h3>
 
@@ -323,11 +321,11 @@ const ModalCard = ({
                         ? cardData.card === "red"
                           ? "border-[#EF4444] bg-[#EF4444]/10"
                           : "border-[#D4AF37] bg-[#D4AF37]/10"
-                        : "border-[#28466B] bg-[#0E1D34] hover:border-[#D4AF37]/60"
+                        : "border-border text-text-muted hover:border-[#D4AF37]/60"
                     }`}
                   >
                     <div className="flex items-center gap-3">
-                      <div className="h-12 w-12 shrink-0 overflow-hidden rounded-full bg-[#28466B]">
+                      <div className="h-12 w-12 shrink-0 overflow-hidden rounded-full bg-surface">
                         <img
                           src={player.photo}
                           alt={player.name}
@@ -335,7 +333,7 @@ const ModalCard = ({
                         />
                       </div>
 
-                      <p className="font-medium text-[#F8FAFC]">
+                      <p className="font-medium text-text">
                         {player.name}{" "}
                         <span className="text-secondary">
                           #{player.jerseyNumber}{" "}
@@ -369,7 +367,7 @@ const ModalCard = ({
               <div className="mt-8 flex items-center justify-between">
                 <button
                   onClick={() => setCardStep("card")}
-                  className="flex items-center gap-2 rounded-xl px-4 py-3 text-sm font-medium text-[#B8C2D1] transition hover:bg-[#0E1D34] hover:text-[#F8FAFC]"
+                  className="flex items-center gap-2 rounded-xl px-4 py-3 text-sm font-medium text-text-muted transition hover:text-text-muted hover:text-text"
                 >
                   <ChevronLeft size={18} />
                   Back

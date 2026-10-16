@@ -123,6 +123,25 @@
 ======================================== */
 
 @theme {
+  --color-background: #0b0f0d;
+  --color-surface: #09230c;
+  --color-card: #141815;
+
+  --color-primary: #0f4014;
+  --color-primary-hover: #3a82ff;
+
+  --color-secondary: #5cba46; /* the light green */
+  --color-accent: #fdc700; /* the golden touch */
+
+  --color-text: #f8fafc;
+  --color-text-muted: #b8c2d1;
+
+  --color-border: #0f3914;
+
+  --font-minasans: "Minasans", sans-serif;
+}
+
+/* @theme {
   --color-background: #07111f;
   --color-surface: #0e1d34;
   --color-card: #152640;
@@ -139,7 +158,7 @@
   --color-border: #28466b;
 
   --font-minasans: "Minasans", sans-serif;
-}
+} */
 
 /* ========================================
    BASE
@@ -148,8 +167,6 @@
 @layer base {
   body {
     font-family: "Space Grotesk", sans-serif;
-    background-color: #07111f;
-    color: #f8fafc;
   }
 
   h1 {

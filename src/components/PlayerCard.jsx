@@ -46,12 +46,7 @@ const StatCard = ({ icon, label, value = 0, valueColor, children }) => (
     </div>
 
     {/* LABEL DOWN */}
-    <p
-      className="mt-1 text-[10px] leading-none"
-      style={{ color: "var(--color-text-muted)" }}
-    >
-      {label}
-    </p>
+    <p className="mt-1 text-[10px] leading-none text-text-muted">{label}</p>
   </div>
 );
 
@@ -180,7 +175,7 @@ const PlayerCard = ({ player, index }) => {
       {/* =========================================================
           PLAYER IMAGE
       ========================================================== */}
-      <div className="relative aspect-square overflow-hidden bg-[#0E1D34]">
+      <div className="relative aspect-square overflow-hidden text-text-muted">
         {player?.photo ? (
           <img
             src={player.photo}
@@ -213,7 +208,7 @@ const PlayerCard = ({ player, index }) => {
       rounded-full
       border
       border-accent/30
-      bg-[#07111F]/85
+      bg-background/85
       px-3
       py-1.5
       text-sm
@@ -243,7 +238,7 @@ const PlayerCard = ({ player, index }) => {
       rounded-full
       border
       border-secondary/30
-      bg-[#07111F]/85
+      bg-background/85
       px-3
       py-1.5
       text-sm
@@ -328,10 +323,7 @@ const PlayerCard = ({ player, index }) => {
               </span>
             </div>
 
-            <p
-              className="mt-0.5 truncate text-xs font-medium"
-              style={{ color: "var(--color-text-muted)" }}
-            >
+            <p className="mt-0.5 truncate text-xs font-medium text-text-muted">
               {club?.name || "Free Agent"}
             </p>
           </div>
@@ -401,10 +393,7 @@ const PlayerCard = ({ player, index }) => {
         >
           {/* FORM BADGES */}
           <div className="flex items-center gap-2">
-            <span
-              className="text-[10px] font-semibold uppercase tracking-wide"
-              style={{ color: "var(--color-text-muted)" }}
-            >
+            <span className="text-[10px] font-semibold uppercase tracking-wide text-text-muted">
               Form
             </span>
 
@@ -436,12 +425,7 @@ const PlayerCard = ({ player, index }) => {
                   );
                 })
               ) : (
-                <span
-                  className="text-[10px]"
-                  style={{ color: "var(--color-text-muted)" }}
-                >
-                  No matches
-                </span>
+                <span className="text-[10px] text-text-muted">No matches</span>
               )}
             </div>
           </div>
@@ -454,12 +438,7 @@ const PlayerCard = ({ player, index }) => {
             >
               {stats.winRate ?? 0}%
             </span>
-            <span
-              className="text-[10px]"
-              style={{ color: "var(--color-text-muted)" }}
-            >
-              win
-            </span>
+            <span className="text-[10px] text-text-muted">win</span>
           </div>
         </div>
 
@@ -488,10 +467,7 @@ const PlayerCard = ({ player, index }) => {
               />
             </div>
             <div className="min-w-0">
-              <p
-                className="text-[9px] uppercase tracking-wide"
-                style={{ color: "var(--color-text-muted)" }}
-              >
+              <p className="text-[9px] uppercase tracking-wide text-text-muted">
                 Foot
               </p>
               <p className="truncate text-xs font-semibold">
@@ -532,10 +508,7 @@ const PlayerCard = ({ player, index }) => {
           {/* AGE */}
           <div className="flex min-w-0 items-center justify-end gap-2">
             <div className="min-w-0 text-right">
-              <p
-                className="text-[9px] uppercase tracking-wide"
-                style={{ color: "var(--color-text-muted)" }}
-              >
+              <p className="text-[9px] uppercase tracking-wide text-text-muted">
                 Age
               </p>
               <p className="text-xs font-semibold">{age}</p>

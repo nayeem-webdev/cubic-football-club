@@ -5,15 +5,15 @@ const PlayerRow = ({ player, side, substitute = false }) => {
     <div
       className={`group flex items-center gap-2 rounded-xl border px-2 py-2 transition-all sm:px-2.5 ${
         substitute
-          ? "border-[#28466B]/60 bg-[#07111F]/30"
-          : "border-[#28466B] bg-[#07111F]/60 hover:border-[#49C85A]/40"
+          ? "border-border/60 bg-background/30"
+          : "border-border bg-background/60 hover:border-secondary/40"
       } ${isHome ? "" : "flex-row-reverse text-right"}`}
     >
       {/* PLAYER PHOTO */}
       <div className="relative shrink-0">
         <div
-          className={`h-9 w-9 overflow-hidden rounded-full border bg-[#28466B] sm:h-10 sm:w-10 ${
-            substitute ? "border-[#28466B]" : "border-[#49C85A]/30"
+          className={`h-9 w-9 overflow-hidden rounded-full border bg-surface sm:h-10 sm:w-10 ${
+            substitute ? "border-border" : "border-secondary/30"
           }`}
         >
           {player?.photo ? (
@@ -24,7 +24,7 @@ const PlayerRow = ({ player, side, substitute = false }) => {
               className="h-full w-full object-cover"
             />
           ) : (
-            <div className="flex h-full w-full items-center justify-center text-[10px] font-bold text-[#B8C2D1]">
+            <div className="flex h-full w-full items-center justify-center text-[10px] font-bold text-text-muted">
               {player?.name?.charAt(0)}
             </div>
           )}
@@ -34,7 +34,7 @@ const PlayerRow = ({ player, side, substitute = false }) => {
         <span
           className={`absolute -bottom-1 ${
             isHome ? "-right-1" : "-left-1"
-          } flex h-4 min-w-4 items-center justify-center rounded-md border border-[#0E1D34] bg-[#28466B] px-1 text-[8px] font-bold text-[#F8FAFC]`}
+          } flex h-4 min-w-4 items-center justify-center rounded-md border border-[#0E1D34] bg-surface px-1 text-[8px] font-bold text-text`}
         >
           {player?.jerseyNumber}
         </span>
@@ -42,10 +42,10 @@ const PlayerRow = ({ player, side, substitute = false }) => {
 
       {/* PLAYER INFO */}
       <div className="min-w-0 flex-1">
-        <p className="truncate text-[11px] font-semibold text-[#F8FAFC] sm:text-xs">
+        <p className="truncate text-xs lg:text-sm font-semibold text-text">
           {player?.name}
         </p>
-        <p className="mt-0.5 text-[8px] font-medium uppercase tracking-wider text-[#B8C2D1]/40">
+        <p className="mt-0.5 text-[10px] lg:text-xs font-medium uppercase tracking-wider text-text-muted">
           {player?.position}
         </p>
       </div>
@@ -65,7 +65,7 @@ export const Lineup = ({ match }) => {
     <div className="mt-4">
       {/* STARTING PLAYERS */}
       <div className="mb-4 flex items-center justify-center">
-        <span className="rounded-full bg-[#07111F] px-3 py-1 text-[9px] font-bold uppercase tracking-[0.15em] text-[#B8C2D1]/50">
+        <span className="rounded-full bg-background px-3 py-1 text-[9px] font-bold uppercase tracking-[0.15em] text-text-muted/80">
           Starting Players
         </span>
       </div>
@@ -88,9 +88,9 @@ export const Lineup = ({ match }) => {
 
       {/* SUBSTITUTES */}
       {(homeSubs.length > 0 || awaySubs.length > 0) && (
-        <div className="mt-4 border-t border-[#28466B] pt-4">
+        <div className="mt-4 border-t border-border pt-4">
           <div className="mb-3 flex items-center justify-center">
-            <span className="rounded-full bg-[#07111F] px-3 py-1 text-[9px] font-bold uppercase tracking-[0.15em] text-[#B8C2D1]/40">
+            <span className="rounded-full bg-background px-3 py-1 text-[9px] font-bold uppercase tracking-[0.15em] text-text-muted/40">
               Substitutes
             </span>
           </div>

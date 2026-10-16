@@ -75,7 +75,7 @@ const AddOpponentTeam = () => {
           value={formData.name}
           onChange={handleChange}
           required
-          className="w-full rounded-lg border border-[#28466B] bg-card px-4 py-3 text-[#F8FAFC] outline-none placeholder:text-[#718096] focus:border-[#0E5FD8]"
+          className="w-full rounded-lg border border-border bg-card px-4 py-3 text-text outline-none placeholder:text-[#718096] focus:border-[#0E5FD8]"
         />
       </div>
 
@@ -91,7 +91,7 @@ const AddOpponentTeam = () => {
           onChange={handleChange}
           maxLength="5"
           required
-          className="w-full rounded-lg border border-[#28466B] bg-card px-4 py-3 uppercase text-[#F8FAFC] outline-none placeholder:text-[#718096] focus:border-[#0E5FD8]"
+          className="w-full rounded-lg border border-border bg-card px-4 py-3 uppercase text-text outline-none placeholder:text-[#718096] focus:border-[#0E5FD8]"
         />
       </div>
 
@@ -109,7 +109,7 @@ const AddOpponentTeam = () => {
             value={formData.logoHigh}
             onChange={handleChange}
             required
-            className="w-full rounded-lg border border-[#28466B] bg-card px-4 py-3 text-[#F8FAFC] outline-none placeholder:text-[#718096] focus:border-[#0E5FD8]"
+            className="w-full rounded-lg border border-border bg-card px-4 py-3 text-text outline-none placeholder:text-[#718096] focus:border-[#0E5FD8]"
           />
         </div>
 
@@ -123,7 +123,7 @@ const AddOpponentTeam = () => {
             value={formData.logoLow}
             onChange={handleChange}
             required
-            className="w-full rounded-lg border border-[#28466B] bg-card px-4 py-3 text-[#F8FAFC] outline-none placeholder:text-[#718096] focus:border-[#0E5FD8]"
+            className="w-full rounded-lg border border-border bg-card px-4 py-3 text-text outline-none placeholder:text-[#718096] focus:border-[#0E5FD8]"
           />
         </div>
       </div>
@@ -139,7 +139,7 @@ const AddOpponentTeam = () => {
           value={formData.captain}
           onChange={handleChange}
           required
-          className="w-full rounded-lg border border-[#28466B] bg-card px-4 py-3 text-[#F8FAFC] outline-none placeholder:text-[#718096] focus:border-[#0E5FD8]"
+          className="w-full rounded-lg border border-border bg-card px-4 py-3 text-text outline-none placeholder:text-[#718096] focus:border-[#0E5FD8]"
         />
       </div>
 
@@ -148,7 +148,7 @@ const AddOpponentTeam = () => {
         <div
           className={`rounded-lg border px-4 py-3 text-sm ${
             message.includes("successfully")
-              ? "border-[#49C85A]/30 bg-[#49C85A]/10 text-[#49C85A]"
+              ? "border-secondary/30 bg-[#49C85A]/10 text-[#49C85A]"
               : "border-red-500/30 bg-red-500/10 text-red-400"
           }`}
         >
@@ -160,7 +160,7 @@ const AddOpponentTeam = () => {
       <button
         type="submit"
         disabled={loading}
-        className="w-full rounded-lg bg-[#0E5FD8] px-5 py-3.5 font-semibold text-white transition hover:bg-[#3A82FF] disabled:cursor-not-allowed disabled:opacity-50"
+        className="w-full rounded-lg bg-primary px-5 py-3.5 font-semibold text-white transition hover:bg-[#3A82FF] disabled:cursor-not-allowed disabled:opacity-50"
       >
         {loading ? "Registering Team..." : "Register Team"}
       </button>

@@ -249,7 +249,7 @@ const AddSchedule = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#07111F] px-4 py-10 text-[#F8FAFC]">
+    <div className="min-h-screen bg-background px-4 py-10 text-text">
       <div className="mx-auto max-w-3xl">
         {/* Header */}
         <PageHero
@@ -260,7 +260,7 @@ const AddSchedule = () => {
         {/* ========================================
             SCHEDULE CARD
         ======================================== */}
-        <div className="rounded-2xl border border-[#28466B] bg-[#0E1D34] p-6 shadow-2xl md:p-8">
+        <div className="rounded-2xl border border-border text-text-muted p-6 shadow-2xl md:p-8">
           {/* ONLY ONE FORM */}
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* ========================================
@@ -292,7 +292,7 @@ const AddSchedule = () => {
                 onChange={handleChange}
                 required
                 disabled={venuesLoading}
-                className="w-full rounded-lg border border-[#28466B] bg-card px-4 py-3 text-[#F8FAFC] outline-none placeholder:text-[#718096] focus:border-[#0E5FD8]"
+                className="w-full rounded-lg border border-border bg-card px-4 py-3 text-text outline-none placeholder:text-[#718096] focus:border-[#0E5FD8]"
               >
                 <option value="">
                   {venuesLoading ? "Loading venues..." : "Select Venue"}
@@ -335,7 +335,7 @@ const AddSchedule = () => {
                       onChange={handleVenueChange}
                       placeholder="e.g. Intercity Sports Junction"
                       required
-                      className="w-full rounded-lg border border-[#28466B] bg-card px-4 py-3 text-[#F8FAFC] outline-none placeholder:text-[#718096] focus:border-[#0E5FD8]"
+                      className="w-full rounded-lg border border-border bg-card px-4 py-3 text-text outline-none placeholder:text-[#718096] focus:border-[#0E5FD8]"
                     />
                   </div>
 
@@ -356,10 +356,10 @@ const AddSchedule = () => {
                       onChange={handleVenueChange}
                       placeholder="https://www.google.com/maps/..."
                       required
-                      className="w-full rounded-lg border border-[#28466B] bg-card px-4 py-3 text-[#F8FAFC] outline-none placeholder:text-[#718096] focus:border-[#0E5FD8]"
+                      className="w-full rounded-lg border border-border bg-card px-4 py-3 text-text outline-none placeholder:text-[#718096] focus:border-[#0E5FD8]"
                     />
 
-                    <p className="mt-2 text-xs text-[#B8C2D1]">
+                    <p className="mt-2 text-xs text-text-muted">
                       Paste the Google Maps direction link.
                     </p>
                   </div>
@@ -380,7 +380,7 @@ const AddSchedule = () => {
                   <div
                     className={`mt-4 rounded-xl border px-4 py-3 text-sm ${
                       venueMessage.includes("successfully")
-                        ? "border-[#49C85A]/30 bg-[#49C85A]/10 text-[#49C85A]"
+                        ? "border-secondary/30 bg-[#49C85A]/10 text-[#49C85A]"
                         : "border-red-500/30 bg-red-500/10 text-red-400"
                     }`}
                   >
@@ -410,7 +410,7 @@ const AddSchedule = () => {
                   value={formData.date}
                   onChange={handleChange}
                   required
-                  className="w-full rounded-lg border border-[#28466B] bg-card px-4 py-3 text-[#F8FAFC] outline-none placeholder:text-[#718096] focus:border-[#0E5FD8]"
+                  className="w-full rounded-lg border border-border bg-card px-4 py-3 text-text outline-none placeholder:text-[#718096] focus:border-[#0E5FD8]"
                 />
               </div>
 
@@ -452,7 +452,7 @@ const AddSchedule = () => {
                   name="matchFormat"
                   value={formData.matchFormat}
                   onChange={handleChange}
-                  className="w-full rounded-lg border border-[#28466B] bg-card px-4 py-3 text-[#F8FAFC] outline-none focus:border-[#0E5FD8]"
+                  className="w-full rounded-lg border border-border bg-card px-4 py-3 text-text outline-none focus:border-[#0E5FD8]"
                 >
                   <option value="" disabled>
                     Select format
@@ -478,7 +478,7 @@ const AddSchedule = () => {
                   name="matchType"
                   value={formData.matchType}
                   onChange={handleChange}
-                  className="w-full rounded-lg border border-[#28466B] bg-card px-4 py-3 text-[#F8FAFC] outline-none focus:border-[#0E5FD8]"
+                  className="w-full rounded-lg border border-border bg-card px-4 py-3 text-text outline-none focus:border-[#0E5FD8]"
                 >
                   <option value="" disabled>
                     Select type
@@ -494,7 +494,7 @@ const AddSchedule = () => {
             </div>
 
             {/* DIVIDER */}
-            <div className="border-t border-[#28466B]" />
+            <div className="border-t border-border" />
 
             {/* BUTTONS */}
             <div className="flex flex-col gap-3 sm:flex-row sm:justify-end">
@@ -502,7 +502,7 @@ const AddSchedule = () => {
                 type="button"
                 onClick={handleClear}
                 disabled={loading}
-                className="rounded-xl border border-[#28466B] px-6 py-3 font-semibold text-[#B8C2D1] transition hover:border-[#3A82FF] hover:text-white disabled:cursor-not-allowed disabled:opacity-50"
+                className="rounded-xl border border-border px-6 py-3 font-semibold text-text-muted transition hover:border-[#3A82FF] hover:text-white disabled:cursor-not-allowed disabled:opacity-50"
               >
                 Clear
               </button>
@@ -510,7 +510,7 @@ const AddSchedule = () => {
               <button
                 type="submit"
                 disabled={loading || venuesLoading || venues.length === 0}
-                className="rounded-xl bg-[#0E5FD8] px-6 py-3 font-semibold text-white transition hover:bg-[#3A82FF] disabled:cursor-not-allowed disabled:opacity-60"
+                className="rounded-xl bg-primary px-6 py-3 font-semibold text-white transition hover:bg-[#3A82FF] disabled:cursor-not-allowed disabled:opacity-60"
               >
                 {loading ? "Adding Schedule..." : "Add Schedule"}
               </button>
@@ -522,7 +522,7 @@ const AddSchedule = () => {
             <div
               className={`mt-6 rounded-xl border px-4 py-3 text-sm ${
                 message.includes("successfully")
-                  ? "border-[#49C85A]/30 bg-[#49C85A]/10 text-[#49C85A]"
+                  ? "border-secondary/30 bg-[#49C85A]/10 text-[#49C85A]"
                   : "border-red-500/30 bg-red-500/10 text-red-400"
               }`}
             >

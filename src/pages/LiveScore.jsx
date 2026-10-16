@@ -773,18 +773,18 @@ export default function LiveScore() {
 
   return (
     <>
-      <div className="min-h-screen bg-[#07111F] px-4 py-6 text-[#F8FAFC]">
+      <div className="min-h-screen bg-background px-4 py-6 text-text">
         <div className="mx-auto max-w-4xl">
           {/* CHANGE MATCH */}
           <button
             onClick={() => setSelectedMatch(null)}
-            className="mb-6 flex items-center gap-2 rounded-xl border border-[#28466B] bg-[#0E1D34] px-4 py-2 text-sm font-medium text-[#B8C2D1] transition hover:border-[#3A82FF] hover:text-white"
+            className="mb-6 flex items-center gap-2 rounded-xl border border-border text-text-muted px-4 py-2 text-sm font-medium text-text-muted transition hover:border-[#3A82FF] hover:text-white"
           >
             ← Change Match
           </button>
 
           {/* MATCH HEADER */}
-          <div className="overflow-hidden rounded-2xl border border-[#28466B] bg-[#0E1D34]">
+          <div className="overflow-hidden rounded-2xl border border-border text-text-muted">
             {/* MAIN SCORE AREA */}
             <div className="px-4 py-4 sm:px-6 sm:py-5">
               {/* TOP STATUS */}
@@ -832,13 +832,13 @@ export default function LiveScore() {
                       />
                     </div>
 
-                    <p className="mt-1.5 w-full truncate text-center text-[10px] font-medium text-[#B8C2D1] sm:text-xs">
+                    <p className="mt-1.5 w-full truncate text-center text-[10px] font-medium text-text-muted sm:text-xs">
                       {selectedMatch.homeTeam.name}
                     </p>
                   </div>
 
                   {/* SCORE */}
-                  <h2 className="text-5xl font-semibold leading-none tracking-tight text-[#F8FAFC] sm:text-8xl">
+                  <h2 className="text-5xl font-semibold leading-none tracking-tight text-text sm:text-8xl">
                     {score.home}
                   </h2>
                 </div>
@@ -851,15 +851,15 @@ export default function LiveScore() {
                   </span>
 
                   {/* TIMER */}
-                  <p className="whitespace-nowrap tracking-wider text-xl font-black leading-none text-[#F8FAFC] sm:text-4xl">
+                  <p className="whitespace-nowrap tracking-wider text-xl font-black leading-none text-text sm:text-4xl">
                     {formatTime(currentElapsed)}
                   </p>
 
                   {/* FORMAT */}
-                  <span className="mt-1 text-[9px] font-medium text-[#B8C2D1]/50 sm:text-[10px]">
+                  <span className="mt-1 text-[9px] font-medium text-text-muted/50 sm:text-[10px]">
                     {selectedMatch.matchSchedule.matchFormat}v
                     {selectedMatch.matchSchedule.matchFormat}
-                    <span className="mx-1 text-[#28466B]">•</span>
+                    <span className="mx-1 text-surface">•</span>
                     {selectedMatch.matchTime} MIN
                   </span>
                 </div>
@@ -867,7 +867,7 @@ export default function LiveScore() {
                 {/* AWAY TEAM */}
                 <div className="flex items-center justify-end gap-3 sm:gap-5">
                   {/* SCORE */}
-                  <h2 className="text-5xl font-semibold leading-none tracking-tight text-[#F8FAFC] sm:text-8xl">
+                  <h2 className="text-5xl font-semibold leading-none tracking-tight text-text sm:text-8xl">
                     {score.away}
                   </h2>
 
@@ -881,7 +881,7 @@ export default function LiveScore() {
                       />
                     </div>
 
-                    <p className="mt-1.5 w-full truncate text-center text-[10px] font-medium text-[#B8C2D1] sm:text-xs">
+                    <p className="mt-1.5 w-full truncate text-center text-[10px] font-medium text-text-muted sm:text-xs">
                       {selectedMatch.awayTeam.name}
                     </p>
                   </div>
@@ -898,7 +898,7 @@ export default function LiveScore() {
                           <button
                             type="button"
                             onClick={startTimer}
-                            className="rounded-lg bg-[#0E5FD8] px-5 py-2 text-xs font-bold transition hover:bg-[#3A82FF] hover:shadow-lg hover:shadow-[#0E5FD8]/20"
+                            className="rounded-lg bg-primary px-5 py-2 text-xs font-bold transition hover:bg-[#3A82FF] hover:shadow-lg hover:shadow-[#0E5FD8]/20"
                           >
                             {selectedMatch.timer.elapsed === 0
                               ? "▶ Start"
@@ -948,25 +948,25 @@ export default function LiveScore() {
             </div>
 
             {/* MATCH DETAILS */}
-            <div className="grid grid-cols-3 border-t border-[#28466B] divide-x divide-[#28466B]">
+            <div className="grid grid-cols-3 border-t border-border divide-x divide-surface">
               {/* VENUE */}
               <div className="min-w-0 px-2 py-2.5 text-center sm:px-4 sm:py-3">
-                <p className="text-[8px] font-bold uppercase tracking-wider text-[#B8C2D1]/40 sm:text-[9px]">
+                <p className="text-[8px] font-bold uppercase tracking-wider text-text-muted/40 sm:text-[9px]">
                   Venue
                 </p>
 
-                <p className="mt-1 truncate text-[10px] font-semibold text-[#F8FAFC] sm:text-xs">
+                <p className="mt-1 truncate text-[10px] font-semibold text-text sm:text-xs">
                   {selectedMatch.matchSchedule.venue.venue}
                 </p>
               </div>
 
               {/* DATE */}
               <div className="min-w-0 px-2 py-2.5 text-center sm:px-4 sm:py-3">
-                <p className="text-[8px] font-bold uppercase tracking-wider text-[#B8C2D1]/40 sm:text-[9px]">
+                <p className="text-[8px] font-bold uppercase tracking-wider text-text-muted/40 sm:text-[9px]">
                   Date
                 </p>
 
-                <p className="mt-1 truncate text-[10px] font-semibold text-[#F8FAFC] sm:text-xs">
+                <p className="mt-1 truncate text-[10px] font-semibold text-text sm:text-xs">
                   {new Date(
                     selectedMatch.matchSchedule.date,
                   ).toLocaleDateString("en-GB", {
@@ -979,11 +979,11 @@ export default function LiveScore() {
 
               {/* TIME */}
               <div className="min-w-0 px-2 py-2.5 text-center sm:px-4 sm:py-3">
-                <p className="text-[8px] font-bold uppercase tracking-wider text-[#B8C2D1]/40 sm:text-[9px]">
+                <p className="text-[8px] font-bold uppercase tracking-wider text-text-muted/40 sm:text-[9px]">
                   Time
                 </p>
 
-                <p className="mt-1 truncate text-[10px] font-semibold text-[#F8FAFC] sm:text-xs">
+                <p className="mt-1 truncate text-[10px] font-semibold text-text sm:text-xs">
                   {selectedMatch.matchSchedule.time}
                 </p>
               </div>
@@ -991,12 +991,12 @@ export default function LiveScore() {
           </div>
 
           {/* ACTION BUTTONS */}
-          <div className="mt-5 rounded-2xl border border-[#28466B] bg-[#0E1D34] p-3 sm:p-4">
+          <div className="mt-5 rounded-2xl border border-border text-text-muted p-3 sm:p-4">
             {/* HEADER */}
             <div className="mb-3 flex items-center justify-between">
               <h2 className="text-sm font-bold sm:text-base">Match Actions</h2>
 
-              <span className="text-[10px] font-medium uppercase tracking-wider text-[#B8C2D1]/40">
+              <span className="text-[10px] font-medium uppercase tracking-wider text-text-muted/40">
                 Quick Actions
               </span>
             </div>
@@ -1009,7 +1009,7 @@ export default function LiveScore() {
                 disabled={
                   !selectedMatch.timer.running || selectedMatch.timer.finished
                 }
-                className="group flex flex-col items-center justify-center rounded-xl border border-[#0E5FD8]/30 bg-[#0E5FD8]/10 px-2 py-3 text-white transition hover:-translate-y-0.5 hover:bg-[#0E5FD8]/20 hover:shadow-lg hover:shadow-[#0E5FD8]/10 disabled:cursor-not-allowed disabled:opacity-40 sm:py-4"
+                className="group flex flex-col items-center justify-center rounded-xl border border-[#0E5FD8]/30 bg-primary/10 px-2 py-3 text-white transition hover:-translate-y-0.5 hover:bg-primary/20 hover:shadow-lg hover:shadow-[#0E5FD8]/10 disabled:cursor-not-allowed disabled:opacity-40 sm:py-4"
               >
                 <span className="text-xl sm:text-2xl">⚽</span>
 
@@ -1024,7 +1024,7 @@ export default function LiveScore() {
                 disabled={
                   !selectedMatch.timer.running || selectedMatch.timer.finished
                 }
-                className="group flex flex-col items-center justify-center rounded-xl border border-[#0E5FD8]/30 bg-[#0E5FD8]/10 px-2 py-3 text-white transition hover:-translate-y-0.5 hover:bg-[#0E5FD8]/20 hover:shadow-lg hover:shadow-[#0E5FD8]/10 disabled:cursor-not-allowed disabled:opacity-40 sm:py-4"
+                className="group flex flex-col items-center justify-center rounded-xl border border-[#0E5FD8]/30 bg-primary/10 px-2 py-3 text-white transition hover:-translate-y-0.5 hover:bg-primary/20 hover:shadow-lg hover:shadow-[#0E5FD8]/10 disabled:cursor-not-allowed disabled:opacity-40 sm:py-4"
               >
                 <span className="text-xl sm:text-2xl">🥅</span>
 
@@ -1039,7 +1039,7 @@ export default function LiveScore() {
                 disabled={
                   !selectedMatch.timer.running || selectedMatch.timer.finished
                 }
-                className="group flex flex-col items-center justify-center rounded-xl border border-[#0E5FD8]/30 bg-[#0E5FD8]/10 px-2 py-3 text-white transition hover:-translate-y-0.5 hover:bg-[#0E5FD8]/20 hover:shadow-lg hover:shadow-[#0E5FD8]/10 disabled:cursor-not-allowed disabled:opacity-40 sm:py-4"
+                className="group flex flex-col items-center justify-center rounded-xl border border-[#0E5FD8]/30 bg-primary/10 px-2 py-3 text-white transition hover:-translate-y-0.5 hover:bg-primary/20 hover:shadow-lg hover:shadow-[#0E5FD8]/10 disabled:cursor-not-allowed disabled:opacity-40 sm:py-4"
               >
                 <span className="text-xl sm:text-2xl">🏐</span>
 
@@ -1054,7 +1054,7 @@ export default function LiveScore() {
                 disabled={
                   !selectedMatch.timer.running || selectedMatch.timer.finished
                 }
-                className="group flex flex-col items-center justify-center rounded-xl border border-[#0E5FD8]/30 bg-[#0E5FD8]/10 px-2 py-3 text-white transition hover:-translate-y-0.5 hover:bg-[#0E5FD8]/20 hover:shadow-lg hover:shadow-[#0E5FD8]/10 disabled:cursor-not-allowed disabled:opacity-40 sm:py-4"
+                className="group flex flex-col items-center justify-center rounded-xl border border-[#0E5FD8]/30 bg-primary/10 px-2 py-3 text-white transition hover:-translate-y-0.5 hover:bg-primary/20 hover:shadow-lg hover:shadow-[#0E5FD8]/10 disabled:cursor-not-allowed disabled:opacity-40 sm:py-4"
               >
                 <span className="text-xl sm:text-2xl">📕</span>
 
@@ -1069,7 +1069,7 @@ export default function LiveScore() {
                 disabled={
                   !selectedMatch.timer.running || selectedMatch.timer.finished
                 }
-                className="group flex flex-col items-center justify-center rounded-xl border border-[#0E5FD8]/30 bg-[#0E5FD8]/10 px-2 py-3 text-white transition hover:-translate-y-0.5 hover:bg-[#0E5FD8]/20 hover:shadow-lg hover:shadow-[#0E5FD8]/10 disabled:cursor-not-allowed disabled:opacity-40 sm:py-4"
+                className="group flex flex-col items-center justify-center rounded-xl border border-[#0E5FD8]/30 bg-primary/10 px-2 py-3 text-white transition hover:-translate-y-0.5 hover:bg-primary/20 hover:shadow-lg hover:shadow-[#0E5FD8]/10 disabled:cursor-not-allowed disabled:opacity-40 sm:py-4"
               >
                 <span className="text-xl sm:text-2xl">🔄</span>
 
@@ -1084,7 +1084,7 @@ export default function LiveScore() {
                 disabled={
                   !selectedMatch.timer.running || selectedMatch.timer.finished
                 }
-                className="group flex flex-col items-center justify-center rounded-xl border border-[#0E5FD8]/30 bg-[#0E5FD8]/10 px-2 py-3 text-white transition hover:-translate-y-0.5 hover:bg-[#0E5FD8]/20 hover:shadow-lg hover:shadow-[#0E5FD8]/10 disabled:cursor-not-allowed disabled:opacity-40 sm:py-4"
+                className="group flex flex-col items-center justify-center rounded-xl border border-[#0E5FD8]/30 bg-primary/10 px-2 py-3 text-white transition hover:-translate-y-0.5 hover:bg-primary/20 hover:shadow-lg hover:shadow-[#0E5FD8]/10 disabled:cursor-not-allowed disabled:opacity-40 sm:py-4"
               >
                 <span className="text-xl sm:text-2xl">📝</span>
 
@@ -1097,14 +1097,14 @@ export default function LiveScore() {
 
           {/* MATCH INFO TABS */}
 
-          <div className="mt-5 rounded-2xl border border-[#28466B] bg-[#0E1D34] p-1.5">
+          <div className="mt-5 rounded-2xl border border-border text-text-muted p-1.5">
             <div className="grid grid-cols-2 gap-1">
               <button
                 onClick={() => setActiveTab("timeline")}
                 className={`rounded-xl px-4 py-2.5 text-sm font-semibold transition-all ${
                   activeTab === "timeline"
-                    ? "bg-[#0E5FD8]/20 text-[#F8FAFC]"
-                    : "text-[#B8C2D1] hover:bg-[#07111F] hover:text-[#F8FAFC]"
+                    ? "bg-primary/20 text-text"
+                    : "text-text-muted hover:bg-background hover:text-text"
                 }`}
               >
                 Timeline
@@ -1114,8 +1114,8 @@ export default function LiveScore() {
                 onClick={() => setActiveTab("lineup")}
                 className={`rounded-xl px-4 py-2.5 text-sm font-semibold transition-all ${
                   activeTab === "lineup"
-                    ? "bg-[#0E5FD8]/20 text-[#F8FAFC]"
-                    : "text-[#B8C2D1] hover:bg-[#07111F] hover:text-[#F8FAFC]"
+                    ? "bg-primary/20 text-text"
+                    : "text-text-muted hover:bg-background hover:text-text"
                 }`}
               >
                 Lineup

@@ -48,7 +48,7 @@ export default function Score() {
   }
 
   return (
-    <div className="min-h-screen bg-[#07111F] px-4 py-10 text-[#F8FAFC]">
+    <div className="min-h-screen bg-background px-4 py-10 text-text">
       <div className="mx-auto max-w-7xl">
         <PageHero
           text="Matches"
@@ -60,12 +60,10 @@ export default function Score() {
           {matches.length > 0 ? (
             matches.map((match) => <ScoreCard key={match._id} match={match} />)
           ) : (
-            <div className="flex min-h-75 flex-col items-center justify-center rounded-2xl border border-[#28466B] bg-[#0E1D34] text-center">
-              <p className="text-xl font-bold text-[#F8FAFC]">
-                No Matches Found
-              </p>
+            <div className="flex min-h-75 flex-col items-center justify-center rounded-2xl border border-border text-text-muted text-center">
+              <p className="text-xl font-bold text-text">No Matches Found</p>
 
-              <p className="mt-2 text-sm text-[#B8C2D1]">
+              <p className="mt-2 text-sm text-text-muted">
                 No match results are available yet.
               </p>
             </div>

@@ -52,21 +52,17 @@ const ScoreCard = ({ match }) => {
 
   return (
     <div
-      className="overflow-hidden rounded-3xl transition-all duration-300"
+      className="overflow-hidden rounded-3xl transition-all duration-300 bg-card border-border"
       ref={cardRef}
-      style={{
-        background: "var(--color-card)",
-        border: "1px solid var(--color-border)",
-      }}
     >
       {/* HEADER */}
       <div className="p-6">
         <div className="flex items-center justify-between">
-          <span className="rounded-full px-3 py-1 text-xs font-semibold capitalize text-secondary bg-surface">
+          <span className="rounded-full px-3 py-1 text-xs font-semibold capitalize text-accent bg-surface">
             {matchType}
           </span>
 
-          <span className="rounded-full px-3 py-1 text-xs font-semibold capitalize text-accent bg-surface">
+          <span className="rounded-full px-3 py-1 text-xs font-semibold capitalize text-secondary bg-surface">
             {match.match?.matchTime} min
           </span>
         </div>
@@ -90,21 +86,13 @@ const ScoreCard = ({ match }) => {
 
           {/* SCORE */}
           <div className="text-center">
-            <div className="text-3xl font-black tracking-tight md:text-5xl">
+            <div className="text-3xl font-black tracking-tight md:text-5xl ">
               {match.homeScore}
-              <span
-                className="mx-3"
-                style={{ color: "var(--color-text-muted)" }}
-              >
-                -
-              </span>
+              <span className="mx-3 text-text-muted">-</span>
               {match.awayScore}
             </div>
 
-            <p
-              className="mt-2 text-xs uppercase tracking-[0.25em]"
-              style={{ color: "var(--color-text-muted)" }}
-            >
+            <p className="mt-2 text-xs uppercase tracking-[0.25em] text-text-muted">
               FINAL SCORE
             </p>
           </div>
@@ -126,10 +114,7 @@ const ScoreCard = ({ match }) => {
         </div>
 
         {/* MATCH INFO */}
-        <div
-          className="mt-6 flex flex-wrap items-center justify-center gap-5 text-sm"
-          style={{ color: "var(--color-text-muted)" }}
-        >
+        <div className="mt-6 flex flex-wrap text-text-muted items-center justify-center gap-5 text-sm">
           <div className="flex items-center gap-2">
             <Clock3 size={16} />
             {match.match?.matchSchedule?.date
@@ -165,10 +150,10 @@ const ScoreCard = ({ match }) => {
         <div className="overflow-hidden">
           <div className="px-6 pb-6">
             {/* TABS */}
-            <div className="rounded-xl border border-[#28466B] bg-[#0E1D34]">
+            <div className="rounded-xl border border-border text-text-muted">
               <div className="relative grid grid-cols-3">
                 <div
-                  className={`absolute inset-y-0 left-0 w-1/3 rounded-xl bg-[#0E5FD8]/15 transition-transform duration-300 ease-out ${
+                  className={`absolute inset-y-0 left-0 w-1/3 rounded-xl bg-primary/15 transition-transform duration-300 ease-out ${
                     activeTab === "summary"
                       ? "translate-x-0"
                       : activeTab === "timeline"
@@ -181,8 +166,8 @@ const ScoreCard = ({ match }) => {
                   onClick={() => setActiveTab("summary")}
                   className={`relative z-10 px-4 py-2.5 text-sm font-semibold transition-colors duration-300 ${
                     activeTab === "summary"
-                      ? "text-[#F8FAFC]"
-                      : "text-[#B8C2D1]/60 hover:text-[#F8FAFC]"
+                      ? "text-text"
+                      : "text-text-muted/80 hover:text-text"
                   }`}
                 >
                   Summary
@@ -192,8 +177,8 @@ const ScoreCard = ({ match }) => {
                   onClick={() => setActiveTab("timeline")}
                   className={`relative z-10 px-4 py-2.5 text-sm font-semibold transition-colors duration-300 ${
                     activeTab === "timeline"
-                      ? "text-[#F8FAFC]"
-                      : "text-[#B8C2D1]/60 hover:text-[#F8FAFC]"
+                      ? "text-text"
+                      : "text-text-muted/80 hover:text-text"
                   }`}
                 >
                   Timeline
@@ -203,8 +188,8 @@ const ScoreCard = ({ match }) => {
                   onClick={() => setActiveTab("lineup")}
                   className={`relative z-10 py-2.5 text-sm font-semibold transition-colors duration-300 ${
                     activeTab === "lineup"
-                      ? "text-[#F8FAFC]"
-                      : "text-[#B8C2D1]/60 hover:text-[#F8FAFC]"
+                      ? "text-text"
+                      : "text-text-muted/80 hover:text-text"
                   }`}
                 >
                   Lineup

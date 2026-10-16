@@ -10,12 +10,12 @@ const AddOpponent = () => {
   const tabClass = (tab) =>
     `flex flex-1 items-center justify-center gap-2 rounded-lg px-5 py-3 text-sm font-semibold transition-all duration-300 sm:flex-none ${
       activeTab === tab
-        ? "bg-[#0E5FD8] text-white shadow-md shadow-blue-900/20"
-        : "text-[#B8C2D1] hover:bg-[#152640] hover:text-[#D4AF37]"
+        ? "bg-primary text-white shadow-md shadow-blue-900/20"
+        : "text-text-muted hover:bg-[#152640] hover:text-[#D4AF37]"
     }`;
 
   return (
-    <div className="min-h-screen bg-[#07111F] px-4 py-10 text-[#F8FAFC]">
+    <div className="min-h-screen bg-background px-4 py-10 text-text">
       <div className="mx-auto max-w-3xl">
         {/* Header */}
         <PageHero
@@ -25,10 +25,10 @@ const AddOpponent = () => {
         />
 
         {/* Form Card */}
-        <div className="rounded-2xl border border-[#28466B] bg-[#0E1D34] p-6 shadow-2xl md:p-8">
+        <div className="rounded-2xl border border-border text-text-muted p-6 shadow-2xl md:p-8">
           {/* Tabs */}
           <div
-            className="mb-6 flex w-full gap-2 rounded-xl border border-[#28466B] bg-[#07111F] p-1.5 sm:w-fit"
+            className="mb-6 flex w-full gap-2 rounded-xl border border-border bg-background p-1.5 sm:w-fit"
             role="tablist"
             aria-label="Add opponent"
           >

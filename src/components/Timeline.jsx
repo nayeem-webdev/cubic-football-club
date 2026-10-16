@@ -157,7 +157,7 @@ export const Timeline = ({
 
   if (!matchEvents || matchEvents.length === 0) {
     return (
-      <p className="py-6 text-center text-sm text-[#B8C2D1]/50">{emptyText}</p>
+      <p className="py-6 text-center text-sm text-text-muted/50">{emptyText}</p>
     );
   }
 
@@ -168,7 +168,7 @@ export const Timeline = ({
   return (
     <div className="relative px-4 py-2">
       {/* CENTER VERTICAL LINE */}
-      <div className="absolute bottom-0 left-1/2 top-0 w-px -translate-x-1/2 bg-[#28466B]" />
+      <div className="absolute bottom-0 left-1/2 top-0 w-px -translate-x-1/2 bg-secondary/50" />
 
       {/* EVENTS CONTAINER */}
       <div>
@@ -185,7 +185,7 @@ export const Timeline = ({
             >
               {/* CENTER DOT */}
               <div className="absolute left-1/2 top-1/2 z-10 -translate-x-1/2 -translate-y-1/2">
-                <div className="h-2 w-2 rounded-full border-2 border-accent bg-[#0E1D34]" />
+                <div className="h-2 w-2 rounded-full border-2 border-secondary bg-surface text-text-muted" />
               </div>
 
               {/* HOME SIDE (LEFT COLUMN) */}
@@ -193,7 +193,7 @@ export const Timeline = ({
                 <div className="col-start-1 flex items-center justify-end gap-3 pr-2 text-right">
                   {/* PLAYER & EVENT DETAILS */}
                   <div className="min-w-0">
-                    <p className="text-xs font-bold leading-4 text-[#F8FAFC]">
+                    <p className="text-xs font-bold leading-4 text-text">
                       {player}
                     </p>
 
@@ -203,7 +203,7 @@ export const Timeline = ({
                       </p>
                     )}
 
-                    <p className="text-[9px] font-medium uppercase leading-3 tracking-wider text-[#6F86A3]">
+                    <p className="text-[9px] font-medium uppercase leading-3 tracking-wider text-text-muted">
                       {title}
                     </p>
                   </div>
@@ -214,7 +214,7 @@ export const Timeline = ({
                   </span>
 
                   {/* TIME */}
-                  <span className="shrink-0 text-[11px] font-bold tabular-nums text-[#F8FAFC]">
+                  <span className="shrink-0 text-[11px] font-bold tabular-nums text-text">
                     {eventTime}
                   </span>
                 </div>
@@ -226,7 +226,7 @@ export const Timeline = ({
               {!isHome ? (
                 <div className="col-start-2 flex items-center justify-start gap-3 pl-2 text-left">
                   {/* TIME */}
-                  <span className="shrink-0 text-[11px] font-bold tabular-nums text-[#F8FAFC]">
+                  <span className="shrink-0 text-[11px] font-bold tabular-nums text-text">
                     {eventTime}
                   </span>
 
@@ -237,7 +237,7 @@ export const Timeline = ({
 
                   {/* PLAYER & EVENT DETAILS */}
                   <div className="min-w-0">
-                    <p className="text-xs font-bold leading-4 text-[#F8FAFC]">
+                    <p className="text-xs font-bold leading-4 text-text">
                       {player}
                     </p>
 
@@ -247,7 +247,7 @@ export const Timeline = ({
                       </p>
                     )}
 
-                    <p className="text-[9px] font-medium uppercase leading-3 tracking-wider text-[#6F86A3]">
+                    <p className="text-[9px] font-medium uppercase leading-3 tracking-wider text-text-muted">
                       {title}
                     </p>
                   </div>

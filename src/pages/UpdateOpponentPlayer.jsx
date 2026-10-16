@@ -279,7 +279,7 @@ export default function UpdateOpponentPlayer() {
   }
 
   return (
-    <div className="min-h-screen bg-[#07111F] px-4 py-10 text-[#F8FAFC]">
+    <div className="min-h-screen bg-background px-4 py-10 text-text">
       <div className="mx-auto max-w-7xl">
         <PageHero
           text="Cubic FC"
@@ -288,7 +288,7 @@ export default function UpdateOpponentPlayer() {
         />
 
         {/* Filter Panel */}
-        <div className="space-y-4 rounded-xl border border-[#28466B] bg-[#0E1D34] p-4 mb-6">
+        <div className="space-y-4 rounded-xl border border-border text-text-muted p-4 mb-6">
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-4">
             {/* Search */}
             <div className="relative">
@@ -302,7 +302,7 @@ export default function UpdateOpponentPlayer() {
                 placeholder="Search opponent player..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full rounded-lg border border-[#28466B] bg-[#07111F] py-2 pl-9 pr-9 text-xs text-white outline-none placeholder:text-[#718096] focus:border-[#0E5FD8]"
+                className="w-full rounded-lg border border-border bg-background py-2 pl-9 pr-9 text-xs text-white outline-none placeholder:text-[#718096] focus:border-[#0E5FD8]"
               />
 
               {searchTerm && (
@@ -321,7 +321,7 @@ export default function UpdateOpponentPlayer() {
             <select
               value={selectedClub}
               onChange={(e) => setSelectedClub(e.target.value)}
-              className="w-full rounded-lg border border-[#28466B] bg-[#07111F] px-3 py-2 text-xs text-[#B8C2D1] outline-none focus:border-[#0E5FD8]"
+              className="w-full rounded-lg border border-border bg-background px-3 py-2 text-xs text-text-muted outline-none focus:border-[#0E5FD8]"
             >
               <option value="all">All Opponent Teams</option>
 
@@ -336,7 +336,7 @@ export default function UpdateOpponentPlayer() {
             <select
               value={selectedPosition}
               onChange={(e) => setSelectedPosition(e.target.value)}
-              className="w-full rounded-lg border border-[#28466B] bg-[#07111F] px-3 py-2 text-xs text-[#B8C2D1] outline-none focus:border-[#0E5FD8]"
+              className="w-full rounded-lg border border-border bg-background px-3 py-2 text-xs text-text-muted outline-none focus:border-[#0E5FD8]"
             >
               <option value="all">All Positions</option>
 
@@ -351,7 +351,7 @@ export default function UpdateOpponentPlayer() {
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value)}
-              className="w-full rounded-lg border border-[#28466B] bg-[#07111F] px-3 py-2 text-xs text-[#B8C2D1] outline-none focus:border-[#0E5FD8]"
+              className="w-full rounded-lg border border-border bg-background px-3 py-2 text-xs text-text-muted outline-none focus:border-[#0E5FD8]"
             >
               <option value="jerseyNumber">Sort by Jersey No.</option>
               <option value="nameAsc">Sort by Name (A-Z)</option>
@@ -370,13 +370,7 @@ export default function UpdateOpponentPlayer() {
           }}
         >
           <table className="w-full min-w-[850px] text-sm">
-            <thead
-              className="text-[11px] uppercase tracking-wider"
-              style={{
-                background: "var(--color-card)",
-                color: "var(--color-text-muted)",
-              }}
-            >
+            <thead className="text-[11px] uppercase tracking-wider text-text-muted bg-card">
               <tr>
                 <th className="px-4 py-3 text-left font-medium">Player</th>
                 <th className="px-3 py-3 text-left font-medium">No.</th>
@@ -414,7 +408,7 @@ export default function UpdateOpponentPlayer() {
                       {/* Player Name and Avatar */}
                       <td className="px-4 py-3">
                         <div className="flex items-center gap-3">
-                          <div className="flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-full border border-[#28466B] bg-[#07111F]">
+                          <div className="flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-full border border-border bg-background">
                             {(isEditing ? formData.photo : player.photo) ? (
                               <img
                                 src={isEditing ? formData.photo : player.photo}

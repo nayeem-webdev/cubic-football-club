@@ -34,8 +34,8 @@ const AddMatch = () => {
   const tabClass = (tab) =>
     `flex flex-1 items-center justify-center gap-2 rounded-lg px-5 py-3 text-sm font-semibold transition-all duration-300 sm:flex-none ${
       activeTab === tab
-        ? "bg-[#0E5FD8] text-white shadow-md shadow-blue-900/20"
-        : "text-[#B8C2D1] hover:bg-[#152640] hover:text-[#D4AF37]"
+        ? "bg-primary text-white shadow-md shadow-blue-900/20"
+        : "text-text-muted hover:bg-[#152640] hover:text-[#D4AF37]"
     }`;
 
   // Fetch players, teams and schedules
@@ -353,7 +353,7 @@ const AddMatch = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#07111F] px-4 py-10 text-[#F8FAFC]">
+    <div className="min-h-screen bg-background px-4 py-10 text-text">
       <div className="mx-auto max-w-3xl">
         {pageLoading && <Loader />}
 
@@ -365,10 +365,10 @@ const AddMatch = () => {
         />
 
         {/* Main Form */}
-        <div className="rounded-2xl border border-[#28466B] bg-[#0E1D34] p-6 shadow-xl sm:p-8">
+        <div className="rounded-2xl border border-border text-text-muted p-6 shadow-xl sm:p-8">
           {/* Tabs */}
           <div
-            className="mb-6 flex w-full gap-2 rounded-xl border border-[#28466B] bg-[#07111F] p-1.5 sm:w-fit"
+            className="mb-6 flex w-full gap-2 rounded-xl border border-border bg-background p-1.5 sm:w-fit"
             role="tablist"
             aria-label="Add opponent"
           >
@@ -411,7 +411,7 @@ const AddMatch = () => {
                   value={formData.matchTime}
                   onChange={handleChange}
                   required
-                  className="w-full rounded-lg border border-[#28466B] bg-card px-4 py-3 text-[#F8FAFC] outline-none focus:border-[#0E5FD8]"
+                  className="w-full rounded-lg border border-border bg-card px-4 py-3 text-text outline-none focus:border-[#0E5FD8]"
                 >
                   <option value="">Select match time</option>
                   <option value="30">30 Minutes</option>
@@ -434,7 +434,7 @@ const AddMatch = () => {
                   value={formData.matchSchedule}
                   onChange={handleChange}
                   required
-                  className="w-full rounded-lg border border-[#28466B] bg-card px-4 py-3 text-[#F8FAFC] outline-none focus:border-[#0E5FD8]"
+                  className="w-full rounded-lg border border-border bg-card px-4 py-3 text-text outline-none focus:border-[#0E5FD8]"
                 >
                   <option value="">Select Match</option>
 
@@ -454,8 +454,8 @@ const AddMatch = () => {
             <div className="grid grid-cols-2 gap-6">
               {/* Match Format Information */}
               {selectedSchedule?.matchFormat && (
-                <div className="rounded-lg border border-[#28466B] bg-card px-4 py-3 text-center">
-                  <span className="text-sm text-[#B8C2D1]">Match Format</span>
+                <div className="rounded-lg border border-border bg-card px-4 py-3 text-center">
+                  <span className="text-sm text-text-muted">Match Format</span>
 
                   <div className="text-lg font-bold text-secondary">
                     {selectedSchedule.matchFormat} V{" "}
@@ -464,8 +464,8 @@ const AddMatch = () => {
                 </div>
               )}
               {selectedSchedule?.matchType && (
-                <div className="rounded-lg border border-[#28466B] bg-card px-4 py-3 text-center">
-                  <span className="text-sm text-[#B8C2D1]">Match Type</span>
+                <div className="rounded-lg border border-border bg-card px-4 py-3 text-center">
+                  <span className="text-sm text-text-muted">Match Type</span>
 
                   <div className="text-lg font-bold text-secondary">
                     {selectedSchedule.matchType.charAt(0).toUpperCase()}
@@ -494,7 +494,7 @@ const AddMatch = () => {
                   value={formData.homeTeam}
                   onChange={handleChange}
                   required
-                  className="w-full rounded-lg border border-[#28466B] bg-card px-4 py-3 text-[#F8FAFC] outline-none focus:border-[#0E5FD8]"
+                  className="w-full rounded-lg border border-border bg-card px-4 py-3 text-text outline-none focus:border-[#0E5FD8]"
                 >
                   <option value="">Select home team</option>
 
@@ -533,7 +533,7 @@ const AddMatch = () => {
                                   )
                                 }
                                 required
-                                className="w-full rounded-lg border border-[#28466B] bg-card px-4 py-3 text-[#F8FAFC] outline-none focus:border-[#0E5FD8]"
+                                className="w-full rounded-lg border border-border bg-card px-4 py-3 text-text outline-none focus:border-[#0E5FD8]"
                               >
                                 <option value="">Select player</option>
 
@@ -579,7 +579,7 @@ const AddMatch = () => {
                                     e.target.value,
                                   )
                                 }
-                                className="w-full rounded-lg border border-[#28466B] bg-card px-4 py-3 text-[#F8FAFC]"
+                                className="w-full rounded-lg border border-border bg-card px-4 py-3 text-text"
                               >
                                 <option value="">Select substitute</option>
 
@@ -623,7 +623,7 @@ const AddMatch = () => {
                   value={formData.awayTeam}
                   onChange={handleChange}
                   required
-                  className="w-full rounded-lg border border-[#28466B] bg-card px-4 py-3 text-[#F8FAFC] outline-none focus:border-[#0E5FD8]"
+                  className="w-full rounded-lg border border-border bg-card px-4 py-3 text-text outline-none focus:border-[#0E5FD8]"
                 >
                   <option value="">Select away team</option>
 
@@ -662,7 +662,7 @@ const AddMatch = () => {
                                   )
                                 }
                                 required
-                                className="w-full rounded-lg border border-[#28466B] bg-card px-4 py-3 text-[#F8FAFC] outline-none focus:border-[#0E5FD8]"
+                                className="w-full rounded-lg border border-border bg-card px-4 py-3 text-text outline-none focus:border-[#0E5FD8]"
                               >
                                 <option value="">Select player</option>
 
@@ -708,7 +708,7 @@ const AddMatch = () => {
                                     e.target.value,
                                   )
                                 }
-                                className="w-full rounded-lg border border-[#28466B] bg-card px-4 py-3 text-[#F8FAFC]"
+                                className="w-full rounded-lg border border-border bg-card px-4 py-3 text-text"
                               >
                                 <option value="">Select substitute</option>
 
@@ -735,14 +735,14 @@ const AddMatch = () => {
               </div>
             </div>
 
-            <div className="border-t border-[#28466B]" />
+            <div className="border-t border-border" />
 
             {/* Submit */}
             <div className="flex flex-col gap-3 sm:flex-row sm:justify-end">
               <button
                 type="button"
                 onClick={handleClear}
-                className="rounded-xl border border-[#28466B] px-6 py-3 font-semibold text-[#B8C2D1] transition hover:border-[#3A82FF] hover:text-white"
+                className="rounded-xl border border-border px-6 py-3 font-semibold text-text-muted transition hover:border-[#3A82FF] hover:text-white"
               >
                 Clear
               </button>
@@ -750,7 +750,7 @@ const AddMatch = () => {
               <button
                 type="submit"
                 disabled={loading}
-                className="rounded-xl bg-[#0E5FD8] px-6 py-3 font-semibold text-white transition hover:bg-[#3A82FF] disabled:cursor-not-allowed disabled:opacity-60"
+                className="rounded-xl bg-primary px-6 py-3 font-semibold text-white transition hover:bg-[#3A82FF] disabled:cursor-not-allowed disabled:opacity-60"
               >
                 {loading ? "Creating Match..." : "Create Match"}
               </button>
@@ -762,7 +762,7 @@ const AddMatch = () => {
             <div
               className={`mt-6 rounded-xl border px-4 py-3 text-sm ${
                 message.includes("successfully")
-                  ? "border-[#49C85A]/30 bg-[#49C85A]/10 text-[#49C85A]"
+                  ? "border-secondary/30 bg-[#49C85A]/10 text-[#49C85A]"
                   : "border-red-500/30 bg-red-500/10 text-red-400"
               }`}
             >

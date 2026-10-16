@@ -124,7 +124,7 @@ const RegisterPlayer = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#07111F] px-4 py-10 text-[#F8FAFC]">
+    <div className="min-h-screen bg-background px-4 py-10 text-text">
       <div className="mx-auto max-w-3xl">
         {loadingTeams && <Loader />}
 
@@ -136,7 +136,7 @@ const RegisterPlayer = () => {
         />
 
         {/* Form Card */}
-        <div className="rounded-2xl border border-[#28466B] bg-[#0E1D34] p-6 shadow-2xl md:p-8">
+        <div className="rounded-2xl border border-border text-text-muted p-6 shadow-2xl md:p-8">
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* Player Name */}
             <div>
@@ -152,7 +152,7 @@ const RegisterPlayer = () => {
                 value={formData.name}
                 onChange={handleChange}
                 required
-                className="w-full rounded-lg border border-[#28466B] bg-card px-4 py-3 text-[#F8FAFC] outline-none placeholder:text-[#718096] focus:border-[#0E5FD8]"
+                className="w-full rounded-lg border border-border bg-card px-4 py-3 text-text outline-none placeholder:text-[#718096] focus:border-[#0E5FD8]"
               />
             </div>
 
@@ -175,7 +175,7 @@ const RegisterPlayer = () => {
                   value={formData.jerseyNumber}
                   onChange={handleChange}
                   required
-                  className="w-full rounded-lg border border-[#28466B] bg-card px-4 py-3 text-[#F8FAFC] outline-none placeholder:text-[#718096] focus:border-[#0E5FD8]"
+                  className="w-full rounded-lg border border-border bg-card px-4 py-3 text-text outline-none placeholder:text-[#718096] focus:border-[#0E5FD8]"
                 />
               </div>
 
@@ -194,7 +194,7 @@ const RegisterPlayer = () => {
                   value={formData.position}
                   onChange={handleChange}
                   required
-                  className="w-full rounded-lg border border-[#28466B] bg-card px-4 py-3 text-[#F8FAFC] outline-none focus:border-[#0E5FD8]"
+                  className="w-full rounded-lg border border-border bg-card px-4 py-3 text-text outline-none focus:border-[#0E5FD8]"
                 >
                   <option value="">Select position</option>
                   <option value="GK">Goalkeeper</option>
@@ -224,7 +224,7 @@ const RegisterPlayer = () => {
                   value={formData.dateOfBirth}
                   onChange={handleChange}
                   required
-                  className="w-full rounded-lg border border-[#28466B] bg-card px-4 py-3 text-[#F8FAFC] outline-none focus:border-[#0E5FD8]"
+                  className="w-full rounded-lg border border-border bg-card px-4 py-3 text-text outline-none focus:border-[#0E5FD8]"
                 />
               </div>
 
@@ -243,7 +243,7 @@ const RegisterPlayer = () => {
                   value={formData.foot}
                   onChange={handleChange}
                   required
-                  className="w-full rounded-lg border border-[#28466B] bg-card px-4 py-3 text-[#F8FAFC] outline-none focus:border-[#0E5FD8]"
+                  className="w-full rounded-lg border border-border bg-card px-4 py-3 text-text outline-none focus:border-[#0E5FD8]"
                 >
                   <option value="Right">Right</option>
                   <option value="Left">Left</option>
@@ -266,10 +266,10 @@ const RegisterPlayer = () => {
                 value={formData.photo}
                 onChange={handleChange}
                 required
-                className="w-full rounded-lg border border-[#28466B] bg-card px-4 py-3 text-[#F8FAFC] outline-none placeholder:text-[#718096] focus:border-[#0E5FD8]"
+                className="w-full rounded-lg border border-border bg-card px-4 py-3 text-text outline-none placeholder:text-[#718096] focus:border-[#0E5FD8]"
               />
 
-              <p className="mt-2 text-xs text-[#B8C2D1]">
+              <p className="mt-2 text-xs text-text-muted">
                 Paste a publicly accessible image URL.
               </p>
             </div>
@@ -289,7 +289,7 @@ const RegisterPlayer = () => {
                 value={formData.playsFor}
                 onChange={handleChange}
                 required
-                className="w-full rounded-lg border border-[#28466B] bg-card px-4 py-3 text-[#F8FAFC] outline-none focus:border-[#0E5FD8]"
+                className="w-full rounded-lg border border-border bg-card px-4 py-3 text-text outline-none focus:border-[#0E5FD8]"
               >
                 <option value="">Select club</option>
 
@@ -306,7 +306,7 @@ const RegisterPlayer = () => {
               <div
                 className={`rounded-lg border px-4 py-3 text-sm ${
                   message.includes("successfully")
-                    ? "border-[#49C85A]/30 bg-[#49C85A]/10 text-[#49C85A]"
+                    ? "border-secondary/30 bg-[#49C85A]/10 text-[#49C85A]"
                     : "border-red-500/30 bg-red-500/10 text-red-400"
                 }`}
               >
@@ -318,7 +318,7 @@ const RegisterPlayer = () => {
             <button
               type="submit"
               disabled={loading || loadingTeams}
-              className="w-full rounded-lg bg-[#0E5FD8] px-5 py-3.5 font-semibold text-white transition hover:bg-[#3A82FF] disabled:cursor-not-allowed disabled:opacity-50"
+              className="w-full rounded-lg bg-primary px-5 py-3.5 font-semibold text-white transition hover:bg-[#3A82FF] disabled:cursor-not-allowed disabled:opacity-50"
             >
               {loading ? "Registering Player..." : "Register Player"}
             </button>

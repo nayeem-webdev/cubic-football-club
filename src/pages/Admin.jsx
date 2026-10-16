@@ -77,7 +77,7 @@ const adminItems = [
 
 export default function Admin() {
   return (
-    <div className="min-h-screen bg-[#07111F] px-4 py-10 text-[#F8FAFC]">
+    <div className="min-h-screen bg-background px-4 py-10 text-text">
       <div className="mx-auto max-w-7xl">
         <PageHero
           text="ADMIN"
@@ -93,19 +93,19 @@ export default function Admin() {
               <Link
                 key={item.path}
                 to={item.path}
-                className="group rounded-2xl border border-[#28466B] bg-[#0E1D34] p-6 transition duration-300 hover:-translate-y-1 hover:border-[#0E5FD8] hover:bg-card"
+                className="group rounded-2xl border border-border text-text-muted p-6 transition duration-300 hover:-translate-y-1 hover:border-[#0E5FD8] hover:bg-card"
               >
                 <div className="flex items-start gap-4">
-                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[#0E5FD8]/15 text-[#3A82FF] transition group-hover:bg-[#0E5FD8] group-hover:text-white">
+                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-primary/15 text-[#3A82FF] transition group-hover:bg-primary group-hover:text-white">
                     <Icon size={24} />
                   </div>
 
                   <div>
-                    <h3 className="text-lg font-bold text-[#F8FAFC]">
+                    <h3 className="text-lg font-bold text-text">
                       {item.title}
                     </h3>
 
-                    <p className="mt-1 text-sm leading-6 text-[#B8C2D1]">
+                    <p className="mt-1 text-sm leading-6 text-text-muted">
                       {item.description}
                     </p>
                   </div>

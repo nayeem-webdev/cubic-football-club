@@ -77,18 +77,18 @@ const Matches = () => {
 
   if (error) {
     return (
-      <div className="min-h-screen bg-[#07111F] px-4 py-16 text-[#F8FAFC]">
-        <div className="mx-auto flex max-w-xl flex-col items-center rounded-2xl border border-red-500/30 bg-[#0E1D34] p-8 text-center">
+      <div className="min-h-screen bg-background px-4 py-16 text-text">
+        <div className="mx-auto flex max-w-xl flex-col items-center rounded-2xl border border-red-500/30 text-text-muted p-8 text-center">
           <AlertCircle className="mb-3 h-8 w-8 text-red-400" />
           <h2 className="text-lg font-semibold">Unable to load matches</h2>
-          <p className="mt-2 text-sm text-[#B8C2D1]">{error}</p>
+          <p className="mt-2 text-sm text-text-muted">{error}</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-[#07111F] px-4 py-10 text-[#F8FAFC]">
+    <div className="min-h-screen bg-background px-4 py-10 text-text">
       <div className="mx-auto max-w-7xl">
         {/* Hero */}
         <PageHero
@@ -100,8 +100,8 @@ const Matches = () => {
         />
 
         {matches.length === 0 ? (
-          <div className="rounded-2xl border border-dashed border-[#28466B] px-6 py-16 text-center">
-            <p className="text-[#B8C2D1]">No matches available.</p>
+          <div className="rounded-2xl border border-dashed border-border px-6 py-16 text-center">
+            <p className="text-text-muted">No matches available.</p>
           </div>
         ) : (
           <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
@@ -115,7 +115,7 @@ const Matches = () => {
                 <Link
                   key={match._id}
                   to={`/upcoming-matches/${match._id}`}
-                  className="group relative flex flex-col overflow-hidden rounded-2xl border border-[#28466B] bg-[#061834ac] p-6 shadow-xl transition-all duration-300 hover:-translate-y-1 hover:border-[#3a82ff54] hover:shadow-2xl"
+                  className="group relative flex flex-col overflow-hidden rounded-2xl border border-border bg-[#061834ac] p-6 shadow-xl transition-all duration-300 hover:-translate-y-1 hover:border-[#3a82ff54] hover:shadow-2xl"
                 >
                   {/* Background Subtle Gradient Glows */}
 
@@ -131,7 +131,7 @@ const Matches = () => {
                       </div>
 
                       <div className="min-w-0">
-                        <h3 className="truncate text-base font-bold text-[#F8FAFC] sm:text-lg">
+                        <h3 className="truncate text-base font-bold text-text sm:text-lg">
                           {schedule.venue?.venue || "Match Fixture"}
                         </h3>
 
@@ -172,7 +172,7 @@ const Matches = () => {
                   </div>
 
                   {/* Divider */}
-                  <div className="mb-5 h-px w-full bg-linear-to-r from-[#28466B] to-transparent" />
+                  <div className="mb-5 h-px w-full bg-linear-to-r from-surface to-transparent" />
 
                   {/* ================= TEAMS VS SECTION ================= */}
                   <div className="mb-6">
@@ -187,11 +187,11 @@ const Matches = () => {
                           />
                         </div>
 
-                        <h4 className="w-full truncate text-xs font-bold text-[#F8FAFC] sm:text-sm">
+                        <h4 className="w-full truncate text-xs font-bold text-text sm:text-sm">
                           {homeTeam.name || "Home Team"}
                         </h4>
 
-                        <span className="mt-0.5 text-[10px] font-semibold uppercase tracking-wider text-[#B8C2D1]">
+                        <span className="mt-0.5 text-[10px] font-semibold uppercase tracking-wider text-text-muted">
                           Home
                         </span>
                       </div>
@@ -213,11 +213,11 @@ const Matches = () => {
                           />
                         </div>
 
-                        <h4 className="w-full truncate text-xs font-bold text-[#F8FAFC] sm:text-sm">
+                        <h4 className="w-full truncate text-xs font-bold text-text sm:text-sm">
                           {awayTeam.name || "Away Team"}
                         </h4>
 
-                        <span className="mt-0.5 text-[10px] font-semibold uppercase tracking-wider text-[#B8C2D1]">
+                        <span className="mt-0.5 text-[10px] font-semibold uppercase tracking-wider text-text-muted">
                           Away
                         </span>
                       </div>
@@ -225,15 +225,15 @@ const Matches = () => {
                   </div>
 
                   {/* Divider */}
-                  <div className="mb-5 h-px w-full bg-linear-to-l from-[#28466B] to-transparent" />
+                  <div className="mb-5 h-px w-full bg-linear-to-l from-surface to-transparent" />
 
                   {/* ================= MATCH DETAILS ================= */}
                   <div className="mb-6 space-y-3 text-sm">
                     {/* Date */}
                     <div className="flex items-center gap-3">
                       <FaCalendar className="w-4 shrink-0 text-secondary" />
-                      <span className="text-[#B8C2D1]">Date:</span>
-                      <span className="ml-auto font-semibold text-[#F8FAFC]">
+                      <span className="text-text-muted">Date:</span>
+                      <span className="ml-auto font-semibold text-text">
                         {formatDate ? formatDate(schedule.date) : schedule.date}
                       </span>
                     </div>
@@ -241,8 +241,8 @@ const Matches = () => {
                     {/* Day */}
                     <div className="flex items-center gap-3">
                       <FaCalendarCheck className="w-4 shrink-0 text-secondary" />
-                      <span className="text-[#B8C2D1]">Day:</span>
-                      <span className="ml-auto font-semibold text-[#F8FAFC]">
+                      <span className="text-text-muted">Day:</span>
+                      <span className="ml-auto font-semibold text-text">
                         {new Date(schedule.date).toLocaleDateString("en-US", {
                           weekday: "long",
                         })}
@@ -252,8 +252,8 @@ const Matches = () => {
                     {/* Time */}
                     <div className="flex items-center gap-3">
                       <FaClock className="w-4 shrink-0 text-secondary" />
-                      <span className="text-[#B8C2D1]">Time:</span>
-                      <span className="ml-auto font-semibold text-[#F8FAFC]">
+                      <span className="text-text-muted">Time:</span>
+                      <span className="ml-auto font-semibold text-text">
                         {schedule.time || "TBD"}
                       </span>
                     </div>
@@ -261,8 +261,8 @@ const Matches = () => {
                     {/* Format */}
                     <div className="flex items-center gap-3">
                       <IoFootball className="w-4 shrink-0 text-secondary" />
-                      <span className="text-[#B8C2D1]">Format:</span>
-                      <span className="ml-auto font-semibold text-[#F8FAFC]">
+                      <span className="text-text-muted">Format:</span>
+                      <span className="ml-auto font-semibold text-text">
                         {schedule.matchFormat} vs {schedule.matchFormat}
                       </span>
                     </div>

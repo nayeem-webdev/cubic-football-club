@@ -65,7 +65,7 @@ const HomeHero = () => {
           {/* Matches */}
           <Link
             to="/matches"
-            className="flex w-full items-center justify-center gap-2 rounded-xl border border-[#28466B] bg-[#0E1D34] px-6 py-3.5 font-semibold text-[#F8FAFC] transition-all duration-300 hover:border-[#D4AF37] hover:bg-[#D4AF37]/10 hover:text-[#D4AF37] active:scale-95 sm:w-auto"
+            className="flex w-full items-center justify-center gap-2 rounded-xl border border-border text-text-muted px-6 py-3.5 font-semibold text-text transition-all duration-300 hover:border-[#D4AF37] hover:bg-[#D4AF37]/10 hover:text-[#D4AF37] active:scale-95 sm:w-auto"
           >
             <ShieldCheck size={18} />
             Matches

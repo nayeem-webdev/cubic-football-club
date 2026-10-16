@@ -68,7 +68,7 @@ const PlayerCard = ({ player }) => {
         </div>
 
         {/* Player Name */}
-        <span className="truncate text-md font-bold tracking-wide text-[#F8FAFC]">
+        <span className="truncate text-md font-bold tracking-wide text-text">
           {player?.name || "Unknown Player"}
         </span>
       </div>
@@ -110,13 +110,13 @@ const TeamPanel = ({ team, players = [], substitutes = [], side = "home" }) => {
       {/* Decorative corner accent */}
       <div
         className={`pointer-events-none absolute -right-8 -top-8 h-24 w-24 rounded-full blur-2xl ${
-          isHome ? "bg-[#0E5FD8]/20" : "bg-accent/15"
+          isHome ? "bg-primary/20" : "bg-accent/15"
         }`}
       />
 
       {/* HOME / AWAY BADGE */}
       <div
-        className={`relative z-1 -top-10 mx-auto w-fit min-w-45 px-4 py-3 text-center text-2xl font-[950] font-minasans uppercase leading-none tracking-[1px] text-[#F8FAFC]
+        className={`relative z-1 -top-10 mx-auto w-fit min-w-45 px-4 py-3 text-center text-2xl font-[950] font-minasans uppercase leading-none tracking-[1px] text-text
     flex items-center justify-center 
     clip-path-[polygon(12%_0%,_88%_0%,_100%_50%,_88%_100%,_12%_100%,_0%_50%)] outline-3 outline-offset-[-6px]
     ${
@@ -139,7 +139,7 @@ const TeamPanel = ({ team, players = [], substitutes = [], side = "home" }) => {
       </div>
 
       {/* TEAM NAME
-      <h2 className="min-h-[19px] truncate text-center text-[16px] font-[950] uppercase leading-[1.15] tracking-[0.3px] text-[#F8FAFC]">
+      <h2 className="min-h-[19px] truncate text-center text-[16px] font-[950] uppercase leading-[1.15] tracking-[0.3px] text-text">
         {team?.name || "Team"}
       </h2> */}
 
@@ -415,16 +415,16 @@ const MatchDetails = () => {
   if (error || !match) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-[#020817] px-4 text-white">
-        <div className="rounded-xl border border-white/10 bg-[#0E1D34] p-8 text-center">
+        <div className="rounded-xl border border-white/10 text-text-muted p-8 text-center">
           <h2 className="text-lg font-bold">Match unavailable</h2>
 
-          <p className="mt-2 text-sm text-[#B8C2D1]">
+          <p className="mt-2 text-sm text-text-muted">
             {error || "Match not found"}
           </p>
 
           <button
             onClick={() => navigate("/upcoming-matches")}
-            className="mt-5 rounded-lg bg-[#0E5FD8] px-5 py-2 text-sm font-bold"
+            className="mt-5 rounded-lg bg-primary px-5 py-2 text-sm font-bold"
           >
             Back to matches
           </button>
@@ -460,7 +460,7 @@ const MatchDetails = () => {
           PAGE ACTION BAR
       ====================================================== */}
 
-      <div className="sticky top-0 z-50 border-b border-white/10 bg-[#07111F]/95 px-4 py-3 backdrop-blur-md">
+      <div className="sticky top-0 z-50 border-b border-white/10 bg-background/95 px-4 py-3 backdrop-blur-md">
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-3">
           <button
             onClick={() => navigate("/matches")}
@@ -500,7 +500,7 @@ const MatchDetails = () => {
         <div className="mx-auto w-fit">
           <div
             ref={posterRef}
-            className="relative overflow-hidden bg-[#07111F] text-[#F8FAFC]"
+            className="relative overflow-hidden bg-background text-text"
             style={{
               width: POSTER_WIDTH,
               height: POSTER_HEIGHT,
@@ -529,7 +529,7 @@ const MatchDetails = () => {
                   <div className="absolute inset-3 rounded-full bg-[#D4AF37]/20 blur-2xl" />
 
                   {/* Subtle blue glow */}
-                  <div className="absolute inset-5 rounded-full bg-[#0E5FD8]/20 blur-xl" />
+                  <div className="absolute inset-5 rounded-full bg-primary/20 blur-xl" />
 
                   <img
                     src="/assets/cubic-fc-logo.png"
@@ -555,7 +555,7 @@ const MatchDetails = () => {
                   </h2>
 
                   {/* Format */}
-                  <h2 className="font-minasans text-5xl font-bold uppercase leading-[0.9] tracking-[-1.5px] text-[#F8FAFC]">
+                  <h2 className="font-minasans text-5xl font-bold uppercase leading-[0.9] tracking-[-1.5px] text-text">
                     {schedule.matchFormat}
                     <span className="text-secondary">V</span>
                     {schedule.matchFormat}
@@ -626,7 +626,7 @@ const MatchDetails = () => {
                     <span className="text-base font-minasans font-bold uppercase leading-none tracking-[1px] text-[#D4AF37]">
                       DATE
                     </span>
-                    <strong className="block truncate text-md font-bold leading-[1.15] text-[#F8FAFC]">
+                    <strong className="block truncate text-md font-bold leading-[1.15] text-text">
                       {formatDate(schedule.date)}
                     </strong>
                   </div>
@@ -642,7 +642,7 @@ const MatchDetails = () => {
                     <span className="text-base font-minasans font-bold uppercase leading-none tracking-[1px] text-[#D4AF37]">
                       VENUE
                     </span>
-                    <strong className="block truncate text-md font-bold leading-[1.15] text-[#F8FAFC]">
+                    <strong className="block truncate text-md font-bold leading-[1.15] text-text">
                       {schedule.venue?.venue || "Venue unavailable"}
                     </strong>
                   </div>
@@ -658,7 +658,7 @@ const MatchDetails = () => {
                     <span className="text-base font-minasans font-bold uppercase leading-none tracking-[1px] text-[#D4AF37]">
                       TIME
                     </span>
-                    <strong className="block truncate text-md font-bold leading-[1.15] text-[#F8FAFC]">
+                    <strong className="block truncate text-md font-bold leading-[1.15] text-text">
                       {schedule.time || "Time unavailable"}
                     </strong>
                   </div>

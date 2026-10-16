@@ -250,7 +250,7 @@ export default function UpdatePlayer() {
   }
 
   return (
-    <div className="min-h-screen bg-[#07111F] px-4 py-10 text-[#F8FAFC]">
+    <div className="min-h-screen bg-background px-4 py-10 text-text">
       <div className="mx-auto max-w-7xl space-y-6">
         <PageHero
           text="Cubic FC"
@@ -259,7 +259,7 @@ export default function UpdatePlayer() {
         />
 
         {/* Filter Panel */}
-        <div className="space-y-4 rounded-xl border border-[#28466B] bg-[#0E1D34] p-4">
+        <div className="space-y-4 rounded-xl border border-border text-text-muted p-4">
           <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 md:grid-cols-5">
             {/* Search Input */}
             <div className="relative">
@@ -268,7 +268,7 @@ export default function UpdatePlayer() {
                 placeholder="Search by player name..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full rounded-lg border border-[#28466B] bg-[#07111F] px-3.5 py-2 text-xs text-white placeholder-[#718096] outline-none focus:border-[#0E5FD8]"
+                className="w-full rounded-lg border border-border bg-background px-3.5 py-2 text-xs text-white placeholder-[#718096] outline-none focus:border-[#0E5FD8]"
               />
               {searchTerm && (
                 <button
@@ -285,7 +285,7 @@ export default function UpdatePlayer() {
               <select
                 value={selectedClub}
                 onChange={(e) => setSelectedClub(e.target.value)}
-                className="w-full rounded-lg border border-[#28466B] bg-[#07111F] px-3 py-2 text-xs text-[#B8C2D1] outline-none focus:border-[#0E5FD8]"
+                className="w-full rounded-lg border border-border bg-background px-3 py-2 text-xs text-text-muted outline-none focus:border-[#0E5FD8]"
               >
                 <option value="all">All Teams</option>
                 {clubs.map((club) => (
@@ -300,7 +300,7 @@ export default function UpdatePlayer() {
               <select
                 value={selectedPosition}
                 onChange={(e) => setSelectedPosition(e.target.value)}
-                className="w-full rounded-lg border border-[#28466B] bg-[#07111F] px-3 py-2 text-xs text-[#B8C2D1] outline-none focus:border-[#0E5FD8]"
+                className="w-full rounded-lg border border-border bg-background px-3 py-2 text-xs text-text-muted outline-none focus:border-[#0E5FD8]"
               >
                 <option value="all">All Positions</option>
                 <option value="GK">Goalkeeper (GK)</option>
@@ -316,7 +316,7 @@ export default function UpdatePlayer() {
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value)}
-                className="w-full rounded-lg border border-[#28466B] bg-[#07111F] px-3 py-2 text-xs text-[#B8C2D1] outline-none focus:border-[#0E5FD8]"
+                className="w-full rounded-lg border border-border bg-background px-3 py-2 text-xs text-text-muted outline-none focus:border-[#0E5FD8]"
               >
                 <option value="jerseyNumber">Sort by Jersey No.</option>
                 <option value="nameAsc">Sort by Name (A-Z)</option>
@@ -330,7 +330,7 @@ export default function UpdatePlayer() {
               <select
                 value={selectedStatus}
                 onChange={(e) => setSelectedStatus(e.target.value)}
-                className="w-full rounded-lg border border-[#28466B] bg-[#07111F] px-3 py-2 text-xs text-[#B8C2D1] outline-none focus:border-[#0E5FD8]"
+                className="w-full rounded-lg border border-border bg-background px-3 py-2 text-xs text-text-muted outline-none focus:border-[#0E5FD8]"
               >
                 {[
                   { label: "All Players", value: "all" },
@@ -342,7 +342,7 @@ export default function UpdatePlayer() {
                   <option
                     key={option.value}
                     value={option.value}
-                    className="bg-[#07111F] text-[#F8FAFC]"
+                    className="bg-background text-text"
                   >
                     {option.label}
                   </option>
@@ -362,10 +362,9 @@ export default function UpdatePlayer() {
         >
           <table className="w-full min-w-225 text-sm">
             <thead
-              className="text-[11px] uppercase tracking-wider"
+              className="text-[11px] uppercase tracking-wider text-text-muted"
               style={{
                 background: "var(--color-card)",
-                color: "var(--color-text-muted)",
               }}
             >
               <tr>
@@ -408,7 +407,7 @@ export default function UpdatePlayer() {
                       {/* Name & Avatar */}
                       <td className="px-4 py-3">
                         <div className="flex items-center gap-3">
-                          <div className="h-10 w-10 shrink-0 overflow-hidden rounded-full border border-[#28466B]">
+                          <div className="h-10 w-10 shrink-0 overflow-hidden rounded-full border border-border">
                             <img
                               src={
                                 isEditing
@@ -641,8 +640,7 @@ export default function UpdatePlayer() {
                               )
                             ) : (
                               <span
-                                className="text-[10px]"
-                                style={{ color: "var(--color-text-muted)" }}
+                                className="text-[10px] text-text-muted"
                               >
                                 No matches
                               </span>

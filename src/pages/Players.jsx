@@ -166,7 +166,7 @@ export default function Players() {
   }, [search, players, sortBy, position, minGoals, minScore, statusTab]);
 
   return (
-    <div className="min-h-screen bg-[#07111F] px-4 py-10 text-[#F8FAFC]">
+    <div className="min-h-screen bg-background px-4 py-10 text-text">
       <div className="mx-auto max-w-7xl">
         {loading && <Loader />}
 

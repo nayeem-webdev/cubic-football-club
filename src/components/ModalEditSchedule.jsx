@@ -201,26 +201,24 @@ const ModalEditSchedule = ({ schedule, onClose, onUpdated }) => {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 px-4 py-6 backdrop-blur-sm">
-      <div className="relative max-h-[90vh] w-full max-w-2xl overflow-y-auto rounded-2xl border border-[#28466B] bg-[#0E1D34] shadow-[0_0_50px_rgba(0,0,0,0.5)]">
+      <div className="relative max-h-[90vh] w-full max-w-2xl overflow-y-auto rounded-2xl border border-border text-text-muted shadow-[0_0_50px_rgba(0,0,0,0.5)]">
         {/* ========================================
             HEADER
         ======================================== */}
 
-        <div className="sticky top-0 z-10 flex items-center justify-between border-b border-[#28466B] bg-[#0E1D34] px-6 py-5">
+        <div className="sticky top-0 z-10 flex items-center justify-between border-b border-border text-text-muted px-6 py-5">
           <div>
             <p className="text-xs font-semibold uppercase tracking-wider text-[#3A82FF]">
               Schedule Center
             </p>
 
-            <h2 className="mt-1 text-xl font-bold text-[#F8FAFC]">
-              Edit Schedule
-            </h2>
+            <h2 className="mt-1 text-xl font-bold text-text">Edit Schedule</h2>
           </div>
 
           <button
             type="button"
             onClick={onClose}
-            className="flex h-9 w-9 items-center justify-center rounded-lg border border-[#28466B] bg-[#07111F] text-[#B8C2D1] transition hover:border-red-500/50 hover:bg-red-500/10 hover:text-red-400"
+            className="flex h-9 w-9 items-center justify-center rounded-lg border border-border bg-background text-text-muted transition hover:border-red-500/50 hover:bg-red-500/10 hover:text-red-400"
           >
             <FaXmark />
           </button>
@@ -246,7 +244,7 @@ const ModalEditSchedule = ({ schedule, onClose, onUpdated }) => {
             {/* DATE */}
 
             <div>
-              <label className="mb-2 block text-sm font-medium text-[#F8FAFC]">
+              <label className="mb-2 block text-sm font-medium text-text">
                 Match Date
               </label>
 
@@ -255,13 +253,13 @@ const ModalEditSchedule = ({ schedule, onClose, onUpdated }) => {
                 name="date"
                 value={formData.date}
                 onChange={handleChange}
-                className="w-full rounded-lg border border-[#28466B] bg-card px-4 py-3 text-[#F8FAFC] outline-none focus:border-[#0E5FD8]"
+                className="w-full rounded-lg border border-border bg-card px-4 py-3 text-text outline-none focus:border-[#0E5FD8]"
               />
             </div>
 
             {/* TIME */}
             <div>
-              <label className="mb-2 block text-sm font-medium text-[#F8FAFC]">
+              <label className="mb-2 block text-sm font-medium text-text">
                 Match Time
               </label>
               <TimePicker
@@ -284,7 +282,7 @@ const ModalEditSchedule = ({ schedule, onClose, onUpdated }) => {
             {/* MATCH FORMAT */}
 
             <div>
-              <label className="mb-2 block text-sm font-medium text-[#F8FAFC]">
+              <label className="mb-2 block text-sm font-medium text-text">
                 Match Format
               </label>
 
@@ -292,7 +290,7 @@ const ModalEditSchedule = ({ schedule, onClose, onUpdated }) => {
                 name="matchFormat"
                 value={formData.matchFormat}
                 onChange={handleChange}
-                className="w-full rounded-lg border border-[#28466B] bg-card px-4 py-3 text-[#F8FAFC] outline-none focus:border-[#0E5FD8]"
+                className="w-full rounded-lg border border-border bg-card px-4 py-3 text-text outline-none focus:border-[#0E5FD8]"
               >
                 <option value="" disabled>
                   Select format
@@ -308,7 +306,7 @@ const ModalEditSchedule = ({ schedule, onClose, onUpdated }) => {
             {/* MATCH TYPE */}
 
             <div>
-              <label className="mb-2 block text-sm font-medium text-[#F8FAFC]">
+              <label className="mb-2 block text-sm font-medium text-text">
                 Match Type
               </label>
 
@@ -316,7 +314,7 @@ const ModalEditSchedule = ({ schedule, onClose, onUpdated }) => {
                 name="matchType"
                 value={formData.matchType}
                 onChange={handleChange}
-                className="w-full rounded-lg border border-[#28466B] bg-card px-4 py-3 text-[#F8FAFC] outline-none focus:border-[#0E5FD8]"
+                className="w-full rounded-lg border border-border bg-card px-4 py-3 text-text outline-none focus:border-[#0E5FD8]"
               >
                 <option value="">Select type</option>
 
@@ -334,7 +332,7 @@ const ModalEditSchedule = ({ schedule, onClose, onUpdated }) => {
           ======================================== */}
 
           <div>
-            <label className="mb-2 block text-sm font-medium text-[#F8FAFC]">
+            <label className="mb-2 block text-sm font-medium text-text">
               Venue
             </label>
 
@@ -343,7 +341,7 @@ const ModalEditSchedule = ({ schedule, onClose, onUpdated }) => {
               value={formData.venue}
               onChange={handleChange}
               disabled={venuesLoading}
-              className="w-full rounded-lg border border-[#28466B] bg-card px-4 py-3 text-[#F8FAFC] outline-none focus:border-[#0E5FD8] disabled:cursor-not-allowed disabled:opacity-60"
+              className="w-full rounded-lg border border-border bg-card px-4 py-3 text-text outline-none focus:border-[#0E5FD8] disabled:cursor-not-allowed disabled:opacity-60"
             >
               <option value="">
                 {venuesLoading ? "Loading venues..." : "Select venue"}
@@ -382,7 +380,7 @@ const ModalEditSchedule = ({ schedule, onClose, onUpdated }) => {
                 type="button"
                 onClick={onClose}
                 disabled={loading || deleting}
-                className="w-full rounded-xl border border-[#28466B] px-5 py-3 text-sm font-semibold text-[#B8C2D1] transition hover:border-[#3A82FF] hover:text-white active:scale-[0.98] disabled:opacity-50 sm:w-auto"
+                className="w-full rounded-xl border border-border px-5 py-3 text-sm font-semibold text-text-muted transition hover:border-[#3A82FF] hover:text-white active:scale-[0.98] disabled:opacity-50 sm:w-auto"
               >
                 Cancel
               </button>
@@ -390,7 +388,7 @@ const ModalEditSchedule = ({ schedule, onClose, onUpdated }) => {
               <button
                 type="submit"
                 disabled={loading || deleting}
-                className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-[#0E5FD8] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#3A82FF] active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50 sm:w-auto"
+                className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-primary px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#3A82FF] active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50 sm:w-auto"
               >
                 <FaFloppyDisk className="text-xs" />
 

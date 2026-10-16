@@ -276,7 +276,7 @@ const EditMatch = () => {
 
   if (pageLoading) {
     return (
-      <div className="min-h-screen bg-[#07111F] px-4 py-10 text-[#F8FAFC]">
+      <div className="min-h-screen bg-background px-4 py-10 text-text">
         <div className="mx-auto max-w-3xl">
           <Loader />
         </div>
@@ -285,7 +285,7 @@ const EditMatch = () => {
   }
 
   return (
-    <div className="min-h-screen bg-[#07111F] px-4 py-10 text-[#F8FAFC]">
+    <div className="min-h-screen bg-background px-4 py-10 text-text">
       <div className="mx-auto max-w-3xl">
         {/* Header */}
         <PageHero
@@ -295,7 +295,7 @@ const EditMatch = () => {
         />
 
         {/* Main Card */}
-        <div className="rounded-2xl border border-[#28466B] bg-[#0E1D34] p-6 shadow-xl sm:p-8">
+        <div className="rounded-2xl border border-border text-text-muted p-6 shadow-xl sm:p-8">
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* Match Time + Match Schedule Summary */}
             <div className="grid w-full grid-cols-1 gap-6 lg:grid-cols-2">
@@ -312,7 +312,7 @@ const EditMatch = () => {
                   value={formData.matchTime}
                   onChange={handleChange}
                   required
-                  className="w-full rounded-lg border border-[#28466B] bg-card px-4 py-3 text-[#F8FAFC] outline-none focus:border-[#0E5FD8]"
+                  className="w-full rounded-lg border border-border bg-card px-4 py-3 text-text outline-none focus:border-[#0E5FD8]"
                 >
                   <option value="">Select match time</option>
                   <option value="30">30 Minutes</option>
@@ -326,7 +326,7 @@ const EditMatch = () => {
                 <label className="mb-2 block text-sm font-medium">
                   Select Match
                 </label>
-                <div className="w-full rounded-lg border border-[#28466B] bg-card/60 px-4 py-3 text-[#B8C2D1] opacity-80 cursor-not-allowed">
+                <div className="w-full rounded-lg border border-border bg-card/60 px-4 py-3 text-text-muted opacity-80 cursor-not-allowed">
                   {schedule?.date
                     ? new Date(schedule.date).toLocaleDateString("en-GB", {
                         day: "2-digit",
@@ -343,8 +343,8 @@ const EditMatch = () => {
             {/* Match Format & Type Badges */}
             <div className="grid grid-cols-2 gap-6">
               {schedule?.matchFormat && (
-                <div className="rounded-lg border border-[#28466B] bg-card px-4 py-3 text-center">
-                  <span className="text-sm text-[#B8C2D1]">Match Format</span>
+                <div className="rounded-lg border border-border bg-card px-4 py-3 text-center">
+                  <span className="text-sm text-text-muted">Match Format</span>
                   <div className="text-lg font-bold text-secondary">
                     {schedule.matchFormat} V {schedule.matchFormat}
                   </div>
@@ -352,8 +352,8 @@ const EditMatch = () => {
               )}
 
               {schedule?.matchType && (
-                <div className="rounded-lg border border-[#28466B] bg-card px-4 py-3 text-center">
-                  <span className="text-sm text-[#B8C2D1]">Match Type</span>
+                <div className="rounded-lg border border-border bg-card px-4 py-3 text-center">
+                  <span className="text-sm text-text-muted">Match Type</span>
                   <div className="text-lg font-bold text-secondary">
                     {schedule.matchType.charAt(0).toUpperCase() +
                       schedule.matchType.slice(1)}{" "}
@@ -393,7 +393,7 @@ const EditMatch = () => {
                               )
                             }
                             required
-                            className="w-full rounded-lg border border-[#28466B] bg-card px-4 py-3 text-[#F8FAFC] outline-none focus:border-[#0E5FD8]"
+                            className="w-full rounded-lg border border-border bg-card px-4 py-3 text-text outline-none focus:border-[#0E5FD8]"
                           >
                             <option value="">Select player</option>
                             {homeTeamPlayers
@@ -435,7 +435,7 @@ const EditMatch = () => {
                               e.target.value,
                             )
                           }
-                          className="w-full rounded-lg border border-[#28466B] bg-card px-4 py-3 text-[#F8FAFC] outline-none focus:border-[#0E5FD8]"
+                          className="w-full rounded-lg border border-border bg-card px-4 py-3 text-text outline-none focus:border-[#0E5FD8]"
                         >
                           <option value="">Select substitute</option>
                           {homeTeamPlayers
@@ -484,7 +484,7 @@ const EditMatch = () => {
                               )
                             }
                             required
-                            className="w-full rounded-lg border border-[#28466B] bg-card px-4 py-3 text-[#F8FAFC] outline-none focus:border-[#0E5FD8]"
+                            className="w-full rounded-lg border border-border bg-card px-4 py-3 text-text outline-none focus:border-[#0E5FD8]"
                           >
                             <option value="">Select player</option>
                             {awayTeamPlayers
@@ -526,7 +526,7 @@ const EditMatch = () => {
                               e.target.value,
                             )
                           }
-                          className="w-full rounded-lg border border-[#28466B] bg-card px-4 py-3 text-[#F8FAFC] outline-none focus:border-[#0E5FD8]"
+                          className="w-full rounded-lg border border-border bg-card px-4 py-3 text-text outline-none focus:border-[#0E5FD8]"
                         >
                           <option value="">Select substitute</option>
                           {awayTeamPlayers
@@ -548,7 +548,7 @@ const EditMatch = () => {
               </div>
             </div>
 
-            <div className="border-t border-[#28466B]" />
+            <div className="border-t border-border" />
 
             {/* Action Buttons */}
             <div className="flex flex-col gap-3 sm:flex-row sm:justify-between">
@@ -566,7 +566,7 @@ const EditMatch = () => {
                   type="button"
                   onClick={() => navigate(`/upcoming-matches/${id}`)}
                   disabled={loading || deleting}
-                  className="rounded-xl border border-[#28466B] px-6 py-3 font-semibold text-[#B8C2D1] transition hover:border-[#3A82FF] hover:text-white disabled:opacity-50"
+                  className="rounded-xl border border-border px-6 py-3 font-semibold text-text-muted transition hover:border-[#3A82FF] hover:text-white disabled:opacity-50"
                 >
                   Cancel
                 </button>
@@ -574,7 +574,7 @@ const EditMatch = () => {
                 <button
                   type="submit"
                   disabled={loading || deleting}
-                  className="rounded-xl bg-[#0E5FD8] px-6 py-3 font-semibold text-white transition hover:bg-[#3A82FF] disabled:cursor-not-allowed disabled:opacity-60"
+                  className="rounded-xl bg-primary px-6 py-3 font-semibold text-white transition hover:bg-[#3A82FF] disabled:cursor-not-allowed disabled:opacity-60"
                 >
                   {loading ? "Saving Changes..." : "Save Lineup"}
                 </button>
@@ -587,7 +587,7 @@ const EditMatch = () => {
             <div
               className={`mt-6 rounded-xl border px-4 py-3 text-sm ${
                 message.includes("successfully")
-                  ? "border-[#49C85A]/30 bg-[#49C85A]/10 text-[#49C85A]"
+                  ? "border-secondary/30 bg-[#49C85A]/10 text-[#49C85A]"
                   : "border-red-500/30 bg-red-500/10 text-red-400"
               }`}
             >

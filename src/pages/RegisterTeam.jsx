@@ -64,7 +64,7 @@ const RegisterTeam = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#07111F] px-4 py-10 text-[#F8FAFC]">
+    <div className="min-h-screen bg-background px-4 py-10 text-text">
       <div className="mx-auto max-w-3xl">
         {/* Header */}
         <PageHero
@@ -74,7 +74,7 @@ const RegisterTeam = () => {
         />
 
         {/* Form */}
-        <div className="rounded-2xl border border-[#28466B] bg-[#0E1D34] p-6 shadow-2xl md:p-8">
+        <div className="rounded-2xl border border-border text-text-muted p-6 shadow-2xl md:p-8">
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* Team Name */}
             <div>
@@ -89,7 +89,7 @@ const RegisterTeam = () => {
                 value={formData.name}
                 onChange={handleChange}
                 required
-                className="w-full rounded-lg border border-[#28466B] bg-card px-4 py-3 text-[#F8FAFC] outline-none placeholder:text-[#718096] focus:border-[#0E5FD8]"
+                className="w-full rounded-lg border border-border bg-card px-4 py-3 text-text outline-none placeholder:text-[#718096] focus:border-[#0E5FD8]"
               />
             </div>
 
@@ -107,7 +107,7 @@ const RegisterTeam = () => {
                 onChange={handleChange}
                 maxLength="5"
                 required
-                className="w-full rounded-lg border border-[#28466B] bg-card px-4 py-3 uppercase text-[#F8FAFC] outline-none placeholder:text-[#718096] focus:border-[#0E5FD8]"
+                className="w-full rounded-lg border border-border bg-card px-4 py-3 uppercase text-text outline-none placeholder:text-[#718096] focus:border-[#0E5FD8]"
               />
             </div>
 
@@ -125,7 +125,7 @@ const RegisterTeam = () => {
                   value={formData.logoHigh}
                   onChange={handleChange}
                   required
-                  className="w-full rounded-lg border border-[#28466B] bg-card px-4 py-3 text-[#F8FAFC] outline-none placeholder:text-[#718096] focus:border-[#0E5FD8]"
+                  className="w-full rounded-lg border border-border bg-card px-4 py-3 text-text outline-none placeholder:text-[#718096] focus:border-[#0E5FD8]"
                 />
               </div>
 
@@ -141,7 +141,7 @@ const RegisterTeam = () => {
                   value={formData.logoLow}
                   onChange={handleChange}
                   required
-                  className="w-full rounded-lg border border-[#28466B] bg-card px-4 py-3 text-[#F8FAFC] outline-none placeholder:text-[#718096] focus:border-[#0E5FD8]"
+                  className="w-full rounded-lg border border-border bg-card px-4 py-3 text-text outline-none placeholder:text-[#718096] focus:border-[#0E5FD8]"
                 />
               </div>
             </div>
@@ -159,7 +159,7 @@ const RegisterTeam = () => {
                 value={formData.captain}
                 onChange={handleChange}
                 required
-                className="w-full rounded-lg border border-[#28466B] bg-card px-4 py-3 text-[#F8FAFC] outline-none placeholder:text-[#718096] focus:border-[#0E5FD8]"
+                className="w-full rounded-lg border border-border bg-card px-4 py-3 text-text outline-none placeholder:text-[#718096] focus:border-[#0E5FD8]"
               />
             </div>
 
@@ -168,7 +168,7 @@ const RegisterTeam = () => {
               <div
                 className={`rounded-lg border px-4 py-3 text-sm ${
                   message.includes("successfully")
-                    ? "border-[#49C85A]/30 bg-[#49C85A]/10 text-[#49C85A]"
+                    ? "border-secondary/30 bg-[#49C85A]/10 text-[#49C85A]"
                     : "border-red-500/30 bg-red-500/10 text-red-400"
                 }`}
               >
@@ -180,7 +180,7 @@ const RegisterTeam = () => {
             <button
               type="submit"
               disabled={loading}
-              className="w-full rounded-lg bg-[#0E5FD8] px-5 py-3.5 font-semibold text-white transition hover:bg-[#3A82FF] disabled:cursor-not-allowed disabled:opacity-50"
+              className="w-full rounded-lg bg-primary px-5 py-3.5 font-semibold text-white transition hover:bg-[#3A82FF] disabled:cursor-not-allowed disabled:opacity-50"
             >
               {loading ? "Registering Team..." : "Register Team"}
             </button>

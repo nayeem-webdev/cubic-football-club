@@ -73,7 +73,7 @@ export default function Schedule() {
   // ========================================
 
   return (
-    <div className="min-h-screen bg-[#07111F] px-4 py-10 text-[#F8FAFC]">
+    <div className="min-h-screen bg-background px-4 py-10 text-text">
       <div className="mx-auto max-w-7xl">
         {loading && <Loader />}
 
@@ -94,7 +94,7 @@ export default function Schedule() {
             return (
               <article
                 key={item._id || index}
-                className="group relative flex flex-col overflow-hidden rounded-2xl border border-[#28466B] bg-[#061834ac] p-6 shadow-xl transition-all duration-300 hover:-translate-y-1 hover:border-[#3a82ff54] hover:shadow-2xl"
+                className="group relative flex flex-col overflow-hidden rounded-2xl border border-border bg-[#061834ac] p-6 shadow-xl transition-all duration-300 hover:-translate-y-1 hover:border-[#3a82ff54] hover:shadow-2xl"
               >
                 {/* Subtle top accent */}
                 <div className="absolute left-0 right-0 top-0 h-1 bg-linear-to-r from-primary to-accent" />
@@ -108,7 +108,7 @@ export default function Schedule() {
                     </div>
 
                     <div className="min-w-0">
-                      <h3 className="truncate text-base font-bold text-[#F8FAFC] sm:text-lg">
+                      <h3 className="truncate text-base font-bold text-text sm:text-lg">
                         {item.venue?.venue || item.venue || "Unknown Venue"}
                       </h3>
 
@@ -149,7 +149,7 @@ export default function Schedule() {
                 </div>
 
                 {/* Divider */}
-                <div className="mb-5 h-px w-full bg-linear-to-r from-[#28466B] to-transparent" />
+                <div className="mb-5 h-px w-full bg-linear-to-r from-surface to-transparent" />
 
                 {/* ================= MATCH DETAILS ================= */}
                 <div className="mb-6 space-y-3 text-sm">
@@ -157,9 +157,9 @@ export default function Schedule() {
                   <div className="flex items-center gap-3">
                     <FaCalendar className="w-4 shrink-0 text-accent" />
 
-                    <span className="text-[#B8C2D1]">Date:</span>
+                    <span className="text-text-muted">Date:</span>
 
-                    <span className="ml-auto font-semibold text-[#F8FAFC]">
+                    <span className="ml-auto font-semibold text-text">
                       {new Date(item.date).toLocaleDateString("en-GB", {
                         day: "numeric",
                         month: "short",
@@ -172,9 +172,9 @@ export default function Schedule() {
                   <div className="flex items-center gap-3">
                     <FaCalendarCheck className="w-4 shrink-0 text-accent" />
 
-                    <span className="text-[#B8C2D1]">Day:</span>
+                    <span className="text-text-muted">Day:</span>
 
-                    <span className="ml-auto font-semibold text-[#F8FAFC]">
+                    <span className="ml-auto font-semibold text-text">
                       {new Date(item.date).toLocaleDateString("en-US", {
                         weekday: "long",
                       })}
@@ -185,9 +185,9 @@ export default function Schedule() {
                   <div className="flex items-center gap-3">
                     <FaClock className="w-4 shrink-0 text-accent" />
 
-                    <span className="text-[#B8C2D1]">Time:</span>
+                    <span className="text-text-muted">Time:</span>
 
-                    <span className="ml-auto font-semibold text-[#F8FAFC]">
+                    <span className="ml-auto font-semibold text-text">
                       {item.time}
                     </span>
                   </div>
@@ -197,9 +197,9 @@ export default function Schedule() {
                     <div className="flex items-center gap-3">
                       <IoFootball className="w-4 shrink-0 text-accent" />
 
-                      <span className="text-[#B8C2D1]">Format:</span>
+                      <span className="text-text-muted">Format:</span>
 
-                      <span className="ml-auto font-semibold text-[#F8FAFC]">
+                      <span className="ml-auto font-semibold text-text">
                         {item.matchFormat} vs {item.matchFormat}
                       </span>
                     </div>
