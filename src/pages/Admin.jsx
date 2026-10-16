@@ -93,7 +93,7 @@ export default function Admin() {
               <Link
                 key={item.path}
                 to={item.path}
-                className="group rounded-2xl border border-border text-muted p-6 transition duration-300 hover:-translate-y-1 hover:border-[#0E5FD8] hover:bg-card"
+                className="group rounded-2xl border border-border text-text-muted p-6 transition duration-300 hover:-translate-y-1 hover:border-[#0E5FD8] hover:bg-card"
               >
                 <div className="flex items-start gap-4">
                   <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-primary/15 text-secondary transition group-hover:bg-primary group-hover:text-white">
@@ -105,7 +105,7 @@ export default function Admin() {
                       {item.title}
                     </h3>
 
-                    <p className="mt-1 text-sm leading-6 text-muted">
+                    <p className="mt-1 text-sm leading-6 text-text-muted">
                       {item.description}
                     </p>
                   </div>

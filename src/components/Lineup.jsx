@@ -24,7 +24,7 @@ const PlayerRow = ({ player, side, substitute = false }) => {
               className="h-full w-full object-cover"
             />
           ) : (
-            <div className="flex h-full w-full items-center justify-center text-[10px] font-bold text-muted">
+            <div className="flex h-full w-full items-center justify-center text-[10px] font-bold text-text-muted">
               {player?.name?.charAt(0)}
             </div>
           )}
@@ -45,7 +45,7 @@ const PlayerRow = ({ player, side, substitute = false }) => {
         <p className="truncate text-xs lg:text-sm font-semibold text-text">
           {player?.name}
         </p>
-        <p className="mt-0.5 text-[10px] lg:text-xs font-medium uppercase tracking-wider text-muted">
+        <p className="mt-0.5 text-[10px] lg:text-xs font-medium uppercase tracking-wider text-text-muted">
           {player?.position}
         </p>
       </div>
@@ -65,7 +65,7 @@ export const Lineup = ({ match }) => {
     <div className="mt-4">
       {/* STARTING PLAYERS */}
       <div className="mb-4 flex items-center justify-center">
-        <span className="rounded-full bg-background px-3 py-1 text-[9px] font-bold uppercase tracking-[0.15em] text-muted/80">
+        <span className="rounded-full bg-background px-3 py-1 text-[9px] font-bold uppercase tracking-[0.15em] text-text-muted/80">
           Starting Players
         </span>
       </div>
@@ -90,7 +90,7 @@ export const Lineup = ({ match }) => {
       {(homeSubs.length > 0 || awaySubs.length > 0) && (
         <div className="mt-4 border-t border-border pt-4">
           <div className="mb-3 flex items-center justify-center">
-            <span className="rounded-full bg-background px-3 py-1 text-[9px] font-bold uppercase tracking-[0.15em] text-muted/40">
+            <span className="rounded-full bg-background px-3 py-1 text-[9px] font-bold uppercase tracking-[0.15em] text-text-muted/40">
               Substitutes
             </span>
           </div>

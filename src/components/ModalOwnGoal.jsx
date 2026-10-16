@@ -60,7 +60,7 @@ const ModalOwnGoal = ({
 
           <button
             onClick={closeOwnGoalModal}
-            className="flex h-10 w-10 items-center justify-center rounded-full text-muted transition-all hover:bg-surface hover:text-text"
+            className="flex h-10 w-10 items-center justify-center rounded-full text-text-muted transition-all hover:bg-surface hover:text-text"
           >
             <X size={20} />
           </button>
@@ -90,7 +90,7 @@ const ModalOwnGoal = ({
                         ? "bg-primary text-white"
                         : isCompleted
                           ? "bg-[#49C85A] text-white"
-                          : "text-muted text-muted"
+                          : "text-text-muted text-text-muted"
                     }`}
                   >
                     {index + 1}
@@ -122,7 +122,7 @@ const ModalOwnGoal = ({
                 Which team conceded the own goal?
               </h3>
 
-              <p className="mt-1 text-sm text-muted">
+              <p className="mt-1 text-sm text-text-muted">
                 Select the team whose player scored the own goal.
               </p>
 
@@ -133,7 +133,7 @@ const ModalOwnGoal = ({
                   className={`flex cursor-pointer items-center justify-between rounded-2xl border p-4 transition-all ${
                     ownGoalData.team === "home"
                       ? "border-secondary bg-[#49C85A]/10"
-                      : "border-border text-muted hover:border-secondary"
+                      : "border-border text-text-muted hover:border-secondary"
                   }`}
                 >
                   <div className="flex items-center gap-4">
@@ -141,7 +141,7 @@ const ModalOwnGoal = ({
                       <img src={selectedMatch.homeTeam.logoLow} alt="" />
                     </div>
                     <div>
-                      <p className="text-xs text-muted">HOME TEAM</p>
+                      <p className="text-xs text-text-muted">HOME TEAM</p>
 
                       <p className="mt-1 font-semibold text-text">
                         {selectedMatch.homeTeam.name}
@@ -173,7 +173,7 @@ const ModalOwnGoal = ({
                   className={`flex cursor-pointer items-center justify-between rounded-2xl border p-4 transition-all ${
                     ownGoalData.team === "away"
                       ? "border-secondary bg-[#49C85A]/10"
-                      : "border-border text-muted hover:border-secondary"
+                      : "border-border text-text-muted hover:border-secondary"
                   }`}
                 >
                   <div className="flex items-center gap-4">
@@ -181,7 +181,7 @@ const ModalOwnGoal = ({
                       <img src={selectedMatch.awayTeam.logoLow} alt="" />
                     </div>
                     <div>
-                      <p className="text-xs text-muted">AWAY TEAM</p>
+                      <p className="text-xs text-text-muted">AWAY TEAM</p>
 
                       <p className="mt-1 font-semibold text-text">
                         {selectedMatch.awayTeam.name}
@@ -218,7 +218,7 @@ const ModalOwnGoal = ({
                 Who scored the own goal?
               </h3>
 
-              <p className="mt-1 text-sm text-muted">
+              <p className="mt-1 text-sm text-text-muted">
                 Select the player who accidentally scored into their own net.
               </p>
 
@@ -229,7 +229,7 @@ const ModalOwnGoal = ({
                     className={`flex cursor-pointer items-center justify-between rounded-xl border px-4 py-3 transition-all ${
                       ownGoalData.scorer === player._id
                         ? "border-secondary bg-[#49C85A]/10"
-                        : "border-border text-muted hover:border-secondary/60"
+                        : "border-border text-text-muted hover:border-secondary/60"
                     }`}
                   >
                     <div className="flex items-center gap-3">
@@ -271,7 +271,7 @@ const ModalOwnGoal = ({
               <div className="mt-8 flex items-center justify-between">
                 <button
                   onClick={() => setOwnGoalStep("team")}
-                  className="flex items-center gap-2 rounded-xl px-4 py-3 text-sm font-medium text-muted transition hover:text-muted hover:text-text"
+                  className="flex items-center gap-2 rounded-xl px-4 py-3 text-sm font-medium text-text-muted transition hover:text-text-muted hover:text-text"
                 >
                   <ChevronLeft size={18} />
                   Back

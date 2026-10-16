@@ -25,7 +25,7 @@ const MatchTimeline = ({ selectedMatch }) => {
   );
 
   return (
-    <div className="mt-5 rounded-2xl border border-border text-muted p-4">
+    <div className="mt-5 rounded-2xl border border-border text-text-muted p-4">
       {/* ========================================= */}
       {/* HEADER */}
       {/* ========================================= */}
@@ -35,7 +35,7 @@ const MatchTimeline = ({ selectedMatch }) => {
           Match Timeline
         </h2>
 
-        <span className="text-[10px] font-medium uppercase tracking-wider text-muted/40">
+        <span className="text-[10px] font-medium uppercase tracking-wider text-text-muted/40">
           {events.length} Events
         </span>
       </div>
@@ -161,14 +161,14 @@ const MatchTimeline = ({ selectedMatch }) => {
                           </p>
                         )}
 
-                        <p className="text-[9px] uppercase tracking-wider text-muted/40">
+                        <p className="text-[9px] uppercase tracking-wider text-text-muted/40">
                           {title}
                         </p>
                       </div>
 
                       <span className="shrink-0 text-sm">{icon}</span>
 
-                      <span className="text-[10px] font-bold tabular-nums text-muted">
+                      <span className="text-[10px] font-bold tabular-nums text-text-muted">
                         {eventTime}
                       </span>
                     </div>
@@ -180,7 +180,7 @@ const MatchTimeline = ({ selectedMatch }) => {
                 {/* ================================= */}
 
                 <div className="relative z-10 flex justify-center">
-                  <div className="h-2 w-2 rounded-full border-2 border-secondary text-muted" />
+                  <div className="h-2 w-2 rounded-full border-2 border-secondary text-text-muted" />
                 </div>
 
                 {/* ================================= */}
@@ -190,7 +190,7 @@ const MatchTimeline = ({ selectedMatch }) => {
                 <div className="pl-3">
                   {!isHome && (
                     <div className="flex items-center gap-2">
-                      <span className="text-[10px] font-bold tabular-nums text-muted">
+                      <span className="text-[10px] font-bold tabular-nums text-text-muted">
                         {eventTime}
                       </span>
 
@@ -207,7 +207,7 @@ const MatchTimeline = ({ selectedMatch }) => {
                           </p>
                         )}
 
-                        <p className="text-[9px] uppercase tracking-wider text-muted/40">
+                        <p className="text-[9px] uppercase tracking-wider text-text-muted/40">
                           {title}
                         </p>
                       </div>
@@ -226,7 +226,7 @@ const MatchTimeline = ({ selectedMatch }) => {
 
       {events.length === 0 && (
         <div className="py-8 text-center">
-          <p className="text-sm text-muted/50">No match events yet</p>
+          <p className="text-sm text-text-muted/50">No match events yet</p>
         </div>
       )}
     </div>

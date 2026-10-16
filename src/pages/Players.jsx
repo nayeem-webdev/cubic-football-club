@@ -192,7 +192,7 @@ export default function Players() {
               </div>
 
               {/* Visible on screens up to md, hidden on lg+ */}
-              <div className="lg:hidden text-muted hover:text-white transition">
+              <div className="lg:hidden text-text-muted hover:text-white transition">
                 {showFilters ? <X size={20} /> : <ChevronDown size={20} />}
               </div>
             </button>
@@ -211,7 +211,7 @@ export default function Players() {
                   <div className="relative">
                     <Search
                       size={18}
-                      className="absolute left-3 top-1/2 -translate-y-1/2 text-muted"
+                      className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted"
                     />
 
                     <input
@@ -343,7 +343,7 @@ export default function Players() {
                     className="w-full cursor-pointer accent-secondary"
                   />
 
-                  <div className="flex justify-between text-xs text-muted mt-2">
+                  <div className="flex justify-between text-xs text-text-muted mt-2">
                     <span>0</span>
                     <span>{maxGoals}</span>
                   </div>
@@ -369,7 +369,7 @@ export default function Players() {
                     className="w-full cursor-pointer accent-secondary"
                   />
 
-                  <div className="flex justify-between text-xs text-muted mt-2">
+                  <div className="flex justify-between text-xs text-text-muted mt-2">
                     <span>0</span>
                     <span>{maxScore}</span>
                   </div>
@@ -381,7 +381,7 @@ export default function Players() {
           {/* Cards Display */}
           <div className="flex-1">
             {filteredPlayers.length === 0 ? (
-              <div className="text-center py-12 text-gray-400">
+              <div className="text-center py-12 text-text-muted">
                 No players found matching your criteria.
               </div>
             ) : (

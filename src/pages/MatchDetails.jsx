@@ -94,7 +94,7 @@ const TeamPanel = ({ team, players = [], substitutes = [], side = "home" }) => {
     <div
       className={`group relative flex min-w-0 flex-col rounded-lg border px-3.25 pb-3.25 pt-3.5 backdrop-blur-xl ${
         isHome
-          ? "border-[#247DFF]/70 bg-[linear-gradient(145deg,rgba(14,95,216,0.30),rgba(5,18,42,0.48)_48%,rgba(2,8,23,0.60))] shadow-[inset_0_1px_0_rgba(255,255,255,0.16),inset_0_0_35px_rgba(14,95,216,0.16),0_0_20px_rgba(14,95,216,0.12)]"
+          ? "border-secondary/70 bg-[linear-gradient(145deg,rgba(14,95,216,0.30),rgba(5,18,42,0.48)_48%,rgba(2,8,23,0.60))] shadow-[inset_0_1px_0_rgba(255,255,255,0.16),inset_0_0_35px_rgba(14,95,216,0.16),0_0_20px_rgba(14,95,216,0.12)]"
           : "border-accent/70 bg-[linear-gradient(145deg,rgba(73,200,90,0.24),rgba(20,70,28,0.42)_48%,rgba(2,8,23,0.60))] shadow-[inset_0_1px_0_rgba(255,255,255,0.16),inset_0_0_35px_rgba(73,200,90,0.13),0_0_20px_rgba(73,200,90,0.10)]"
       }`}
     >
@@ -102,7 +102,7 @@ const TeamPanel = ({ team, players = [], substitutes = [], side = "home" }) => {
       <div
         className={`pointer-events-none absolute left-0 right-0 top-0 h-0.5 ${
           isHome
-            ? "bg-linear-to-r from-transparent via-[#247DFF] to-transparent"
+            ? "bg-linear-to-r from-transparent via-secondary to-transparent"
             : "bg-linear-to-r from-transparent via-accent to-transparent"
         }`}
       />
@@ -121,7 +121,7 @@ const TeamPanel = ({ team, players = [], substitutes = [], side = "home" }) => {
     clip-path-[polygon(12%_0%,_88%_0%,_100%_50%,_88%_100%,_12%_100%,_0%_50%)] outline-3 outline-offset-[-6px]
     ${
       isHome
-        ? "outline-[#247DFF] bg-[#071A38] shadow-[0_0_14px_rgba(14,95,216,0.20)]"
+        ? "outline-secondary bg-[#071A38] shadow-[0_0_14px_rgba(14,95,216,0.20)]"
         : "outline-accent bg-[#082b19] shadow-[0_0_14px_rgba(212,175,55,0.16)]"
     }`}
       >
@@ -134,7 +134,7 @@ const TeamPanel = ({ team, players = [], substitutes = [], side = "home" }) => {
           src={team?.logoLow}
           alt={team?.name || "Team"}
           crossOrigin="anonymous"
-          className="relative z-[1] h-full w-full object-contain drop-shadow-[0_4px_8px_rgba(0,0,0,0.45)]"
+          className="relative z-1 h-full w-full object-contain drop-shadow-[0_4px_8px_rgba(0,0,0,0.45)]"
         />
       </div>
 
@@ -147,8 +147,8 @@ const TeamPanel = ({ team, players = [], substitutes = [], side = "home" }) => {
       <div
         className={`mb-1 mt-1 h-px w-full ${
           isHome
-            ? "bg-gradient-to-r from-transparent via-[#247DFF]/60 to-transparent"
-            : "bg-gradient-to-r from-transparent via-accent/60 to-transparent"
+            ? "bg-linear-to-r from-transparent via-secondary/60 to-transparent"
+            : "bg-linear-to-r from-transparent via-accent/60 to-transparent"
         }`}
       />
 
@@ -157,7 +157,7 @@ const TeamPanel = ({ team, players = [], substitutes = [], side = "home" }) => {
         <div
           className={`mt-2.25 rounded-[10px] border p-2 ${
             isHome
-              ? "border-[#247DFF]/20 bg-[#020817]/25"
+              ? "border-secondary/20 bg-[#020817]/25"
               : "border-accent/20 bg-[#020817]/25"
           }`}
         >
@@ -186,9 +186,9 @@ const TeamPanel = ({ team, players = [], substitutes = [], side = "home" }) => {
       {/* SUBSTITUTES */}
       {substitutes.length > 0 && (
         <div
-          className={`mt-[9px] rounded-[10px] border p-[8px] ${
+          className={`mt-2.25 rounded-[10px] border p-2 ${
             isHome
-              ? "border-[#247DFF]/20 bg-[#020817]/25"
+              ? "border-secondary/20 bg-[#020817]/25"
               : "border-accent/20 bg-[#020817]/25"
           }`}
         >
@@ -415,10 +415,10 @@ const MatchDetails = () => {
   if (error || !match) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-[#020817] px-4 text-white">
-        <div className="rounded-xl border border-white/10 text-muted p-8 text-center">
+        <div className="rounded-xl border border-white/10 text-text-muted p-8 text-center">
           <h2 className="text-lg font-bold">Match unavailable</h2>
 
-          <p className="mt-2 text-sm text-muted">
+          <p className="mt-2 text-sm text-text-muted">
             {error || "Match not found"}
           </p>
 
@@ -528,7 +528,7 @@ const MatchDetails = () => {
                   {/* Ambient gold glow */}
                   <div className="absolute inset-3 rounded-full bg-accent/20 blur-2xl" />
 
-                  {/* Subtle blue glow */}
+                  {/* Subtle glow */}
                   <div className="absolute inset-5 rounded-full bg-primary/20 blur-xl" />
 
                   <img
@@ -538,14 +538,12 @@ const MatchDetails = () => {
                       relative z-10
                       h-full w-full
                       object-contain
-                      drop-shadow-[0_0_10px_rgba(212,175,55,0.25)]
-                      drop-shadow-[0_8px_18px_rgba(0,0,0,0.35)]
                     "
                   />
                 </div>
 
                 {/* Vertical divider */}
-                <div className="h-20 w-px bg-gradient-to-b from-transparent via-accent/60 to-transparent" />
+                <div className="h-20 w-px bg-linear-to-b from-transparent via-accent/60 to-transparent" />
 
                 {/* Match Information */}
                 <div className="min-w-0 text-left flex items-center flex-col">

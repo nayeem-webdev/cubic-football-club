@@ -136,7 +136,7 @@ const RegisterPlayer = () => {
         />
 
         {/* Form Card */}
-        <div className="rounded-2xl border border-border text-muted p-6 shadow-2xl md:p-8">
+        <div className="rounded-2xl border border-border text-text-muted p-6 shadow-2xl md:p-8">
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* Player Name */}
             <div>
@@ -269,7 +269,7 @@ const RegisterPlayer = () => {
                 className="w-full rounded-lg border border-border bg-card px-4 py-3 text-text outline-none placeholder:text-[#718096] focus:border-[#0E5FD8]"
               />
 
-              <p className="mt-2 text-xs text-muted">
+              <p className="mt-2 text-xs text-text-muted">
                 Paste a publicly accessible image URL.
               </p>
             </div>

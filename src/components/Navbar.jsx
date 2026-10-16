@@ -26,7 +26,7 @@ export default function FloatingNavbar() {
             href={href}
             aria-label={label}
             title={label}
-            className="group relative flex h-10 w-10 items-center justify-center rounded-full text-muted transition-all duration-300 hover:scale-110 hover:bg-primary/10 hover:text-secondary lg:h-12 lg:w-12"
+            className="group relative flex h-10 w-10 items-center justify-center rounded-full text-text-muted transition-all duration-300 hover:scale-110 hover:bg-primary/10 hover:text-secondary lg:h-12 lg:w-12"
           >
             <Icon
               size={18}

@@ -66,7 +66,7 @@ const ScheduleCard = ({ schedule }) => {
               ? "border-accent/40 bg-accent/15 text-accent"
               : status === "upcoming"
                 ? "border-secondary/40 bg-secondary/15 text-secondary"
-                : "border-gray-400/40 bg-gray-400/15 text-gray-400"
+                : "border-gray-400/40 bg-gray-400/15 text-text-muted"
           }`}
         >
           <span
@@ -96,7 +96,7 @@ const ScheduleCard = ({ schedule }) => {
         <div className="flex items-center gap-3">
           <FaCalendar className="w-4 shrink-0 text-secondary" />
 
-          <span className="text-muted">Date:</span>
+          <span className="text-text-muted">Date:</span>
 
           <span className="ml-auto font-semibold text-text">
             {new Date(schedule.date).toLocaleDateString("en-GB", {
@@ -111,7 +111,7 @@ const ScheduleCard = ({ schedule }) => {
         <div className="flex items-center gap-3">
           <FaCalendarCheck className="w-4 shrink-0 text-secondary" />
 
-          <span className="text-muted">Day:</span>
+          <span className="text-text-muted">Day:</span>
 
           <span className="ml-auto font-semibold text-text">
             {new Date(schedule.date).toLocaleDateString("en-US", {
@@ -124,7 +124,7 @@ const ScheduleCard = ({ schedule }) => {
         <div className="flex items-center gap-3">
           <FaClock className="w-4 shrink-0 text-secondary" />
 
-          <span className="text-muted">Time:</span>
+          <span className="text-text-muted">Time:</span>
 
           <span className="ml-auto font-semibold text-text">
             {schedule.time}
@@ -136,7 +136,7 @@ const ScheduleCard = ({ schedule }) => {
           <div className="flex items-center gap-3">
             <FaUserGroup className="w-4 shrink-0 text-secondary" />
 
-            <span className="text-muted">Format:</span>
+            <span className="text-text-muted">Format:</span>
 
             <span className="ml-auto font-semibold text-text">
               {schedule.matchFormat} vs {schedule.matchFormat}

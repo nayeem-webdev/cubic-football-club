@@ -281,7 +281,7 @@ export default function ModalEdit({
 
     return (
       <div>
-        <label className="mb-1.5 block text-xs font-semibold text-muted">
+        <label className="mb-1.5 block text-xs font-semibold text-text-muted">
           {label}
         </label>
 
@@ -314,7 +314,7 @@ export default function ModalEdit({
       <div className="space-y-4">
         {/* EVENT TYPE - READ ONLY */}
         <div>
-          <label className="mb-1.5 block text-xs font-semibold text-muted">
+          <label className="mb-1.5 block text-xs font-semibold text-text-muted">
             Event Type
           </label>
 
@@ -329,7 +329,7 @@ export default function ModalEdit({
 
         {/* TEAM */}
         <div>
-          <label className="mb-1.5 block text-xs font-semibold text-muted">
+          <label className="mb-1.5 block text-xs font-semibold text-text-muted">
             Team
           </label>
 
@@ -392,7 +392,7 @@ export default function ModalEdit({
             })}
 
             <div>
-              <label className="mb-1.5 block text-xs font-semibold text-muted">
+              <label className="mb-1.5 block text-xs font-semibold text-text-muted">
                 Card
               </label>
 
@@ -430,7 +430,7 @@ export default function ModalEdit({
 
         {/* TIME */}
         <div>
-          <label className="mb-1.5 block text-xs font-semibold text-muted">
+          <label className="mb-1.5 block text-xs font-semibold text-text-muted">
             Time (seconds)
           </label>
 
@@ -447,7 +447,7 @@ export default function ModalEdit({
             className="w-full rounded-lg border border-border bg-background px-3 py-2.5 text-sm text-text outline-none transition focus:border-[#0E5FD8]"
           />
 
-          <p className="mt-1 text-[10px] text-muted/50">
+          <p className="mt-1 text-[10px] text-text-muted/50">
             Display time: {formatEventTime(Number(editData.time) || 0)}
           </p>
         </div>
@@ -457,7 +457,7 @@ export default function ModalEdit({
           <button
             type="button"
             onClick={handleCancelEdit}
-            className="flex-1 rounded-lg border border-border bg-background px-4 py-2.5 text-xs font-bold text-muted transition hover:border-secondary hover:text-white"
+            className="flex-1 rounded-lg border border-border bg-background px-4 py-2.5 text-xs font-bold text-text-muted transition hover:border-secondary hover:text-white"
           >
             Cancel
           </button>
@@ -476,13 +476,13 @@ export default function ModalEdit({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4 backdrop-blur-sm">
-      <div className="max-h-[90vh] w-full max-w-2xl overflow-hidden rounded-2xl border border-border text-muted shadow-2xl">
+      <div className="max-h-[90vh] w-full max-w-2xl overflow-hidden rounded-2xl border border-border text-text-muted shadow-2xl">
         {/* HEADER */}
         <div className="flex items-center justify-between border-b border-border px-5 py-4">
           <div>
             <h2 className="text-base font-bold text-text">Edit Match Events</h2>
 
-            <p className="mt-0.5 text-[10px] uppercase tracking-wider text-muted/50">
+            <p className="mt-0.5 text-[10px] uppercase tracking-wider text-text-muted/50">
               {selectedMatch.homeTeam.name} vs {selectedMatch.awayTeam.name}
             </p>
           </div>
@@ -490,7 +490,7 @@ export default function ModalEdit({
           <button
             type="button"
             onClick={closeEditEventsModal}
-            className="flex h-8 w-8 items-center justify-center rounded-lg border border-border bg-background text-muted transition hover:border-red-500/50 hover:text-red-400"
+            className="flex h-8 w-8 items-center justify-center rounded-lg border border-border bg-background text-text-muted transition hover:border-red-500/50 hover:text-red-400"
           >
             ✕
           </button>
@@ -506,7 +506,7 @@ export default function ModalEdit({
                 No events yet
               </p>
 
-              <p className="mt-1 text-xs text-muted/50">
+              <p className="mt-1 text-xs text-text-muted/50">
                 Goals, penalties, cards and substitutions will appear here.
               </p>
             </div>
@@ -547,14 +547,14 @@ export default function ModalEdit({
 
                               {/* GOAL */}
                               {event.type === "goal" && (
-                                <div className="mt-1 text-xs text-muted">
+                                <div className="mt-1 text-xs text-text-muted">
                                   <span className="font-semibold text-white">
                                     {getPlayerName(event.scorer)}
                                   </span>
 
                                   {event.assister && (
                                     <>
-                                      <span className="mx-1 text-muted/40">
+                                      <span className="mx-1 text-text-muted/40">
                                         assisted by
                                       </span>
 
@@ -568,7 +568,7 @@ export default function ModalEdit({
 
                               {/* PENALTY */}
                               {event.type === "penalty" && (
-                                <div className="mt-1 text-xs text-muted">
+                                <div className="mt-1 text-xs text-text-muted">
                                   Scorer:{" "}
                                   <span className="font-semibold text-white">
                                     {getPlayerName(event.scorer)}
@@ -578,7 +578,7 @@ export default function ModalEdit({
 
                               {/* OWN GOAL */}
                               {event.type === "ownGoal" && (
-                                <div className="mt-1 text-xs text-muted">
+                                <div className="mt-1 text-xs text-text-muted">
                                   Scorer:{" "}
                                   <span className="font-semibold text-white">
                                     {getPlayerName(event.scorer)}
@@ -588,12 +588,14 @@ export default function ModalEdit({
 
                               {/* CARD */}
                               {event.type === "card" && (
-                                <div className="mt-1 text-xs text-muted">
+                                <div className="mt-1 text-xs text-text-muted">
                                   <span className="font-semibold text-white">
                                     {getPlayerName(event.player)}
                                   </span>
 
-                                  <span className="mx-1 text-muted/40">•</span>
+                                  <span className="mx-1 text-text-muted/40">
+                                    •
+                                  </span>
 
                                   <span
                                     className={
@@ -611,12 +613,14 @@ export default function ModalEdit({
 
                               {/* SUBSTITUTION */}
                               {event.type === "substitution" && (
-                                <div className="mt-1 text-xs text-muted">
+                                <div className="mt-1 text-xs text-text-muted">
                                   <span className="font-semibold text-red-400">
                                     {getPlayerName(event.playerOut)}
                                   </span>
 
-                                  <span className="mx-2 text-muted/40">→</span>
+                                  <span className="mx-2 text-text-muted/40">
+                                    →
+                                  </span>
 
                                   <span className="font-semibold text-[#49C85A]">
                                     {getPlayerName(event.playerIn)}

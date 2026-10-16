@@ -60,7 +60,7 @@ const ModalCard = ({
 
           <button
             onClick={closeCardModal}
-            className="flex h-10 w-10 items-center justify-center rounded-full text-muted transition-all hover:bg-surface hover:text-text"
+            className="flex h-10 w-10 items-center justify-center rounded-full text-text-muted transition-all hover:bg-surface hover:text-text"
           >
             <X size={20} />
           </button>
@@ -90,7 +90,7 @@ const ModalCard = ({
                         ? "bg-primary text-white"
                         : isCompleted
                           ? "bg-[#49C85A] text-white"
-                          : "text-muted "
+                          : "text-text-muted "
                     }`}
                   >
                     {index + 1}
@@ -129,7 +129,7 @@ const ModalCard = ({
                   className={`flex cursor-pointer items-center justify-between rounded-2xl border p-4 transition-all ${
                     cardData.team === "home"
                       ? "border-[#0E5FD8] bg-primary/10"
-                      : "border-border text-muted hover:border-[#3A82FF]"
+                      : "border-border text-text-muted hover:border-[#3A82FF]"
                   }`}
                 >
                   <div className="flex items-center gap-4">
@@ -137,7 +137,7 @@ const ModalCard = ({
                       <img src={selectedMatch.homeTeam.logoLow} alt="" />
                     </div>
                     <div>
-                      <p className="text-xs text-muted">HOME TEAM</p>
+                      <p className="text-xs text-text-muted">HOME TEAM</p>
 
                       <p className="mt-1 font-semibold text-text">
                         {selectedMatch.homeTeam.name}
@@ -170,7 +170,7 @@ const ModalCard = ({
                   className={`flex cursor-pointer items-center justify-between rounded-2xl border p-4 transition-all ${
                     cardData.team === "away"
                       ? "border-[#0E5FD8] bg-primary/10"
-                      : "border-border text-muted hover:border-[#3A82FF]"
+                      : "border-border text-text-muted hover:border-[#3A82FF]"
                   }`}
                 >
                   <div className="flex items-center gap-4">
@@ -178,7 +178,7 @@ const ModalCard = ({
                       <img src={selectedMatch.awayTeam.logoLow} alt="" />
                     </div>
                     <div>
-                      <p className="text-xs text-muted">AWAY TEAM</p>
+                      <p className="text-xs text-text-muted">AWAY TEAM</p>
 
                       <p className="mt-1 font-semibold text-text">
                         {selectedMatch.awayTeam.name}
@@ -223,7 +223,7 @@ const ModalCard = ({
                   className={`flex cursor-pointer items-center justify-between rounded-2xl border p-4 transition-all ${
                     cardData.card === "yellow"
                       ? "border-[#D4AF37] bg-[#D4AF37]/10"
-                      : "border-border text-muted hover:border-[#D4AF37]/60"
+                      : "border-border text-text-muted hover:border-[#D4AF37]/60"
                   }`}
                 >
                   <div className="flex items-center gap-3">
@@ -232,7 +232,7 @@ const ModalCard = ({
                     <div>
                       <p className="font-semibold text-text">Yellow Card</p>
 
-                      <p className="text-xs text-muted">Caution</p>
+                      <p className="text-xs text-text-muted">Caution</p>
                     </div>
                   </div>
 
@@ -260,7 +260,7 @@ const ModalCard = ({
                   className={`flex cursor-pointer items-center justify-between rounded-2xl border p-4 transition-all ${
                     cardData.card === "red"
                       ? "border-[#EF4444] bg-[#EF4444]/10"
-                      : "border-border text-muted hover:border-[#EF4444]/60"
+                      : "border-border text-text-muted hover:border-[#EF4444]/60"
                   }`}
                 >
                   <div className="flex items-center gap-3">
@@ -269,7 +269,7 @@ const ModalCard = ({
                     <div>
                       <p className="font-semibold text-text">Red Card</p>
 
-                      <p className="text-xs text-muted">Sending off</p>
+                      <p className="text-xs text-text-muted">Sending off</p>
                     </div>
                   </div>
 
@@ -295,7 +295,7 @@ const ModalCard = ({
               <div className="mt-8">
                 <button
                   onClick={() => setCardStep("team")}
-                  className="flex items-center gap-2 rounded-xl px-4 py-3 text-sm font-medium text-muted transition  hover:text-text"
+                  className="flex items-center gap-2 rounded-xl px-4 py-3 text-sm font-medium text-text-muted transition  hover:text-text"
                 >
                   <ChevronLeft size={18} />
                   Back
@@ -321,7 +321,7 @@ const ModalCard = ({
                         ? cardData.card === "red"
                           ? "border-[#EF4444] bg-[#EF4444]/10"
                           : "border-[#D4AF37] bg-[#D4AF37]/10"
-                        : "border-border text-muted hover:border-[#D4AF37]/60"
+                        : "border-border text-text-muted hover:border-[#D4AF37]/60"
                     }`}
                   >
                     <div className="flex items-center gap-3">
@@ -367,7 +367,7 @@ const ModalCard = ({
               <div className="mt-8 flex items-center justify-between">
                 <button
                   onClick={() => setCardStep("card")}
-                  className="flex items-center gap-2 rounded-xl px-4 py-3 text-sm font-medium text-muted transition  hover:text-text"
+                  className="flex items-center gap-2 rounded-xl px-4 py-3 text-sm font-medium text-text-muted transition  hover:text-text"
                 >
                   <ChevronLeft size={18} />
                   Back

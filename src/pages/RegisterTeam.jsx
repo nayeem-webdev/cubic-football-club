@@ -74,7 +74,7 @@ const RegisterTeam = () => {
         />
 
         {/* Form */}
-        <div className="rounded-2xl border border-border text-muted p-6 shadow-2xl md:p-8">
+        <div className="rounded-2xl border border-border text-text-muted p-6 shadow-2xl md:p-8">
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* Team Name */}
             <div>

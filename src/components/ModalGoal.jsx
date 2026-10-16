@@ -65,7 +65,7 @@ const ModalGoal = ({
 
           <button
             onClick={closeGoalModal}
-            className="flex h-10 w-10 items-center justify-center rounded-full text-muted transition-all hover:bg-surface hover:text-text"
+            className="flex h-10 w-10 items-center justify-center rounded-full text-text-muted transition-all hover:bg-surface hover:text-text"
           >
             <X size={20} />
           </button>
@@ -95,7 +95,7 @@ const ModalGoal = ({
                         ? "bg-primary text-white"
                         : isCompleted
                           ? "bg-[#49C85A] text-white"
-                          : "text-muted text-muted"
+                          : "text-text-muted text-text-muted"
                     }`}
                   >
                     {index + 1}
@@ -134,7 +134,7 @@ const ModalGoal = ({
                   className={`flex cursor-pointer items-center justify-between rounded-2xl border p-4 transition-all ${
                     goalData.team === "home"
                       ? "border-[#0E5FD8] bg-primary/10"
-                      : "border-border text-muted hover:border-secondary"
+                      : "border-border text-text-muted hover:border-secondary"
                   }`}
                 >
                   <div className="flex items-center gap-4">
@@ -142,7 +142,7 @@ const ModalGoal = ({
                       <img src={selectedMatch.homeTeam.logoLow} alt="" />
                     </div>
                     <div>
-                      <p className="text-xs text-muted">HOME TEAM</p>
+                      <p className="text-xs text-text-muted">HOME TEAM</p>
 
                       <p className="mt-1 font-semibold text-text">
                         {selectedMatch.homeTeam.name}
@@ -175,7 +175,7 @@ const ModalGoal = ({
                   className={`flex cursor-pointer items-center justify-between rounded-2xl border p-4 transition-all ${
                     goalData.team === "away"
                       ? "border-[#0E5FD8] bg-primary/10"
-                      : "border-border text-muted hover:border-secondary"
+                      : "border-border text-text-muted hover:border-secondary"
                   }`}
                 >
                   <div className="flex items-center gap-4">
@@ -183,7 +183,7 @@ const ModalGoal = ({
                       <img src={selectedMatch.awayTeam.logoLow} alt="" />
                     </div>
                     <div>
-                      <p className="text-xs text-muted">AWAY TEAM</p>
+                      <p className="text-xs text-text-muted">AWAY TEAM</p>
                       <p className="mt-1 font-semibold text-text">
                         {selectedMatch.awayTeam.name}
                       </p>
@@ -225,7 +225,7 @@ const ModalGoal = ({
                     className={`flex cursor-pointer items-center justify-between rounded-xl border px-4 py-3 transition-all ${
                       goalData.scorer === player._id
                         ? "border-secondary bg-[#49C85A]/10"
-                        : "border-border text-muted hover:border-secondary/60"
+                        : "border-border text-text-muted hover:border-secondary/60"
                     }`}
                   >
                     <div className="flex items-center gap-3">
@@ -267,7 +267,7 @@ const ModalGoal = ({
               <div className="mt-8 flex items-center justify-between">
                 <button
                   onClick={() => setGoalStep("team")}
-                  className="flex items-center gap-2 rounded-xl px-4 py-3 text-sm font-medium text-muted transition hover:text-muted hover:text-text"
+                  className="flex items-center gap-2 rounded-xl px-4 py-3 text-sm font-medium text-text-muted transition hover:text-text-muted hover:text-text"
                 >
                   <ChevronLeft size={18} />
                   Back
@@ -293,7 +293,9 @@ const ModalGoal = ({
                   {scorer?.name}
                 </p>
 
-                <p className="text-sm text-muted">#{scorer?.jerseyNumber}</p>
+                <p className="text-sm text-text-muted">
+                  #{scorer?.jerseyNumber}
+                </p>
               </div>
 
               {/* Action Buttons */}
@@ -301,7 +303,7 @@ const ModalGoal = ({
               <div className="mt-5 grid gap-3">
                 <button
                   onClick={() => setGoalStep("assist")}
-                  className="flex items-center justify-between rounded-2xl border border-border text-muted p-4 text-left transition-all hover:border-accent"
+                  className="flex items-center justify-between rounded-2xl border border-border text-text-muted p-4 text-left transition-all hover:border-accent"
                 >
                   <div className="flex items-center gap-3">
                     <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-accent/10 text-accent">
@@ -311,13 +313,13 @@ const ModalGoal = ({
                     <div>
                       <p className="font-semibold text-text">Add Assist</p>
 
-                      <p className="text-xs text-muted">
+                      <p className="text-xs text-text-muted">
                         Select the assisting player
                       </p>
                     </div>
                   </div>
 
-                  <ChevronRight size={18} className="text-muted" />
+                  <ChevronRight size={18} className="text-text-muted" />
                 </button>
 
                 <button
@@ -330,7 +332,7 @@ const ModalGoal = ({
 
               <button
                 onClick={() => setGoalStep("scorer")}
-                className="mt-5 flex items-center gap-2 text-sm font-medium text-muted transition hover:text-text"
+                className="mt-5 flex items-center gap-2 text-sm font-medium text-text-muted transition hover:text-text"
               >
                 <ChevronLeft size={18} />
                 Change Scorer
@@ -344,7 +346,7 @@ const ModalGoal = ({
             <div>
               <h3 className="text-lg font-bold text-text">Assisted by</h3>
 
-              <p className="mt-1 text-sm text-muted">
+              <p className="mt-1 text-sm text-text-muted">
                 Select the player who provided the assist.
               </p>
 
@@ -355,7 +357,7 @@ const ModalGoal = ({
                   className={`flex cursor-pointer items-center justify-between rounded-xl border px-4 py-3 transition-all ${
                     goalData.assister === ""
                       ? "border-accent bg-accent/10"
-                      : "border-border text-muted"
+                      : "border-border text-text-muted"
                   }`}
                 >
                   <p className="font-medium text-text">No Assist</p>
@@ -385,7 +387,7 @@ const ModalGoal = ({
                       className={`flex cursor-pointer items-center justify-between rounded-xl border px-4 py-3 transition-all ${
                         goalData.assister === player._id
                           ? "border-accent bg-accent/10"
-                          : "border-border text-muted hover:border-accent/60"
+                          : "border-border text-text-muted hover:border-accent/60"
                       }`}
                     >
                       <div className="flex items-center gap-3">
@@ -426,7 +428,7 @@ const ModalGoal = ({
               <div className="mt-8 flex items-center justify-between">
                 <button
                   onClick={() => setGoalStep("actions")}
-                  className="flex items-center gap-2 rounded-xl px-4 py-3 text-sm font-medium text-muted transition hover:text-muted hover:text-text"
+                  className="flex items-center gap-2 rounded-xl px-4 py-3 text-sm font-medium text-text-muted transition hover:text-text-muted hover:text-text"
                 >
                   <ChevronLeft size={18} />
                   Back

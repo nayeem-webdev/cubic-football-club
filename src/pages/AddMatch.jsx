@@ -34,8 +34,8 @@ const AddMatch = () => {
   const tabClass = (tab) =>
     `flex flex-1 items-center justify-center gap-2 rounded-lg px-5 py-3 text-sm font-semibold transition-all duration-300 sm:flex-none ${
       activeTab === tab
-        ? "bg-primary text-white shadow-md shadow-blue-900/20"
-        : "text-muted hover:bg-card hover:text-accent"
+        ? "bg-primary text-white shadow-md shadow-secondary/20"
+        : "text-text-muted hover:bg-card hover:text-accent"
     }`;
 
   // Fetch players, teams and schedules
@@ -365,7 +365,7 @@ const AddMatch = () => {
         />
 
         {/* Main Form */}
-        <div className="rounded-2xl border border-border text-muted p-6 shadow-xl sm:p-8">
+        <div className="rounded-2xl border border-border text-text-muted p-6 shadow-xl sm:p-8">
           {/* Tabs */}
           <div
             className="mb-6 flex w-full gap-2 rounded-xl border border-border bg-background p-1.5 sm:w-fit"
@@ -455,7 +455,7 @@ const AddMatch = () => {
               {/* Match Format Information */}
               {selectedSchedule?.matchFormat && (
                 <div className="rounded-lg border border-border bg-card px-4 py-3 text-center">
-                  <span className="text-sm text-muted">Match Format</span>
+                  <span className="text-sm text-text-muted">Match Format</span>
 
                   <div className="text-lg font-bold text-secondary">
                     {selectedSchedule.matchFormat} V{" "}
@@ -465,7 +465,7 @@ const AddMatch = () => {
               )}
               {selectedSchedule?.matchType && (
                 <div className="rounded-lg border border-border bg-card px-4 py-3 text-center">
-                  <span className="text-sm text-muted">Match Type</span>
+                  <span className="text-sm text-text-muted">Match Type</span>
 
                   <div className="text-lg font-bold text-secondary">
                     {selectedSchedule.matchType.charAt(0).toUpperCase()}
@@ -742,7 +742,7 @@ const AddMatch = () => {
               <button
                 type="button"
                 onClick={handleClear}
-                className="rounded-xl border border-border px-6 py-3 font-semibold text-muted transition hover:border-secondary hover:text-white"
+                className="rounded-xl border border-border px-6 py-3 font-semibold text-text-muted transition hover:border-secondary hover:text-white"
               >
                 Clear
               </button>

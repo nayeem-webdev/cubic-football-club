@@ -60,7 +60,7 @@ const ModalPenalty = ({
 
           <button
             onClick={closePenaltyModal}
-            className="flex h-10 w-10 items-center justify-center rounded-full text-muted transition-all hover:bg-surface hover:text-text"
+            className="flex h-10 w-10 items-center justify-center rounded-full text-text-muted transition-all hover:bg-surface hover:text-text"
           >
             <X size={20} />
           </button>
@@ -90,7 +90,7 @@ const ModalPenalty = ({
                         ? "bg-primary text-white"
                         : isCompleted
                           ? "bg-[#49C85A] text-white"
-                          : "text-muted text-muted"
+                          : "text-text-muted text-text-muted"
                     }`}
                   >
                     {index + 1}
@@ -129,7 +129,7 @@ const ModalPenalty = ({
                   className={`flex cursor-pointer items-center justify-between rounded-2xl border p-4 transition-all ${
                     penaltyData.team === "home"
                       ? "border-[#0E5FD8] bg-primary/10"
-                      : "border-border text-muted hover:border-secondary"
+                      : "border-border text-text-muted hover:border-secondary"
                   }`}
                 >
                   <div className="flex items-center gap-4">
@@ -137,7 +137,7 @@ const ModalPenalty = ({
                       <img src={selectedMatch.homeTeam.logoLow} alt="" />
                     </div>
                     <div>
-                      <p className="text-xs text-muted">HOME TEAM</p>
+                      <p className="text-xs text-text-muted">HOME TEAM</p>
 
                       <p className="mt-1 font-semibold text-text">
                         {selectedMatch.homeTeam.name}
@@ -169,7 +169,7 @@ const ModalPenalty = ({
                   className={`flex cursor-pointer items-center justify-between rounded-2xl border p-4 transition-all ${
                     penaltyData.team === "away"
                       ? "border-[#0E5FD8] bg-primary/10"
-                      : "border-border text-muted hover:border-secondary"
+                      : "border-border text-text-muted hover:border-secondary"
                   }`}
                 >
                   <div className="flex items-center gap-4">
@@ -177,7 +177,7 @@ const ModalPenalty = ({
                       <img src={selectedMatch.awayTeam.logoLow} alt="" />
                     </div>
                     <div>
-                      <p className="text-xs text-muted">AWAY TEAM</p>
+                      <p className="text-xs text-text-muted">AWAY TEAM</p>
 
                       <p className="mt-1 font-semibold text-text">
                         {selectedMatch.awayTeam.name}
@@ -221,7 +221,7 @@ const ModalPenalty = ({
                     className={`flex cursor-pointer items-center justify-between rounded-xl border px-4 py-3 transition-all ${
                       penaltyData.scorer === player._id
                         ? "border-secondary bg-[#49C85A]/10"
-                        : "border-border text-muted hover:border-secondary/60"
+                        : "border-border text-text-muted hover:border-secondary/60"
                     }`}
                   >
                     <div className="flex items-center gap-3">
@@ -263,7 +263,7 @@ const ModalPenalty = ({
               <div className="mt-8 flex items-center justify-between">
                 <button
                   onClick={() => setPenaltyStep("team")}
-                  className="flex items-center gap-2 rounded-xl px-4 py-3 text-sm font-medium text-muted transition hover:text-muted hover:text-text"
+                  className="flex items-center gap-2 rounded-xl px-4 py-3 text-sm font-medium text-text-muted transition hover:text-text-muted hover:text-text"
                 >
                   <ChevronLeft size={18} />
                   Back

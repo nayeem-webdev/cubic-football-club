@@ -118,7 +118,7 @@ const MatchCard = ({ match }) => {
               {homeTeam.name || "Home Team"}
             </h4>
 
-            <span className="mt-0.5 text-[10px] font-semibold uppercase tracking-wider text-muted">
+            <span className="mt-0.5 text-[10px] font-semibold uppercase tracking-wider text-text-muted">
               Home
             </span>
           </div>
@@ -144,7 +144,7 @@ const MatchCard = ({ match }) => {
               {awayTeam.name || "Away Team"}
             </h4>
 
-            <span className="mt-0.5 text-[10px] font-semibold uppercase tracking-wider text-muted">
+            <span className="mt-0.5 text-[10px] font-semibold uppercase tracking-wider text-text-muted">
               Away
             </span>
           </div>

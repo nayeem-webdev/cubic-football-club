@@ -100,7 +100,7 @@ export default function Summary({ matchData }) {
     return (
       <p
         className="py-6 text-center text-sm"
-        style={{ color: "var(--color-text-muted, #a1a1aa)" }}
+        style={{ color: "var(--color-text-text-muted, #a1a1aa)" }}
       >
         No match events
       </p>
@@ -129,7 +129,7 @@ export default function Summary({ matchData }) {
               {item.assists.map((ast, aIdx) => (
                 <p
                   key={aIdx}
-                  className="mt-0.5 flex items-center justify-start gap-1 text-gray-400"
+                  className="mt-0.5 flex items-center justify-start gap-1 text-text-muted"
                 >
                   👟 {ast.assister} ({ast.time})
                 </p>
@@ -159,7 +159,7 @@ export default function Summary({ matchData }) {
               {item.assists.map((ast, aIdx) => (
                 <p
                   key={aIdx}
-                  className="mt-0.5 flex items-center justify-end gap-1 text-gray-400"
+                  className="mt-0.5 flex items-center justify-end gap-1 text-text-muted"
                 >
                   {ast.assister} ({ast.time}) 👟
                 </p>

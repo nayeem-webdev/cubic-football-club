@@ -20,10 +20,10 @@ const Footer = () => {
           <div className="flex items-center gap-5">
             <img src={logo} alt="CUBIC FC" className="max-w-16 " />
 
-            <div className="border-l border-secondary pl-5">
+            <div className="border-l border-accent pl-5">
               <h1 className="text-2xl font-bold tracking-wide text-text">
                 CUBIC
-                <span className="block text-secondary">FOOTBALL CLUB</span>
+                <span className="block text-accent">FOOTBALL CLUB</span>
               </h1>
             </div>
           </div>
@@ -34,7 +34,7 @@ const Footer = () => {
               <a
                 key={item.name}
                 href={item.href}
-                className="text-muted transition-colors duration-300 hover:text-secondary"
+                className="text-text-muted transition-colors duration-300 hover:text-secondary"
               >
                 {item.name}
               </a>
@@ -44,17 +44,17 @@ const Footer = () => {
 
         {/* Bottom */}
         <div className="mt-8 flex flex-col text-center items-center justify-between gap-3 border-t border-border pt-6 text-sm md:flex-row">
-          <p className="text-muted">
+          <p className="text-text-muted">
             © {new Date().getFullYear()} CUBIC FC. All rights reserved.
           </p>
 
-          <p className="text-muted">
+          <p className="text-text-muted">
             Designed with ❤️ by{" "}
             <a
               href="https://www.linkedin.com/in/nayeem-webdev"
               target="_blank"
               rel="noopener noreferrer"
-              className="font-medium text-primary transition-colors hover:text-secondary"
+              className="font-medium text-secondary/70 transition-colors hover:text-secondary"
             >
               nayeem-webdev
             </a>

@@ -45,7 +45,7 @@ const UpdateMatch = () => {
             <button
               key={match._id}
               onClick={() => navigate(`/edit-match/${match._id}`)}
-              className="group w-full rounded-2xl border border-border text-muted p-5 text-left transition-all duration-300 hover:-translate-y-1 hover:border-[#0E5FD8] hover:shadow-[0_0_25px_rgba(14,95,216,0.18)]"
+              className="group w-full rounded-2xl border border-border text-text-muted p-5 text-left transition-all duration-300 hover:-translate-y-1 hover:border-[#0E5FD8] hover:shadow-[0_0_25px_rgba(14,95,216,0.18)]"
             >
               <div className="grid gap-2 md:grid-cols-[1fr_1.2fr] md:items-center">
                 <div>
@@ -55,11 +55,11 @@ const UpdateMatch = () => {
                         "FRIENDLY"}{" "}
                       MATCH
                     </span>
-                    <span className="text-xs text-muted">
+                    <span className="text-xs text-text-muted">
                       {match.matchSchedule?.matchFormat} V{" "}
                       {match.matchSchedule?.matchFormat}
                     </span>
-                    <span className="text-xs text-muted">
+                    <span className="text-xs text-text-muted">
                       {match.matchTime} MIN
                     </span>
                   </div>
@@ -71,21 +71,21 @@ const UpdateMatch = () => {
                   </h2>
                 </div>
 
-                <div className="grid grid-cols-3 gap-4 text-sm text-muted">
+                <div className="grid grid-cols-3 gap-4 text-sm text-text-muted">
                   <div className="min-w-0">
-                    <p className="mb-1 text-xs text-muted/60">DATE</p>
+                    <p className="mb-1 text-xs text-text-muted/60">DATE</p>
                     <p className="font-medium text-text">
                       {match.matchSchedule?.date || "N/A"}
                     </p>
                   </div>
                   <div className="min-w-0">
-                    <p className="mb-1 text-xs text-muted/60">TIME</p>
+                    <p className="mb-1 text-xs text-text-muted/60">TIME</p>
                     <p className="font-medium text-text">
                       {match.matchSchedule?.time || "N/A"}
                     </p>
                   </div>
                   <div className="min-w-0">
-                    <p className="mb-1 text-xs text-muted/60">VENUE</p>
+                    <p className="mb-1 text-xs text-text-muted/60">VENUE</p>
                     <p className="font-medium text-text">
                       {match.matchSchedule?.venue?.venue || "N/A"}
                     </p>
@@ -97,8 +97,10 @@ const UpdateMatch = () => {
         </div>
 
         {matches.length === 0 && (
-          <div className="rounded-2xl border border-dashed border-border text-muted p-10 text-center">
-            <p className="mb-4 text-muted">No matches available to edit.</p>
+          <div className="rounded-2xl border border-dashed border-border text-text-muted p-10 text-center">
+            <p className="mb-4 text-text-muted">
+              No matches available to edit.
+            </p>
             <button
               type="button"
               onClick={() => navigate("/new-match")}

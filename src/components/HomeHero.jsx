@@ -15,18 +15,18 @@ const HomeHero = () => {
       }}
     >
       {/* Dark Overlay */}
-      <div className="absolute inset-0 bg-background/90" />
+      <div className="absolute inset-0 bg-background/80" />
 
       {/* Ambient Glows */}
-      <div className="absolute left-0 top-0 h-64 w-64 sm:h-96 sm:w-96 rounded-full bg-blue-600/20 blur-[100px] sm:blur-[120px]" />
-      <div className="absolute bottom-0 right-0 h-64 w-64 sm:h-96 sm:w-96 rounded-full bg-yellow-400/10 blur-[100px] sm:blur-[150px]" />
+      {/* <div className="absolute left-0 top-0 h-64 w-64 sm:h-96 sm:w-96 rounded-full bg-secondary/20 blur-[100px] sm:blur-[120px]" />
+      <div className="absolute bottom-0 right-0 h-64 w-64 sm:h-96 sm:w-96 rounded-full bg-accent/10 blur-[100px] sm:blur-[150px]" /> */}
 
       <div className="relative z-10 mx-auto flex min-h-screen max-w-7xl flex-col items-center justify-center px-4 sm:px-6 text-center">
-        <p className="inline-block rounded-full border border-yellow-500/30 bg-yellow-500/10 px-3 py-1 text-md text-yellow-400 font-medium">
+        <p className="inline-block rounded-full border border-accent/30 bg-accent/10 px-3 py-1 text-md text-accent font-medium">
           EST. 2012 • CHITTAGONG
         </p>
         <div className="max-w-7xl  flex self-center mt-8 ">
-          <div className="border-r-2 border-secondary pr-5 mr-5 md:pr-10 md:mr-10">
+          <div className="border-r-2 border-accent pr-5 mr-5 md:pr-10 md:mr-10">
             <img
               src={logo}
               alt="Cubic FC"
@@ -38,11 +38,11 @@ const HomeHero = () => {
             <h1 className="mt-8 text-3xl sm:text-5xl text-left lg:text-6xl xl:text-7xl font-extrabold leading-tight text-white">
               CUBIC
               <br />
-              <span className="text-secondary">FOOTBALL CLUB</span>
+              <span className="text-accent">FOOTBALL CLUB</span>
             </h1>
           </div>
         </div>
-        <p className="mt-8 max-w-xl text-center text-sm lg:text-lg leading-relaxed text-gray-300 lg:text-left">
+        <p className="mt-8 max-w-xl text-center text-sm lg:text-lg leading-relaxed text-text-muted lg:text-left">
           Where education meets football excellence. We build discipline,
           teamwork, and champions on and off the pitch. Weekly football matches,
           friendly competitions, and an amazing football community in
@@ -65,9 +65,12 @@ const HomeHero = () => {
           {/* Matches */}
           <Link
             to="/matches"
-            className="flex w-full items-center justify-center gap-2 rounded-xl border border-border text-muted px-6 py-3.5 font-semibold transition-all duration-300 hover:border-accent hover:bg-accent/10 hover:text-accent active:scale-95 sm:w-auto"
+            className="group flex w-full items-center justify-center gap-2 rounded-xl border border-text-muted bg-text-muted/5 px-6 py-3.5 font-semibold text-text-muted transition-all duration-300 hover:border-accent hover:bg-accent/10 hover:text-accent hover:shadow-lg hover:shadow-accent/10 active:scale-95 sm:w-auto"
           >
-            <ShieldCheck size={18} />
+            <ShieldCheck
+              size={18}
+              className="transition-transform duration-300 group-hover:-translate-x-1"
+            />
             Matches
           </Link>
         </div>

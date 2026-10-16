@@ -20,7 +20,7 @@ const SelectMatch = ({ matches, onSelectMatch }) => {
             <button
               key={match._id}
               onClick={() => onSelectMatch(match)}
-              className="group w-full rounded-2xl border border-border text-muted p-5 text-left transition-all duration-300 hover:-translate-y-1 hover:border-[#0E5FD8] hover:shadow-[0_0_25px_rgba(14,95,216,0.18)]"
+              className="group w-full rounded-2xl border border-border text-text-muted p-5 text-left transition-all duration-300 hover:-translate-y-1 hover:border-[#0E5FD8] hover:shadow-[0_0_25px_rgba(14,95,216,0.18)]"
             >
               <div className="grid gap-2 md:grid-cols-[1fr_1.2fr] md:items-center">
                 {/* Teams */}
@@ -30,11 +30,11 @@ const SelectMatch = ({ matches, onSelectMatch }) => {
                       {match.matchSchedule.matchType.toUpperCase()} MATCH
                     </span>
 
-                    <span className="text-xs text-muted">
+                    <span className="text-xs text-text-muted">
                       {match.matchSchedule.matchFormat} V{" "}
                       {match.matchSchedule.matchFormat}
                     </span>
-                    <span className="text-xs text-muted">
+                    <span className="text-xs text-text-muted">
                       {match.matchTime} MIN
                     </span>
                   </div>
@@ -49,10 +49,10 @@ const SelectMatch = ({ matches, onSelectMatch }) => {
                 </div>
 
                 {/* Match Info */}
-                <div className="grid grid-cols-3 gap-4 text-sm text-muted">
+                <div className="grid grid-cols-3 gap-4 text-sm text-text-muted">
                   {/* Date */}
                   <div className="min-w-0">
-                    <p className="mb-1 text-xs text-muted/60">DATE</p>
+                    <p className="mb-1 text-xs text-text-muted/60">DATE</p>
 
                     <p className="font-medium text-text">
                       {match.matchSchedule.date}
@@ -61,7 +61,7 @@ const SelectMatch = ({ matches, onSelectMatch }) => {
 
                   {/* Time */}
                   <div className="min-w-0">
-                    <p className="mb-1 text-xs text-muted/60">TIME</p>
+                    <p className="mb-1 text-xs text-text-muted/60">TIME</p>
 
                     <p className="font-medium text-text">
                       {match.matchSchedule.time}
@@ -70,7 +70,7 @@ const SelectMatch = ({ matches, onSelectMatch }) => {
 
                   {/* Venue */}
                   <div className="min-w-0">
-                    <p className="mb-1 text-xs text-muted/60">VENUE</p>
+                    <p className="mb-1 text-xs text-text-muted/60">VENUE</p>
 
                     <p className="font-medium text-text">
                       {match.matchSchedule.venue?.venue ||
@@ -85,8 +85,8 @@ const SelectMatch = ({ matches, onSelectMatch }) => {
 
         {/* Empty State */}
         {matches.length === 0 && (
-          <div className="rounded-2xl border border-dashed border-border text-muted p-10 text-center">
-            <p className="mb-4 text-muted">No matches available.</p>
+          <div className="rounded-2xl border border-dashed border-border text-text-muted p-10 text-center">
+            <p className="mb-4 text-text-muted">No matches available.</p>
 
             <button
               type="button"

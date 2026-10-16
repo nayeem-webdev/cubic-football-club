@@ -68,7 +68,7 @@ const ModalSubs = ({
 
           <button
             onClick={closeSubsModal}
-            className="flex h-10 w-10 items-center justify-center rounded-full text-muted transition-all hover:bg-surface hover:text-text"
+            className="flex h-10 w-10 items-center justify-center rounded-full text-text-muted transition-all hover:bg-surface hover:text-text"
           >
             <X size={20} />
           </button>
@@ -98,7 +98,7 @@ const ModalSubs = ({
                         ? "bg-primary text-white"
                         : isCompleted
                           ? "bg-[#49C85A] text-white"
-                          : "text-muted text-muted"
+                          : "text-text-muted text-text-muted"
                     }`}
                   >
                     {index + 1}
@@ -137,7 +137,7 @@ const ModalSubs = ({
                   className={`flex cursor-pointer items-center justify-between rounded-2xl border p-4 transition-all ${
                     subsData.team === "home"
                       ? "border-[#0E5FD8] bg-primary/10"
-                      : "border-border text-muted hover:border-secondary"
+                      : "border-border text-text-muted hover:border-secondary"
                   }`}
                 >
                   <div className="flex items-center gap-4">
@@ -145,7 +145,7 @@ const ModalSubs = ({
                       <img src={selectedMatch.homeTeam.logoLow} alt="" />
                     </div>
                     <div>
-                      <p className="text-xs text-muted">HOME TEAM</p>
+                      <p className="text-xs text-text-muted">HOME TEAM</p>
 
                       <p className="mt-1 font-semibold text-text">
                         {selectedMatch.homeTeam.name}
@@ -178,7 +178,7 @@ const ModalSubs = ({
                   className={`flex cursor-pointer items-center justify-between rounded-2xl border p-4 transition-all ${
                     subsData.team === "away"
                       ? "border-[#0E5FD8] bg-primary/10"
-                      : "border-border text-muted hover:border-secondary"
+                      : "border-border text-text-muted hover:border-secondary"
                   }`}
                 >
                   <div className="flex items-center gap-4">
@@ -186,7 +186,7 @@ const ModalSubs = ({
                       <img src={selectedMatch.awayTeam.logoLow} alt="" />
                     </div>
                     <div>
-                      <p className="text-xs text-muted">AWAY TEAM</p>
+                      <p className="text-xs text-text-muted">AWAY TEAM</p>
 
                       <p className="mt-1 font-semibold text-text">
                         {selectedMatch.awayTeam.name}
@@ -224,7 +224,7 @@ const ModalSubs = ({
                 Who is coming off?
               </h3>
 
-              <p className="mt-1 text-sm text-muted">
+              <p className="mt-1 text-sm text-text-muted">
                 Select the player leaving the pitch.
               </p>
 
@@ -235,7 +235,7 @@ const ModalSubs = ({
                     className={`flex cursor-pointer items-center justify-between rounded-xl border px-4 py-3 transition-all ${
                       subsData.playerOut === player._id
                         ? "border-[#EF4444] bg-[#EF4444]/10"
-                        : "border-border text-muted hover:border-[#EF4444]/60"
+                        : "border-border text-text-muted hover:border-[#EF4444]/60"
                     }`}
                   >
                     <div className="flex items-center gap-3">
@@ -277,7 +277,7 @@ const ModalSubs = ({
               <div className="mt-8">
                 <button
                   onClick={() => setSubsStep("team")}
-                  className="flex items-center gap-2 rounded-xl px-4 py-3 text-sm font-medium text-muted transition hover:text-muted hover:text-text"
+                  className="flex items-center gap-2 rounded-xl px-4 py-3 text-sm font-medium text-text-muted transition hover:text-text-muted hover:text-text"
                 >
                   <ChevronLeft size={18} />
                   Back
@@ -292,7 +292,7 @@ const ModalSubs = ({
             <div>
               <h3 className="text-lg font-bold text-text">Who is coming on?</h3>
 
-              <p className="mt-1 text-sm text-muted">
+              <p className="mt-1 text-sm text-text-muted">
                 Select the substitute entering the pitch.
               </p>
 
@@ -305,7 +305,7 @@ const ModalSubs = ({
                       className={`flex cursor-pointer items-center justify-between rounded-xl border px-4 py-3 transition-all ${
                         subsData.playerIn === player._id
                           ? "border-secondary bg-[#49C85A]/10"
-                          : "border-border text-muted hover:border-secondary/60"
+                          : "border-border text-text-muted hover:border-secondary/60"
                       }`}
                     >
                       <div className="flex items-center gap-3">
@@ -347,7 +347,7 @@ const ModalSubs = ({
               <div className="mt-8 flex items-center justify-between">
                 <button
                   onClick={() => setSubsStep("out")}
-                  className="flex items-center gap-2 rounded-xl px-4 py-3 text-sm font-medium text-muted transition hover:text-muted hover:text-text"
+                  className="flex items-center gap-2 rounded-xl px-4 py-3 text-sm font-medium text-text-muted transition hover:text-text-muted hover:text-text"
                 >
                   <ChevronLeft size={18} />
                   Back

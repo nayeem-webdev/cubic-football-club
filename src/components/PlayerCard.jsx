@@ -38,7 +38,7 @@ const StatCard = ({ icon, label, value = 0, valueColor, children }) => (
     </div>
 
     {/* LABEL DOWN */}
-    <p className="mt-1 text-[10px] leading-none text-muted">{label}</p>
+    <p className="mt-1 text-[10px] leading-none text-text-muted">{label}</p>
   </div>
 );
 
@@ -110,7 +110,7 @@ const PlayerCard = ({ player, index }) => {
         return {
           bg: "rgba(255,255,255,0.06)",
           border: "rgba(255,255,255,0.10)",
-          text: "var(--color-text-muted)",
+          text: "var(--color-text-text-muted)",
         };
     }
   };
@@ -163,7 +163,7 @@ const PlayerCard = ({ player, index }) => {
       {/* =========================================================
           PLAYER IMAGE
       ========================================================== */}
-      <div className="relative aspect-square overflow-hidden text-muted">
+      <div className="relative aspect-square overflow-hidden text-text-muted">
         {player?.photo ? (
           <img
             src={player.photo}
@@ -282,7 +282,7 @@ const PlayerCard = ({ player, index }) => {
             {averagePoints}
           </span>
           <div className="h-4 w-px bg-secondary" />
-          <span className="text-xs font-semibold text-muted">
+          <span className="text-xs font-semibold text-text-muted">
             {stats.playerScore ?? 0} pts
           </span>
         </div>
@@ -319,7 +319,7 @@ const PlayerCard = ({ player, index }) => {
               </span>
             </div>
 
-            <p className="mt-0.5 truncate text-xs font-medium text-muted">
+            <p className="mt-0.5 truncate text-xs font-medium text-text-muted">
               {club?.name || "Free Agent"}
             </p>
           </div>
@@ -385,7 +385,7 @@ const PlayerCard = ({ player, index }) => {
         >
           {/* FORM BADGES */}
           <div className="flex items-center gap-2">
-            <span className="text-[10px] font-semibold uppercase tracking-wide text-muted">
+            <span className="text-[10px] font-semibold uppercase tracking-wide text-text-muted">
               Form
             </span>
 
@@ -417,7 +417,7 @@ const PlayerCard = ({ player, index }) => {
                   );
                 })
               ) : (
-                <span className="text-[10px] text-muted">No matches</span>
+                <span className="text-[10px] text-text-muted">No matches</span>
               )}
             </div>
           </div>
@@ -430,7 +430,7 @@ const PlayerCard = ({ player, index }) => {
             >
               {stats.winRate ?? 0}%
             </span>
-            <span className="text-[10px] text-muted">win</span>
+            <span className="text-[10px] text-text-muted">win</span>
           </div>
         </div>
 
@@ -459,7 +459,7 @@ const PlayerCard = ({ player, index }) => {
               />
             </div>
             <div className="min-w-0">
-              <p className="text-[9px] uppercase tracking-wide text-muted">
+              <p className="text-[9px] uppercase tracking-wide text-text-muted">
                 Foot
               </p>
               <p className="truncate text-xs font-semibold">
@@ -500,7 +500,7 @@ const PlayerCard = ({ player, index }) => {
           {/* AGE */}
           <div className="flex min-w-0 items-center justify-end gap-2">
             <div className="min-w-0 text-right">
-              <p className="text-[9px] uppercase tracking-wide text-muted">
+              <p className="text-[9px] uppercase tracking-wide text-text-muted">
                 Age
               </p>
               <p className="text-xs font-semibold">{age}</p>
