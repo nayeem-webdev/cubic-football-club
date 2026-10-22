@@ -69,6 +69,13 @@ export default function Score() {
               </p>
             </div>
           )}
+          {error && (
+            <div className="mx-auto flex max-w-xl flex-col items-center rounded-2xl border border-red-500/30 text-text-muted p-8 text-center">
+              <AlertCircle className="mb-3 h-8 w-8 text-red-400" />
+              <h2 className="text-lg font-semibold">Unable to load score</h2>
+              <p className="mt-2 text-sm text-text-muted">{error}</p>
+            </div>
+          )}
         </div>
       </div>
     </div>

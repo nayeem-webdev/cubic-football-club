@@ -66,7 +66,7 @@ const AddOpponentTeam = () => {
     <form onSubmit={handleSubmit} className="space-y-6">
       {/* Team Name */}
       <div>
-        <label className="mb-2 block text-sm font-medium">Team Name</label>
+        <label className="block mb-2 font-medium">Team Name</label>
 
         <input
           type="text"
@@ -75,13 +75,13 @@ const AddOpponentTeam = () => {
           value={formData.name}
           onChange={handleChange}
           required
-          className="w-full rounded-lg border border-border bg-card px-4 py-3 text-text outline-none placeholder:text-[#718096] focus:border-[#0E5FD8]"
+          className="w-full rounded-lg border border-border bg-background px-4 py-3 text-text outline-none placeholder:text-text-muted focus:border-secondary/70"
         />
       </div>
 
       {/* Short Form */}
       <div>
-        <label className="mb-2 block text-sm font-medium">Short Form</label>
+        <label className="block mb-2 font-medium">Short Form</label>
 
         <input
           type="text"
@@ -91,16 +91,14 @@ const AddOpponentTeam = () => {
           onChange={handleChange}
           maxLength="5"
           required
-          className="w-full rounded-lg border border-border bg-card px-4 py-3 uppercase text-text outline-none placeholder:text-[#718096] focus:border-[#0E5FD8]"
+          className="w-full rounded-lg border border-border bg-background px-4 py-3 text-text outline-none placeholder:text-text-muted focus:border-secondary/70"
         />
       </div>
 
       {/* Logo URLs */}
       <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
         <div>
-          <label className="mb-2 block text-sm font-medium">
-            Logo High URL
-          </label>
+          <label className="block mb-2 font-medium">Logo High URL</label>
 
           <input
             type="url"
@@ -109,12 +107,12 @@ const AddOpponentTeam = () => {
             value={formData.logoHigh}
             onChange={handleChange}
             required
-            className="w-full rounded-lg border border-border bg-card px-4 py-3 text-text outline-none placeholder:text-[#718096] focus:border-[#0E5FD8]"
+            className="w-full rounded-lg border border-border bg-background px-4 py-3 text-text outline-none placeholder:text-text-muted focus:border-secondary/70"
           />
         </div>
 
         <div>
-          <label className="mb-2 block text-sm font-medium">Logo Low URL</label>
+          <label className="block mb-2 font-medium">Logo Low URL</label>
 
           <input
             type="url"
@@ -123,14 +121,14 @@ const AddOpponentTeam = () => {
             value={formData.logoLow}
             onChange={handleChange}
             required
-            className="w-full rounded-lg border border-border bg-card px-4 py-3 text-text outline-none placeholder:text-[#718096] focus:border-[#0E5FD8]"
+            className="w-full rounded-lg border border-border bg-background px-4 py-3 text-text outline-none placeholder:text-text-muted focus:border-secondary/70"
           />
         </div>
       </div>
 
       {/* Captain ID */}
       <div>
-        <label className="mb-2 block text-sm font-medium">Captain ID</label>
+        <label className="block mb-2 font-medium">Captain ID</label>
 
         <input
           type="text"
@@ -139,7 +137,7 @@ const AddOpponentTeam = () => {
           value={formData.captain}
           onChange={handleChange}
           required
-          className="w-full rounded-lg border border-border bg-card px-4 py-3 text-text outline-none placeholder:text-[#718096] focus:border-[#0E5FD8]"
+          className="w-full rounded-lg border border-border bg-background px-4 py-3 text-text outline-none placeholder:text-text-muted focus:border-secondary/70"
         />
       </div>
 

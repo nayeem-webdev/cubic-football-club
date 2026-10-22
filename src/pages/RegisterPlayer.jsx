@@ -136,11 +136,11 @@ const RegisterPlayer = () => {
         />
 
         {/* Form Card */}
-        <div className="rounded-2xl border border-border text-text-muted p-6 shadow-2xl md:p-8">
+        <div className="rounded-2xl bg-card text-text p-6 shadow-2xl md:p-8">
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* Player Name */}
             <div>
-              <label htmlFor="name" className="mb-2 block text-sm font-medium">
+              <label htmlFor="name" className="block mb-2 font-medium">
                 Player Name
               </label>
 
@@ -152,7 +152,7 @@ const RegisterPlayer = () => {
                 value={formData.name}
                 onChange={handleChange}
                 required
-                className="w-full rounded-lg border border-border bg-card px-4 py-3 text-text outline-none placeholder:text-[#718096] focus:border-[#0E5FD8]"
+                className="w-full rounded-lg border border-border bg-background px-4 py-3 text-text outline-none placeholder:text-text-muted focus:border-secondary/70"
               />
             </div>
 
@@ -162,7 +162,7 @@ const RegisterPlayer = () => {
               <div>
                 <label
                   htmlFor="jerseyNumber"
-                  className="mb-2 block text-sm font-medium"
+                  className="block mb-2 font-medium"
                 >
                   Jersey Number
                 </label>
@@ -175,16 +175,13 @@ const RegisterPlayer = () => {
                   value={formData.jerseyNumber}
                   onChange={handleChange}
                   required
-                  className="w-full rounded-lg border border-border bg-card px-4 py-3 text-text outline-none placeholder:text-[#718096] focus:border-[#0E5FD8]"
+                  className="w-full rounded-lg border border-border bg-background px-4 py-3 text-text outline-none placeholder:text-text-muted focus:border-secondary/70"
                 />
               </div>
 
               {/* Position */}
               <div>
-                <label
-                  htmlFor="position"
-                  className="mb-2 block text-sm font-medium"
-                >
+                <label htmlFor="position" className="block mb-2 font-medium">
                   Position
                 </label>
 
@@ -194,7 +191,7 @@ const RegisterPlayer = () => {
                   value={formData.position}
                   onChange={handleChange}
                   required
-                  className="w-full rounded-lg border border-border bg-card px-4 py-3 text-text outline-none focus:border-[#0E5FD8]"
+                  className="w-full rounded-lg border border-border bg-background px-4 py-3 text-text outline-none placeholder:text-text-muted focus:border-secondary/70"
                 >
                   <option value="">Select position</option>
                   <option value="GK">Goalkeeper</option>
@@ -210,10 +207,7 @@ const RegisterPlayer = () => {
             <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
               {/* Date of Birth */}
               <div>
-                <label
-                  htmlFor="dateOfBirth"
-                  className="mb-2 block text-sm font-medium"
-                >
+                <label htmlFor="dateOfBirth" className="block mb-2 font-medium">
                   Date of Birth
                 </label>
 
@@ -224,16 +218,13 @@ const RegisterPlayer = () => {
                   value={formData.dateOfBirth}
                   onChange={handleChange}
                   required
-                  className="w-full rounded-lg border border-border bg-card px-4 py-3 text-text outline-none focus:border-[#0E5FD8]"
+                  className="w-full rounded-lg border border-border bg-background px-4 py-3 text-text outline-none placeholder:text-text-muted focus:border-secondary/70"
                 />
               </div>
 
               {/* Foot */}
               <div>
-                <label
-                  htmlFor="foot"
-                  className="mb-2 block text-sm font-medium"
-                >
+                <label htmlFor="foot" className="block mb-2 font-medium">
                   Preferred Foot
                 </label>
 
@@ -243,18 +234,33 @@ const RegisterPlayer = () => {
                   value={formData.foot}
                   onChange={handleChange}
                   required
-                  className="w-full rounded-lg border border-border bg-card px-4 py-3 text-text outline-none focus:border-[#0E5FD8]"
+                  className="w-full rounded-lg border border-border bg-background px-4 py-3 text-text outline-none placeholder:text-text-muted focus:border-secondary/70"
                 >
-                  <option value="Right">Right</option>
-                  <option value="Left">Left</option>
-                  <option value="Both">Both</option>
+                  <option
+                    className="bg-background hover:bg-secondary text-text"
+                    value="Right"
+                  >
+                    Right
+                  </option>
+                  <option
+                    className="bg-background hover:bg-secondary text-text"
+                    value="Left"
+                  >
+                    Left
+                  </option>
+                  <option
+                    className="bg-background hover:bg-secondary  text-text"
+                    value="Both"
+                  >
+                    Both
+                  </option>
                 </select>
               </div>
             </div>
 
             {/* Photo URL */}
             <div>
-              <label htmlFor="photo" className="mb-2 block text-sm font-medium">
+              <label htmlFor="photo" className="block mb-2 font-medium">
                 Player Photo URL
               </label>
 
@@ -266,7 +272,7 @@ const RegisterPlayer = () => {
                 value={formData.photo}
                 onChange={handleChange}
                 required
-                className="w-full rounded-lg border border-border bg-card px-4 py-3 text-text outline-none placeholder:text-[#718096] focus:border-[#0E5FD8]"
+                className="w-full rounded-lg border border-border bg-background px-4 py-3 text-text outline-none placeholder:text-text-muted focus:border-secondary/70"
               />
 
               <p className="mt-2 text-xs text-text-muted">
@@ -276,10 +282,7 @@ const RegisterPlayer = () => {
 
             {/* Club */}
             <div>
-              <label
-                htmlFor="playsFor"
-                className="mb-2 block text-sm font-medium"
-              >
+              <label htmlFor="playsFor" className="block mb-2 font-medium">
                 Club
               </label>
 
@@ -289,7 +292,7 @@ const RegisterPlayer = () => {
                 value={formData.playsFor}
                 onChange={handleChange}
                 required
-                className="w-full rounded-lg border border-border bg-card px-4 py-3 text-text outline-none focus:border-[#0E5FD8]"
+                className="w-full rounded-lg border border-border bg-background px-4 py-3 text-text outline-none placeholder:text-text-muted focus:border-secondary/70"
               >
                 <option value="">Select club</option>
 

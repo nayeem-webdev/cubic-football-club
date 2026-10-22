@@ -260,7 +260,7 @@ const AddSchedule = () => {
         {/* ========================================
             SCHEDULE CARD
         ======================================== */}
-        <div className="rounded-2xl border border-border text-text-muted p-6 shadow-2xl md:p-8">
+        <div className="rounded-2xl bg-card text-text p-6 shadow-2xl md:p-8">
           {/* ONLY ONE FORM */}
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* ========================================
@@ -268,7 +268,7 @@ const AddSchedule = () => {
             ======================================== */}
             <div>
               <div className="mb-2 flex items-center justify-between">
-                <label htmlFor="venue" className="block text-sm font-medium">
+                <label htmlFor="venue" className="block mb-2 font-medium">
                   Venue
                 </label>
 
@@ -292,7 +292,7 @@ const AddSchedule = () => {
                 onChange={handleChange}
                 required
                 disabled={venuesLoading}
-                className="w-full rounded-lg border border-border bg-card px-4 py-3 text-text outline-none placeholder:text-[#718096] focus:border-[#0E5FD8]"
+                className="w-full rounded-lg border border-border bg-background px-4 py-3 text-text outline-none placeholder:text-text-muted focus:border-secondary/70"
               >
                 <option value="">
                   {venuesLoading ? "Loading venues..." : "Select Venue"}
@@ -322,7 +322,7 @@ const AddSchedule = () => {
                   <div>
                     <label
                       htmlFor="newVenue"
-                      className="mb-2 block text-sm font-medium"
+                      className="block mb-2 font-medium"
                     >
                       Venue
                     </label>
@@ -335,7 +335,7 @@ const AddSchedule = () => {
                       onChange={handleVenueChange}
                       placeholder="e.g. Intercity Sports Junction"
                       required
-                      className="w-full rounded-lg border border-border bg-card px-4 py-3 text-text outline-none placeholder:text-[#718096] focus:border-[#0E5FD8]"
+                      className="w-full rounded-lg border border-border bg-background px-4 py-3 text-text outline-none placeholder:text-text-muted focus:border-secondary/70"
                     />
                   </div>
 
@@ -343,7 +343,7 @@ const AddSchedule = () => {
                   <div>
                     <label
                       htmlFor="newDirection"
-                      className="mb-2 block text-sm font-medium"
+                      className="block mb-2 font-medium"
                     >
                       Google Maps Direction
                     </label>
@@ -356,7 +356,7 @@ const AddSchedule = () => {
                       onChange={handleVenueChange}
                       placeholder="https://www.google.com/maps/..."
                       required
-                      className="w-full rounded-lg border border-border bg-card px-4 py-3 text-text outline-none placeholder:text-[#718096] focus:border-[#0E5FD8]"
+                      className="w-full rounded-lg border border-border bg-background px-4 py-3 text-text outline-none placeholder:text-text-muted focus:border-secondary/70"
                     />
 
                     <p className="mt-2 text-xs text-text-muted">
@@ -396,10 +396,7 @@ const AddSchedule = () => {
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
               {/* DATE */}
               <div>
-                <label
-                  htmlFor="date"
-                  className="mb-2 block text-sm font-medium"
-                >
+                <label htmlFor="date" className="block mb-2 font-medium">
                   Match Date
                 </label>
 
@@ -410,19 +407,13 @@ const AddSchedule = () => {
                   value={formData.date}
                   onChange={handleChange}
                   required
-                  className="w-full rounded-lg border border-border bg-card px-4 py-3 text-text outline-none placeholder:text-[#718096] focus:border-[#0E5FD8]"
+                  className="w-full rounded-lg border border-border bg-background px-4 py-3 text-text outline-none placeholder:text-text-muted focus:border-secondary/70"
                 />
               </div>
 
               {/* TIME */}
               <div>
-                <label
-                  htmlFor="time"
-                  className="mb-2 block text-sm font-medium"
-                >
-                  Match Time
-                </label>
-
+                <label className="block mb-2 font-medium">Match Time</label>
                 <TimePicker
                   value={formData.time}
                   onChange={(time) =>
@@ -441,10 +432,7 @@ const AddSchedule = () => {
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
               {/* FORMAT */}
               <div>
-                <label
-                  htmlFor="matchFormat"
-                  className="mb-2 block text-sm font-medium"
-                >
+                <label htmlFor="matchFormat" className="block mb-2 font-medium">
                   Match Format
                 </label>
 
@@ -452,7 +440,7 @@ const AddSchedule = () => {
                   name="matchFormat"
                   value={formData.matchFormat}
                   onChange={handleChange}
-                  className="w-full rounded-lg border border-border bg-card px-4 py-3 text-text outline-none focus:border-[#0E5FD8]"
+                  className="w-full rounded-lg border border-border bg-background px-4 py-3 text-text outline-none placeholder:text-text-muted focus:border-secondary/70"
                 >
                   <option value="" disabled>
                     Select format
@@ -467,10 +455,7 @@ const AddSchedule = () => {
 
               {/* TYPE */}
               <div>
-                <label
-                  htmlFor="matchType"
-                  className="mb-2 block text-sm font-medium"
-                >
+                <label htmlFor="matchType" className="block mb-2 font-medium">
                   Match Type
                 </label>
 
@@ -478,7 +463,7 @@ const AddSchedule = () => {
                   name="matchType"
                   value={formData.matchType}
                   onChange={handleChange}
-                  className="w-full rounded-lg border border-border bg-card px-4 py-3 text-text outline-none focus:border-[#0E5FD8]"
+                  className="w-full rounded-lg border border-border bg-background px-4 py-3 text-text outline-none placeholder:text-text-muted focus:border-secondary/70"
                 >
                   <option value="" disabled>
                     Select type

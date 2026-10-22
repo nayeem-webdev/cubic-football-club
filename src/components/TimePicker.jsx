@@ -125,7 +125,7 @@ const TimePicker = ({ value = "", onChange }) => {
         onKeyDown={(e) => {
           if (e.key === "ArrowDown") e.preventDefault();
         }}
-        className="w-full rounded-lg border border-border bg-card px-4 py-3 text-text outline-none placeholder:text-[#718096] focus:border-[#0E5FD8]"
+        className="w-full rounded-lg border border-border bg-background px-4 py-3 text-text outline-none placeholder:text-[#718096] focus:border-secondary/70"
       />
 
       <input
@@ -136,7 +136,7 @@ const TimePicker = ({ value = "", onChange }) => {
         onKeyDown={(e) => {
           if (e.key === "ArrowDown") e.preventDefault();
         }}
-        className="w-full rounded-lg border border-border bg-card px-4 py-3 text-text outline-none placeholder:text-[#718096] focus:border-[#0E5FD8]"
+        className="w-full rounded-lg border border-border bg-background px-4 py-3 text-text outline-none placeholder:text-[#718096] focus:border-secondary/70"
       />
     </div>
   );

@@ -32,10 +32,10 @@ const AddMatch = () => {
   };
 
   const tabClass = (tab) =>
-    `flex flex-1 items-center justify-center gap-2 rounded-lg px-5 py-3 text-sm font-semibold transition-all duration-300 sm:flex-none ${
+    `flex items-center justify-center gap-2 rounded-md px-2 py-2 text-[12px] font-semibold transition sm:px-5 ${
       activeTab === tab
-        ? "bg-primary text-white shadow-md shadow-secondary/20"
-        : "text-text-muted hover:bg-card hover:text-accent"
+        ? "bg-primary text-white shadow-lg"
+        : "text-text-muted hover:bg-card hover:text-white"
     }`;
 
   // Fetch players, teams and schedules
@@ -365,18 +365,21 @@ const AddMatch = () => {
         />
 
         {/* Main Form */}
-        <div className="rounded-2xl border border-border text-text-muted p-6 shadow-xl sm:p-8">
+        <div className="rounded-2xl bg-card text-text p-6 shadow-2xl md:p-8">
           {/* Tabs */}
           <div
-            className="mb-6 flex w-full gap-2 rounded-xl border border-border bg-background p-1.5 sm:w-fit"
+            className="grid grid-cols-2 gap-3 rounded-lg bg-background border border-border text-text-muted p-2 mb-6"
             role="tablist"
-            aria-label="Add opponent"
+            aria-label="Add Match"
           >
             <button
               type="button"
               role="tab"
               aria-selected={activeTab === "club"}
-              onClick={() => handleTabChange("club")}
+              onClick={() => {
+                handleTabChange("club");
+                handleClear();
+              }}
               className={tabClass("club")}
             >
               <Shield className="text-base" />
@@ -387,7 +390,10 @@ const AddMatch = () => {
               type="button"
               role="tab"
               aria-selected={activeTab === "opponent"}
-              onClick={() => handleTabChange("opponent")}
+              onClick={() => {
+                handleTabChange("opponent");
+                handleClear();
+              }}
               className={tabClass("opponent")}
             >
               <Swords className="text-base" />
@@ -395,14 +401,34 @@ const AddMatch = () => {
             </button>
           </div>
           <form onSubmit={handleSubmit} className="space-y-6">
+            <div className="grid grid-cols-2 gap-6">
+              {selectedSchedule?.matchType && (
+                <div className="rounded-lg border border-border bg-card px-4 py-3 text-center">
+                  <span className="text-sm text-text-muted">Match Type</span>
+
+                  <div className="text-lg font-bold text-secondary">
+                    {selectedSchedule.matchType.charAt(0).toUpperCase()}
+                    {selectedSchedule.matchType.slice(1)} Match
+                  </div>
+                </div>
+              )}
+              {/* Match Format Information */}
+              {selectedSchedule?.matchFormat && (
+                <div className="rounded-lg border border-border bg-card px-4 py-3 text-center">
+                  <span className="text-sm text-text-muted">Match Format</span>
+
+                  <div className="text-lg font-bold text-secondary">
+                    {selectedSchedule.matchFormat} V{" "}
+                    {selectedSchedule.matchFormat}
+                  </div>
+                </div>
+              )}
+            </div>
             {/* Match Time + Schedule */}
             <div className="grid w-full grid-cols-1 gap-6 lg:grid-cols-2">
               {/* Match Time */}
               <div>
-                <label
-                  htmlFor="matchTime"
-                  className="mb-2 block text-sm font-medium"
-                >
+                <label htmlFor="matchTime" className="block mb-2 font-medium">
                   Match Time
                 </label>
 
@@ -411,7 +437,7 @@ const AddMatch = () => {
                   value={formData.matchTime}
                   onChange={handleChange}
                   required
-                  className="w-full rounded-lg border border-border bg-card px-4 py-3 text-text outline-none focus:border-[#0E5FD8]"
+                  className="w-full rounded-lg border border-border bg-background px-4 py-3 text-text outline-none placeholder:text-text-muted focus:border-secondary/70"
                 >
                   <option value="">Select match time</option>
                   <option value="30">30 Minutes</option>
@@ -424,7 +450,7 @@ const AddMatch = () => {
               <div>
                 <label
                   htmlFor="matchSchedule"
-                  className="mb-2 block text-sm font-medium"
+                  className="block mb-2 font-medium"
                 >
                   Select Match
                 </label>
@@ -434,7 +460,7 @@ const AddMatch = () => {
                   value={formData.matchSchedule}
                   onChange={handleChange}
                   required
-                  className="w-full rounded-lg border border-border bg-card px-4 py-3 text-text outline-none focus:border-[#0E5FD8]"
+                  className="w-full rounded-lg border border-border bg-background px-4 py-3 text-text outline-none placeholder:text-text-muted focus:border-secondary/70"
                 >
                   <option value="">Select Match</option>
 
@@ -451,31 +477,9 @@ const AddMatch = () => {
                 </select>
               </div>
             </div>
-            <div className="grid grid-cols-2 gap-6">
-              {/* Match Format Information */}
-              {selectedSchedule?.matchFormat && (
-                <div className="rounded-lg border border-border bg-card px-4 py-3 text-center">
-                  <span className="text-sm text-text-muted">Match Format</span>
 
-                  <div className="text-lg font-bold text-secondary">
-                    {selectedSchedule.matchFormat} V{" "}
-                    {selectedSchedule.matchFormat}
-                  </div>
-                </div>
-              )}
-              {selectedSchedule?.matchType && (
-                <div className="rounded-lg border border-border bg-card px-4 py-3 text-center">
-                  <span className="text-sm text-text-muted">Match Type</span>
-
-                  <div className="text-lg font-bold text-secondary">
-                    {selectedSchedule.matchType.charAt(0).toUpperCase()}
-                    {selectedSchedule.matchType.slice(1)} Match
-                  </div>
-                </div>
-              )}
-            </div>
             {/* Divider */}
-            <div className="mt-6 border-t-4 border-secondary" />
+            <div className="border-t-2 border-secondary" />
 
             {/* Home + Away */}
             <div className="grid w-full grid-cols-1 gap-6 lg:grid-cols-2">
@@ -494,7 +498,7 @@ const AddMatch = () => {
                   value={formData.homeTeam}
                   onChange={handleChange}
                   required
-                  className="w-full rounded-lg border border-border bg-card px-4 py-3 text-text outline-none focus:border-[#0E5FD8]"
+                  className="w-full rounded-lg border border-border bg-background px-4 py-3 text-text outline-none placeholder:text-text-muted focus:border-secondary/70"
                 >
                   <option value="">Select home team</option>
 
@@ -533,7 +537,7 @@ const AddMatch = () => {
                                   )
                                 }
                                 required
-                                className="w-full rounded-lg border border-border bg-card px-4 py-3 text-text outline-none focus:border-[#0E5FD8]"
+                                className="w-full rounded-lg border border-border bg-background px-4 py-3 text-text outline-none placeholder:text-text-muted focus:border-secondary/70"
                               >
                                 <option value="">Select player</option>
 
@@ -559,7 +563,10 @@ const AddMatch = () => {
                     {/* Home Substitutes */}
                     <div className="mt-6">
                       <h2 className="mb-1 text-xl font-bold text-secondary">
-                        Home Substitutes (Optional)
+                        Home Substitutes{" "}
+                        <span className="text-text-muted text-sm">
+                          (Optional)
+                        </span>
                       </h2>
 
                       <div className="grid grid-cols-1 gap-4">
@@ -579,7 +586,7 @@ const AddMatch = () => {
                                     e.target.value,
                                   )
                                 }
-                                className="w-full rounded-lg border border-border bg-card px-4 py-3 text-text"
+                                className="w-full rounded-lg border border-border bg-background px-4 py-3 text-text outline-none placeholder:text-text-muted focus:border-secondary/70"
                               >
                                 <option value="">Select substitute</option>
 
@@ -606,7 +613,7 @@ const AddMatch = () => {
               </div>
 
               {/* Mobile Divider */}
-              <div className="border-t-4 border-accent lg:hidden" />
+              <div className="border-t-2 border-accent lg:hidden" />
 
               {/* ================= AWAY TEAM ================= */}
               <div>
@@ -623,7 +630,7 @@ const AddMatch = () => {
                   value={formData.awayTeam}
                   onChange={handleChange}
                   required
-                  className="w-full rounded-lg border border-border bg-card px-4 py-3 text-text outline-none focus:border-[#0E5FD8]"
+                  className="w-full rounded-lg border border-border bg-background px-4 py-3 text-text outline-none placeholder:text-text-muted focus:border-secondary/70"
                 >
                   <option value="">Select away team</option>
 
@@ -662,7 +669,7 @@ const AddMatch = () => {
                                   )
                                 }
                                 required
-                                className="w-full rounded-lg border border-border bg-card px-4 py-3 text-text outline-none focus:border-[#0E5FD8]"
+                                className="w-full rounded-lg border border-border bg-background px-4 py-3 text-text outline-none placeholder:text-text-muted focus:border-secondary/70"
                               >
                                 <option value="">Select player</option>
 
@@ -688,7 +695,10 @@ const AddMatch = () => {
                     {/* Away Substitutes */}
                     <div className="mt-6">
                       <h2 className="mb-1 text-xl font-bold text-secondary">
-                        Away Substitutes (Optional)
+                        Away Substitutes{" "}
+                        <span className="text-text-muted text-sm">
+                          (Optional)
+                        </span>
                       </h2>
 
                       <div className="grid grid-cols-1 gap-4">
@@ -708,7 +718,7 @@ const AddMatch = () => {
                                     e.target.value,
                                   )
                                 }
-                                className="w-full rounded-lg border border-border bg-card px-4 py-3 text-text"
+                                className="w-full rounded-lg border border-border bg-background px-4 py-3 text-text outline-none placeholder:text-text-muted focus:border-secondary/70"
                               >
                                 <option value="">Select substitute</option>
 

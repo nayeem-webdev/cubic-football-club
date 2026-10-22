@@ -294,7 +294,7 @@ export default function UpdateOpponentPlayer() {
             <div className="relative">
               <Search
                 size={15}
-                className="absolute left-3 top-1/2 -translate-y-1/2 text-[#718096]"
+                className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted"
               />
 
               <input
@@ -302,14 +302,14 @@ export default function UpdateOpponentPlayer() {
                 placeholder="Search opponent player..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full rounded-lg border border-border bg-background py-2 pl-9 pr-9 text-xs text-white outline-none placeholder:text-[#718096] focus:border-[#0E5FD8]"
+                className="w-full rounded-lg border border-border bg-background py-2 pl-9 pr-9 text-xs text-white outline-none placeholder:text-text-muted focus:border-[#0E5FD8]"
               />
 
               {searchTerm && (
                 <button
                   type="button"
                   onClick={() => setSearchTerm("")}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-[#718096] hover:text-white"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-text-muted hover:text-white"
                   aria-label="Clear search"
                 >
                   <X size={14} />
@@ -388,7 +388,7 @@ export default function UpdateOpponentPlayer() {
                 <tr>
                   <td
                     colSpan={6}
-                    className="py-10 text-center text-sm text-[#718096]"
+                    className="py-10 text-center text-sm text-text-muted"
                   >
                     No opponent players found matching your filters.
                   </td>
@@ -419,7 +419,7 @@ export default function UpdateOpponentPlayer() {
                                 }}
                               />
                             ) : (
-                              <span className="text-sm font-semibold text-[#718096]">
+                              <span className="text-sm font-semibold text-text-muted">
                                 {(player.name || "?").charAt(0).toUpperCase()}
                               </span>
                             )}
@@ -562,7 +562,7 @@ export default function UpdateOpponentPlayer() {
                             View photo
                           </a>
                         ) : (
-                          <span className="text-xs text-[#718096]">
+                          <span className="text-xs text-text-muted">
                             No photo
                           </span>
                         )}

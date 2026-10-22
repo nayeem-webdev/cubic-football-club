@@ -142,20 +142,20 @@
 }
 
 /* @theme {
-  --color-background: #07111f;
-  --color-surface: #0e1d34;
-  --color-card: #152640;
+  --color-background: #010611;
+  --color-surface: #030d1c;
+  --color-card: #071426;
 
-  --color-primary: #0e5fd8;
-  --color-primary-hover: #3a82ff;
+  --color-primary: #052e8a;
+  --color-primary-hover: #0757d5;
 
-  --color-secondary: #d4af37;
-  --color-accent: #49c85a;
+  --color-secondary: #0095ff;
+  --color-accent: #ddb900;
 
-  --color-text: #f8fafc;
-  --color-text-muted: #b8c2d1;
+  --color-text: #f5f9ff;
+  --color-text-muted: #8fa4c0;
 
-  --color-border: #28466b;
+  --color-border: #0c294a;
 
   --font-minasans: "Minasans", sans-serif;
 } */
@@ -185,4 +185,9 @@
 img {
   width: 100%;
   height: auto;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+  cursor: pointer;
 }

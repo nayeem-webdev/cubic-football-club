@@ -130,7 +130,6 @@ const EditMatch = () => {
   const homeTeam = matchDetails?.homeTeam;
   const awayTeam = matchDetails?.awayTeam;
   const schedule = matchDetails?.matchSchedule;
-
   // Filter players by team
 
   const homeTeamPlayers = useMemo(() => {
@@ -274,19 +273,10 @@ const EditMatch = () => {
     }
   };
 
-  if (pageLoading) {
-    return (
-      <div className="min-h-screen bg-background px-4 py-10 text-text">
-        <div className="mx-auto max-w-3xl">
-          <Loader />
-        </div>
-      </div>
-    );
-  }
-
   return (
     <div className="min-h-screen bg-background px-4 py-10 text-text">
       <div className="mx-auto max-w-3xl">
+        {pageLoading && <Loader />}
         {/* Header */}
         <PageHero
           text="CUBIC FC"
@@ -295,62 +285,12 @@ const EditMatch = () => {
         />
 
         {/* Main Card */}
-        <div className="rounded-2xl border border-border text-text-muted p-6 shadow-xl sm:p-8">
+        <div className="rounded-2xl bg-card text-text p-6 shadow-2xl md:p-8">
           <form onSubmit={handleSubmit} className="space-y-6">
-            {/* Match Time + Match Schedule Summary */}
-            <div className="grid w-full grid-cols-1 gap-6 lg:grid-cols-2">
-              {/* Editable Match Time */}
-              <div>
-                <label
-                  htmlFor="matchTime"
-                  className="mb-2 block text-sm font-medium"
-                >
-                  Match Time
-                </label>
-                <select
-                  name="matchTime"
-                  value={formData.matchTime}
-                  onChange={handleChange}
-                  required
-                  className="w-full rounded-lg border border-border bg-card px-4 py-3 text-text outline-none focus:border-[#0E5FD8]"
-                >
-                  <option value="">Select match time</option>
-                  <option value="30">30 Minutes</option>
-                  <option value="60">60 Minutes</option>
-                  <option value="90">90 Minutes</option>
-                </select>
-              </div>
-
-              {/* Read-Only Schedule Details */}
-              <div>
-                <label className="mb-2 block text-sm font-medium">
-                  Select Match
-                </label>
-                <div className="w-full rounded-lg border border-border bg-card/60 px-4 py-3 text-text-muted opacity-80 cursor-not-allowed">
-                  {schedule?.date
-                    ? new Date(schedule.date).toLocaleDateString("en-GB", {
-                        day: "2-digit",
-                        month: "short",
-                        year: "numeric",
-                      })
-                    : "No Date"}
-                  {" — "}
-                  {schedule?.venue?.venue || "No Venue"}
-                </div>
-              </div>
-            </div>
-
             {/* Match Format & Type Badges */}
+            {/* Match Details */}
             <div className="grid grid-cols-2 gap-6">
-              {schedule?.matchFormat && (
-                <div className="rounded-lg border border-border bg-card px-4 py-3 text-center">
-                  <span className="text-sm text-text-muted">Match Format</span>
-                  <div className="text-lg font-bold text-secondary">
-                    {schedule.matchFormat} V {schedule.matchFormat}
-                  </div>
-                </div>
-              )}
-
+              {/* Match Type */}
               {schedule?.matchType && (
                 <div className="rounded-lg border border-border bg-card px-4 py-3 text-center">
                   <span className="text-sm text-text-muted">Match Type</span>
@@ -361,10 +301,58 @@ const EditMatch = () => {
                   </div>
                 </div>
               )}
+
+              {/* Match Format */}
+              {schedule?.matchFormat && (
+                <div className="rounded-lg border border-border bg-card px-4 py-3 text-center">
+                  <span className="text-sm text-text-muted">Match Format</span>
+                  <div className="text-lg font-bold text-secondary">
+                    {schedule.matchFormat} V {schedule.matchFormat}
+                  </div>
+                </div>
+              )}
+
+              {/* Match Date */}
+              {schedule?.date && (
+                <div className="rounded-lg border border-border bg-card px-4 py-3 text-center">
+                  <span className="text-sm text-text-muted">Match Date</span>
+                  <div className="text-lg font-bold text-secondary">
+                    {schedule.date}
+                  </div>
+                </div>
+              )}
+
+              {/* Match Date */}
+              {schedule?.venue?.venue && (
+                <div className="rounded-lg border border-border bg-card px-4 py-3 text-center">
+                  <span className="text-sm text-text-muted">Match Venue</span>
+                  <div className="text-lg font-bold text-secondary">
+                    {schedule.venue.venue}
+                  </div>
+                </div>
+              )}
             </div>
 
+            {/* Editable Match Time */}
+            <div>
+              <label htmlFor="matchTime" className="block mb-2 font-medium">
+                Match Time
+              </label>
+              <select
+                name="matchTime"
+                value={formData.matchTime}
+                onChange={handleChange}
+                required
+                className="w-full rounded-lg border border-border bg-background px-4 py-3 text-text outline-none placeholder:text-text-muted focus:border-secondary/70"
+              >
+                <option value="">Select match time</option>
+                <option value="30">30 Minutes</option>
+                <option value="60">60 Minutes</option>
+                <option value="90">90 Minutes</option>
+              </select>
+            </div>
             {/* Accent Line */}
-            <div className="mt-6 border-t-4 border-secondary" />
+            <div className="mt-6 border-t-2 border-secondary" />
 
             {/* Teams & Squad Lists */}
             <div className="grid w-full grid-cols-1 gap-6 lg:grid-cols-2">
@@ -393,7 +381,7 @@ const EditMatch = () => {
                               )
                             }
                             required
-                            className="w-full rounded-lg border border-border bg-card px-4 py-3 text-text outline-none focus:border-[#0E5FD8]"
+                            className="w-full rounded-lg border border-border bg-background px-4 py-3 text-text outline-none placeholder:text-text-muted focus:border-secondary/70"
                           >
                             <option value="">Select player</option>
                             {homeTeamPlayers
@@ -418,7 +406,9 @@ const EditMatch = () => {
                 <div className="mt-6">
                   <h2 className="mb-1 text-xl font-bold text-secondary">
                     Home Substitutes{" "}
-                    <span className="text-sm text-slate-400">(Optional)</span>
+                    <span className="text-text-muted text-sm">
+                      (Optional)
+                    </span>{" "}
                   </h2>
                   <div className="grid grid-cols-1 gap-4">
                     {formData.homeSubstitutes.map((selectedPlayer, index) => (
@@ -435,7 +425,7 @@ const EditMatch = () => {
                               e.target.value,
                             )
                           }
-                          className="w-full rounded-lg border border-border bg-card px-4 py-3 text-text outline-none focus:border-[#0E5FD8]"
+                          className="w-full rounded-lg border border-border bg-background px-4 py-3 text-text outline-none placeholder:text-text-muted focus:border-secondary/70"
                         >
                           <option value="">Select substitute</option>
                           {homeTeamPlayers
@@ -457,7 +447,7 @@ const EditMatch = () => {
               </div>
 
               {/* Mobile Divider */}
-              <div className="border-t-4 border-accent lg:hidden" />
+              <div className="border-t-2 border-accent lg:hidden" />
 
               {/* ================= AWAY TEAM ================= */}
               <div>
@@ -484,7 +474,7 @@ const EditMatch = () => {
                               )
                             }
                             required
-                            className="w-full rounded-lg border border-border bg-card px-4 py-3 text-text outline-none focus:border-[#0E5FD8]"
+                            className="w-full rounded-lg border border-border bg-background px-4 py-3 text-text outline-none placeholder:text-text-muted focus:border-secondary/70"
                           >
                             <option value="">Select player</option>
                             {awayTeamPlayers
@@ -509,7 +499,7 @@ const EditMatch = () => {
                 <div className="mt-6">
                   <h2 className="mb-1 text-xl font-bold text-secondary">
                     Away Substitutes{" "}
-                    <span className="text-sm text-slate-400">(Optional)</span>
+                    <span className="text-text-muted text-sm">(Optional)</span>
                   </h2>
                   <div className="grid grid-cols-1 gap-4">
                     {formData.awaySubstitutes.map((selectedPlayer, index) => (
@@ -526,7 +516,7 @@ const EditMatch = () => {
                               e.target.value,
                             )
                           }
-                          className="w-full rounded-lg border border-border bg-card px-4 py-3 text-text outline-none focus:border-[#0E5FD8]"
+                          className="w-full rounded-lg border border-border bg-background px-4 py-3 text-text outline-none placeholder:text-text-muted focus:border-secondary/70"
                         >
                           <option value="">Select substitute</option>
                           {awayTeamPlayers
@@ -551,7 +541,7 @@ const EditMatch = () => {
             <div className="border-t border-border" />
 
             {/* Action Buttons */}
-            <div className="flex flex-col gap-3 sm:flex-row sm:justify-between">
+            <div className="flex flex-col-reverse gap-3 sm:flex-row sm:justify-between">
               <button
                 type="button"
                 onClick={handleDelete}

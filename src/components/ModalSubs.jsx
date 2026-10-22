@@ -98,7 +98,7 @@ const ModalSubs = ({
                         ? "bg-primary text-white"
                         : isCompleted
                           ? "bg-[#49C85A] text-white"
-                          : "text-text-muted text-text-muted"
+                          : "text-text-muted"
                     }`}
                   >
                     {index + 1}
@@ -277,7 +277,7 @@ const ModalSubs = ({
               <div className="mt-8">
                 <button
                   onClick={() => setSubsStep("team")}
-                  className="flex items-center gap-2 rounded-xl px-4 py-3 text-sm font-medium text-text-muted transition hover:text-text-muted hover:text-text"
+                  className="flex items-center gap-2 rounded-xl px-4 py-3 text-sm font-medium text-text-muted transition hover:text-text"
                 >
                   <ChevronLeft size={18} />
                   Back
@@ -347,7 +347,7 @@ const ModalSubs = ({
               <div className="mt-8 flex items-center justify-between">
                 <button
                   onClick={() => setSubsStep("out")}
-                  className="flex items-center gap-2 rounded-xl px-4 py-3 text-sm font-medium text-text-muted transition hover:text-text-muted hover:text-text"
+                  className="flex items-center gap-2 rounded-xl px-4 py-3 text-sm font-medium text-text-muted transition hover:text-text"
                 >
                   <ChevronLeft size={18} />
                   Back

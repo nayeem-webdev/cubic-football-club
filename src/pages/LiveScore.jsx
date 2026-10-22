@@ -1081,9 +1081,6 @@ export default function LiveScore() {
               {/* DELETE & EDIT*/}
               <button
                 onClick={() => setEditEventsModal(true)}
-                disabled={
-                  !selectedMatch.timer.running || selectedMatch.timer.finished
-                }
                 className="group flex flex-col items-center justify-center rounded-xl border border-[#0E5FD8]/30 bg-primary/10 px-2 py-3 text-white transition hover:-translate-y-0.5 hover:bg-primary/20 hover:shadow-lg hover:shadow-[#0E5FD8]/10 disabled:cursor-not-allowed disabled:opacity-40 sm:py-4"
               >
                 <span className="text-xl sm:text-2xl">📝</span>

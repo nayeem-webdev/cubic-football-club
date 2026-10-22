@@ -31,7 +31,7 @@ export default function FloatingNavbar() {
             <Icon
               size={18}
               strokeWidth={2}
-              className="lg:h-[22px] lg:w-[22px]"
+              className="lg:h-5.5 lg:w-5.5"
             />
 
             <span className="pointer-events-none absolute right-16 hidden whitespace-nowrap rounded-lg border border-border bg-card px-3 py-1.5 text-sm font-medium text-text opacity-0 translate-x-2 transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100 lg:block">

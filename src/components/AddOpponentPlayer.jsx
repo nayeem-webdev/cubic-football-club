@@ -124,7 +124,7 @@ const AddOpponentPlayer = () => {
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Player Name */}
         <div>
-          <label htmlFor="name" className="mb-2 block text-sm font-medium">
+          <label htmlFor="name" className="block mb-2 font-medium">
             Player Name
           </label>
 
@@ -136,7 +136,7 @@ const AddOpponentPlayer = () => {
             value={formData.name}
             onChange={handleChange}
             required
-            className="w-full rounded-lg border border-border bg-card px-4 py-3 text-text outline-none placeholder:text-[#718096] focus:border-[#0E5FD8]"
+            className="w-full rounded-lg border border-border bg-background px-4 py-3 text-text outline-none placeholder:text-text-muted focus:border-secondary/70"
           />
         </div>
 
@@ -144,10 +144,7 @@ const AddOpponentPlayer = () => {
         <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
           {/* Jersey Number */}
           <div>
-            <label
-              htmlFor="jerseyNumber"
-              className="mb-2 block text-sm font-medium"
-            >
+            <label htmlFor="jerseyNumber" className="block mb-2 font-medium">
               Jersey Number
             </label>
 
@@ -159,16 +156,13 @@ const AddOpponentPlayer = () => {
               value={formData.jerseyNumber}
               onChange={handleChange}
               required
-              className="w-full rounded-lg border border-border bg-card px-4 py-3 text-text outline-none placeholder:text-[#718096] focus:border-[#0E5FD8]"
+              className="w-full rounded-lg border border-border bg-background px-4 py-3 text-text outline-none placeholder:text-text-muted focus:border-secondary/70"
             />
           </div>
 
           {/* Position */}
           <div>
-            <label
-              htmlFor="position"
-              className="mb-2 block text-sm font-medium"
-            >
+            <label htmlFor="position" className="block mb-2 font-medium">
               Position
             </label>
 
@@ -178,7 +172,7 @@ const AddOpponentPlayer = () => {
               value={formData.position}
               onChange={handleChange}
               required
-              className="w-full rounded-lg border border-border bg-card px-4 py-3 text-text outline-none focus:border-[#0E5FD8]"
+              className="w-full rounded-lg border border-border bg-background px-4 py-3 text-text outline-none placeholder:text-text-muted focus:border-secondary/70"
             >
               <option value="">Select position</option>
               <option value="GK">Goalkeeper</option>
@@ -192,7 +186,7 @@ const AddOpponentPlayer = () => {
 
         {/* Club */}
         <div>
-          <label htmlFor="playsFor" className="mb-2 block text-sm font-medium">
+          <label htmlFor="playsFor" className="block mb-2 font-medium">
             Club
           </label>
 
@@ -202,7 +196,7 @@ const AddOpponentPlayer = () => {
             value={formData.playsFor}
             onChange={handleChange}
             required
-            className="w-full rounded-lg border border-border bg-card px-4 py-3 text-text outline-none focus:border-[#0E5FD8]"
+            className="w-full rounded-lg border border-border bg-background px-4 py-3 text-text outline-none placeholder:text-text-muted focus:border-secondary/70"
           >
             <option value="">Select club</option>
 

@@ -268,12 +268,12 @@ export default function UpdatePlayer() {
                 placeholder="Search by player name..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full rounded-lg border border-border bg-background px-3.5 py-2 text-xs text-white placeholder-[#718096] outline-none focus:border-[#0E5FD8]"
+                className="w-full rounded-lg border border-border bg-background px-3.5 py-2 text-xs text-white placeholder-text-muted outline-none focus:border-[#0E5FD8]"
               />
               {searchTerm && (
                 <button
                   onClick={() => setSearchTerm("")}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-[#718096] hover:text-white"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-text-muted hover:text-white"
                 >
                   <X size={14} />
                 </button>
@@ -387,7 +387,7 @@ export default function UpdatePlayer() {
                 <tr>
                   <td
                     colSpan="9"
-                    className="py-8 text-center text-sm text-[#718096]"
+                    className="py-8 text-center text-sm text-text-muted"
                   >
                     No players found matching the selected filters.
                   </td>
@@ -537,7 +537,7 @@ export default function UpdatePlayer() {
                             }}
                           />
                         ) : (
-                          <span className="whitespace-nowrap text-xs text-[#718096]">
+                          <span className="whitespace-nowrap text-xs text-text-muted">
                             {player.dateOfBirth
                               ? new Date(player.dateOfBirth).toLocaleDateString(
                                   "en-GB",

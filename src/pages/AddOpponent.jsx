@@ -8,10 +8,10 @@ const AddOpponent = () => {
   const [activeTab, setActiveTab] = useState("player");
 
   const tabClass = (tab) =>
-    `flex flex-1 items-center justify-center gap-2 rounded-lg px-5 py-3 text-sm font-semibold transition-all duration-300 sm:flex-none ${
+    `flex items-center justify-center gap-2 rounded-md px-2 py-2 text-[12px] font-semibold transition sm:px-5 ${
       activeTab === tab
-        ? "bg-primary text-white shadow-md shadow-secondary/20"
-        : "text-text-muted hover:bg-card hover:text-accent"
+        ? "bg-primary text-white shadow-lg"
+        : "text-text-muted hover:bg-card hover:text-white"
     }`;
 
   return (
@@ -25,10 +25,10 @@ const AddOpponent = () => {
         />
 
         {/* Form Card */}
-        <div className="rounded-2xl border border-border text-text-muted p-6 shadow-2xl md:p-8">
+        <div className="rounded-2xl bg-card text-text p-6 shadow-2xl md:p-8">
           {/* Tabs */}
           <div
-            className="mb-6 flex w-full gap-2 rounded-xl border border-border bg-background p-1.5 sm:w-fit"
+            className="grid grid-cols-2 gap-3 rounded-lg bg-background border border-border text-text-muted p-2 mb-4"
             role="tablist"
             aria-label="Add opponent"
           >
