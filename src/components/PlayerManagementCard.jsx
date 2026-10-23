@@ -8,8 +8,6 @@ import {
   Hash,
   Activity,
   User,
-  Trophy,
-  CircleStar,
 } from "lucide-react";
 import { useState } from "react";
 
@@ -152,12 +150,22 @@ export default function PlayerManagementCard({ player, onEdit, onCopyId }) {
           </p>
         </div>
 
+        {/* APPS */}
+        <div className="bg-surface p-2.5 rounded-sm">
+          <span className="flex items-center gap-1 text-[9px] font-bold uppercase tracking-wider text-text-muted">
+            <User size={11} className="text-secondary shrink-0" /> APPS
+          </span>
+          <p className="mt-1 truncate text-[11px] font-bold text-text">
+            {stats.appearances ?? 0}
+          </p>
+        </div>
+
         {/* FORM */}
-        <div className="col-span-2 bg-surface p-2.5 rounded-sm">
+        <div className="bg-surface p-2.5 rounded-sm">
           <span className="flex items-center gap-1 text-[9px] font-bold uppercase tracking-wider text-text-muted">
             <Activity size={11} className="text-secondary shrink-0" /> Form
           </span>
-          <div className="mt-1 flex items-center gap-2">
+          <div className="mt-1 flex items-center gap-1">
             {Array.isArray(stats.participatedLast5) &&
             stats.participatedLast5.length > 0 ? (
               stats.participatedLast5.map((result, index) => (
@@ -176,36 +184,6 @@ export default function PlayerManagementCard({ player, onEdit, onCopyId }) {
               </span>
             )}
           </div>
-        </div>
-
-        {/* APPS */}
-        <div className="bg-surface p-2.5 rounded-sm">
-          <span className="flex items-center gap-1 text-[9px] font-bold uppercase tracking-wider text-text-muted">
-            <User size={11} className="text-secondary shrink-0" /> APPS
-          </span>
-          <p className="mt-1 truncate text-[11px] font-bold text-text">
-            {stats.appearances ?? 0}
-          </p>
-        </div>
-
-        {/* SCORE */}
-        <div className="bg-surface p-2.5 rounded-sm">
-          <span className="flex items-center gap-1 text-[9px] font-bold uppercase tracking-wider text-text-muted">
-            <CircleStar size={11} className="text-secondary shrink-0" /> SCORE
-          </span>
-          <p className="mt-1 truncate text-[11px] font-bold text-text">
-            {stats.playerScore ?? 0}
-          </p>
-        </div>
-
-        {/* WIN % */}
-        <div className="bg-surface p-2.5 rounded-sm">
-          <span className="flex items-center gap-1 text-[9px] font-bold uppercase tracking-wider text-text-muted">
-            <Trophy size={11} className="text-secondary shrink-0" /> WIN %
-          </span>
-          <p className="mt-1 truncate text-[11px] font-bold text-text">
-            {stats.winRate}%
-          </p>
         </div>
       </div>
 

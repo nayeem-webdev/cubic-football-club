@@ -46,7 +46,7 @@ export default function UpdatePlayer() {
       try {
         setLoading(true);
 
-        const response = await fetch(`${API_URL}/player-details`);
+        const response = await fetch(`${API_URL}/players`);
 
         if (!response.ok) {
           throw new Error("Failed to fetch players");
@@ -459,7 +459,7 @@ export default function UpdatePlayer() {
               <button
                 type="button"
                 onClick={resetFilters}
-                className="mt-4 rounded-xl bg-primary px-4 py-2.5 text-xs font-semibold text-white transition hover:bg-primary-hover"
+                className="mt-4 rounded-xl bg-primary px-4 py-2.5 text-xs font-semibold text-white transition hover:bg-secondary"
               >
                 Reset Filters
               </button>
