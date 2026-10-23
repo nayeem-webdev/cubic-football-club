@@ -1,11 +1,13 @@
 import { useNavigate } from "react-router-dom";
 import PageHero from "./PageHero";
+import Loader from "./Loader";
 
-const SelectMatch = ({ matches, onSelectMatch }) => {
+const SelectMatch = ({ matches, onSelectMatch, loading }) => {
   const navigate = useNavigate();
 
   return (
     <div className="min-h-screen bg-background px-4 py-10 text-text">
+      {loading && <Loader />}
       <div className="mx-auto max-w-4xl">
         {/* Header */}
         <PageHero
@@ -91,7 +93,7 @@ const SelectMatch = ({ matches, onSelectMatch }) => {
             <button
               type="button"
               onClick={() => navigate("/new-match")}
-              className="rounded-lg bg-[#2563EB]/40 px-5 py-2.5 font-medium text-white transition hover:bg-[#1D4ED8]/30"
+              className="rounded-lg bg-primary px-5 py-2.5 font-medium text-white transition hover:bg-secondary"
             >
               Create Match
             </button>

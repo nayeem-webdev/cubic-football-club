@@ -1,6 +1,6 @@
 const MatchLineup = ({ selectedMatch }) => {
   if (!selectedMatch) return null;
-
+  console.log(selectedMatch);
   const homeStartingPlayers = selectedMatch.homeStartingPlayers || [];
   const awayStartingPlayers = selectedMatch.awayStartingPlayers || [];
 
@@ -8,22 +8,19 @@ const MatchLineup = ({ selectedMatch }) => {
   const awaySubstitutes = selectedMatch.awaySubstitutes || [];
 
   return (
-    <div className="mt-5 overflow-hidden rounded-2xl border border-border text-text-muted">
+    <div className="mt-5 rounded-2xl bg-card text-text-muted p-4">
       {/* ========================================= */}
       {/* HEADER */}
       {/* ========================================= */}
 
-      <div className="flex items-center justify-between border-b border-border px-4 py-4 sm:px-5">
-        <div>
-          <h2 className="text-sm font-bold text-text sm:text-base">Lineup</h2>
+      <div className="mb-5 flex items-center justify-between">
+        <h2 className="text-sm font-bold text-text sm:text-base">
+          Match Lineup
+        </h2>
 
-          <p className="mt-0.5 text-[10px] text-text-muted/50">
-            Starting players & substitutes
-          </p>
-        </div>
-
-        <span className="rounded-lg border border-border bg-background px-2.5 py-1 text-[10px] font-bold text-text-muted">
-          {selectedMatch.playersPerTeam} v {selectedMatch.playersPerTeam}
+        <span className="text-[10px] font-medium uppercase tracking-wider text-text-muted/40">
+          {selectedMatch.matchSchedule.matchFormat} v{" "}
+          {selectedMatch.matchSchedule.matchFormat}{" "}
         </span>
       </div>
 
@@ -31,10 +28,9 @@ const MatchLineup = ({ selectedMatch }) => {
       {/* TEAM HEADER */}
       {/* ========================================= */}
 
-      <div className="grid grid-cols-2 border-b border-border">
+      <div className="grid grid-cols-2">
         {/* HOME */}
-
-        <div className="flex items-center gap-2.5 border-r border-border px-4 py-3">
+        <div className="flex items-center gap-2.5 px-4 ">
           <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full">
             <img
               src={selectedMatch.homeTeam.logoLow}
@@ -55,8 +51,7 @@ const MatchLineup = ({ selectedMatch }) => {
         </div>
 
         {/* AWAY */}
-
-        <div className="flex items-center justify-end gap-2.5 px-4 py-3 text-right">
+        <div className="flex items-center justify-end gap-2.5 px-4 text-right">
           <div className="min-w-0">
             <p className="text-[9px] font-bold uppercase tracking-[0.15em] text-[#49C85A]">
               AWAY
@@ -83,7 +78,7 @@ const MatchLineup = ({ selectedMatch }) => {
 
       <div className="px-4 py-4 sm:px-5">
         <div className="mb-3 flex items-center justify-center">
-          <span className="rounded-full bg-background px-3 py-1 text-[9px] font-bold uppercase tracking-[0.15em] text-text-muted/50">
+          <span className="rounded-full bg-background px-3 py-1 text-[9px] font-bold uppercase tracking-[0.15em] text-text-muted/80">
             Starting Players
           </span>
         </div>
@@ -113,7 +108,7 @@ const MatchLineup = ({ selectedMatch }) => {
         {(homeSubstitutes.length > 0 || awaySubstitutes.length > 0) && (
           <div className="mt-6 border-t border-border pt-4">
             <div className="mb-3 flex items-center justify-center">
-              <span className="rounded-full bg-background px-3 py-1 text-[9px] font-bold uppercase tracking-[0.15em] text-text-muted/40">
+            <span className="rounded-full bg-background px-3 py-1 text-[9px] font-bold uppercase tracking-[0.15em] text-text-muted/40">
                 Substitutes
               </span>
             </div>

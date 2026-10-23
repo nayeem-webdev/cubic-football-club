@@ -753,20 +753,16 @@ export default function LiveScore() {
     }
   };
 
-  //## =========================
-  //## FAKE DATA
-  //## =========================
-
-  //   ** Show Loader Till Data Fetch
-
-  if (pageLoading) {
-    return <Loader />;
-  }
-
   //   ** Select Match Page
 
   if (!selectedMatch) {
-    return <SelectMatch matches={matches} onSelectMatch={selectMatch} />;
+    return (
+      <SelectMatch
+        matches={matches}
+        onSelectMatch={selectMatch}
+        loading={pageLoading}
+      />
+    );
   }
 
   //   ** Score Board Page
@@ -774,17 +770,19 @@ export default function LiveScore() {
   return (
     <>
       <div className="min-h-screen bg-background px-4 py-6 text-text">
+        {pageLoading && <Loader />}
+
         <div className="mx-auto max-w-4xl">
           {/* CHANGE MATCH */}
           <button
             onClick={() => setSelectedMatch(null)}
-            className="mb-6 flex items-center gap-2 rounded-xl border border-border px-4 py-2 text-sm font-medium text-text-muted transition hover:border-secondary hover:text-white"
+            className="mb-6 flex items-center gap-2 rounded-xl bg-card px-4 py-2 text-sm font-medium text-text-muted transition hover:border-secondary hover:text-secondary"
           >
             ← Change Match
           </button>
 
           {/* MATCH HEADER */}
-          <div className="overflow-hidden rounded-2xl border border-border text-text-muted">
+          <div className="overflow-hidden rounded-2xl bg-card text-text-muted">
             {/* MAIN SCORE AREA */}
             <div className="px-4 py-4 sm:px-6 sm:py-5">
               {/* TOP STATUS */}
@@ -948,10 +946,10 @@ export default function LiveScore() {
             </div>
 
             {/* MATCH DETAILS */}
-            <div className="grid grid-cols-3 border-t border-border divide-x divide-surface">
+            <div className="grid grid-cols-3 border-t border-surface bg-card divide-x divide-surface">
               {/* VENUE */}
               <div className="min-w-0 px-2 py-2.5 text-center sm:px-4 sm:py-3">
-                <p className="text-[8px] font-bold uppercase tracking-wider text-text-muted/40 sm:text-[9px]">
+                <p className="text-[8px] font-bold uppercase tracking-wider text-text-muted sm:text-[9px]">
                   Venue
                 </p>
 
@@ -962,7 +960,7 @@ export default function LiveScore() {
 
               {/* DATE */}
               <div className="min-w-0 px-2 py-2.5 text-center sm:px-4 sm:py-3">
-                <p className="text-[8px] font-bold uppercase tracking-wider text-text-muted/40 sm:text-[9px]">
+                <p className="text-[8px] font-bold uppercase tracking-wider text-text-muted sm:text-[9px]">
                   Date
                 </p>
 
@@ -979,7 +977,7 @@ export default function LiveScore() {
 
               {/* TIME */}
               <div className="min-w-0 px-2 py-2.5 text-center sm:px-4 sm:py-3">
-                <p className="text-[8px] font-bold uppercase tracking-wider text-text-muted/40 sm:text-[9px]">
+                <p className="text-[8px] font-bold uppercase tracking-wider text-text-muted sm:text-[9px]">
                   Time
                 </p>
 
@@ -991,12 +989,12 @@ export default function LiveScore() {
           </div>
 
           {/* ACTION BUTTONS */}
-          <div className="mt-5 rounded-2xl border border-border text-text-muted p-3 sm:p-4">
+          <div className="mt-5 rounded-2xl bg-card text-text-muted p-3 sm:p-4">
             {/* HEADER */}
             <div className="mb-3 flex items-center justify-between">
               <h2 className="text-sm font-bold sm:text-base">Match Actions</h2>
 
-              <span className="text-[10px] font-medium uppercase tracking-wider text-text-muted/40">
+              <span className="text-[10px] font-medium uppercase tracking-wider text-text-muted">
                 Quick Actions
               </span>
             </div>
@@ -1009,7 +1007,7 @@ export default function LiveScore() {
                 disabled={
                   !selectedMatch.timer.running || selectedMatch.timer.finished
                 }
-                className="group flex flex-col items-center justify-center rounded-xl border border-[#0E5FD8]/30 bg-primary/10 px-2 py-3 text-white transition hover:-translate-y-0.5 hover:bg-primary/20 hover:shadow-lg hover:shadow-[#0E5FD8]/10 disabled:cursor-not-allowed disabled:opacity-40 sm:py-4"
+                className="group flex flex-col items-center justify-center rounded-xl border border-secondary/50 bg-surface px-2 py-3 text-white transition hover:bg-secondary hover:border-secondary disabled:cursor-not-allowed disabled:opacity-40 sm:py-4"
               >
                 <span className="text-xl sm:text-2xl">⚽</span>
 
@@ -1024,7 +1022,7 @@ export default function LiveScore() {
                 disabled={
                   !selectedMatch.timer.running || selectedMatch.timer.finished
                 }
-                className="group flex flex-col items-center justify-center rounded-xl border border-[#0E5FD8]/30 bg-primary/10 px-2 py-3 text-white transition hover:-translate-y-0.5 hover:bg-primary/20 hover:shadow-lg hover:shadow-[#0E5FD8]/10 disabled:cursor-not-allowed disabled:opacity-40 sm:py-4"
+                className="group flex flex-col items-center justify-center rounded-xl border border-secondary/50 bg-surface px-2 py-3 text-white transition hover:bg-secondary hover:border-secondary disabled:cursor-not-allowed disabled:opacity-40 sm:py-4"
               >
                 <span className="text-xl sm:text-2xl">🥅</span>
 
@@ -1039,7 +1037,7 @@ export default function LiveScore() {
                 disabled={
                   !selectedMatch.timer.running || selectedMatch.timer.finished
                 }
-                className="group flex flex-col items-center justify-center rounded-xl border border-[#0E5FD8]/30 bg-primary/10 px-2 py-3 text-white transition hover:-translate-y-0.5 hover:bg-primary/20 hover:shadow-lg hover:shadow-[#0E5FD8]/10 disabled:cursor-not-allowed disabled:opacity-40 sm:py-4"
+                className="group flex flex-col items-center justify-center rounded-xl border border-secondary/50 bg-surface px-2 py-3 text-white transition hover:bg-secondary hover:border-secondary disabled:cursor-not-allowed disabled:opacity-40 sm:py-4"
               >
                 <span className="text-xl sm:text-2xl">🏐</span>
 
@@ -1054,7 +1052,7 @@ export default function LiveScore() {
                 disabled={
                   !selectedMatch.timer.running || selectedMatch.timer.finished
                 }
-                className="group flex flex-col items-center justify-center rounded-xl border border-[#0E5FD8]/30 bg-primary/10 px-2 py-3 text-white transition hover:-translate-y-0.5 hover:bg-primary/20 hover:shadow-lg hover:shadow-[#0E5FD8]/10 disabled:cursor-not-allowed disabled:opacity-40 sm:py-4"
+                className="group flex flex-col items-center justify-center rounded-xl border border-secondary/50 bg-surface px-2 py-3 text-white transition hover:bg-secondary hover:border-secondary disabled:cursor-not-allowed disabled:opacity-40 sm:py-4"
               >
                 <span className="text-xl sm:text-2xl">📕</span>
 
@@ -1069,7 +1067,7 @@ export default function LiveScore() {
                 disabled={
                   !selectedMatch.timer.running || selectedMatch.timer.finished
                 }
-                className="group flex flex-col items-center justify-center rounded-xl border border-[#0E5FD8]/30 bg-primary/10 px-2 py-3 text-white transition hover:-translate-y-0.5 hover:bg-primary/20 hover:shadow-lg hover:shadow-[#0E5FD8]/10 disabled:cursor-not-allowed disabled:opacity-40 sm:py-4"
+                className="group flex flex-col items-center justify-center rounded-xl border border-secondary/50 bg-surface px-2 py-3 text-white transition hover:bg-secondary hover:border-secondary disabled:cursor-not-allowed disabled:opacity-40 sm:py-4"
               >
                 <span className="text-xl sm:text-2xl">🔄</span>
 
@@ -1081,7 +1079,7 @@ export default function LiveScore() {
               {/* DELETE & EDIT*/}
               <button
                 onClick={() => setEditEventsModal(true)}
-                className="group flex flex-col items-center justify-center rounded-xl border border-[#0E5FD8]/30 bg-primary/10 px-2 py-3 text-white transition hover:-translate-y-0.5 hover:bg-primary/20 hover:shadow-lg hover:shadow-[#0E5FD8]/10 disabled:cursor-not-allowed disabled:opacity-40 sm:py-4"
+                className="group flex flex-col items-center justify-center rounded-xl border border-secondary/50 bg-surface px-2 py-3 text-white transition hover:bg-secondary hover:border-secondary disabled:cursor-not-allowed disabled:opacity-40 sm:py-4"
               >
                 <span className="text-xl sm:text-2xl">📝</span>
 
@@ -1094,7 +1092,7 @@ export default function LiveScore() {
 
           {/* MATCH INFO TABS */}
 
-          <div className="mt-5 rounded-2xl border border-border text-text-muted p-1.5">
+          <div className="mt-5 rounded-2xl bg-card text-text-muted p-1.5">
             <div className="grid grid-cols-2 gap-1">
               <button
                 onClick={() => setActiveTab("timeline")}

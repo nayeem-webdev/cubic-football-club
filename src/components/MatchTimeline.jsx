@@ -25,7 +25,7 @@ const MatchTimeline = ({ selectedMatch }) => {
   );
 
   return (
-    <div className="mt-5 rounded-2xl border border-border text-text-muted p-4">
+    <div className="mt-5 rounded-2xl bg-card text-text-muted p-4">
       {/* ========================================= */}
       {/* HEADER */}
       {/* ========================================= */}
@@ -36,7 +36,7 @@ const MatchTimeline = ({ selectedMatch }) => {
         </h2>
 
         <span className="text-[10px] font-medium uppercase tracking-wider text-text-muted/40">
-          {events.length} Events
+          {events.length > 0 ? `${events.length} Events` : "No Events"}
         </span>
       </div>
 
@@ -46,7 +46,7 @@ const MatchTimeline = ({ selectedMatch }) => {
 
       <div className="mb-3 grid grid-cols-[1fr_32px_1fr] items-center">
         <div className="text-right">
-          <p className="text-[10px] font-bold uppercase tracking-wider text-[#49C85A]">
+          <p className="text-[10px] font-bold uppercase tracking-wider text-secondary">
             {selectedMatch.homeTeam.name}
           </p>
         </div>
@@ -54,7 +54,7 @@ const MatchTimeline = ({ selectedMatch }) => {
         <div />
 
         <div>
-          <p className="text-[10px] font-bold uppercase tracking-wider text-[#49C85A]">
+          <p className="text-[10px] font-bold uppercase tracking-wider text-secondary">
             {selectedMatch.awayTeam.name}
           </p>
         </div>
@@ -68,7 +68,7 @@ const MatchTimeline = ({ selectedMatch }) => {
         {/* CENTER LINE */}
 
         {events.length > 0 && (
-          <div className="absolute bottom-0 left-1/2 top-0 w-px -translate-x-1/2 bg-surface" />
+          <div className="absolute bottom-0 left-1/2 top-0 w-px -translate-x-1/2 bg-secondary/50" />
         )}
 
         <div className="space-y-3">
@@ -156,7 +156,7 @@ const MatchTimeline = ({ selectedMatch }) => {
                         </p>
 
                         {event.type === "goal" && assister && (
-                          <p className="text-[9px] text-[#49C85A]">
+                          <p className="text-[9px] text-secondary">
                             👟 {assister.name}
                           </p>
                         )}
@@ -180,7 +180,7 @@ const MatchTimeline = ({ selectedMatch }) => {
                 {/* ================================= */}
 
                 <div className="relative z-10 flex justify-center">
-                  <div className="h-2 w-2 rounded-full border-2 border-secondary text-text-muted" />
+                  <div className="h-2 w-2 rounded-full border-2 bg-surface border-secondary text-text-muted" />
                 </div>
 
                 {/* ================================= */}
@@ -202,7 +202,7 @@ const MatchTimeline = ({ selectedMatch }) => {
                         </p>
 
                         {event.type === "goal" && assister && (
-                          <p className="text-[9px] text-[#49C85A]">
+                          <p className="text-[9px] text-secondary">
                             👟 {assister.name}
                           </p>
                         )}
