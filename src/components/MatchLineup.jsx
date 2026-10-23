@@ -1,6 +1,5 @@
 const MatchLineup = ({ selectedMatch }) => {
   if (!selectedMatch) return null;
-  console.log(selectedMatch);
   const homeStartingPlayers = selectedMatch.homeStartingPlayers || [];
   const awayStartingPlayers = selectedMatch.awayStartingPlayers || [];
 
@@ -19,8 +18,11 @@ const MatchLineup = ({ selectedMatch }) => {
         </h2>
 
         <span className="text-[10px] font-medium uppercase tracking-wider text-text-muted/40">
-          {selectedMatch.matchSchedule.matchFormat} v{" "}
-          {selectedMatch.matchSchedule.matchFormat}{" "}
+          {selectedMatch?.matchSchedule?.matchFormat ||
+            selectedMatch.homeStartingPlayers.length}{" "}
+          v{" "}
+          {selectedMatch?.matchSchedule?.matchFormat ||
+            selectedMatch.awayStartingPlayers.length}{" "}
         </span>
       </div>
 
@@ -108,7 +110,7 @@ const MatchLineup = ({ selectedMatch }) => {
         {(homeSubstitutes.length > 0 || awaySubstitutes.length > 0) && (
           <div className="mt-6 border-t border-border pt-4">
             <div className="mb-3 flex items-center justify-center">
-            <span className="rounded-full bg-background px-3 py-1 text-[9px] font-bold uppercase tracking-[0.15em] text-text-muted/40">
+              <span className="rounded-full bg-background px-3 py-1 text-[9px] font-bold uppercase tracking-[0.15em] text-text-muted/40">
                 Substitutes
               </span>
             </div>

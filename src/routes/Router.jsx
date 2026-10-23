@@ -22,6 +22,8 @@ import UpdateMatch from "../pages/UpdateMatch";
 import UpdateSchedule from "../pages/UpdateSchedule";
 import AddOpponent from "../pages/AddOpponent";
 import UpdateOpponentPlayer from "../pages/UpdateOpponentPlayer";
+import EditScore from "../pages/EditScore";
+import UpdateScore from "../pages/UpdateScore";
 
 const router = createBrowserRouter([
   {
@@ -113,6 +115,14 @@ const router = createBrowserRouter([
           {
             path: "/update-schedule",
             element: <UpdateSchedule />,
+          },
+          {
+            path: "/update-score",
+            element: <UpdateScore />,
+          },
+          {
+            path: "/update-score/:id",
+            element: <EditScore />,
           },
         ],
       },

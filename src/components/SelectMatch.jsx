@@ -22,7 +22,7 @@ const SelectMatch = ({ matches, onSelectMatch, loading }) => {
             <button
               key={match._id}
               onClick={() => onSelectMatch(match)}
-              className="group w-full rounded-2xl border-2 border-transparent bg-surface/60 text-text-muted p-5 text-left transition-all duration-300 hover:-translate-y-1 hover:border-border hover:shadow-border"
+              className="group w-full rounded-2xl border-2 border-transparent bg-card hover:bg-card/80 text-text-muted p-5 text-left transition-all duration-300 hover:-translate-y-1 hover:border-border hover:shadow-border"
             >
               <div className="grid gap-2 md:grid-cols-[1fr_1.2fr] md:items-center">
                 {/* Teams */}
@@ -56,7 +56,7 @@ const SelectMatch = ({ matches, onSelectMatch, loading }) => {
                   <div className="min-w-0">
                     <p className="mb-1 text-xs text-text-muted">DATE</p>
 
-                    <p className="font-medium text-text">
+                    <p className="font-medium text-text truncate">
                       {match.matchSchedule.date}
                     </p>
                   </div>
@@ -65,7 +65,7 @@ const SelectMatch = ({ matches, onSelectMatch, loading }) => {
                   <div className="min-w-0">
                     <p className="mb-1 text-xs text-text-muted">TIME</p>
 
-                    <p className="font-medium text-text">
+                    <p className="font-medium text-text truncate">
                       {match.matchSchedule.time}
                     </p>
                   </div>
@@ -74,7 +74,7 @@ const SelectMatch = ({ matches, onSelectMatch, loading }) => {
                   <div className="min-w-0">
                     <p className="mb-1 text-xs text-text-muted">VENUE</p>
 
-                    <p className="font-medium text-text">
+                    <p className="truncate font-medium text-text">
                       {match.matchSchedule.venue?.venue ||
                         "Venue not available"}
                     </p>

@@ -43,7 +43,7 @@ const MatchCard = ({ match }) => {
   const schedule = match.matchSchedule || {};
   const homeTeam = match.homeTeam || {};
   const awayTeam = match.awayTeam || {};
-  const status = getStatus(match.date);
+  const status = getStatus(match?.matchSchedule?.date);
   return (
     <div className="group relative flex flex-col overflow-hidden rounded-2xl  bg-card p-6 shadow-xl transition-all duration-300 hover:-translate-y-1 hover:border-primary-hover hover:shadow-2xl">
       {/* Subtle top accent gradient */}
@@ -74,10 +74,10 @@ const MatchCard = ({ match }) => {
         <span
           className={`inline-flex shrink-0 items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-semibold ${
             status === "today"
-              ? "border-accent/40 bg-accent/15 text-accent"
+              ? " border-accent/40 bg-accent/15 text-accent"
               : status === "upcoming"
                 ? "border-secondary/40 bg-secondary/15 text-secondary"
-                : "border-gray-400/40 bg-gray-400/15 text-gray-400"
+                : "border-text-muted/40 bg-text-muted/15 text-text-muted"
           }`}
         >
           <span
@@ -86,7 +86,7 @@ const MatchCard = ({ match }) => {
                 ? "bg-accent"
                 : status === "upcoming"
                   ? "bg-secondary"
-                  : "bg-gray-400"
+                  : "bg-text-muted"
             }`}
           />
 

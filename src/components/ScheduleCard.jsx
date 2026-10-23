@@ -66,7 +66,7 @@ const ScheduleCard = ({ schedule }) => {
               ? "border-accent/40 bg-accent/15 text-accent"
               : status === "upcoming"
                 ? "border-secondary/40 bg-secondary/15 text-secondary"
-                : "border-gray-400/40 bg-gray-400/15 text-text-muted"
+                : "border-text-muted/40 bg-text-muted/15 text-text-muted"
           }`}
         >
           <span
@@ -75,7 +75,7 @@ const ScheduleCard = ({ schedule }) => {
                 ? "bg-accent"
                 : status === "upcoming"
                   ? "bg-secondary"
-                  : "bg-gray-400"
+                  : "bg-text-muted"
             }`}
           />
 

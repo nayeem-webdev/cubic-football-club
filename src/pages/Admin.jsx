@@ -9,6 +9,7 @@ import {
   CalendarSync,
   UserPen,
   ShieldUser,
+  SquarePen,
 } from "lucide-react";
 import PageHero from "../components/PageHero";
 
@@ -60,6 +61,12 @@ const adminItems = [
     description: "Edit existing match schedule.",
     icon: CalendarSync,
     path: "/update-schedule",
+  },
+  {
+    title: "Update Score",
+    description: "Update the match score.",
+    icon: SquarePen,
+    path: "/update-score",
   },
   {
     title: "Add Opponent",

@@ -47,9 +47,9 @@ const PlayerCard = ({ player }) => {
       {/* Left Section: Jersey, Avatar, and Name */}
       <div className="flex items-center gap-2 min-w-0">
         {/* Clean, low-profile Jersey Tag */}
-        <div className="relative flex h-6 w-6 shrink-0 items-center justify-center text-secondary">
+        <div className="relative flex h-6 w-6 shrink-0 items-center justify-center text-accent">
           {/* The Icon acts as the backdrop */}
-          <Shirt size={20} strokeWidth={2} className="fill-secondary" />
+          <Shirt size={20} strokeWidth={2} className="fill-accent" />
 
           {/* The Number sits dead center on top of the shirt graphics */}
           <span className="absolute inset-0 flex items-center justify-center pt-0.5 text-[8px] font-bold tracking-tighter text-black">
@@ -92,25 +92,25 @@ const TeamPanel = ({ team, players = [], substitutes = [], side = "home" }) => {
 
   return (
     <div
-      className={`group relative flex min-w-0 flex-col rounded-lg border px-3.25 pb-3.25 pt-3.5 backdrop-blur-xl ${
+      className={`group relative flex min-w-0 flex-col rounded-lg border-2 px-3.25 pb-3.25 pt-3.5 backdrop-blur-xl ${
         isHome
-          ? "border-secondary/70 bg-[linear-gradient(145deg,rgba(14,95,216,0.30),rgba(5,18,42,0.48)_48%,rgba(2,8,23,0.60))] shadow-[inset_0_1px_0_rgba(255,255,255,0.16),inset_0_0_35px_rgba(14,95,216,0.16),0_0_20px_rgba(14,95,216,0.12)]"
-          : "border-accent/70 bg-[linear-gradient(145deg,rgba(73,200,90,0.24),rgba(20,70,28,0.42)_48%,rgba(2,8,23,0.60))] shadow-[inset_0_1px_0_rgba(255,255,255,0.16),inset_0_0_35px_rgba(73,200,90,0.13),0_0_20px_rgba(73,200,90,0.10)]"
+          ? "border-blue-600 bg-[linear-gradient(145deg,rgba(14,95,216,0.30),rgba(5,18,42,0.48)_48%,rgba(2,8,23,0.60))] shadow-[inset_0_1px_0_rgba(255,255,255,0.16),inset_0_0_35px_rgba(14,95,216,0.16),0_0_20px_rgba(14,95,216,0.12)]"
+          : "border-green-600 bg-[linear-gradient(145deg,rgba(73,200,90,0.24),rgba(20,70,28,0.42)_48%,rgba(2,8,23,0.60))] shadow-[inset_0_1px_0_rgba(255,255,255,0.16),inset_0_0_35px_rgba(73,200,90,0.13),0_0_20px_rgba(73,200,90,0.10)]"
       }`}
     >
       {/* Decorative glass shine */}
       <div
         className={`pointer-events-none absolute left-0 right-0 top-0 h-0.5 ${
           isHome
-            ? "bg-linear-to-r from-transparent via-secondary to-transparent"
-            : "bg-linear-to-r from-transparent via-accent to-transparent"
+            ? "bg-linear-to-r from-transparent via-blue-600 to-transparent"
+            : "bg-linear-to-r from-transparent via-green-600 to-transparent"
         }`}
       />
 
       {/* Decorative corner accent */}
       <div
         className={`pointer-events-none absolute -right-8 -top-8 h-24 w-24 rounded-full blur-2xl ${
-          isHome ? "bg-primary/20" : "bg-accent/15"
+          isHome ? "bg-surface/20" : "bg-accent/15"
         }`}
       />
 
@@ -121,8 +121,8 @@ const TeamPanel = ({ team, players = [], substitutes = [], side = "home" }) => {
     clip-path-[polygon(12%_0%,_88%_0%,_100%_50%,_88%_100%,_12%_100%,_0%_50%)] outline-3 outline-offset-[-6px]
     ${
       isHome
-        ? "outline-secondary bg-[#071A38] shadow-[0_0_14px_rgba(14,95,216,0.20)]"
-        : "outline-accent bg-[#082b19] shadow-[0_0_14px_rgba(212,175,55,0.16)]"
+        ? "outline-blue-600 bg-[#071A38] shadow-[0_0_14px_rgba(14,95,216,0.20)]"
+        : "outline-green-600 bg-[#082b19] shadow-[0_0_14px_rgba(212,175,55,0.16)]"
     }`}
       >
         {isHome ? "HOME" : "AWAY"}
@@ -147,8 +147,8 @@ const TeamPanel = ({ team, players = [], substitutes = [], side = "home" }) => {
       <div
         className={`mb-1 mt-1 h-px w-full ${
           isHome
-            ? "bg-linear-to-r from-transparent via-secondary/60 to-transparent"
-            : "bg-linear-to-r from-transparent via-accent/60 to-transparent"
+            ? "bg-linear-to-r from-transparent via-blue-600/60 to-transparent"
+            : "bg-linear-to-r from-transparent via-green-600/60 to-transparent"
         }`}
       />
 
@@ -157,18 +157,18 @@ const TeamPanel = ({ team, players = [], substitutes = [], side = "home" }) => {
         <div
           className={`mt-2.25 rounded-[10px] border p-2 ${
             isHome
-              ? "border-secondary/20 bg-[#020817]/25"
-              : "border-accent/20 bg-[#020817]/25"
+              ? "border-blue-600/30 bg-surface/25"
+              : "border-green-600/30 bg-surface/25"
           }`}
         >
           <div
             className={`mb-1 flex items-center gap-2 text-[10px] font-minasans uppercase leading-none tracking-[2px] ${
-              isHome ? "text-[#55A0FF]" : "text-accent"
+              isHome ? "text-blue-400" : "text-green-400"
             }`}
           >
             <span
               className={`block h-2 w-2 shrink-0 rounded-full ${
-                isHome ? "bg-[#55A0FF]" : "bg-accent"
+                isHome ? "bg-blue-400" : "bg-green-400"
               }`}
             />
             <span>STARTING PLAYERS</span>
@@ -188,18 +188,18 @@ const TeamPanel = ({ team, players = [], substitutes = [], side = "home" }) => {
         <div
           className={`mt-2.25 rounded-[10px] border p-2 ${
             isHome
-              ? "border-secondary/20 bg-[#020817]/25"
-              : "border-accent/20 bg-[#020817]/25"
+              ? "border-blue-600/30 bg-surface/25"
+              : "border-green-600/30 bg-surface/25"
           }`}
         >
           <div
             className={`mb-1 flex items-center gap-2 text-[10px] font-minasans uppercase leading-none tracking-[2px] ${
-              isHome ? "text-[#55A0FF]" : "text-accent"
+              isHome ? "text-blue-400" : "text-green-400"
             }`}
           >
             <span
               className={`block h-2 w-2 shrink-0 rounded-full ${
-                isHome ? "bg-[#55A0FF]" : "bg-accent"
+                isHome ? "bg-blue-400" : "bg-green-400"
               }`}
             />
             <span>SUBSTITUTES</span>
@@ -401,34 +401,20 @@ const MatchDetails = () => {
   };
 
   // ============================================================
-  // LOADING
-  // ============================================================
-
-  if (loading) {
-    return <Loader />;
-  }
-
-  // ============================================================
   // ERROR
   // ============================================================
 
   if (error || !match) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-[#020817] px-4 text-white">
-        <div className="rounded-xl border border-white/10 text-text-muted p-8 text-center">
-          <h2 className="text-lg font-bold">Match unavailable</h2>
-
-          <p className="mt-2 text-sm text-text-muted">
-            {error || "Match not found"}
-          </p>
-
-          <button
-            onClick={() => navigate("/upcoming-matches")}
-            className="mt-5 rounded-lg bg-primary px-5 py-2 text-sm font-bold"
-          >
-            Back to matches
-          </button>
-        </div>
+        {loading && <Loader />}
+        <button
+          onClick={() => navigate("/matches")}
+          className="inline-flex items-center gap-2 rounded-lg border border-white/15 bg-white/5 px-3 py-2 text-xs font-bold uppercase tracking-wider text-white transition hover:border-accent hover:text-accent"
+        >
+          <ArrowLeft size={15} />
+          Back
+        </button>
       </div>
     );
   }
@@ -459,7 +445,6 @@ const MatchDetails = () => {
       {/* ======================================================
           PAGE ACTION BAR
       ====================================================== */}
-
       <div className="sticky top-0 z-50 border-b border-white/10 bg-background/95 px-4 py-3 backdrop-blur-md">
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-3">
           <button
@@ -496,7 +481,9 @@ const MatchDetails = () => {
           POSTER DISPLAY
       ====================================================== */}
 
-      <div className="overflow-x-auto px-0 py-6 sm:px-4">
+      <div className="overflow-x-auto px-0 py-6 sm:px-4 min-h-screen">
+        {loading && <Loader />}
+
         <div className="mx-auto w-fit">
           <div
             ref={posterRef}
@@ -529,16 +516,12 @@ const MatchDetails = () => {
                   <div className="absolute inset-3 rounded-full bg-accent/20 blur-2xl" />
 
                   {/* Subtle glow */}
-                  <div className="absolute inset-5 rounded-full bg-primary/20 blur-xl" />
+                  <div className="absolute inset-5 rounded-full bg-surface/20 blur-xl" />
 
                   <img
                     src="/assets/cubic-fc-logo.png"
                     alt="CUBIC FC"
-                    className="
-                      relative z-10
-                      h-full w-full
-                      object-contain
-                    "
+                    className="relative z-10 *:h-full w-full object-contain"
                   />
                 </div>
 
@@ -555,7 +538,7 @@ const MatchDetails = () => {
                   {/* Format */}
                   <h2 className="font-minasans text-5xl font-bold uppercase leading-[0.9] tracking-[-1.5px] text-text">
                     {schedule.matchFormat}
-                    <span className="text-secondary">V</span>
+                    <span className="text-accent">V</span>
                     {schedule.matchFormat}
                   </h2>
 
@@ -616,7 +599,7 @@ const MatchDetails = () => {
               <div className="mt-6 py-2 grid shrink-0 grid-cols-[1fr_1.25fr_1fr] overflow-hidden rounded-lg border-[1.5px] border-accent bg-[rgba(3,12,29,0.94)]">
                 {/* Date */}
                 <div className="flex min-w-0 items-center gap-2 border-r border-accent/45 px-2 py-base last:border-r-0">
-                  <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-accent text-[#07111F]">
+                  <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-accent text-surface">
                     <CalendarDays size={19} />
                   </div>
 
@@ -632,7 +615,7 @@ const MatchDetails = () => {
 
                 {/* Venue */}
                 <div className="flex min-w-0 items-center gap-2 border-r border-accent/45 px-2 py-base last:border-r-0">
-                  <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-accent text-[#07111F]">
+                  <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-accent text-surface">
                     <MapPin size={19} />
                   </div>
 
@@ -648,7 +631,7 @@ const MatchDetails = () => {
 
                 {/* Time */}
                 <div className="flex min-w-0 items-center gap-2 px-2 py-base">
-                  <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-accent text-[#07111F]">
+                  <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-accent text-surface">
                     <Clock3 size={19} />
                   </div>
 
@@ -667,7 +650,7 @@ const MatchDetails = () => {
                   FOOTER
               ================================================== */}
 
-              <footer className="mt-6 shrink-0 text-center text-sm font-extrabold uppercase tracking-[2px] text-secondary">
+              <footer className="mt-6 shrink-0 text-center text-sm font-extrabold uppercase tracking-[2px] text-accent">
                 CUBIC FC • EST. 2012 • CUBIC EDUCATION, CHITTAGONG
               </footer>
             </div>

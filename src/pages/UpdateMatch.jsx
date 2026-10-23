@@ -42,7 +42,7 @@ const UpdateMatch = () => {
             <button
               key={match._id}
               onClick={() => navigate(`/edit-match/${match._id}`)}
-              className="group w-full rounded-2xl border-2 border-transparent bg-surface/60 text-text-muted p-5 text-left transition-all duration-300 hover:-translate-y-1 hover:border-border hover:shadow-border"
+              className="group w-full rounded-2xl border-2 border-transparent bg-card hover:bg-card/80 text-text-muted p-5 text-left transition-all duration-300 hover:-translate-y-1 hover:border-border hover:shadow-border"
             >
               <div className="grid gap-2 md:grid-cols-[1fr_1.2fr] md:items-center">
                 <div>
