@@ -55,7 +55,7 @@ export default function ModalEditPlayer({
       case "backup":
         return "bg-purple-500/10 text-purple-400 border-purple-500/30";
       default:
-        return "bg-surface text-text-muted border-border";
+        return "bg-background text-text-muted border-border";
     }
   };
 
@@ -73,7 +73,7 @@ export default function ModalEditPlayer({
         if (e.target === e.currentTarget) onCancel?.();
       }}
     >
-      <div className="flex max-h-[90vh] w-full max-w-lg flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-xl">
+      <div className="flex max-h-[90vh] w-full max-w-lg flex-col overflow-hidden rounded-2xl bg-card text-text shadow-2xl p-5 md:p-8">
         {/* =========================================================
             HEADER: COMPACT & SIMPLE
         ========================================================= */}
@@ -117,7 +117,7 @@ export default function ModalEditPlayer({
           <div className="grid grid-cols-1 gap-3.5 sm:grid-cols-2">
             {/* NAME */}
             <div className="sm:col-span-2">
-              <label className="mb-1 block text-xs font-semibold text-text-muted">
+              <label className="mb-1 block text-xs font-semibold text-text">
                 Player Name
               </label>
               <input
@@ -126,13 +126,13 @@ export default function ModalEditPlayer({
                 value={formData?.name || ""}
                 onChange={onChange}
                 placeholder="Enter player name"
-                className="h-9 w-full rounded-lg border border-border bg-surface px-3 text-xs text-text outline-none transition focus:border-secondary"
+                className="h-9 w-full rounded-lg border border-border bg-background px-3 text-xs text-text outline-none transition focus:border-secondary"
               />
             </div>
 
             {/* JERSEY NUMBER */}
             <div>
-              <label className="mb-1 block text-xs font-semibold text-text-muted">
+              <label className="mb-1 block text-xs font-semibold text-text">
                 Jersey Number
               </label>
               <div className="relative">
@@ -148,14 +148,14 @@ export default function ModalEditPlayer({
                   min="0"
                   max="99"
                   placeholder="10"
-                  className="h-9 w-full rounded-lg border border-border bg-surface pl-8 pr-3 text-xs text-text outline-none transition focus:border-secondary"
+                  className="h-9 w-full rounded-lg border border-border bg-background pl-8 pr-3 text-xs text-text outline-none transition focus:border-secondary"
                 />
               </div>
             </div>
 
             {/* DATE OF BIRTH */}
             <div>
-              <label className="mb-1 block text-xs font-semibold text-text-muted">
+              <label className="mb-1 block text-xs font-semibold text-text">
                 Date of Birth
               </label>
               <div className="relative">
@@ -172,21 +172,21 @@ export default function ModalEditPlayer({
                       : ""
                   }
                   onChange={onChange}
-                  className="h-9 w-full rounded-lg border border-border bg-surface pl-8 pr-3 text-xs text-text outline-none transition focus:border-secondary"
+                  className="h-9 w-full rounded-lg border border-border bg-background pl-8 pr-3 text-xs text-text outline-none transition focus:border-secondary"
                 />
               </div>
             </div>
 
             {/* POSITION */}
             <div>
-              <label className="mb-1 block text-xs font-semibold text-text-muted">
+              <label className="mb-1 block text-xs font-semibold text-text">
                 Position
               </label>
               <select
                 name="position"
                 value={formData?.position || ""}
                 onChange={onChange}
-                className="h-9 w-full rounded-lg border border-border bg-surface px-2.5 text-xs text-text outline-none transition focus:border-secondary"
+                className="h-9 w-full rounded-lg border border-border bg-background px-2.5 text-xs text-text outline-none transition focus:border-secondary"
               >
                 <option value="">Select position</option>
                 <option value="GK">Goalkeeper (GK)</option>
@@ -199,14 +199,14 @@ export default function ModalEditPlayer({
 
             {/* STATUS */}
             <div>
-              <label className="mb-1 block text-xs font-semibold text-text-muted">
+              <label className="mb-1 block text-xs font-semibold text-text">
                 Status
               </label>
               <select
                 name="status"
                 value={formData?.status || ""}
                 onChange={onChange}
-                className="h-9 w-full rounded-lg border border-border bg-surface px-2.5 text-xs text-text outline-none transition focus:border-secondary"
+                className="h-9 w-full rounded-lg border border-border bg-background px-2.5 text-xs text-text outline-none transition focus:border-secondary"
               >
                 <option value="">Select status</option>
                 <option value="active">Active</option>
@@ -217,7 +217,7 @@ export default function ModalEditPlayer({
 
             {/* PREFERRED FOOT */}
             <div>
-              <label className="mb-1 block text-xs font-semibold text-text-muted">
+              <label className="mb-1 block text-xs font-semibold text-text">
                 Preferred Foot
               </label>
               <div className="relative">
@@ -229,7 +229,7 @@ export default function ModalEditPlayer({
                   name="foot"
                   value={formData?.foot || ""}
                   onChange={onChange}
-                  className="h-9 w-full rounded-lg border border-border bg-surface pl-8 pr-2.5 text-xs text-text outline-none transition focus:border-secondary"
+                  className="h-9 w-full rounded-lg border border-border bg-background pl-8 pr-2.5 text-xs text-text outline-none transition focus:border-secondary"
                 >
                   <option value="">Select foot</option>
                   <option value="Right">Right</option>
@@ -241,7 +241,7 @@ export default function ModalEditPlayer({
 
             {/* CLUB */}
             <div>
-              <label className="mb-1 block text-xs font-semibold text-text-muted">
+              <label className="mb-1 block text-xs font-semibold text-text">
                 Club
               </label>
               <div className="relative">
@@ -253,7 +253,7 @@ export default function ModalEditPlayer({
                   name="playsFor"
                   value={formData?.playsFor || ""}
                   onChange={onChange}
-                  className="h-9 w-full rounded-lg border border-border bg-surface pl-8 pr-2.5 text-xs text-text outline-none transition focus:border-secondary"
+                  className="h-9 w-full rounded-lg border border-border bg-background pl-8 pr-2.5 text-xs text-text outline-none transition focus:border-secondary"
                 >
                   <option value="">Free Agent</option>
                   {clubs.map((club) => (
@@ -267,7 +267,7 @@ export default function ModalEditPlayer({
 
             {/* PHOTO URL */}
             <div className="sm:col-span-2">
-              <label className="mb-1 block text-xs font-semibold text-text-muted">
+              <label className="mb-1 block text-xs font-semibold text-text">
                 Photo URL
               </label>
               <div className="relative">
@@ -281,7 +281,7 @@ export default function ModalEditPlayer({
                   value={formData?.photo || ""}
                   onChange={onChange}
                   placeholder="https://example.com/photo.jpg"
-                  className="h-9 w-full rounded-lg border border-border bg-surface pl-8 pr-3 text-xs text-text outline-none transition focus:border-secondary"
+                  className="h-9 w-full rounded-lg border border-border bg-background pl-8 pr-3 text-xs text-text outline-none transition focus:border-secondary"
                 />
               </div>
             </div>
@@ -291,12 +291,12 @@ export default function ModalEditPlayer({
         {/* =========================================================
             FOOTER: MINIMAL ACTIONS
         ========================================================= */}
-        <div className="flex items-center justify-between border-t border-border bg-surface/30 px-5 py-3">
+        <div className="flex items-center justify-between border-t border-border bg-background/30 px-5 py-3">
           <button
             type="button"
             onClick={onDelete}
             disabled={loading}
-            className="flex items-center gap-1.5 text-xs font-semibold text-red-400 transition hover:text-red-500 disabled:opacity-50"
+            className="flex items-center gap-1.5 h-9 rounded-lg border  px-4 text-xs font-semibold border-red-600 bg-red-600/15 text-red-600 transition hover:bg-red-400/15 hover:border-red-400 hover:text-red-400 disabled:opacity-50"
           >
             <Trash2 size={14} />
             Delete
@@ -307,7 +307,7 @@ export default function ModalEditPlayer({
               type="button"
               onClick={onCancel}
               disabled={loading}
-              className="h-9 rounded-lg border border-border bg-surface px-4 text-xs font-semibold text-text-muted transition hover:text-text disabled:opacity-50"
+              className="h-9 rounded-lg border border-border bg-background px-4 text-xs font-semibold text-text-muted transition hover:border-secondary  hover:text-text disabled:opacity-50"
             >
               Cancel
             </button>
@@ -316,7 +316,7 @@ export default function ModalEditPlayer({
               type="button"
               onClick={onSave}
               disabled={loading}
-              className="flex h-9 items-center gap-1.5 rounded-lg bg-primary px-4 text-xs font-semibold text-white transition hover:bg-primary-hover active:scale-[0.98] disabled:opacity-50"
+              className="flex h-9 items-center gap-1.5 rounded-lg bg-primary px-4 text-xs font-semibold text-white transition hover:bg-secondary active:scale-[0.98] disabled:opacity-50"
             >
               {loading ? (
                 <>

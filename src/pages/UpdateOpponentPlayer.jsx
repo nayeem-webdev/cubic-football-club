@@ -1,32 +1,27 @@
 import { useEffect, useState } from "react";
-import { Edit3, Save, Trash, X, Search } from "lucide-react";
+import { X } from "lucide-react";
 import Loader from "../components/Loader";
 import PageHero from "../components/PageHero";
+import ModalEditOpponent from "../components/ModalEditOpponent";
+import OpponentManagementCard from "../components/OpponentManagementCard";
 
 const API_URL = import.meta.env.VITE_API_URL;
-
-const POSITION_OPTIONS = [
-  { label: "Goalkeeper (GK)", value: "GK" },
-  { label: "Defender (DF)", value: "DF" },
-  { label: "Midfielder (MF)", value: "MF" },
-  { label: "Forward (FW)", value: "FW" },
-  { label: "Striker (ST)", value: "ST" },
-];
 
 export default function UpdateOpponentPlayer() {
   const [clubs, setClubs] = useState([]);
   const [players, setPlayers] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [editingId, setEditingId] = useState(null);
   const [saving, setSaving] = useState(false);
-  const [deletingId, setDeletingId] = useState(null);
   const [formData, setFormData] = useState({});
+  const [editingPlayer, setEditingPlayer] = useState(null);
+  const [deleting, setDeleting] = useState(false);
 
   // Filters
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedClub, setSelectedClub] = useState("all");
   const [selectedPosition, setSelectedPosition] = useState("all");
-  const [sortBy, setSortBy] = useState("jerseyNumber");
+  const [selectedStatus, setSelectedStatus] = useState("active");
+  const [sortBy, setSortBy] = useState("nameAsc");
 
   // Fetch opponent players and opponent teams
   useEffect(() => {
@@ -74,33 +69,73 @@ export default function UpdateOpponentPlayer() {
     return typeof playsFor === "object" ? playsFor._id || "" : playsFor;
   };
 
-  // Get opponent team name
-  const getClubName = (playsFor) => {
-    if (!playsFor) return "-";
+  // ============================================================
+  // DELETE PLAYER
+  // ============================================================
 
-    if (typeof playsFor === "object") {
-      return playsFor.name || "-";
+  const deletePlayerById = async () => {
+    if (!editingPlayer?._id) return;
+
+    const confirmed = window.confirm(
+      `Are you sure you want to delete ${editingPlayer.name || "this player"}?`,
+    );
+
+    if (!confirmed) return;
+
+    try {
+      setDeleting(true);
+
+      const response = await fetch(
+        `${API_URL}/opponent-players/${editingPlayer._id}`,
+        {
+          method: "DELETE",
+        },
+      );
+
+      const result = await response.json().catch(() => ({}));
+
+      if (!response.ok) {
+        throw new Error(
+          result.message || result.error || "Failed to delete player",
+        );
+      }
+
+      // Remove immediately from UI
+      setPlayers((prevPlayers) =>
+        prevPlayers.filter((player) => player._id !== editingPlayer._id),
+      );
+
+      // Close modal
+      setEditingPlayer(null);
+      setFormData({});
+
+      alert(result.message || "Player deleted successfully.");
+    } catch (error) {
+      console.error("Delete player error:", error);
+
+      alert(error.message);
+    } finally {
+      setDeleting(false);
     }
-
-    const club = clubs.find((item) => item._id === playsFor);
-
-    return club?.name || "-";
   };
 
-  // Start editing
   const handleEdit = (player) => {
-    setEditingId(player._id);
+    setEditingPlayer(player);
 
     setFormData({
-      name: player.name || "",
-      jerseyNumber: player.jerseyNumber ?? "",
-      position: player.position || "",
-      playsFor: getClubId(player.playsFor),
-      photo: player.photo || "",
+      name: player?.name || "",
+      jerseyNumber: player?.jerseyNumber ?? "",
+      position: player?.position || "",
+      playsFor:
+        typeof player?.playsFor === "object"
+          ? player.playsFor?._id || ""
+          : player?.playsFor || "",
+      photo: player?.photo || "",
     });
   };
 
   // Input change
+
   const handleChange = (e) => {
     const { name, value } = e.target;
 
@@ -110,16 +145,10 @@ export default function UpdateOpponentPlayer() {
     }));
   };
 
-  // Cancel editing
-  const handleCancel = () => {
-    setEditingId(null);
-    setFormData({});
-  };
-
   // Update opponent player
   const handleUpdate = async (playerId) => {
     if (
-      !formData.name.trim() ||
+      !formData.name?.trim() ||
       !formData.position ||
       formData.jerseyNumber === "" ||
       !formData.playsFor
@@ -146,7 +175,7 @@ export default function UpdateOpponentPlayer() {
           jerseyNumber,
           position: formData.position,
           playsFor: formData.playsFor,
-          photo: formData.photo.trim(),
+          photo: formData.photo?.trim() || "",
         }),
       });
 
@@ -160,8 +189,6 @@ export default function UpdateOpponentPlayer() {
 
       const updatedPlayer = data.player || data;
 
-      // Preserve the populated team name when the API
-      // returns playsFor as an unpopulated ObjectId.
       setPlayers((prevPlayers) =>
         prevPlayers.map((player) =>
           player._id === playerId
@@ -169,7 +196,6 @@ export default function UpdateOpponentPlayer() {
                 ...player,
                 ...updatedPlayer,
                 playsFor:
-                  updatedPlayer.playsFor &&
                   typeof updatedPlayer.playsFor === "object"
                     ? updatedPlayer.playsFor
                     : clubs.find(
@@ -182,56 +208,15 @@ export default function UpdateOpponentPlayer() {
         ),
       );
 
-      setEditingId(null);
+      setEditingPlayer(null);
       setFormData({});
+
       alert("Opponent player updated successfully.");
     } catch (err) {
       console.error("Error updating opponent player:", err);
+      alert(err.message);
     } finally {
       setSaving(false);
-    }
-  };
-
-  // Delete opponent player
-  const handleDelete = async (player) => {
-    const confirmed = window.confirm(
-      `Are you sure you want to delete ${player.name}?`,
-    );
-
-    if (!confirmed) return;
-
-    setDeletingId(player._id);
-
-    try {
-      const response = await fetch(
-        `${API_URL}/opponent-players/${player._id}`,
-        {
-          method: "DELETE",
-        },
-      );
-
-      const data = await response.json().catch(() => ({}));
-
-      if (!response.ok) {
-        throw new Error(
-          data.message || data.error || "Failed to delete opponent player.",
-        );
-      }
-
-      setPlayers((prevPlayers) =>
-        prevPlayers.filter((item) => item._id !== player._id),
-      );
-
-      if (editingId === player._id) {
-        setEditingId(null);
-        setFormData({});
-      }
-
-      alert(data.message || "Opponent player deleted successfully.");
-    } catch (err) {
-      console.error("Error deleting opponent player:", err);
-    } finally {
-      setDeletingId(null);
     }
   };
 
@@ -274,368 +259,195 @@ export default function UpdateOpponentPlayer() {
       return 0;
     });
 
-  if (loading) {
-    return <Loader />;
-  }
+  const resetFilters = () => {
+    setSearchTerm("");
+    setSelectedClub("all");
+    setSelectedPosition("all");
+    setSelectedStatus("active");
+    setSortBy("nameAsc");
+  };
+
+  const hasActiveFilters =
+    searchTerm ||
+    selectedClub !== "all" ||
+    selectedPosition !== "all" ||
+    selectedStatus !== "active" ||
+    sortBy !== "nameAsc";
 
   return (
-    <div className="min-h-screen bg-background px-4 py-10 text-text">
-      <div className="mx-auto max-w-7xl">
+    <div className="min-h-screen bg-background px-4 py-8 text-text sm:py-10">
+      <div className="mx-auto max-w-7xl space-y-6">
+        {/* ======================================================
+            LOADER
+        ======================================================= */}
+
+        {loading && <Loader />}
+
+        {/* ======================================================
+            HERO
+        ======================================================= */}
+
         <PageHero
-          text="Cubic FC"
-          heading="Update Opponent Players"
-          subheading="Manage player information for opposing clubs."
+          text="CUBIC FC"
+          heading="Update Players"
+          subheading="Manage and update player information."
         />
 
-        {/* Filter Panel */}
-        <div className="space-y-4 rounded-xl border border-border text-text-muted p-4 mb-6">
-          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-4">
-            {/* Search */}
-            <div className="relative">
-              <Search
-                size={15}
-                className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted"
-              />
+        {/* ======================================================
+            FILTER PANEL
+        ======================================================= */}
 
+        {/* Filter Panel */}
+        <div className="space-y-4 rounded-xl bg-card text-text-muted p-4">
+          <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 md:grid-cols-5">
+            {/* Search Input */}
+            <div className="relative">
               <input
                 type="text"
-                placeholder="Search opponent player..."
+                placeholder="Search by player name..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full rounded-lg border border-border bg-background py-2 pl-9 pr-9 text-xs text-white outline-none placeholder:text-text-muted focus:border-[#0E5FD8]"
+                className="px-3.5 text-xs text-white placeholder-text-muted w-full rounded-lg py-3  pr-3 outline-none bg-background border border-border"
               />
-
               {searchTerm && (
                 <button
-                  type="button"
                   onClick={() => setSearchTerm("")}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-text-muted hover:text-white"
-                  aria-label="Clear search"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-text-muted hover:text-white"
                 >
                   <X size={14} />
                 </button>
               )}
             </div>
 
-            {/* Opponent Team Filter */}
-            <select
-              value={selectedClub}
-              onChange={(e) => setSelectedClub(e.target.value)}
-              className="w-full rounded-lg border border-border bg-background px-3 py-2 text-xs text-text-muted outline-none focus:border-[#0E5FD8]"
-            >
-              <option value="all">All Opponent Teams</option>
-
-              {clubs.map((club) => (
-                <option key={club._id} value={club._id}>
-                  {club.name}
-                </option>
-              ))}
-            </select>
-
+            {/* Team / Club Filter */}
+            <div>
+              <select
+                value={selectedClub}
+                onChange={(e) => setSelectedClub(e.target.value)}
+                className="px-3.5 text-xs text-white placeholder-text-muted w-full rounded-lg py-3  pr-3 outline-none bg-background border border-border"
+              >
+                <option value="all">All Teams</option>
+                {clubs.map((club) => (
+                  <option key={club._id} value={club._id}>
+                    {club.name}
+                  </option>
+                ))}
+              </select>
+            </div>
             {/* Position Filter */}
-            <select
-              value={selectedPosition}
-              onChange={(e) => setSelectedPosition(e.target.value)}
-              className="w-full rounded-lg border border-border bg-background px-3 py-2 text-xs text-text-muted outline-none focus:border-[#0E5FD8]"
-            >
-              <option value="all">All Positions</option>
+            <div>
+              <select
+                value={selectedPosition}
+                onChange={(e) => setSelectedPosition(e.target.value)}
+                className="px-3.5 text-xs text-white placeholder-text-muted w-full rounded-lg py-3  pr-3 outline-none bg-background border border-border"
+              >
+                <option value="all">All Positions</option>
+                <option value="GK">Goalkeeper (GK)</option>
+                <option value="DF">Defender (DF)</option>
+                <option value="MF">Midfielder (MF)</option>
+                <option value="FW">Forward (FW)</option>
+                <option value="ST">Striker (ST)</option>
+              </select>
+            </div>
 
-              {POSITION_OPTIONS.map((position) => (
-                <option key={position.value} value={position.value}>
-                  {position.label}
-                </option>
-              ))}
-            </select>
+            {/* Sort Dropdown */}
+            <div>
+              <select
+                value={sortBy}
+                onChange={(e) => setSortBy(e.target.value)}
+                className="px-3.5 text-xs text-white placeholder-text-muted w-full rounded-lg py-3  pr-3 outline-none bg-background border border-border"
+              >
+                <option value="jerseyNumber">Sort by Jersey No.</option>
+                <option value="nameAsc">Sort by Name (A-Z)</option>
+                <option value="nameDesc">Sort by Name (Z-A)</option>
+                <option value="none">Default Order</option>
+              </select>
+            </div>
 
-            {/* Sorting */}
-            <select
-              value={sortBy}
-              onChange={(e) => setSortBy(e.target.value)}
-              className="w-full rounded-lg border border-border bg-background px-3 py-2 text-xs text-text-muted outline-none focus:border-[#0E5FD8]"
-            >
-              <option value="jerseyNumber">Sort by Jersey No.</option>
-              <option value="nameAsc">Sort by Name (A-Z)</option>
-              <option value="nameDesc">Sort by Name (Z-A)</option>
-              <option value="none">Default Order</option>
-            </select>
+            {/* Status Filter Tabs */}
+            <div>
+              <select
+                value={selectedStatus}
+                onChange={(e) => setSelectedStatus(e.target.value)}
+                className="px-3.5 text-xs text-white placeholder-text-muted w-full rounded-lg py-3  pr-3 outline-none bg-background border border-border"
+              >
+                {[
+                  { label: "All Players", value: "all" },
+                  { label: "Active", value: "active" },
+                  { label: "Inactive", value: "inactive" },
+                  { label: "Retired", value: "retired" },
+                  { label: "Backup", value: "backup" },
+                ].map((option) => (
+                  <option
+                    key={option.value}
+                    value={option.value}
+                    className="bg-background text-text"
+                  >
+                    {option.label}
+                  </option>
+                ))}
+              </select>
+            </div>
           </div>
         </div>
+        {/* ======================================================
+            PLAYER CARDS
+        ======================================================= */}
 
-        {/* Players Table */}
-        <div
-          className="overflow-x-auto rounded-xl"
-          style={{
-            background: "var(--color-surface)",
-            border: "1px solid var(--color-border)",
-          }}
-        >
-          <table className="w-full min-w-212.5 text-sm">
-            <thead className="text-[11px] uppercase tracking-wider text-text-muted bg-card">
-              <tr>
-                <th className="px-4 py-3 text-left font-medium">Player</th>
-                <th className="px-3 py-3 text-left font-medium">No.</th>
-                <th className="px-3 py-3 text-left font-medium">Position</th>
-                <th className="px-3 py-3 text-left font-medium">
-                  Opponent Team
-                </th>
-                <th className="px-3 py-3 text-left font-medium">Photo</th>
-                <th className="px-4 py-3 text-right font-medium">Actions</th>
-              </tr>
-            </thead>
+        {filteredAndSortedPlayers.length === 0 ? (
+          <div className="rounded-2xl border border-border bg-card px-6 py-14 text-center">
+            <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full border border-border bg-background text-2xl">
+              ⚽
+            </div>
 
-            <tbody>
-              {filteredAndSortedPlayers.length === 0 ? (
-                <tr>
-                  <td
-                    colSpan={6}
-                    className="py-10 text-center text-sm text-text-muted"
-                  >
-                    No opponent players found matching your filters.
-                  </td>
-                </tr>
-              ) : (
-                filteredAndSortedPlayers.map((player) => {
-                  const isEditing = editingId === player._id;
+            <h3 className="text-sm font-bold text-text">No players found</h3>
 
-                  return (
-                    <tr
-                      key={player._id}
-                      className="transition-colors hover:bg-white/5"
-                      style={{
-                        borderTop: "1px solid var(--color-border)",
-                      }}
-                    >
-                      {/* Player Name and Avatar */}
-                      <td className="px-4 py-3">
-                        <div className="flex items-center gap-3">
-                          <div className="flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-full border border-border bg-background">
-                            {(isEditing ? formData.photo : player.photo) ? (
-                              <img
-                                src={isEditing ? formData.photo : player.photo}
-                                alt={player.name}
-                                className="h-full w-full object-cover"
-                                onError={(e) => {
-                                  e.currentTarget.style.display = "none";
-                                }}
-                              />
-                            ) : (
-                              <span className="text-sm font-semibold text-text-muted">
-                                {(player.name || "?").charAt(0).toUpperCase()}
-                              </span>
-                            )}
-                          </div>
+            <p className="mt-1 text-xs text-text-muted">
+              No players match the selected filters.
+            </p>
 
-                          {isEditing ? (
-                            <input
-                              type="text"
-                              name="name"
-                              value={formData.name}
-                              onChange={handleChange}
-                              required
-                              className="w-36 rounded-md px-2.5 py-1.5 text-xs text-white outline-none"
-                              style={{
-                                background: "var(--color-background)",
-                                border: "1px solid var(--color-border)",
-                              }}
-                            />
-                          ) : (
-                            <span className="whitespace-nowrap font-medium">
-                              {player.name}
-                            </span>
-                          )}
-                        </div>
-                      </td>
-
-                      {/* Jersey Number */}
-                      <td className="px-3 py-3">
-                        {isEditing ? (
-                          <input
-                            type="number"
-                            name="jerseyNumber"
-                            min="0"
-                            step="1"
-                            value={formData.jerseyNumber}
-                            onChange={handleChange}
-                            required
-                            className="w-16 rounded-md px-2 py-1.5 text-center text-xs text-white outline-none"
-                            style={{
-                              background: "var(--color-background)",
-                              border: "1px solid var(--color-border)",
-                            }}
-                          />
-                        ) : (
-                          <span className="font-medium">
-                            {player.jerseyNumber ?? "-"}
-                          </span>
-                        )}
-                      </td>
-
-                      {/* Position */}
-                      <td className="px-3 py-3">
-                        {isEditing ? (
-                          <select
-                            name="position"
-                            value={formData.position}
-                            onChange={handleChange}
-                            required
-                            className="rounded-md px-2 py-1.5 text-xs text-white outline-none"
-                            style={{
-                              background: "var(--color-background)",
-                              border: "1px solid var(--color-border)",
-                            }}
-                          >
-                            <option value="">Select</option>
-
-                            {POSITION_OPTIONS.map((position) => (
-                              <option
-                                key={position.value}
-                                value={position.value}
-                              >
-                                {position.value}
-                              </option>
-                            ))}
-                          </select>
-                        ) : (
-                          <span
-                            className="rounded-md px-2 py-1 text-xs font-medium"
-                            style={{
-                              background: "var(--color-card)",
-                              border: "1px solid var(--color-border)",
-                            }}
-                          >
-                            {player.position || "-"}
-                          </span>
-                        )}
-                      </td>
-
-                      {/* Opponent Team */}
-                      <td className="px-3 py-3">
-                        {isEditing ? (
-                          <select
-                            name="playsFor"
-                            value={formData.playsFor}
-                            onChange={handleChange}
-                            required
-                            className="w-36 rounded-md px-2 py-1.5 text-xs text-white outline-none"
-                            style={{
-                              background: "var(--color-background)",
-                              border: "1px solid var(--color-border)",
-                            }}
-                          >
-                            <option value="">Select opponent team</option>
-
-                            {clubs.map((club) => (
-                              <option key={club._id} value={club._id}>
-                                {club.name}
-                              </option>
-                            ))}
-                          </select>
-                        ) : (
-                          <span className="whitespace-nowrap text-xs">
-                            {getClubName(player.playsFor)}
-                          </span>
-                        )}
-                      </td>
-
-                      {/* Photo URL */}
-                      <td className="px-3 py-3">
-                        {isEditing ? (
-                          <input
-                            type="url"
-                            name="photo"
-                            value={formData.photo}
-                            onChange={handleChange}
-                            placeholder="Image URL"
-                            className="w-40 rounded-md px-2.5 py-1.5 text-xs text-white outline-none focus:border-[#0E5FD8]"
-                            style={{
-                              background: "var(--color-background)",
-                              border: "1px solid var(--color-border)",
-                            }}
-                          />
-                        ) : player.photo ? (
-                          <a
-                            href={player.photo}
-                            target="_blank"
-                            rel="noreferrer"
-                            className="text-xs text-[#60A5FA] hover:underline"
-                          >
-                            View photo
-                          </a>
-                        ) : (
-                          <span className="text-xs text-text-muted">
-                            No photo
-                          </span>
-                        )}
-                      </td>
-
-                      {/* Actions */}
-                      <td className="px-4 py-3">
-                        <div className="flex justify-end gap-2">
-                          {isEditing ? (
-                            <>
-                              <button
-                                type="button"
-                                onClick={() => handleUpdate(player._id)}
-                                disabled={saving}
-                                className="flex items-center gap-1.5 rounded-md px-3 py-1.5 text-xs font-medium text-white transition hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
-                                style={{
-                                  background: "var(--color-primary)",
-                                }}
-                              >
-                                <Save size={14} />
-                                {saving ? "Saving..." : "Save"}
-                              </button>
-
-                              <button
-                                type="button"
-                                onClick={handleCancel}
-                                disabled={saving}
-                                title="Cancel editing"
-                                className="flex h-8 w-8 items-center justify-center rounded-md transition hover:opacity-80 disabled:opacity-50"
-                                style={{
-                                  background: "var(--color-card)",
-                                  border: "1px solid var(--color-border)",
-                                }}
-                              >
-                                <X size={15} />
-                              </button>
-                            </>
-                          ) : (
-                            <>
-                              <button
-                                type="button"
-                                onClick={() => handleEdit(player)}
-                                className="flex items-center gap-1.5 rounded-md px-3 py-1.5 text-xs font-medium transition hover:opacity-80"
-                                style={{
-                                  background: "var(--color-card)",
-                                  border: "1px solid var(--color-border)",
-                                }}
-                              >
-                                <Edit3 size={14} />
-                                Edit
-                              </button>
-
-                              <button
-                                type="button"
-                                onClick={() => handleDelete(player)}
-                                disabled={deletingId === player._id}
-                                title="Delete opponent player"
-                                className="flex h-8 w-8 items-center justify-center rounded-md border border-red-500/30 bg-red-500/10 text-red-400 transition hover:bg-red-500/20 disabled:opacity-50"
-                              >
-                                <Trash size={15} />
-                              </button>
-                            </>
-                          )}
-                        </div>
-                      </td>
-                    </tr>
-                  );
-                })
-              )}
-            </tbody>
-          </table>
-        </div>
+            {hasActiveFilters && (
+              <button
+                type="button"
+                onClick={resetFilters}
+                className="mt-4 rounded-xl bg-primary px-4 py-2.5 text-xs font-semibold text-white transition hover:bg-secondary"
+              >
+                Reset Filters
+              </button>
+            )}
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
+            {filteredAndSortedPlayers.map((player) => (
+              <OpponentManagementCard
+                key={player._id}
+                player={player}
+                onEdit={handleEdit}
+              />
+            ))}
+          </div>
+        )}
       </div>
+
+      {/* ========================================================
+          EDIT PLAYER MODAL
+      ========================================================= */}
+
+      {editingPlayer && (
+        <ModalEditOpponent
+          player={editingPlayer}
+          formData={formData}
+          clubs={clubs}
+          onChange={handleChange}
+          onSave={handleUpdate}
+          onCancel={() => {
+            setEditingPlayer(null);
+            setFormData({});
+          }}
+          onDelete={deletePlayerById}
+          loading={saving || deleting}
+        />
+      )}
     </div>
   );
 }

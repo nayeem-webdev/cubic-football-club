@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
-import { FaXmark, FaFloppyDisk, FaTrash } from "react-icons/fa6";
+import { FaFloppyDisk, FaTrash } from "react-icons/fa6";
 import TimePicker from "./TimePicker";
 import matchFormats from "../constants/matchFormats";
 import matchTypes from "../constants/matchTypes";
+import { X } from "lucide-react";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -200,13 +201,13 @@ const ModalEditSchedule = ({ schedule, onClose, onUpdated }) => {
   if (!schedule) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 px-4 py-6 backdrop-blur-sm">
-      <div className="relative max-h-[90vh] w-full max-w-2xl overflow-y-auto rounded-2xl border border-border text-text-muted shadow-[0_0_50px_rgba(0,0,0,0.5)]">
+    <div className="fixed inset-0 z-100 flex items-center justify-center bg-black/70 p-4 backdrop-blur-sm">
+      <div className="flex max-h-[90vh] w-full max-w-2xl flex-col overflow-hidden rounded-2xl bg-card text-text shadow-2xl p-5 md:p-8">
         {/* ========================================
             HEADER
         ======================================== */}
 
-        <div className="sticky top-0 z-10 flex items-center justify-between border-b border-border text-text-muted px-6 py-5">
+        <div className="sticky top-0 z-10 flex items-center justify-between border-b border-border text-text-muted pb-5">
           <div>
             <p className="text-xs font-semibold uppercase tracking-wider text-secondary">
               Schedule Center
@@ -220,7 +221,7 @@ const ModalEditSchedule = ({ schedule, onClose, onUpdated }) => {
             onClick={onClose}
             className="flex h-9 w-9 items-center justify-center rounded-lg border border-border bg-background text-text-muted transition hover:border-red-500/50 hover:bg-red-500/10 hover:text-red-400"
           >
-            <FaXmark />
+            <X />
           </button>
         </div>
 
@@ -228,7 +229,7 @@ const ModalEditSchedule = ({ schedule, onClose, onUpdated }) => {
             FORM
         ======================================== */}
 
-        <form onSubmit={handleSubmit} className="space-y-6 p-6">
+        <form onSubmit={handleSubmit} className="space-y-6">
           {/* ERROR */}
           {error && (
             <div className="rounded-xl border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-400">
@@ -240,7 +241,7 @@ const ModalEditSchedule = ({ schedule, onClose, onUpdated }) => {
               DATE + TIME
           ======================================== */}
 
-          <div className="grid gap-5 md:grid-cols-2">
+          <div className="grid gap-5 md:grid-cols-2 mt-5 ">
             {/* DATE */}
 
             <div>
@@ -253,7 +254,7 @@ const ModalEditSchedule = ({ schedule, onClose, onUpdated }) => {
                 name="date"
                 value={formData.date}
                 onChange={handleChange}
-                className="w-full rounded-lg border border-border bg-card px-4 py-3 text-text outline-none focus:border-[#0E5FD8]"
+                className="w-full rounded-lg border border-border bg-background px-4 py-3 text-text outline-none placeholder:text-[#718096] focus:border-secondary/70"
               />
             </div>
 
@@ -290,7 +291,7 @@ const ModalEditSchedule = ({ schedule, onClose, onUpdated }) => {
                 name="matchFormat"
                 value={formData.matchFormat}
                 onChange={handleChange}
-                className="w-full rounded-lg border border-border bg-card px-4 py-3 text-text outline-none focus:border-[#0E5FD8]"
+                className="w-full rounded-lg border border-border bg-background px-4 py-3 text-text outline-none placeholder:text-[#718096] focus:border-secondary/70"
               >
                 <option value="" disabled>
                   Select format
@@ -314,7 +315,7 @@ const ModalEditSchedule = ({ schedule, onClose, onUpdated }) => {
                 name="matchType"
                 value={formData.matchType}
                 onChange={handleChange}
-                className="w-full rounded-lg border border-border bg-card px-4 py-3 text-text outline-none focus:border-[#0E5FD8]"
+                className="w-full rounded-lg border border-border bg-background px-4 py-3 text-text outline-none placeholder:text-[#718096] focus:border-secondary/70"
               >
                 <option value="">Select type</option>
 
@@ -341,7 +342,7 @@ const ModalEditSchedule = ({ schedule, onClose, onUpdated }) => {
               value={formData.venue}
               onChange={handleChange}
               disabled={venuesLoading}
-              className="w-full rounded-lg border border-border bg-card px-4 py-3 text-text outline-none focus:border-[#0E5FD8] disabled:cursor-not-allowed disabled:opacity-60"
+              className="w-full rounded-lg border border-border bg-background px-4 py-3 text-text outline-none placeholder:text-[#718096] focus:border-secondary/70"
             >
               <option value="">
                 {venuesLoading ? "Loading venues..." : "Select venue"}
@@ -366,7 +367,7 @@ const ModalEditSchedule = ({ schedule, onClose, onUpdated }) => {
               type="button"
               onClick={handleDelete}
               disabled={deleting || loading}
-              className="order-3 inline-flex w-full items-center justify-center gap-2 rounded-xl border border-red-500/30 bg-red-500/10 px-5 py-3 text-sm font-semibold text-red-400 transition hover:bg-red-500/20 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-60 sm:order-1 sm:w-auto"
+              className="order-3 inline-flex w-full items-center justify-center gap-2 rounded-xl border  px-5 py-3 text-sm font-semibold border-red-600 bg-red-600/15 text-red-600 transition hover:bg-red-400/15 hover:border-red-400 hover:text-red-400 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-60 sm:order-1 sm:w-auto"
             >
               <FaTrash className="text-xs" />
 
@@ -380,7 +381,7 @@ const ModalEditSchedule = ({ schedule, onClose, onUpdated }) => {
                 type="button"
                 onClick={onClose}
                 disabled={loading || deleting}
-                className="w-full rounded-xl border border-border px-5 py-3 text-sm font-semibold text-text-muted transition hover:border-secondary hover:text-white active:scale-[0.98] disabled:opacity-50 sm:w-auto"
+                className="w-full rounded-xl border border-border px-5 py-3 text-sm font-semibold text-text-muted transition hover:border-secondary hover:text-text active:scale-[0.98] disabled:opacity-50 sm:w-auto"
               >
                 Cancel
               </button>

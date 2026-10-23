@@ -116,14 +116,14 @@ export default function UpdateSchedule() {
                 type="button"
                 aria-label={`Edit schedule for ${schedule.matchType || "match"}`}
                 onClick={() => setSelectedSchedule(schedule)}
-                className="group w-full rounded-2xl border border-border text-text-muted p-5 text-left transition-all duration-300 hover:-translate-y-1 hover:border-[#0E5FD8] hover:shadow-[0_0_25px_rgba(14,95,216,0.18)]"
+                className="group w-full rounded-2xl border-2 border-transparent bg-surface/60 text-text-muted p-5 text-left transition-all duration-300 hover:-translate-y-1 hover:border-border hover:shadow-border"
               >
                 <div className="grid gap-2 md:grid-cols-[1fr_1.2fr] md:items-center">
                   {/* LEFT */}
                   <div>
                     <div className="mb-2 flex items-center gap-3">
                       {/* MATCH TYPE BADGE */}
-                      <span className="rounded-md bg-primary/15 px-2 py-1 text-xs font-semibold text-secondary">
+                      <span className="rounded-md bg-secondary/15 px-2 py-1 text-xs font-semibold text-secondary">
                         {schedule.matchType
                           ? schedule.matchType.toUpperCase()
                           : "MATCH"}
@@ -146,7 +146,7 @@ export default function UpdateSchedule() {
                   <div className="grid grid-cols-3 gap-4 text-sm text-text-muted md:grid-cols-3">
                     {/* DATE */}
                     <div className="min-w-0">
-                      <p className="mb-1 text-xs text-text-muted/60">DATE</p>
+                      <p className="mb-1 text-xs text-text-muted">DATE</p>
                       <p className="font-medium text-text">
                         {schedule.date || "N/A"}
                       </p>
@@ -154,7 +154,7 @@ export default function UpdateSchedule() {
 
                     {/* TIME */}
                     <div className="min-w-0">
-                      <p className="mb-1 text-xs text-text-muted/60">TIME</p>
+                      <p className="mb-1 text-xs text-text-muted">TIME</p>
                       <p className="font-medium text-text">
                         {schedule.time || "N/A"}
                       </p>
@@ -162,7 +162,7 @@ export default function UpdateSchedule() {
 
                     {/* VENUE */}
                     <div className="min-w-0">
-                      <p className="mb-1 text-xs text-text-muted/60">VENUE</p>
+                      <p className="mb-1 text-xs text-text-muted">VENUE</p>
                       <p className="font-medium text-text">
                         {typeof schedule.venue === "object"
                           ? schedule.venue?.venue || "N/A"

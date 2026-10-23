@@ -301,15 +301,7 @@ const PlayerCard = ({ player, index }) => {
               </h2>
 
               <span
-                className="
-      inline-flex shrink-0 items-center justify-center
-      rounded-md
-      px-2 py-0.5
-      gap-1
-      text-[11px] font-extrabold uppercase tracking-wider
-      text-white
-      shadow-sm
-    "
+                className="inline-flex shrink-0 items-center justify-center rounded-md px-2 py-0.5 gap-1 text-[11px] font-extrabold uppercase tracking-wider text-white shadow-sm"
                 style={{
                   background:
                     positionColors[player?.position] || "var(--color-primary)",
