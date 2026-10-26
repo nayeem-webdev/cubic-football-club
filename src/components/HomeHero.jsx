@@ -42,7 +42,7 @@ const HomeHero = () => {
             </h1>
           </div>
         </div>
-        <p className="mt-8 max-w-xl text-center text-sm lg:text-lg leading-relaxed text-text-muted lg:text-left">
+        <p className="mt-8 max-w-xl text-center text-sm lg:text-lg leading-relaxed text-text lg:text-left">
           Where education meets football excellence. We build discipline,
           teamwork, and champions on and off the pitch. Weekly football matches,
           friendly competitions, and an amazing football community in
@@ -65,7 +65,7 @@ const HomeHero = () => {
           {/* Matches */}
           <Link
             to="/matches"
-            className="group flex w-full items-center justify-center gap-2 rounded-xl border border-text-muted bg-text-muted/5 px-6 py-3.5 font-semibold text-text-muted transition-all duration-300 hover:border-accent hover:bg-accent/10 hover:text-accent hover:shadow-lg hover:shadow-accent/10 active:scale-95 sm:w-auto"
+            className="group flex w-full items-center justify-center gap-2 rounded-xl border border-secondary bg-secondary/5 px-6 py-3.5 font-semibold text-secondary transition-all duration-300 hover:border-secondary hover:bg-secondary/10 hover:text-secondary hover:shadow-lg hover:shadow-accent/10 active:scale-95 sm:w-auto"
           >
             <ShieldCheck
               size={18}

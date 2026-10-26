@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import PageHero from "../components/PageHero";
 import Loader from "../components/Loader";
+import Pagination from "../components/Pagination";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -10,22 +11,88 @@ const UpdateMatch = () => {
   const [matches, setMatches] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const fetchMatches = async () => {
-      try {
-        const response = await fetch(`${API_URL}/matches`);
-        const data = await response.json();
-        const matchesList = Array.isArray(data.matches) ? data.matches : [];
-        setMatches(matchesList);
-      } catch (error) {
-        console.error("Error fetching matches:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
+  const fetchMatches = async (page = 1) => {
+    try {
+      setLoading(true);
 
-    fetchMatches();
-  }, []);
+      const response = await fetch(`${API_URL}/all-matches?page=${page}`);
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || "Failed to fetch matches");
+      }
+
+      setMatches(data.matches || []);
+
+      // Backend pagination
+      setPagination({
+        currentPage: data.pagination?.page || page,
+        totalPages: data.pagination?.totalPages || 1,
+        totalItems: data.pagination?.totalMatches || 0,
+        hasNextPage: data.pagination?.hasNextPage || false,
+        hasPreviousPage: data.pagination?.hasPreviousPage || false,
+      });
+    } catch (err) {
+      console.log(err.message || "Something went wrong");
+      setMatches([]);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const currentPage = Math.max(parseInt(searchParams.get("page")) || 1, 1);
+
+  const [pagination, setPagination] = useState({
+    currentPage: 1,
+    totalPages: 1,
+    totalItems: 0,
+    hasNextPage: false,
+    hasPreviousPage: false,
+  });
+
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    fetchMatches(currentPage);
+  }, [currentPage]);
+
+  // ==========================================
+  // PAGINATION
+  // ==========================================
+
+  const handlePageChange = (page) => {
+    if (
+      page === pagination.currentPage ||
+      page < 1 ||
+      page > pagination.totalPages ||
+      loading
+    ) {
+      return;
+    }
+
+    setSearchParams({
+      page: String(page),
+    });
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
+  const handlePrevious = () => {
+    if (!pagination.hasPreviousPage || loading) return;
+
+    handlePageChange(pagination.currentPage - 1);
+  };
+
+  const handleNext = () => {
+    if (!pagination.hasNextPage || loading) return;
+
+    handlePageChange(pagination.currentPage + 1);
+  };
 
   return (
     <div className="min-h-screen bg-background px-4 py-10 text-text">
@@ -106,6 +173,20 @@ const UpdateMatch = () => {
               Create Match
             </button>
           </div>
+        )}
+        {/* PAGINATION */}
+        {pagination.totalPages > 1 && (
+          <Pagination
+            currentPage={pagination.currentPage}
+            totalPages={pagination.totalPages}
+            hasPreviousPage={pagination.hasPreviousPage}
+            hasNextPage={pagination.hasNextPage}
+            totalItems={pagination.totalItems}
+            loading={loading}
+            onPageChange={handlePageChange}
+            onPrevious={handlePrevious}
+            onNext={handleNext}
+          />
         )}
       </div>
     </div>

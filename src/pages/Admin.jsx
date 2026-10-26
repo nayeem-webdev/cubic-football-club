@@ -45,6 +45,12 @@ const adminItems = [
     path: "/update-player",
   },
   {
+    title: "Update Bulk Player",
+    description: "Update team and status in bulk.",
+    icon: UserPen,
+    path: "/update-player-bulk",
+  },
+  {
     title: "Register Team",
     description: "Create and manage teams.",
     icon: ShieldPlus,

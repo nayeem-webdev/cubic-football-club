@@ -24,6 +24,7 @@ import AddOpponent from "../pages/AddOpponent";
 import UpdateOpponentPlayer from "../pages/UpdateOpponentPlayer";
 import EditScore from "../pages/EditScore";
 import UpdateScore from "../pages/UpdateScore";
+import UpdatePlayersBulk from "../pages/UpdatePlayerBulk";
 
 const router = createBrowserRouter([
   {
@@ -77,6 +78,10 @@ const router = createBrowserRouter([
           {
             path: "/update-player",
             element: <UpdatePlayer />,
+          },
+          {
+            path: "/update-player-bulk",
+            element: <UpdatePlayersBulk />,
           },
           {
             path: "/register-team",

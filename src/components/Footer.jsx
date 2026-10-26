@@ -12,10 +12,10 @@ const navLinks = [
 
 const Footer = () => {
   return (
-    <footer className="border-t border-border bg-background pb-10 lg:pb-0">
+    <footer className="border-t border-border bg-background pb-16 xl:pb-0">
       <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6">
         {/* Main */}
-        <div className="flex flex-col items-center justify-between gap-10 lg:flex-row">
+        <div className="flex flex-col items-center justify-between gap-10 xl:flex-row">
           {/* Logo */}
           <div className="flex items-center gap-5">
             <img src={logo} alt="CUBIC FC" className="max-w-16 " />

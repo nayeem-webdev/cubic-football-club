@@ -52,7 +52,7 @@ const ScoreCard = ({ match }) => {
   return (
     <div
       ref={cardRef}
-      className="overflow-hidden rounded-3xl border border-border bg-card transition-all duration-300"
+      className="overflow-hidden rounded-3xl bg-card transition-all duration-300"
     >
       {/* HEADER */}
       <div className="p-6">
@@ -141,7 +141,7 @@ const ScoreCard = ({ match }) => {
         <button
           type="button"
           onClick={() => setSelectedScoreId(match._id)}
-          className="flex h-11 w-full items-center justify-center rounded-xl border border-black bg-black px-6 text-sm font-semibold text-white transition hover:bg-zinc-900 active:scale-[0.98] sm:w-auto"
+          className="group flex h-11 w-full items-center justify-center gap-2 rounded-xl border border-secondary/50 bg-secondary/5 text-sm font-semibold text-secondary transition duration-300 hover:border-secondary hover:bg-secondary/10 hover:shadow-lg hover:shadow-secondary/10 active:scale-98 sm:w-auto sm:px-6"
         >
           View Match Details
         </button>

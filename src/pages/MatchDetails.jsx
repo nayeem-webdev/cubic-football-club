@@ -243,26 +243,14 @@ const MatchDetails = () => {
         setLoading(true);
         setError("");
 
-        const response = await fetch(`${API_URL}/matches`);
+        const response = await fetch(`${API_URL}/matches/${id}`);
         const data = await response.json();
 
         if (!response.ok) {
-          throw new Error(data.message || "Failed to fetch matches");
+          throw new Error(data.message || "Failed to fetch match");
         }
 
-        if (!Array.isArray(data.matches)) {
-          throw new Error("Invalid matches response");
-        }
-
-        const selectedMatch = data.matches.find(
-          (item) => String(item._id) === String(id),
-        );
-
-        if (!selectedMatch) {
-          throw new Error("Match not found");
-        }
-
-        setMatch(selectedMatch);
+        setMatch(data.match);
       } catch (err) {
         console.error("Match fetch error:", err);
         setError(err.message || "Something went wrong");
@@ -271,7 +259,9 @@ const MatchDetails = () => {
       }
     };
 
-    fetchMatch();
+    if (id) {
+      fetchMatch();
+    }
   }, [id]);
 
   // ============================================================
@@ -409,7 +399,7 @@ const MatchDetails = () => {
       <div className="flex min-h-screen items-center justify-center bg-[#020817] px-4 text-white">
         {loading && <Loader />}
         <button
-          onClick={() => navigate("/matches")}
+          onClick={() => navigate(-1)}
           className="inline-flex items-center gap-2 rounded-lg border border-white/15 bg-white/5 px-3 py-2 text-xs font-bold uppercase tracking-wider text-white transition hover:border-accent hover:text-accent"
         >
           <ArrowLeft size={15} />
@@ -448,7 +438,7 @@ const MatchDetails = () => {
       <div className="sticky top-0 z-50 border-b border-white/10 bg-background/95 px-4 py-3 backdrop-blur-md">
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-3">
           <button
-            onClick={() => navigate("/matches")}
+            onClick={() => navigate(-1)}
             className="inline-flex items-center gap-2 rounded-lg border border-white/15 bg-white/5 px-3 py-2 text-xs font-bold uppercase tracking-wider text-white transition hover:border-accent hover:text-accent"
           >
             <ArrowLeft size={15} />
