@@ -177,7 +177,7 @@ export default function Players() {
           }
         />
 
-        <div className="flex flex-col lg:flex-row gap-4 lg:gap-6">
+        <div className="flex flex-col lg:flex-row gap-4">
           {/* Sidebar */}
           <aside className="w-full lg:w-72 rounded-2xl p-5 h-fit lg:sticky lg:top-5 bg-card">
             {/* Aside Heading / Mobile Toggle Header */}
@@ -385,7 +385,7 @@ export default function Players() {
                 No players found matching your criteria.
               </div>
             ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
                 {filteredPlayers.map((player, index) => (
                   <PlayerCard player={player} index={index} key={player._id} />
                 ))}

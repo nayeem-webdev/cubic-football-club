@@ -136,7 +136,7 @@ export default function Score() {
           <>
             {/* MATCHES */}
             {matches.length > 0 ? (
-              <div className="mx-auto grid max-w-7xl grid-cols-1 lg:grid-cols-2 gap-6">
+              <div className="mx-auto grid max-w-7xl grid-cols-1 lg:grid-cols-2 gap-4">
                 {matches.map((match) => (
                   <ScoreCard key={match._id} match={match} />
                 ))}

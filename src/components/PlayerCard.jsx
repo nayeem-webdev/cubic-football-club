@@ -132,7 +132,7 @@ const PlayerCard = ({ player, index }) => {
       const dataUrl = await toPng(element, {
         cacheBust: true,
         pixelRatio: 4,
-        backgroundColor: "#152640",
+        backgroundColor: "var(--color-card)",
       });
 
       const link = document.createElement("a");
@@ -164,57 +164,15 @@ const PlayerCard = ({ player, index }) => {
           PLAYER IMAGE
       ========================================================== */}
       <div className="relative aspect-square overflow-hidden text-text-muted">
-        {player?.photo ? (
-          <img
-            src={player.photo}
-            alt={player?.name || "Player"}
-            className="
-              h-full
-              w-full
-              object-cover
-              transition
-              duration-500
-              group-hover:scale-105
-            "
-          />
-        ) : (
-          <img
-            src="https://i.ibb.co.com/FkM6gH66/placeholder-8.png"
-            alt={player?.name || "Player"}
-            className="
-              h-full
-              w-full
-              object-cover
-              transition
-              duration-500
-              group-hover:scale-105
-            "
-          />
-        )}
+        <img
+          src={player.photo}
+          alt={player?.name || "Player"}
+          className="mt-6 h-full w-full object-cover transition duration-500 group-hover:scale-105"
+        />
         {/* IMAGE OVERLAY */}
         <div className="absolute inset-0 bg-linear-to-t from-background/70 via-transparent to-transparent" />
         {/* JERSEY NUMBER */}
-        <div
-          className="
-      absolute
-      left-4
-      top-4
-      flex
-      items-center
-      gap-1.5
-      rounded-full
-      border
-      border-secondary/50
-      bg-background/10
-      px-3
-      py-1.5
-      text-sm
-      font-bold
-      text-secondary
-      shadow-lg
-      backdrop-blur-md
-    "
-        >
+        <div className="absolute left-4 top-4 flex items-center gap-1.5 rounded-full border border-secondary/50 bg-background/10 px-3 py-1.5      text-sm font-bold text-secondary shadow-lg backdrop-blur-md">
           <Shirt
             size={16}
             strokeWidth={2.2}

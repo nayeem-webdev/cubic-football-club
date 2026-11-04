@@ -23,7 +23,16 @@ const Teams = () => {
   const [error, setError] = useState("");
   const [expandedTeam, setExpandedTeam] = useState(null);
 
-  const displayedTeams = activeTab === "our" ? teams : opponentTeams;
+  const displayedTeams =
+    activeTab === "our"
+      ? [...teams]
+          .filter((team) => team.name?.trim().toUpperCase() !== "NO CLUB")
+          .sort((a, b) => {
+            if (a.name === "CUBIC FC") return -1;
+            if (b.name === "CUBIC FC") return 1;
+            return 0;
+          })
+      : opponentTeams;
 
   useEffect(() => {
     const fetchTeams = async () => {
@@ -100,7 +109,11 @@ const Teams = () => {
                     : "bg-background text-text-muted"
                 }`}
               >
-                {teams.length}
+                {
+                  teams.filter(
+                    (team) => team.name?.trim().toUpperCase() !== "NO CLUB",
+                  ).length
+                }
               </span>
             </button>
 
@@ -161,7 +174,7 @@ const Teams = () => {
 
         {/* Teams */}
         {!loading && !error && displayedTeams.length > 0 && (
-          <div className="space-y-8">
+          <div className="space-y-4">
             {displayedTeams.map((team) => {
               const stats = team.statistics || {};
               const players = team.players || [];

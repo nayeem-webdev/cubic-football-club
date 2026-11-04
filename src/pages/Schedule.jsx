@@ -1,12 +1,3 @@
-import {
-  FaCalendar,
-  FaCalendarCheck,
-  FaClock,
-  FaDiamondTurnRight,
-  FaShare,
-  FaUserGroup,
-  FaVolleyball,
-} from "react-icons/fa6";
 import { IoFootball } from "react-icons/io5";
 import PageHero from "../components/PageHero";
 import { useEffect, useState } from "react";
@@ -15,29 +6,6 @@ import ScheduleCard from "../components/ScheduleCard";
 
 // ========================================
 // GET MATCH STATUS
-
-function getStatus(dateStr) {
-  const now = new Date();
-
-  const bangladeshDate = new Intl.DateTimeFormat("en-CA", {
-    timeZone: "Asia/Dhaka",
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit",
-  }).format(now);
-
-  const matchDate = dateStr;
-
-  if (matchDate === bangladeshDate) {
-    return "today";
-  }
-
-  if (matchDate > bangladeshDate) {
-    return "upcoming";
-  }
-
-  return "completed";
-}
 
 export default function Schedule() {
   const API_URL = import.meta.env.VITE_API_URL;
@@ -87,7 +55,7 @@ export default function Schedule() {
         {/* ========================================
           SCHEDULE SECTION
       ======================================== */}
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
           {schedules.map((schedule) => (
             <ScheduleCard schedule={schedule} key={schedule._id} />
           ))}

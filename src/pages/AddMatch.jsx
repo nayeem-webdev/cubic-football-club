@@ -3,12 +3,38 @@ import { useEffect, useState } from "react";
 import PageHero from "../components/PageHero";
 import { Shield, Swords } from "lucide-react";
 
+const POSITION_PRIORITY = {
+  GK: 1,
+  ST: 2,
+  FW: 3,
+  MF: 4,
+  DF: 5,
+};
+
+const getAutoSelectedPlayers = (players = [], count = 0) => {
+  const sortedPlayers = [...players].sort(
+    (a, b) =>
+      (POSITION_PRIORITY[a.position] || 99) -
+      (POSITION_PRIORITY[b.position] || 99),
+  );
+
+  return {
+    startingPlayers: Array.from(
+      { length: count },
+      (_, index) => sortedPlayers[index]?._id || "",
+    ),
+
+    substitutes: Array.from(
+      { length: 3 },
+      (_, index) => sortedPlayers[count + index]?._id || "",
+    ),
+  };
+};
+
 const AddMatch = () => {
   const API_URL = import.meta.env.VITE_API_URL;
 
-  const [players, setPlayers] = useState([]);
   const [teams, setTeams] = useState([]);
-  const [opponentPlayers, setOpponentPlayers] = useState([]);
   const [opponentTeams, setOpponentTeams] = useState([]);
   const [schedules, setSchedules] = useState([]);
   const [pageLoading, setPageLoading] = useState(true);
@@ -42,48 +68,22 @@ const AddMatch = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [
-          playersResponse,
-          opponentPlayersResponse,
-          teamsResponse,
-          opponentTeamsResponse,
-          scheduleResponse,
-        ] = await Promise.all([
-          fetch(`${API_URL}/players`),
-          fetch(`${API_URL}/opponent-players`),
-          fetch(`${API_URL}/teams`),
-          fetch(`${API_URL}/opponent-teams`),
+        const [teamResponse, scheduleResponse] = await Promise.all([
+          fetch(`${API_URL}/teams-with-players`),
           fetch(`${API_URL}/schedules`),
         ]);
 
-        if (
-          !playersResponse.ok ||
-          !opponentPlayersResponse.ok ||
-          !teamsResponse.ok ||
-          !opponentTeamsResponse.ok ||
-          !scheduleResponse.ok
-        ) {
-          throw new Error("Failed to fetch players, teams or schedules");
+        if (!teamResponse.ok || !scheduleResponse.ok) {
+          throw new Error("Failed to fetch match data");
         }
 
-        const [
-          playersData,
-          opponentPlayerData,
-          teamsData,
-          opponentTeamsData,
-          scheduleData,
-        ] = await Promise.all([
-          playersResponse.json(),
-          opponentPlayersResponse.json(),
-          teamsResponse.json(),
-          opponentTeamsResponse.json(),
+        const [teamData, scheduleData] = await Promise.all([
+          teamResponse.json(),
           scheduleResponse.json(),
         ]);
 
-        setPlayers(playersData);
-        setOpponentPlayers(opponentPlayerData);
-        setTeams(teamsData);
-        setOpponentTeams(opponentTeamsData);
+        setTeams(teamData.teams || []);
+        setOpponentTeams(teamData.opponentTeams || []);
         setSchedules(scheduleData);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -115,19 +115,15 @@ const AddMatch = () => {
   );
 
   // Handle normal form changes
+
   const handleChange = (e) => {
     const { name, value } = e.target;
 
-    // When a schedule is selected
+    // 1. When selecting a schedule
     if (name === "matchSchedule") {
-      // IMPORTANT:
-      // Use `value`, not formData.matchSchedule,
-      // because formData still contains the previous value.
-      const selectedSchedule = schedules.find(
-        (schedule) => schedule._id === value,
-      );
+      const schedule = schedules.find((item) => item._id === value);
 
-      if (!selectedSchedule) {
+      if (!schedule) {
         setFormData((prev) => ({
           ...prev,
           matchSchedule: value,
@@ -140,25 +136,69 @@ const AddMatch = () => {
         return;
       }
 
-      const numberOfPlayers = Number(selectedSchedule.matchFormat);
+      const count = Number(schedule.matchFormat);
+
+      // Find currently selected teams
+      const homeTeam = allAvailableTeams.find(
+        (team) => team._id === formData.homeTeam,
+      );
+
+      const awayTeam = allAvailableTeams.find(
+        (team) => team._id === formData.awayTeam,
+      );
+
+      // Automatically select players
+      const homePlayers = getAutoSelectedPlayers(
+        homeTeam?.players || [],
+        count,
+      );
+
+      const awayPlayers = getAutoSelectedPlayers(
+        awayTeam?.players || [],
+        count,
+      );
 
       setFormData((prev) => ({
         ...prev,
-
         matchSchedule: value,
 
-        // Number of starting players comes from Schedule.matchFormat
-        homeStartingPlayers: Array(numberOfPlayers).fill(""),
-        awayStartingPlayers: Array(numberOfPlayers).fill(""),
+        homeStartingPlayers: homePlayers.startingPlayers,
+        homeSubstitutes: homePlayers.substitutes,
 
-        // Three optional substitutes
-        homeSubstitutes: Array(3).fill(""),
-        awaySubstitutes: Array(3).fill(""),
+        awayStartingPlayers: awayPlayers.startingPlayers,
+        awaySubstitutes: awayPlayers.substitutes,
       }));
 
       return;
     }
 
+    // 2. When selecting Home or Away team
+    if (name === "homeTeam" || name === "awayTeam") {
+      const team = allAvailableTeams.find((item) => item._id === value);
+
+      const count = Number(selectedSchedule?.matchFormat || 0);
+
+      const autoPlayers = getAutoSelectedPlayers(team?.players || [], count);
+
+      setFormData((prev) => ({
+        ...prev,
+        [name]: value,
+
+        ...(name === "homeTeam"
+          ? {
+              homeStartingPlayers: autoPlayers.startingPlayers,
+              homeSubstitutes: autoPlayers.substitutes,
+            }
+          : {
+              awayStartingPlayers: autoPlayers.startingPlayers,
+              awaySubstitutes: autoPlayers.substitutes,
+            }),
+      }));
+
+      return;
+    }
+
+    // 3. Other fields (Match Time etc.)
     setFormData((prev) => ({
       ...prev,
       [name]: value,
@@ -201,42 +241,8 @@ const AddMatch = () => {
       : [cubicFcTeam, ...opponentTeams].filter(Boolean);
 
   // Team Player Lists
-
-  const homeTeamPlayers =
-    activeTab === "club"
-      ? players.filter(
-          (player) =>
-            (player.playsFor?._id || player.playsFor) === selectedHomeTeam?._id,
-        )
-      : selectedHomeTeam?._id === cubicFcTeam?._id
-        ? players.filter(
-            (player) =>
-              (player.playsFor?._id || player.playsFor) ===
-              selectedHomeTeam?._id,
-          )
-        : opponentPlayers.filter(
-            (player) =>
-              (player.playsFor?._id || player.playsFor) ===
-              selectedHomeTeam?._id,
-          );
-
-  const awayTeamPlayers =
-    activeTab === "club"
-      ? players.filter(
-          (player) =>
-            (player.playsFor?._id || player.playsFor) === selectedAwayTeam?._id,
-        )
-      : selectedAwayTeam?._id === cubicFcTeam?._id
-        ? players.filter(
-            (player) =>
-              (player.playsFor?._id || player.playsFor) ===
-              selectedAwayTeam?._id,
-          )
-        : opponentPlayers.filter(
-            (player) =>
-              (player.playsFor?._id || player.playsFor) ===
-              selectedAwayTeam?._id,
-          );
+  const homeTeamPlayers = selectedHomeTeam?.players || [];
+  const awayTeamPlayers = selectedAwayTeam?.players || [];
 
   // Player Handler
   const handlePlayerChange = (field, index, value) => {

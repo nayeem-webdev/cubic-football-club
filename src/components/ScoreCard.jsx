@@ -21,7 +21,7 @@ const ScoreCard = ({ match }) => {
       const dataUrl = await toPng(element, {
         cacheBust: true,
         pixelRatio: 4,
-        backgroundColor: "#152640",
+        backgroundColor: "var(--color-card)",
       });
 
       const link = document.createElement("a");

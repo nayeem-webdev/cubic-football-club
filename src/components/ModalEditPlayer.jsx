@@ -212,6 +212,7 @@ export default function ModalEditPlayer({
                 <option value="active">Active</option>
                 <option value="inactive">Inactive</option>
                 <option value="retired">Retired</option>
+                <option value="backup">Backup</option>
               </select>
             </div>
 
