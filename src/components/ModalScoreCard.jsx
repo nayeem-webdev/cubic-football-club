@@ -425,7 +425,7 @@ const ModalScoreCard = ({ id, onClose }) => {
       }}
     >
       {/* FLEXIBLE MODAL WIDTH */}
-      <div className="relative my-2 w-full max-w-[420px] sm:my-4">
+      <div className="relative my-2 w-full max-w-105 sm:my-4">
         {" "}
         {/* CLOSE BUTTON */}
         <button
@@ -520,7 +520,7 @@ const ModalScoreCard = ({ id, onClose }) => {
                       )}
                     </div>
 
-                    <h3 className="mt-2 w-full max-w-25 break-words text-center text-[11px] font-semibold leading-tight sm:max-w-36 sm:text-sm lg:max-w-44 lg:text-base">
+                    <h3 className="mt-2 w-full max-w-25 wrap-break-word text-center text-[11px] font-semibold leading-tight sm:max-w-36 sm:text-sm lg:max-w-44 lg:text-base">
                       {match.homeTeam?.name || "Home Team"}
                     </h3>
                   </div>
@@ -558,7 +558,7 @@ const ModalScoreCard = ({ id, onClose }) => {
                       )}
                     </div>
 
-                    <h3 className="mt-2 w-full max-w-25 break-words text-center text-[11px] font-semibold leading-tight sm:max-w-36 sm:text-sm lg:max-w-44 lg:text-base">
+                    <h3 className="mt-2 w-full max-w-25 wrap-break-word text-center text-[11px] font-semibold leading-tight sm:max-w-36 sm:text-sm lg:max-w-44 lg:text-base">
                       {match.awayTeam?.name || "Away Team"}
                     </h3>
                   </div>
