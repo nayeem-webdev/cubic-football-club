@@ -67,24 +67,6 @@ const ModalScoreCard = ({ id, onClose }) => {
 
         const savedScore = data.score;
 
-        /*
-         * IMPORTANT
-         *
-         * Your current API response is:
-         *
-         * score: {
-         *   match: {},
-         *   homeTeam: {},
-         *   awayTeam: {},
-         *   homeScore: 7,
-         *   awayScore: 4,
-         *   timer: {},
-         *   matchEvents: []
-         * }
-         *
-         * Therefore we use savedScore directly.
-         */
-
         const matchData =
           savedScore.match && Object.keys(savedScore.match).length > 0
             ? savedScore.match
@@ -417,7 +399,7 @@ const ModalScoreCard = ({ id, onClose }) => {
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto bg-black/80 p-2 backdrop-blur-sm sm:items-center sm:p-4"
+      className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto bg-black/80 p-2 backdrop-blur-sm sm:p-4"
       onMouseDown={(event) => {
         if (event.target === event.currentTarget) {
           onClose?.();

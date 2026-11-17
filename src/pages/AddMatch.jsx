@@ -24,10 +24,7 @@ const getAutoSelectedPlayers = (players = [], count = 0) => {
       (_, index) => sortedPlayers[index]?._id || "",
     ),
 
-    substitutes: Array.from(
-      { length: 3 },
-      (_, index) => sortedPlayers[count + index]?._id || "",
-    ),
+    substitutes: Array(3).fill(""),
   };
 };
 
